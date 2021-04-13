@@ -1,0 +1,15 @@
+{
+    "viewFormatted": "View Formatted",
+    "viewRaw": "View Raw",
+    "response": "Response",
+    "deviceDescription": "Device Description",
+    "na": "N/A",
+    "version": "Version {version}",
+    "aboutApp": "About {appName}",
+    "display": "Display",
+    "density": "Density",
+    "theme": "Theme",
+    "about": "About",
+    "submitBug": "Submit Bug",
+    "deviceDocument": "DeviceDocument"
+}

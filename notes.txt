@@ -1,0 +1,2 @@
+- Flutter Intl for localization
+- GetIt for DI

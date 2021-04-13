@@ -1,0 +1,35 @@
+name: ssdp
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  equatable: ^2.0.0
+  flutter_i18n: ^0.22.3
+  get_it: ^6.0.0
+  http: ^0.13.0
+  package_info: ^2.0.0
+  settings_ui: ^0.6.0
+  udp: ^3.0.3
+  url_launcher: ^6.0.2
+  xml: ^5.1.0
+  xml2json: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.11.0
+
+flutter:
+  uses-material-design: true
+flutter_intl:
+  enabled: true
