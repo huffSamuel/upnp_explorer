@@ -11,5 +11,12 @@
     "theme": "Theme",
     "about": "About",
     "submitBug": "Submit Bug",
-    "deviceDocument": "DeviceDocument"
+    "deviceDocument": "Device Document",
+    "settings": "Settings",
+    "ssdpProtocol": "SSDP Protocol",
+    "maxWaitResponseTime": "Max Wait Response Time",
+    "multicastHops": "Multicast Hops",
+    "chooseTheme": "Choose theme",
+    "themeMode": "{themeMode, select, light {Light} dark {Dark} system {System Defined}}",
+    "visualDensity": "{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}"
 }

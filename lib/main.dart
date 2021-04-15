@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ssdp/data/options.dart';
 
 import 'constants.dart';
 import 'generated/l10n.dart';
@@ -13,14 +14,26 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: kAppName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ModelBinding(
+      initialModel: Options(
+        themeMode: ThemeMode.system,
+        visualDensity: VisualDensity.standard,
       ),
-      localizationsDelegates: localizationDelegates,
-      supportedLocales: S.delegate.supportedLocales,
-      home: DeviceList(),
+      child: Builder(builder: (context) {
+        final options = Options.of(context);
+
+        return MaterialApp(
+          title: kAppName,
+          themeMode: options.themeMode,
+          darkTheme:
+              ThemeData.dark().copyWith(visualDensity: options.visualDensity),
+          theme:
+              ThemeData.light().copyWith(visualDensity: options.visualDensity),
+          localizationsDelegates: localizationDelegates,
+          supportedLocales: S.delegate.supportedLocales,
+          home: DeviceList(),
+        );
+      }),
     );
   }
 }

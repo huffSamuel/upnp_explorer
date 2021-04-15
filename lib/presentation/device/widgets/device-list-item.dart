@@ -40,25 +40,28 @@ class _DeviceListItemState extends State<DeviceListItem>
       opacity: _animation,
       child: GestureDetector(
         onTap: () => widget.onTap(widget.device),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Card(
-            elevation: 2.0,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
+        child: Card(
+          margin: const EdgeInsets.all(4.0),
+          clipBehavior: Clip.antiAlias,
+          elevation: 2.0,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Container(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DeviceImage(properties: widget.device.properties),
                   const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DeviceName(device: widget.device),
-                      DeviceDocumentLink(
-                        location: widget.device.response.parsed['location'],
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DeviceName(device: widget.device),
+                        DeviceDocumentLink(
+                          location: widget.device.response.parsed['location'],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

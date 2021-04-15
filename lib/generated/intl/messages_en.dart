@@ -21,22 +21,33 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m0(appName) => "About ${appName}";
 
-  static m1(version) => "Version ${version}";
+  static m1(themeMode) => "${Intl.select(themeMode, {'light': 'Light', 'dark': 'Dark', 'system': 'System Defined', })}";
+
+  static m2(version) => "Version ${version}";
+
+  static m3(visualDensity) => "${Intl.select(visualDensity, {'comfortable': 'Comfortable', 'standard': 'Standard', 'compact': 'Compact', 'other': 'Unknown', })}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "about" : MessageLookupByLibrary.simpleMessage("About"),
     "aboutApp" : m0,
+    "chooseTheme" : MessageLookupByLibrary.simpleMessage("Choose theme"),
     "density" : MessageLookupByLibrary.simpleMessage("Density"),
     "deviceDescription" : MessageLookupByLibrary.simpleMessage("Device Description"),
-    "deviceDocument" : MessageLookupByLibrary.simpleMessage("DeviceDocument"),
+    "deviceDocument" : MessageLookupByLibrary.simpleMessage("Device Document"),
     "display" : MessageLookupByLibrary.simpleMessage("Display"),
+    "maxWaitResponseTime" : MessageLookupByLibrary.simpleMessage("Max Wait Response Time"),
+    "multicastHops" : MessageLookupByLibrary.simpleMessage("Multicast Hops"),
     "na" : MessageLookupByLibrary.simpleMessage("N/A"),
     "response" : MessageLookupByLibrary.simpleMessage("Response"),
+    "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
+    "ssdpProtocol" : MessageLookupByLibrary.simpleMessage("SSDP Protocol"),
     "submitBug" : MessageLookupByLibrary.simpleMessage("Submit Bug"),
     "theme" : MessageLookupByLibrary.simpleMessage("Theme"),
-    "version" : m1,
+    "themeMode" : m1,
+    "version" : m2,
     "viewFormatted" : MessageLookupByLibrary.simpleMessage("View Formatted"),
-    "viewRaw" : MessageLookupByLibrary.simpleMessage("View Raw")
+    "viewRaw" : MessageLookupByLibrary.simpleMessage("View Raw"),
+    "visualDensity" : m3
   };
 }

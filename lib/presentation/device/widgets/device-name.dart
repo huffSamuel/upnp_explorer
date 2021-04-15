@@ -10,7 +10,7 @@ class DeviceName extends StatelessWidget {
   const DeviceName({
     Key key,
     @required this.device,
-    this.overflow = TextOverflow.clip,
+    this.overflow = TextOverflow.ellipsis,
     this.style,
   }) : super(key: key);
 

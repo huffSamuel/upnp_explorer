@@ -155,13 +155,94 @@ class S {
     );
   }
 
-  /// `DeviceDocument`
+  /// `Device Document`
   String get deviceDocument {
     return Intl.message(
-      'DeviceDocument',
+      'Device Document',
       name: 'deviceDocument',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SSDP Protocol`
+  String get ssdpProtocol {
+    return Intl.message(
+      'SSDP Protocol',
+      name: 'ssdpProtocol',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Max Wait Response Time`
+  String get maxWaitResponseTime {
+    return Intl.message(
+      'Max Wait Response Time',
+      name: 'maxWaitResponseTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Multicast Hops`
+  String get multicastHops {
+    return Intl.message(
+      'Multicast Hops',
+      name: 'multicastHops',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose theme`
+  String get chooseTheme {
+    return Intl.message(
+      'Choose theme',
+      name: 'chooseTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{themeMode, select, light {Light} dark {Dark} system {System Defined}}`
+  String themeMode(Object themeMode) {
+    return Intl.select(
+      themeMode,
+      {
+        'light': 'Light',
+        'dark': 'Dark',
+        'system': 'System Defined',
+      },
+      name: 'themeMode',
+      desc: '',
+      args: [themeMode],
+    );
+  }
+
+  /// `{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}`
+  String visualDensity(Object visualDensity) {
+    return Intl.select(
+      visualDensity,
+      {
+        'comfortable': 'Comfortable',
+        'standard': 'Standard',
+        'compact': 'Compact',
+        'other': 'Unknown',
+      },
+      name: 'visualDensity',
+      desc: '',
+      args: [visualDensity],
     );
   }
 }

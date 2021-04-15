@@ -22,10 +22,7 @@ class DeviceDocumentLink extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => _launch(),
-      child: Text(
-        location,
-        style: effectiveStyle,
-      ),
+      child: Text(location, style: effectiveStyle, overflow: TextOverflow.fade),
     );
   }
 
