@@ -47,7 +47,6 @@ class _DeviceListState extends State<DeviceList>
   }
 
   void _onDeviceDiscovered(Device d) {
-    print(d);
     if (!devices.contains(d)) {
       setState(() => devices.add(d));
     }

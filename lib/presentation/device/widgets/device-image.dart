@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/device.dart';
+import '../../../domain/device_properties.dart';
 
 class DeviceImage extends StatelessWidget {
   final DeviceProperties properties;

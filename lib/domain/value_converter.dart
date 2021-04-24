@@ -20,16 +20,23 @@ class VisualDensityConverter extends ValueConverter<Density, VisualDensity> {
 
   @override
   Density from(VisualDensity value) {
-    return _kVisualDensityMap.keys.firstWhere(
-      (k) => _kVisualDensityMap[k] == value,
-      orElse: () => null,
-    );
+    return keyFromValue(_kVisualDensityMap, value);
   }
 
   @override
   VisualDensity to(Density value) {
     return _kVisualDensityMap[value];
   }
+}
+
+A keyFromValue<A, B>(
+  Map<A, B> map,
+  B value,
+) {
+  return map.keys.firstWhere(
+    (k) => map[k] == value,
+    orElse: () => null,
+  );
 }
 
 enum Density {

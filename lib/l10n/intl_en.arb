@@ -13,10 +13,16 @@
     "submitBug": "Submit Bug",
     "deviceDocument": "Device Document",
     "settings": "Settings",
+    "ok": "OK",
     "ssdpProtocol": "SSDP Protocol",
-    "maxWaitResponseTime": "Max Wait Response Time",
     "multicastHops": "Multicast Hops",
+    "mulsticastHopsDescription": "The maximum network hops for multicast packages originating from this device.",
     "chooseTheme": "Choose theme",
     "themeMode": "{themeMode, select, light {Light} dark {Dark} system {System Defined}}",
-    "visualDensity": "{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}"
+    "visualDensity": "{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}",
+    "responseDelay": "{seconds} seconds",
+    "maxResponseDelay": "Maximum Response Delay",
+    "advancedMode": "Advanced Mode",
+    "advancedModeDescription": "Advanced Mode Description",
+    "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol."
 }

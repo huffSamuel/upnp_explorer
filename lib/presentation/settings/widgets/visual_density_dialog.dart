@@ -21,19 +21,38 @@ class VisualDensityDialog extends StatelessWidget {
 
     final currentValue = kVisualDensityConverter.from(options.visualDensity);
 
-    final children = Density.values
+    final density = Density.values
         .map(
           (value) => RadioListTile(
             value: value,
             groupValue: currentValue,
-            onChanged: (v) => Options.update(
-              context,
-              options.copyWith(visualDensity: kVisualDensityConverter.to(v)),
-            ),
+            onChanged: (v) {
+              Options.update(
+                context,
+                options.copyWith(visualDensity: kVisualDensityConverter.to(v)),
+              );
+            },
             title: Text(i18n.visualDensity(value)),
           ),
         )
         .toList();
+
+    final children = [
+      ...density,
+      Align(
+        alignment: Alignment.centerRight,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 8.0,
+            right: 16.0,
+          ),
+          child: TextButton(
+            child: Text(i18n.ok),
+            onPressed: Navigator.of(context).pop,
+          ),
+        ),
+      ),
+    ];
 
     return SimpleDialog(
       title: Text(i18n.density),

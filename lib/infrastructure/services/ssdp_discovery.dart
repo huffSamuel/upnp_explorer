@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 
 import '../../domain/device.dart';
+import '../../domain/device_document.dart';
+import '../../domain/device_properties.dart';
+import 'device_data_service.dart';
 import 'device_discovery_service.dart';
+import 'logging/logger_factory.dart';
 
 class SocketOptions {
   final InternetAddress address;
@@ -13,13 +16,19 @@ class SocketOptions {
   SocketOptions(this.address, this.multicastAddress);
 }
 
+const _kFriendlyNamePath = ['root', 'device', 'friendlyName'];
+const _kXFriendlyNamePath = ['root', 'device', 'x-friendly-name'];
+const _kImageUrlPath = ['root', 'device', 'iconList', 'icon', 'url'];
+
 class SSDPService {
   final controller = StreamController<Device>.broadcast();
 
   final DeviceDiscoveryService discovery;
   final DeviceDataService data;
+  final Logger logger;
 
-  SSDPService(this.discovery, this.data) {
+  SSDPService(this.discovery, this.data, LoggerFactory loggerFactory)
+      : logger = loggerFactory.build('SSDPService') {
     discovery.stream.listen((event) async {
       final device = Device(event);
       final properties = DeviceProperties();
@@ -30,7 +39,7 @@ class SSDPService {
       try {
         locationData = await data.download(event.parsed['location']);
       } catch (e) {
-        print(e);
+        logger.warning('Unable to download location data');
       }
 
       if (locationData != null) {
@@ -40,44 +49,54 @@ class SSDPService {
 
           device.documents.addAll(documents);
 
-          try {
-            properties.friendlyName = device.documents.first.xmlDocument
-                .getElement('root')
-                .getElement('device')
-                .getElement('friendlyName')
-                .innerText;
-          } catch (e) {}
+          final mainDocument = device.documents.first.xmlDocument;
 
-          try {
-            if (properties.friendlyName == null ||
-                properties.friendlyName.isEmpty) {
-              properties.friendlyName = device.documents.first.xmlDocument
-                  .getElement('root')
-                  .getElement('device')
-                  .getElement('x-friendly-name')
-                  .innerText;
-            }
-          } catch (e) {}
+          properties.friendlyName = _getText(mainDocument, _kFriendlyNamePath);
 
-          try {
-            properties.imageUrl = device.documents.first.xmlDocument
-                .getElement('root')
-                .getElement('device')
-                .getElement('iconList')
-                .getElement('icon')
-                .getElement('url')
-                .innerText;
-          } catch (e) {}
+          if (properties.friendlyName == null ||
+              properties.friendlyName.isEmpty) {
+            properties.friendlyName =
+                _getText(mainDocument, _kXFriendlyNamePath);
+          }
+
+          properties.imageUrl = _getText(mainDocument, _kImageUrlPath);
+          properties.manufacturer =
+              _getText(mainDocument, ['root', 'device', 'manufacturer']);
+          properties.model =
+              _getText(mainDocument, ['root', 'device', 'modelName']);
         } catch (e) {
-          print(e);
+          logger.warning('Unable to fetch device documents');
         }
       }
 
       device.locationData = locationData;
       device.properties = properties;
 
+      logger.information(
+        'Discovered device',
+        {
+          'friendlyName': properties.friendlyName,
+          'model': properties.model,
+          'manufacturer': properties.manufacturer,
+        },
+      );
+
       controller.add(device);
     });
+  }
+
+  _getText(XmlDocument doc, List<String> path) {
+    try {
+      var element = doc.getElement(path[0]);
+
+      for (int i = 1; i < path.length; ++i) {
+        element = element.getElement(path[i]);
+      }
+
+      return element.innerText;
+    } catch (e) {
+      logger.warning('Unable to get path ${path.join('.')}');
+    }
   }
 
   Future<List<DeviceDocument>> _getDocuments(Uri uri) async {
@@ -86,7 +105,12 @@ class SSDPService {
     if (raw != null) {
       final name = uri.path.split('/').last.replaceAll('.xml', '');
       final xmlDocument = XmlDocument.parse(raw);
-      var docs = [DeviceDocument(xmlDocument, name)];
+      var docs = [
+        DeviceDocument(
+          xmlDocument,
+          name,
+        )
+      ];
 
       final otherUris = _findOtherDocs(xmlDocument.rootElement, uri.origin);
 
@@ -137,15 +161,5 @@ class SSDPService {
     } else {
       return discovery.search();
     }
-  }
-}
-
-class DeviceDataService {
-  Future<String> download(String url) async {
-    final uri = Uri.parse(url);
-
-    final response = await http.get(uri);
-
-    return response.body;
   }
 }

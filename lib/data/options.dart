@@ -1,18 +1,61 @@
 import 'package:flutter/material.dart';
 
+class ProtocolOptions {
+  final int maxDelay;
+  final bool advanced;
+  final int hops;
+
+  const ProtocolOptions({
+    this.maxDelay,
+    this.advanced,
+    this.hops,
+  });
+
+  ProtocolOptions copyWith({
+    int maxDelay,
+    bool advanced,
+    int hops,
+  }) {
+    return ProtocolOptions(
+      maxDelay: maxDelay ?? this.maxDelay,
+      advanced: advanced ?? this.advanced,
+      hops: hops ?? this.hops,
+    );
+  }
+}
+
 class Options {
   final ThemeMode themeMode;
   final VisualDensity visualDensity;
+  final ProtocolOptions protocolOptions;
 
   const Options({
     this.themeMode,
     this.visualDensity,
+    this.protocolOptions,
   });
 
-  Options copyWith({ThemeMode themeMode, VisualDensity visualDensity}) {
+  Options copyWith({
+    ThemeMode themeMode,
+    VisualDensity visualDensity,
+    ProtocolOptions protocolOptions,
+  }) {
     return Options(
       themeMode: themeMode ?? this.themeMode,
       visualDensity: visualDensity ?? this.visualDensity,
+      protocolOptions: protocolOptions ?? this.protocolOptions,
+    );
+  }
+
+  static Options base() {
+    return Options(
+      themeMode: ThemeMode.system,
+      visualDensity: VisualDensity.standard,
+      protocolOptions: ProtocolOptions(
+        advanced: false,
+        maxDelay: 3,
+        hops: 1,
+      ),
     );
   }
 
@@ -82,4 +125,10 @@ class _ModelBindingState extends State<ModelBinding> {
       child: widget.child,
     );
   }
+}
+
+String enumToString(Object obj) {
+  final str = obj.toString();
+  final i = str.indexOf('.') + 1;
+  return str.substring(i).toUpperCase();
 }

@@ -175,6 +175,16 @@ class S {
     );
   }
 
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `SSDP Protocol`
   String get ssdpProtocol {
     return Intl.message(
@@ -185,21 +195,21 @@ class S {
     );
   }
 
-  /// `Max Wait Response Time`
-  String get maxWaitResponseTime {
-    return Intl.message(
-      'Max Wait Response Time',
-      name: 'maxWaitResponseTime',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Multicast Hops`
   String get multicastHops {
     return Intl.message(
       'Multicast Hops',
       name: 'multicastHops',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The maximum network hops for multicast packages originating from this device.`
+  String get mulsticastHopsDescription {
+    return Intl.message(
+      'The maximum network hops for multicast packages originating from this device.',
+      name: 'mulsticastHopsDescription',
       desc: '',
       args: [],
     );
@@ -243,6 +253,56 @@ class S {
       name: 'visualDensity',
       desc: '',
       args: [visualDensity],
+    );
+  }
+
+  /// `{seconds} seconds`
+  String responseDelay(Object seconds) {
+    return Intl.message(
+      '$seconds seconds',
+      name: 'responseDelay',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
+  /// `Maximum Response Delay`
+  String get maxResponseDelay {
+    return Intl.message(
+      'Maximum Response Delay',
+      name: 'maxResponseDelay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advanced Mode`
+  String get advancedMode {
+    return Intl.message(
+      'Advanced Mode',
+      name: 'advancedMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advanced Mode Description`
+  String get advancedModeDescription {
+    return Intl.message(
+      'Advanced Mode Description',
+      name: 'advancedModeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.`
+  String get maxDelayDescription {
+    return Intl.message(
+      'The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.',
+      name: 'maxDelayDescription',
+      desc: '',
+      args: [],
     );
   }
 }
