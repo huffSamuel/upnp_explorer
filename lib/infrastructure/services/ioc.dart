@@ -11,11 +11,12 @@ final sl = GetIt.instance;
 
 Future initializeService() async {
   final prefs = await SharedPreferences.getInstance();
+
   sl
+    ..registerSingleton(prefs)
+    ..registerSingleton(OptionsRepository(sl()))
+    ..registerLazySingleton(() => LoggerFactory())
     ..registerLazySingleton(() => DeviceDataService(sl()))
     ..registerLazySingleton(() => DeviceDiscoveryService(sl()))
-    ..registerLazySingleton(() => SSDPService(sl(), sl(), sl()))
-    ..registerSingleton(prefs)
-    ..registerLazySingleton(() => OptionsRepository(sl()))
-    ..registerLazySingleton(() => LoggerFactory());
+    ..registerLazySingleton(() => SSDPService(sl(), sl(), sl()));
 }

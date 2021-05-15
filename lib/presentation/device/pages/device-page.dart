@@ -29,6 +29,10 @@ class DevicePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => Navigator.maybeOf(context).pop(),
+        ),
         title: Text(
             device.properties.friendlyName ?? device.response.parsed['usn']),
       ),

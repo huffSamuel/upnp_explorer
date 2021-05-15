@@ -14,11 +14,12 @@ class DeviceDocumentLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final effectiveStyle = style ??
-        Theme.of(context)
-            .textTheme
-            .bodyText2
-            .copyWith(decoration: TextDecoration.underline, color: Colors.blue);
+        theme.textTheme.bodyText2.copyWith(
+          decoration: TextDecoration.underline,
+          color: theme.accentColor,
+        );
 
     return GestureDetector(
       onTap: () => _launch(),

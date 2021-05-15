@@ -2,6 +2,7 @@
     package="com.samueljhuf.ssdp">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <application
         android:label="ssdp"
         android:icon="@mipmap/ic_launcher"

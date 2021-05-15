@@ -60,7 +60,7 @@ class _DeviceListState extends State<DeviceList>
       duration: const Duration(milliseconds: 150),
       child: LinearProgressIndicator(
         backgroundColor: Theme.of(context).canvasColor,
-        valueColor: AlwaysStoppedAnimation(Colors.red),
+        valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
       ),
     );
 

@@ -19,6 +19,8 @@ class SocketOptions {
 const _kFriendlyNamePath = ['root', 'device', 'friendlyName'];
 const _kXFriendlyNamePath = ['root', 'device', 'x-friendly-name'];
 const _kImageUrlPath = ['root', 'device', 'iconList', 'icon', 'url'];
+const _kManufacturerPath = ['root', 'device', 'manufacturer'];
+const _kModelPath = ['root', 'device', 'modelName'];
 
 class SSDPService {
   final controller = StreamController<Device>.broadcast();
@@ -60,10 +62,8 @@ class SSDPService {
           }
 
           properties.imageUrl = _getText(mainDocument, _kImageUrlPath);
-          properties.manufacturer =
-              _getText(mainDocument, ['root', 'device', 'manufacturer']);
-          properties.model =
-              _getText(mainDocument, ['root', 'device', 'modelName']);
+          properties.manufacturer = _getText(mainDocument, _kManufacturerPath);
+          properties.model = _getText(mainDocument, _kModelPath);
         } catch (e) {
           logger.warning('Unable to fetch device documents');
         }

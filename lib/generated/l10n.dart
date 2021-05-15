@@ -65,16 +65,6 @@ class S {
     );
   }
 
-  /// `Device Description`
-  String get deviceDescription {
-    return Intl.message(
-      'Device Description',
-      name: 'deviceDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `N/A`
   String get na {
     return Intl.message(
@@ -206,10 +196,10 @@ class S {
   }
 
   /// `The maximum network hops for multicast packages originating from this device.`
-  String get mulsticastHopsDescription {
+  String get multicastHopsDescription {
     return Intl.message(
       'The maximum network hops for multicast packages originating from this device.',
-      name: 'mulsticastHopsDescription',
+      name: 'multicastHopsDescription',
       desc: '',
       args: [],
     );
@@ -286,10 +276,10 @@ class S {
     );
   }
 
-  /// `Advanced Mode Description`
+  /// `Allow longer delay response`
   String get advancedModeDescription {
     return Intl.message(
-      'Advanced Mode Description',
+      'Allow longer delay response',
       name: 'advancedModeDescription',
       desc: '',
       args: [],

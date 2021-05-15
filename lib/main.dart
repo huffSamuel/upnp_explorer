@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'constants.dart';
 import 'data/options.dart';
 import 'data/options_repository.dart';
+import 'data/palette.dart';
 import 'generated/l10n.dart';
 import 'infrastructure/services/device_discovery_service.dart';
 import 'infrastructure/services/ioc.dart';
@@ -26,25 +27,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final initialModel = optionsRepository.get();
+
     return ModelBinding(
-      initialModel: optionsRepository.get(),
+      initialModel: initialModel,
       child: Builder(
         builder: (context) {
           final options = Options.of(context);
 
-          optionsRepository.set(options);
+          if (options != optionsRepository.get()) {
+            optionsRepository.set(options);
+          }
+
           sl<DeviceDiscoveryService>().protocolOptions =
               options.protocolOptions;
 
           return MaterialApp(
             title: kAppName,
             themeMode: options.themeMode,
-            darkTheme: ThemeData.dark().copyWith(
-              visualDensity: options.visualDensity,
-            ),
-            theme: ThemeData.light().copyWith(
-              visualDensity: options.visualDensity,
-            ),
+            darkTheme: Palette.instance.darkTheme(options),
+            theme: Palette.instance.lightTheme(options),
             localizationsDelegates: localizationDelegates,
             supportedLocales: S.delegate.supportedLocales,
             home: DeviceList(),

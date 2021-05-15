@@ -50,7 +50,7 @@ class _MulticastHopsPageState extends State<MulticastHopsPage> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
-              child: Text(i18n.mulsticastHopsDescription),
+              child: Text(i18n.multicastHopsDescription),
             ),
             Divider(),
             NumberTickerListTile(

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ssdp/data/options.dart';
+import '../../../data/options.dart';
 
 class LoggerFactory {
   Logger build(String className) {
@@ -79,7 +79,10 @@ class Logger {
       _write(LogLevel.debug, message, scopedContext);
 
   void _write(
-      LogLevel level, String message, Map<String, dynamic> scopedContext) {
+    LogLevel level,
+    String message,
+    Map<String, dynamic> scopedContext,
+  ) {
     final timestamp = DateTime.now();
 
     final sb = StringBuffer()

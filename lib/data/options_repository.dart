@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ssdp/domain/value_converter.dart';
 
+import '../domain/value_converter.dart';
 import 'options.dart';
 
 const _kThemeKey = 'ThemeMode';
@@ -58,6 +58,11 @@ class OptionsRepository {
       final delay = prefs.getInt(_kMaxDelay);
       final hops = prefs.getInt(_kHops);
       final advanced = prefs.getBool(_kAdvanced);
+
+      if ([theme, horizontal, vertical, delay, hops, advanced]
+          .any((x) => x == null)) {
+        return Options.base();
+      }
 
       return Options(
         themeMode: theme,
