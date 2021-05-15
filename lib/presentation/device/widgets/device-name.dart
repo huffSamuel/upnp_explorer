@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ssdp/domain/device.dart';
+import 'package:upnp_explorer/domain/device.dart';
 
 class DeviceName extends StatelessWidget {
   final Device device;

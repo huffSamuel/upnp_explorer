@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ssdp/constants.dart';
-import 'package:ssdp/presentation/settings/pages/settings-page.dart';
+import 'package:upnp_explorer/constants.dart';
+import 'package:upnp_explorer/presentation/settings/pages/settings-page.dart';
 
 import '../../../domain/device.dart';
 import '../../../infrastructure/services/ioc.dart';

@@ -1,4 +1,4 @@
-package com.samueljhuf.ssdp
+package com.samueljhuf.upnp_explorer
 
 import io.flutter.embedding.android.FlutterActivity
 

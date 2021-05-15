@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.samueljhuf.ssdp">
+    package="com.samueljhuf.upnp_explorer">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <application
-        android:label="ssdp"
+        android:label="upnp_explorer"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         >

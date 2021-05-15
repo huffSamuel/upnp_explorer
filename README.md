@@ -1,4 +1,4 @@
-# ssdp
+# UPnP Explorer
 
 A new Flutter project.
 

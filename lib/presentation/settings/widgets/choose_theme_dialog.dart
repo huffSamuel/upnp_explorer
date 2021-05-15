@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ssdp/data/options.dart';
-import 'package:ssdp/generated/l10n.dart';
+import 'package:upnp_explorer/data/options.dart';
+import 'package:upnp_explorer/generated/l10n.dart';
 
 void showThemeDialog(BuildContext context) {
   showDialog(
