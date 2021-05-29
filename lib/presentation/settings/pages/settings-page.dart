@@ -6,6 +6,8 @@ import '../../../constants.dart';
 import '../../../data/options.dart';
 import '../../../domain/value_converter.dart';
 import '../../../generated/l10n.dart';
+import '../../../infrastructure/services/bug_report_service.dart';
+import '../../../infrastructure/services/ioc.dart';
 import '../widgets/choose_theme_dialog.dart';
 import '../widgets/visual_density_dialog.dart';
 import 'max_delay_page.dart';
@@ -73,7 +75,7 @@ class SettingsPage extends StatelessWidget {
               tiles: [
                 SettingsTile(
                   title: i18n.submitBug,
-                  onPressed: (_) => print(i18n.submitBug),
+                  onPressed: _submitBug,
                 ),
                 SettingsTile(
                   title: i18n.aboutApp(kAppName),
@@ -84,6 +86,23 @@ class SettingsPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _submitBug(BuildContext c) async {
+    final i18n = S.of(c);
+    final bugService = sl<BugReportService>();
+    final info = await PackageInfo.fromPlatform();
+
+    bugService.submitBug(
+      i18n.mailSubject,
+      i18n.mailBody(info.version),
+      () {
+        final snackbar = SnackBar(
+          content: Text(i18n.unableToSubmitFeedback),
+        );
+        ScaffoldMessenger.of(c).showSnackBar(snackbar);
+      },
     );
   }
 

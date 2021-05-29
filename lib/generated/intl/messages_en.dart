@@ -21,13 +21,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m0(appName) => "About ${appName}";
 
-  static m1(seconds) => "${seconds} seconds";
+  static m1(version) => "Version ${version}";
 
-  static m2(themeMode) => "${Intl.select(themeMode, {'light': 'Light', 'dark': 'Dark', 'system': 'System Defined', })}";
+  static m2(seconds) => "${seconds} seconds";
 
-  static m3(version) => "Version ${version}";
+  static m3(themeMode) => "${Intl.select(themeMode, {'light': 'Light', 'dark': 'Dark', 'system': 'System Defined', })}";
 
-  static m4(visualDensity) => "${Intl.select(visualDensity, {'comfortable': 'Comfortable', 'standard': 'Standard', 'compact': 'Compact', 'other': 'Unknown', })}";
+  static m4(version) => "Version ${version}";
+
+  static m5(visualDensity) => "${Intl.select(visualDensity, {'comfortable': 'Comfortable', 'standard': 'Standard', 'compact': 'Compact', 'other': 'Unknown', })}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
@@ -39,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "density" : MessageLookupByLibrary.simpleMessage("Density"),
     "deviceDocument" : MessageLookupByLibrary.simpleMessage("Device Document"),
     "display" : MessageLookupByLibrary.simpleMessage("Display"),
+    "mailBody" : m1,
+    "mailSubject" : MessageLookupByLibrary.simpleMessage("App Feedback"),
     "maxDelayDescription" : MessageLookupByLibrary.simpleMessage("The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol."),
     "maxResponseDelay" : MessageLookupByLibrary.simpleMessage("Maximum Response Delay"),
     "multicastHops" : MessageLookupByLibrary.simpleMessage("Multicast Hops"),
@@ -46,15 +50,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "na" : MessageLookupByLibrary.simpleMessage("N/A"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "response" : MessageLookupByLibrary.simpleMessage("Response"),
-    "responseDelay" : m1,
+    "responseDelay" : m2,
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "ssdpProtocol" : MessageLookupByLibrary.simpleMessage("SSDP Protocol"),
     "submitBug" : MessageLookupByLibrary.simpleMessage("Submit Bug"),
     "theme" : MessageLookupByLibrary.simpleMessage("Theme"),
-    "themeMode" : m2,
-    "version" : m3,
+    "themeMode" : m3,
+    "unableToSubmitFeedback" : MessageLookupByLibrary.simpleMessage("Unable to submit feedback"),
+    "version" : m4,
     "viewFormatted" : MessageLookupByLibrary.simpleMessage("View Formatted"),
     "viewRaw" : MessageLookupByLibrary.simpleMessage("View Raw"),
-    "visualDensity" : m4
+    "visualDensity" : m5
   };
 }

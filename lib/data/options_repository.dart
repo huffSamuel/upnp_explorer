@@ -11,9 +11,9 @@ const _kMaxDelay = 'maxDelay';
 const _kHops = 'hops';
 const _kAdvanced = 'advanced';
 const _kThemeMap = {
-  ThemeMode.dark: 'dark',
-  ThemeMode.system: 'system',
-  ThemeMode.light: 'light'
+  ThemeMode.dark: 'DARK',
+  ThemeMode.system: 'SYSTEM',
+  ThemeMode.light: 'LIGHT'
 };
 
 class OptionsRepository {
@@ -25,7 +25,7 @@ class OptionsRepository {
     await Future.wait([
       prefs.setString(
         _kThemeKey,
-        _kThemeMap[options.themeMode],
+        enumToString(options.themeMode),
       ),
       prefs.setDouble(
         _kVisualDensityHorizontal,
@@ -52,7 +52,8 @@ class OptionsRepository {
 
   Options get() {
     try {
-      final theme = keyFromValue(_kThemeMap, prefs.getString(_kThemeKey));
+      final themeValue = prefs.getString(_kThemeKey);
+      final theme = keyFromValue(_kThemeMap, themeValue);
       final horizontal = prefs.getDouble(_kVisualDensityHorizontal);
       final vertical = prefs.getDouble(_kVisualDensityVertical);
       final delay = prefs.getInt(_kMaxDelay);

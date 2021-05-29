@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class ProtocolOptions {
+class ProtocolOptions extends Equatable {
   final int maxDelay;
   final bool advanced;
   final int hops;
@@ -22,9 +23,16 @@ class ProtocolOptions {
       hops: hops ?? this.hops,
     );
   }
+
+  @override
+  List<Object> get props => [
+        maxDelay,
+        advanced,
+        hops,
+      ];
 }
 
-class Options {
+class Options extends Equatable {
   final ThemeMode themeMode;
   final VisualDensity visualDensity;
   final ProtocolOptions protocolOptions;
@@ -70,6 +78,13 @@ class Options {
         context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>();
     scope.modelBindingState.updateModel(newModel);
   }
+
+  @override
+  List<Object> get props => [
+        themeMode,
+        visualDensity,
+        protocolOptions,
+      ];
 }
 
 class _ModelBindingScope extends InheritedWidget {

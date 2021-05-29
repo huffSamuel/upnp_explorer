@@ -295,6 +295,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Unable to submit feedback`
+  String get unableToSubmitFeedback {
+    return Intl.message(
+      'Unable to submit feedback',
+      name: 'unableToSubmitFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Feedback`
+  String get mailSubject {
+    return Intl.message(
+      'App Feedback',
+      name: 'mailSubject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version {version}`
+  String mailBody(Object version) {
+    return Intl.message(
+      'Version $version',
+      name: 'mailBody',
+      desc: '',
+      args: [version],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

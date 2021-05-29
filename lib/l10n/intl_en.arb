@@ -23,5 +23,8 @@
     "maxResponseDelay": "Maximum Response Delay",
     "advancedMode": "Advanced Mode",
     "advancedModeDescription": "Allow longer delay response",
-    "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol."
+    "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.",
+    "unableToSubmitFeedback": "Unable to submit feedback",
+    "mailSubject": "App Feedback",
+    "mailBody": "Version {version}"
 }
