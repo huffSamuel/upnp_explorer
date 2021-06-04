@@ -325,6 +325,36 @@ class S {
       args: [version],
     );
   }
+
+  /// `Available in Pro`
+  String get onlyAvailableInPro {
+    return Intl.message(
+      'Available in Pro',
+      name: 'onlyAvailableInPro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View in store`
+  String get viewInStore {
+    return Intl.message(
+      'View in store',
+      name: 'viewInStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This feature is only available in the Pro version.`
+  String get featureOnlyAvailableInPro {
+    return Intl.message(
+      'This feature is only available in the Pro version.',
+      name: 'featureOnlyAvailableInPro',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
