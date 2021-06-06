@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "multicastHops" : MessageLookupByLibrary.simpleMessage("Multicast Hops"),
     "multicastHopsDescription" : MessageLookupByLibrary.simpleMessage("The maximum network hops for multicast packages originating from this device."),
     "na" : MessageLookupByLibrary.simpleMessage("N/A"),
+    "noDevicesFound" : MessageLookupByLibrary.simpleMessage("No devices found."),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
     "response" : MessageLookupByLibrary.simpleMessage("Response"),
     "responseDelay" : m2,

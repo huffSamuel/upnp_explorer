@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/generated/l10n.dart';
 
 import '../../../constants.dart';
 import '../../../domain/device.dart';
@@ -84,10 +85,11 @@ class _DeviceListState extends State<DeviceList>
         itemBuilder: (context, index) {
           if (index == 0 && devices.isEmpty) {
             return Center(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('No devices found'),
-            ));
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(S.of(context).noDevicesFound),
+              ),
+            );
           }
 
           return _makeElement(index);

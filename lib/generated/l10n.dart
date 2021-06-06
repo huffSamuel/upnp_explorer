@@ -325,6 +325,16 @@ class S {
       args: [version],
     );
   }
+
+  /// `No devices found.`
+  String get noDevicesFound {
+    return Intl.message(
+      'No devices found.',
+      name: 'noDevicesFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
