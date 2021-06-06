@@ -8,7 +8,7 @@ import 'data/palette.dart';
 import 'generated/l10n.dart';
 import 'infrastructure/services/device_discovery_service.dart';
 import 'infrastructure/services/ioc.dart';
-import 'presentation/device/pages/home.dart';
+import 'presentation/device/pages/discovery-page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
