@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "density" : MessageLookupByLibrary.simpleMessage("Density"),
     "deviceDocument" : MessageLookupByLibrary.simpleMessage("Device Document"),
     "display" : MessageLookupByLibrary.simpleMessage("Display"),
+    "featureOnlyAvailableInPro" : MessageLookupByLibrary.simpleMessage("This feature is only available in the Pro version."),
     "mailBody" : m1,
     "mailSubject" : MessageLookupByLibrary.simpleMessage("App Feedback"),
     "maxDelayDescription" : MessageLookupByLibrary.simpleMessage("The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol."),
@@ -49,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "multicastHopsDescription" : MessageLookupByLibrary.simpleMessage("The maximum network hops for multicast packages originating from this device."),
     "na" : MessageLookupByLibrary.simpleMessage("N/A"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),
+    "onlyAvailableInPro" : MessageLookupByLibrary.simpleMessage("Available in Pro"),
     "response" : MessageLookupByLibrary.simpleMessage("Response"),
     "responseDelay" : m2,
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
@@ -59,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unableToSubmitFeedback" : MessageLookupByLibrary.simpleMessage("Unable to submit feedback"),
     "version" : m4,
     "viewFormatted" : MessageLookupByLibrary.simpleMessage("View Formatted"),
+    "viewInStore" : MessageLookupByLibrary.simpleMessage("View in store"),
     "viewRaw" : MessageLookupByLibrary.simpleMessage("View Raw"),
     "visualDensity" : m5
   };
