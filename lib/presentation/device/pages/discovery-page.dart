@@ -1,11 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:upnp_explorer/constants.dart';
-import 'package:upnp_explorer/presentation/settings/pages/settings-page.dart';
+import 'dart:math' as math;
 
+import 'package:flutter/material.dart';
+import 'package:upnp_explorer/generated/l10n.dart';
+
+import '../../../constants.dart';
 import '../../../domain/device.dart';
 import '../../../infrastructure/services/ioc.dart';
 import '../../../infrastructure/services/ssdp_discovery.dart';
 import '../widgets/device-list-item.dart';
+import '../widgets/refresh-button.dart';
+import '../widgets/scanning-indicator.dart';
+import '../widgets/settings-icon-button.dart';
 import 'device-page.dart';
 
 class DeviceList extends StatefulWidget {
@@ -52,51 +57,58 @@ class _DeviceListState extends State<DeviceList>
     }
   }
 
+  void _refresh() {
+    setState(() {
+      devices.clear();
+      _scan();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final indicator = AnimatedContainer(
-      height: _height,
-      curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 150),
-      child: LinearProgressIndicator(
-        backgroundColor: Theme.of(context).canvasColor,
-        valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
-      ),
-    );
+    Widget body;
+
+    if (_scanning) {
+      body = ListView.builder(
+        itemCount: devices.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return ScanningIndicator(height: _height);
+          } else {
+            return _makeElement(index - 1);
+          }
+        },
+      );
+    } else {
+      body = ListView.builder(
+        itemCount: math.max(devices.length, 1),
+        itemBuilder: (context, index) {
+          if (index == 0 && devices.isEmpty) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(S.of(context).noDevicesFound),
+              ),
+            );
+          }
+
+          return _makeElement(index);
+        },
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (c) => SettingsPage()),
-          ),
-        ),
+        leading: SettingsIconButton(),
         title: Text(kAppName),
         actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: _scanning
-                ? null
-                : () => setState(() {
-                      devices.clear();
-                      _scan();
-                    }),
-          )
+          RefreshIconButton(
+            onPressed: _scanning ? null : () => _refresh(),
+          ),
         ],
       ),
       body: Center(
-        child: Scrollbar(
-          child: ListView.builder(
-            itemCount: devices.length + 1,
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return indicator;
-              }
-              return _makeElement(index - 1);
-            },
-          ),
-        ),
+        child: Scrollbar(child: body),
       ),
     );
   }
