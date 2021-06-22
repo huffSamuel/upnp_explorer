@@ -15,7 +15,7 @@
     </intent>
 </queries>
    <application
-        android:label="upnp_explorer"
+        android:label="UPnP Explorer"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         >
