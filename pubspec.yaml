@@ -2,7 +2,7 @@ name: upnp_explorer
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.4+5
+version: 1.0.5+6
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -12,11 +12,15 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  bloc: ^7.0.0
+  connectivity_plus: ^1.0.4
   cupertino_icons: ^1.0.2
   equatable: ^2.0.0
+  flutter_bloc: ^7.0.1
   get_it: ^6.0.0
   http: ^0.13.0
   intl: ^0.17.0
+  open_settings: ^2.0.1
   package_info: ^2.0.0
   settings_ui: ^0.6.0
   shared_preferences: ^2.0.5

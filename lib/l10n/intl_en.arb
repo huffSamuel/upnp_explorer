@@ -27,5 +27,7 @@
     "unableToSubmitFeedback": "Unable to submit feedback",
     "mailSubject": "App Feedback",
     "mailBody": "Version {version}",
-    "noDevicesFound": "No devices found."
+    "noDevicesFound": "No devices found.",
+    "discoveryRequiresNetwork": "Device discovery requires network access",
+    "turnOnWifi": "Turn on WiFi"
 }

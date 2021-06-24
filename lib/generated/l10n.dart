@@ -335,6 +335,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Device discovery requires network access`
+  String get discoveryRequiresNetwork {
+    return Intl.message(
+      'Device discovery requires network access',
+      name: 'discoveryRequiresNetwork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Turn on WiFi`
+  String get turnOnWifi {
+    return Intl.message(
+      'Turn on WiFi',
+      name: 'turnOnWifi',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

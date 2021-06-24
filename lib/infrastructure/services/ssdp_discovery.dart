@@ -82,7 +82,7 @@ class SSDPService {
       );
 
       controller.add(device);
-    });
+    }, onDone: () => controller.close(), onError: (err) => controller.addError(err));
   }
 
   _getText(XmlDocument doc, List<String> path) {
@@ -155,11 +155,13 @@ class SSDPService {
 
   Stream<Device> get stream => controller.stream;
 
-  Future findDevices() {
+  Stream<Device> findDevices() {
     if (!discovery.isInitialized) {
-      return discovery.init().then((_) => discovery.search());
+      discovery.init().then((_) => discovery.search());
     } else {
-      return discovery.search();
+      discovery.search();
     }
+
+    return stream;
   }
 }

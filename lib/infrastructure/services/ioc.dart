@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/options_repository.dart';
+import '../../presentation/device/bloc/discovery_bloc.dart';
 import 'bug_report_service.dart';
 import 'device_data_service.dart';
 import 'device_discovery_service.dart';
@@ -20,5 +21,6 @@ Future initializeService() async {
     ..registerLazySingleton(() => DeviceDataService(sl()))
     ..registerLazySingleton(() => DeviceDiscoveryService(sl()))
     ..registerLazySingleton(() => SSDPService(sl(), sl(), sl()))
-    ..registerLazySingleton(() => BugReportService());
+    ..registerLazySingleton(() => BugReportService())
+    ..registerLazySingleton(() => DiscoveryBloc(sl()));
 }

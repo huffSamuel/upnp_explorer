@@ -126,5 +126,6 @@ class DeviceDiscoveryService {
     }
 
     _completer.complete();
+    _servers.sink.addError('Done');
   }
 }
