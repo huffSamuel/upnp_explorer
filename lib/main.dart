@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             theme: Palette.instance.lightTheme(options),
             localizationsDelegates: localizationDelegates,
             supportedLocales: S.delegate.supportedLocales,
-            home: DeviceList(),
+            home: DiscoveryPage(),
           );
         },
       ),
