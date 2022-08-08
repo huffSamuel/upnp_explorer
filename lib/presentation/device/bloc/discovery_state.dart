@@ -15,14 +15,14 @@ class Loaded extends DiscoveryState {
   @override
   bool get stringify => true;
 
-  final List<Device> devices;
+  final List<UPnPDevice> devices;
   final bool isScanning;
 
   Loaded(this.devices, this.isScanning);
 
   Loaded copyWith({
-    List<Device> devices,
-    bool isScanning,
+    List<UPnPDevice>? devices,
+    bool? isScanning,
   }) {
     return Loaded(
       devices ?? this.devices,

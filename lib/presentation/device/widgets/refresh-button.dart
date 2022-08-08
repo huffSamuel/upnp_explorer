@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RefreshIconButton extends StatelessWidget {
-  final Function() onPressed;
+  final Function()? onPressed;
 
   const RefreshIconButton({
-    Key key,
+    Key? key,
     this.onPressed,
   }) : super(key: key);
 

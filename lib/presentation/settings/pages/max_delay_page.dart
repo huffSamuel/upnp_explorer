@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../data/options.dart';
-import '../../../generated/l10n.dart';
+
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/settings/options.dart';
 import '../../core/widgets/number_ticker.dart';
 
 const _kMaxDefaultDelay = 5;
@@ -12,8 +13,8 @@ class MaxResponseDelayPage extends StatefulWidget {
 }
 
 class _MaxResponseDelayPageState extends State<MaxResponseDelayPage> {
-  int _delay;
-  bool _advanced;
+  late int _delay;
+  late bool _advanced;
 
   @override
   void didChangeDependencies() {

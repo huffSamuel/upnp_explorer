@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/settings/pages/settings-page.dart';
+
+import '../../settings/pages/settings_page.dart';
 
 class SettingsIconButton extends StatelessWidget {
   @override

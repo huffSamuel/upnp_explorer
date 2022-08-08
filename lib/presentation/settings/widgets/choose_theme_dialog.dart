@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/data/options.dart';
-import 'package:upnp_explorer/generated/l10n.dart';
+
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/settings/options.dart';
 
 void showThemeDialog(BuildContext context) {
   showDialog(
@@ -22,7 +23,11 @@ class ChooseThemeDialog extends StatelessWidget {
           (value) => RadioListTile(
             value: value,
             groupValue: options.themeMode,
-            onChanged: (v) {
+            onChanged: (ThemeMode? v) {
+              if(v == null) {
+                return;
+              }
+
               Options.update(
                 context,
                 options.copyWith(themeMode: v),

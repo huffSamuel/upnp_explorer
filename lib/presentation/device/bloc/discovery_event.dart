@@ -12,7 +12,7 @@ class Discover extends DiscoveryEvent {}
 class StopDiscover extends DiscoveryEvent {}
 
 class _DeviceDiscovered extends DiscoveryEvent {
-  final Device device;
+  final UPnPDevice device;
 
   _DeviceDiscovered(this.device);
 

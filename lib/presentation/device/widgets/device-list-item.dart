@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/device.dart';
-import 'device-document-link.dart';
+import '../../../domain/device/device.dart';
 import 'device-image.dart';
-import 'device-name.dart';
 
 class DeviceListItem extends StatefulWidget {
-  final Device device;
-  final void Function(Device) onTap;
+  final UPnPDevice device;
+  final void Function(UPnPDevice) onTap;
 
-  const DeviceListItem({Key key, this.device, this.onTap}) : super(key: key);
+  const DeviceListItem({
+    Key? key,
+    required this.device,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   _DeviceListItemState createState() => _DeviceListItemState();
@@ -17,8 +19,8 @@ class DeviceListItem extends StatefulWidget {
 
 class _DeviceListItemState extends State<DeviceListItem>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -38,36 +40,17 @@ class _DeviceListItemState extends State<DeviceListItem>
 
     return FadeTransition(
       opacity: _animation,
-      child: GestureDetector(
-        onTap: () => widget.onTap(widget.device),
-        child: Card(
-          margin: const EdgeInsets.all(4.0),
-          clipBehavior: Clip.antiAlias,
-          elevation: 2.0,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DeviceImage(properties: widget.device.properties),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        DeviceName(device: widget.device),
-                        DeviceDocumentLink(
-                          location: widget.device.response.parsed['location'],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+      child: ListTile(
+        leading: DeviceImage(
+          icons: widget.device.description.device.iconList.icons,
+          deviceIp: widget.device.ipAddress,
         ),
+        title: Text(
+          widget.device.description.device.friendlyName,
+        ),
+        subtitle: Text(widget.device.ipAddress.toString()),
+        trailing: Icon(Icons.chevron_right),
+        onTap: () => widget.onTap(widget.device),
       ),
     );
   }

@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/data/options.dart';
-import 'package:upnp_explorer/generated/l10n.dart';
-import 'package:upnp_explorer/presentation/core/widgets/number_ticker.dart';
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/settings/options.dart';
+import '../../core/widgets/number_ticker.dart';
 
 class MulticastHopsPage extends StatefulWidget {
   @override
@@ -10,7 +9,7 @@ class MulticastHopsPage extends StatefulWidget {
 }
 
 class _MulticastHopsPageState extends State<MulticastHopsPage> {
-  int _hops;
+  late int _hops;
 
   @override
   void didChangeDependencies() {

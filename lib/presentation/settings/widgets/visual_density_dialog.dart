@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/options.dart';
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/settings/options.dart';
 import '../../../domain/value_converter.dart';
-import '../../../generated/l10n.dart';
 
 void showVisualDensityDialog(BuildContext context) {
   showDialog(
@@ -26,7 +26,11 @@ class VisualDensityDialog extends StatelessWidget {
           (value) => RadioListTile(
             value: value,
             groupValue: currentValue,
-            onChanged: (v) {
+            onChanged: (Density? v) {
+              if (v == null) {
+                return;
+              }
+
               Options.update(
                 context,
                 options.copyWith(visualDensity: kVisualDensityConverter.to(v)),
