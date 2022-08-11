@@ -5,8 +5,8 @@ import 'device.dart';
 class ServiceDescription {
   final String namespace;
   final SpecVersion specVersion;
-  final _ActionList actionList;
-  final _ServiceStateTable serviceStateTable;
+  final ActionList actionList;
+  final ServiceStateTable serviceStateTable;
 
   ServiceDescription({
     required this.namespace,
@@ -21,52 +21,52 @@ class ServiceDescription {
     return ServiceDescription(
       namespace: root!.getAttribute('xmlns')!,
       specVersion: SpecVersion.fromXml(root.getElement('specVersion')!),
-      actionList: _ActionList.fromXml(root.getElement('actionList')),
+      actionList: ActionList.fromXml(root.getElement('actionList')),
       serviceStateTable:
-          _ServiceStateTable.fromXml(root.getElement('serviceStateTable')!),
+          ServiceStateTable.fromXml(root.getElement('serviceStateTable')!),
     );
   }
 }
 
-class _ServiceStateTable {
+class ServiceStateTable {
   final List<_StateVariable> stateVariables;
 
-  _ServiceStateTable({
+  ServiceStateTable({
     required this.stateVariables,
   });
 
   static fromXml(XmlNode xml) {
-    return _ServiceStateTable(
+    return ServiceStateTable(
       stateVariables: listOf<_StateVariable>(
           xml, 'stateVariable', (x) => _StateVariable.fromXml(x)),
     );
   }
 }
 
-class _ActionList {
-  final List<_Action> actions;
+class ActionList {
+  final List<Action> actions;
 
-  _ActionList({
+  ActionList({
     required this.actions,
   });
 
   static fromXml(XmlNode? xml) {
-    return _ActionList(
-        actions: listOf<_Action>(xml, 'action', (x) => _Action.fromXml(x)));
+    return ActionList(
+        actions: listOf<Action>(xml, 'action', (x) => Action.fromXml(x)));
   }
 }
 
-class _Action {
+class Action {
   final String name;
   final _ArgumentList? argumentList;
 
-  _Action({
+  Action({
     required this.name,
     this.argumentList,
   });
 
   static fromXml(XmlNode xml) {
-    return _Action(
+    return Action(
       name: xml.getElement('name')!.text,
       argumentList: _ArgumentList.fromXml(xml.getElement('argumentList')),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/application.dart';
+import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/device.dart';
 
@@ -15,6 +16,8 @@ class DeviceDocumentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = S.of(context);
+
     Widget? fab;
 
     if (device.presentationUrl != null) {
@@ -44,7 +47,7 @@ class DeviceDocumentPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              title: Text('Manufacturer'),
+              title: Text(i18n.manufacturer),
               subtitle: Text(device.manufacturer),
               onTap: device.manufacturerUrl == null
                   ? null
@@ -57,7 +60,7 @@ class DeviceDocumentPage extends StatelessWidget {
                   : Icon(Icons.chevron_right),
             ),
             ListTile(
-              title: Text('Model Name'),
+              title: Text(i18n.modelName),
               subtitle: Text(device.modelName),
               onTap: device.modelUrl == null
                   ? null
@@ -68,29 +71,29 @@ class DeviceDocumentPage extends StatelessWidget {
             ),
             if (device.modelNumber != null)
               ListTile(
-                title: Text('Model Number'),
+                title: Text(i18n.modelNumber),
                 subtitle: Text(device.modelNumber!),
               ),
             if (device.modelDescription != null)
               ListTile(
-                title: Text('Model Description'),
+                title: Text(i18n.modelDescription),
                 subtitle: Text(device.modelDescription!),
               ),
             if (device.serialNumber != null)
               ListTile(
-                title: Text('Serial Number'),
+                title: Text(i18n.serialNumber),
                 subtitle: Text(device.serialNumber!),
               ),
             if (device.serviceList.services.isNotEmpty)
               ListTile(
-                title: Text('Services (${device.serviceList.services.length})'),
+                title: Text(i18n.servicesN(device.serviceList.services.length)),
                 subtitle: Text(
                   device.serviceList.services
                       .take(3)
                       .map(
                         (x) => x.serviceId.serviceId,
                       )
-                      .join(', '),
+                      .join(i18n.listSeparator),
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Icon(Icons.chevron_right),
@@ -102,14 +105,14 @@ class DeviceDocumentPage extends StatelessWidget {
               ),
             if (device.deviceList.devices.isNotEmpty)
               ListTile(
-                title: Text('Devices (${device.deviceList.devices.length})'),
+                title: Text(i18n.devicesN(device.deviceList.devices.length)),
                 subtitle: Text(
                   device.deviceList.devices
                       .take(3)
                       .map(
                         (x) => x.deviceType.type,
                       )
-                      .join(', '),
+                      .join(i18n.listSeparator),
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Icon(Icons.chevron_right),

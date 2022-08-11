@@ -11,6 +11,7 @@ const _kVisualDensityVertical = 'visualDensity_vertical';
 const _kMaxDelay = 'maxDelay';
 const _kHops = 'hops';
 const _kAdvanced = 'advanced';
+const _searchTargetKey = 'search_target';
 const _kThemeMap = {
   ThemeMode.dark: 'DARK',
   ThemeMode.system: 'SYSTEM',
@@ -61,6 +62,7 @@ class SettingsRepository {
       final delay = prefs.getInt(_kMaxDelay);
       final hops = prefs.getInt(_kHops);
       final advanced = prefs.getBool(_kAdvanced);
+      final searchTarget = prefs.getString(_searchTargetKey);
 
       if ([
         theme,
@@ -83,6 +85,7 @@ class SettingsRepository {
           advanced: advanced!,
           maxDelay: delay!,
           hops: hops!,
+          searchTarget: searchTarget ?? 'upnp:rootdevice'
         ),
       );
     } catch (err) {

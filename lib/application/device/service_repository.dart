@@ -6,10 +6,9 @@ import 'package:upnp_explorer/infrastructure/upnp/service_description.dart';
 @Singleton(as: ServiceRepositoryType)
 class ServiceRepository extends ServiceRepositoryType {
   Map<String, ServiceDescription> services = {};
-
   @override
   ServiceDescription? get(String id) {
-    if(!services.containsKey(id)) {
+    if (!services.containsKey(id)) {
       return null;
     }
 
@@ -17,8 +16,12 @@ class ServiceRepository extends ServiceRepositoryType {
   }
 
   @override
+  bool has(String id) {
+    return services.containsKey(id);
+  }
+
+  @override
   void insert(String id, ServiceDescription service) {
     services[id] = service;
   }
-
 }

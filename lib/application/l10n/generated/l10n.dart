@@ -50,46 +50,6 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `View Formatted`
-  String get viewFormatted {
-    return Intl.message(
-      'View Formatted',
-      name: 'viewFormatted',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `View Raw`
-  String get viewRaw {
-    return Intl.message(
-      'View Raw',
-      name: 'viewRaw',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Response`
-  String get response {
-    return Intl.message(
-      'Response',
-      name: 'response',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `N/A`
-  String get na {
-    return Intl.message(
-      'N/A',
-      name: 'na',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Version {version}`
   String version(Object version) {
     return Intl.message(
@@ -155,16 +115,6 @@ class S {
     return Intl.message(
       'Submit Bug',
       name: 'submitBug',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Device Document`
-  String get deviceDocument {
-    return Intl.message(
-      'Device Document',
-      name: 'deviceDocument',
       desc: '',
       args: [],
     );
@@ -366,6 +316,176 @@ class S {
     return Intl.message(
       'Turn on WiFi',
       name: 'turnOnWifi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actions {count}`
+  String actionsN(Object count) {
+    return Intl.message(
+      'Actions $count',
+      name: 'actionsN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `State Variables {count}`
+  String stateVariablesN(Object count) {
+    return Intl.message(
+      'State Variables $count',
+      name: 'stateVariablesN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Manufacturer`
+  String get manufacturer {
+    return Intl.message(
+      'Manufacturer',
+      name: 'manufacturer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Model Name`
+  String get modelName {
+    return Intl.message(
+      'Model Name',
+      name: 'modelName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Model Number`
+  String get modelNumber {
+    return Intl.message(
+      'Model Number',
+      name: 'modelNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Model Description`
+  String get modelDescription {
+    return Intl.message(
+      'Model Description',
+      name: 'modelDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Serial Number`
+  String get serialNumber {
+    return Intl.message(
+      'Serial Number',
+      name: 'serialNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services {count}`
+  String servicesN(Object count) {
+    return Intl.message(
+      'Services $count',
+      name: 'servicesN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Devices {count}`
+  String devicesN(Object count) {
+    return Intl.message(
+      'Devices $count',
+      name: 'devicesN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Services`
+  String get services {
+    return Intl.message(
+      'Services',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to obtain service information`
+  String get unableToObtainInformation {
+    return Intl.message(
+      'Unable to obtain service information',
+      name: 'unableToObtainInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State Variables`
+  String get stateVariables {
+    return Intl.message(
+      'State Variables',
+      name: 'stateVariables',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Control Unavailable`
+  String get controlUnavailable {
+    return Intl.message(
+      'Control Unavailable',
+      name: 'controlUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actions`
+  String get actions {
+    return Intl.message(
+      'Actions',
+      name: 'actions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unavailable`
+  String get unavailable {
+    return Intl.message(
+      'Unavailable',
+      name: 'unavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `UPnP service control is unavailable at this time.`
+  String get serviceControlUnavailable {
+    return Intl.message(
+      'UPnP service control is unavailable at this time.',
+      name: 'serviceControlUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `, `
+  String get listSeparator {
+    return Intl.message(
+      ', ',
+      name: 'listSeparator',
       desc: '',
       args: [],
     );

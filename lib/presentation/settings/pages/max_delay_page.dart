@@ -63,7 +63,7 @@ class _MaxResponseDelayPageState extends State<MaxResponseDelayPage> {
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
               child: Text(i18n.maxDelayDescription),
             ),
-            Divider(),
+            const Divider(thickness: 1.5),
             NumberTickerListTile(
               title: Text(i18n.maxResponseDelay),
               value: _delay,
@@ -71,7 +71,9 @@ class _MaxResponseDelayPageState extends State<MaxResponseDelayPage> {
               maxValue: _advanced ? null : _kMaxDefaultDelay,
               onChanged: (delay) => setState(() => _delay = delay),
             ),
-            Divider(),
+            const Divider(
+              thickness: 1.5,
+            ),
             SwitchListTile(
               value: _advanced,
               onChanged: setAdvanced,

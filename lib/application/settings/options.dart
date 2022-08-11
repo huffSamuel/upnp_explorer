@@ -5,22 +5,26 @@ class ProtocolOptions extends Equatable {
   final int maxDelay;
   final bool advanced;
   final int hops;
+  final String searchTarget;
 
   const ProtocolOptions({
     required this.maxDelay,
     required this.advanced,
     required this.hops,
+    required this.searchTarget
   });
 
   ProtocolOptions copyWith({
     int? maxDelay,
     bool? advanced,
     int? hops,
+    String? searchTarget
   }) {
     return ProtocolOptions(
       maxDelay: maxDelay ?? this.maxDelay,
       advanced: advanced ?? this.advanced,
       hops: hops ?? this.hops,
+      searchTarget: searchTarget ?? this.searchTarget
     );
   }
 
@@ -29,6 +33,7 @@ class ProtocolOptions extends Equatable {
         maxDelay,
         advanced,
         hops,
+        searchTarget
       ];
 }
 
@@ -63,6 +68,7 @@ class Options extends Equatable {
         advanced: false,
         maxDelay: 3,
         hops: 1,
+        searchTarget: 'upnp:rootdevice'
       ),
     );
   }
@@ -81,9 +87,9 @@ class Options extends Equatable {
 
   @override
   List<Object> get props => [
-        themeMode ?? 1,
-        visualDensity ?? 1,
-        protocolOptions ?? 1,
+        themeMode,
+        visualDensity,
+        protocolOptions,
       ];
 }
 

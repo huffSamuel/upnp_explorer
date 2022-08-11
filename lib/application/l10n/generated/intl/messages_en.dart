@@ -22,19 +22,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(appName) => "About ${appName}";
 
-  static String m1(version) => "Version ${version}";
+  static String m1(count) => "Actions ${count}";
 
-  static String m2(seconds) => "${seconds} seconds";
+  static String m2(count) => "Devices ${count}";
 
-  static String m3(themeMode) => "${Intl.select(themeMode, {
+  static String m3(version) => "Version ${version}";
+
+  static String m4(seconds) => "${seconds} seconds";
+
+  static String m5(count) => "Services ${count}";
+
+  static String m6(count) => "State Variables ${count}";
+
+  static String m7(themeMode) => "${Intl.select(themeMode, {
             'light': 'Light',
             'dark': 'Dark',
             'system': 'System Defined',
           })}";
 
-  static String m4(version) => "Version ${version}";
+  static String m8(version) => "Version ${version}";
 
-  static String m5(visualDensity) => "${Intl.select(visualDensity, {
+  static String m9(visualDensity) => "${Intl.select(visualDensity, {
             'comfortable': 'Comfortable',
             'standard': 'Standard',
             'compact': 'Compact',
@@ -45,42 +53,58 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "aboutApp": m0,
+        "actions": MessageLookupByLibrary.simpleMessage("Actions"),
+        "actionsN": m1,
         "advancedMode": MessageLookupByLibrary.simpleMessage("Advanced Mode"),
         "advancedModeDescription":
             MessageLookupByLibrary.simpleMessage("Allow longer delay response"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose theme"),
+        "controlUnavailable":
+            MessageLookupByLibrary.simpleMessage("Control Unavailable"),
         "density": MessageLookupByLibrary.simpleMessage("Density"),
-        "deviceDocument":
-            MessageLookupByLibrary.simpleMessage("Device Document"),
+        "devicesN": m2,
         "discoveryRequiresNetwork": MessageLookupByLibrary.simpleMessage(
             "Device discovery requires network access"),
         "display": MessageLookupByLibrary.simpleMessage("Display"),
-        "mailBody": m1,
+        "listSeparator": MessageLookupByLibrary.simpleMessage(", "),
+        "mailBody": m3,
         "mailSubject": MessageLookupByLibrary.simpleMessage("App Feedback"),
+        "manufacturer": MessageLookupByLibrary.simpleMessage("Manufacturer"),
         "maxDelayDescription": MessageLookupByLibrary.simpleMessage(
             "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol."),
         "maxResponseDelay":
             MessageLookupByLibrary.simpleMessage("Maximum Response Delay"),
+        "modelDescription":
+            MessageLookupByLibrary.simpleMessage("Model Description"),
+        "modelName": MessageLookupByLibrary.simpleMessage("Model Name"),
+        "modelNumber": MessageLookupByLibrary.simpleMessage("Model Number"),
         "multicastHops": MessageLookupByLibrary.simpleMessage("Multicast Hops"),
         "multicastHopsDescription": MessageLookupByLibrary.simpleMessage(
             "The maximum network hops for multicast packages originating from this device."),
-        "na": MessageLookupByLibrary.simpleMessage("N/A"),
         "noDevicesFound":
             MessageLookupByLibrary.simpleMessage("No devices found."),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
-        "response": MessageLookupByLibrary.simpleMessage("Response"),
-        "responseDelay": m2,
+        "responseDelay": m4,
+        "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number"),
+        "serviceControlUnavailable": MessageLookupByLibrary.simpleMessage(
+            "UPnP service control is unavailable at this time."),
+        "services": MessageLookupByLibrary.simpleMessage("Services"),
+        "servicesN": m5,
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "ssdpProtocol": MessageLookupByLibrary.simpleMessage("SSDP Protocol"),
+        "stateVariables":
+            MessageLookupByLibrary.simpleMessage("State Variables"),
+        "stateVariablesN": m6,
         "submitBug": MessageLookupByLibrary.simpleMessage("Submit Bug"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
-        "themeMode": m3,
+        "themeMode": m7,
         "turnOnWifi": MessageLookupByLibrary.simpleMessage("Turn on WiFi"),
+        "unableToObtainInformation": MessageLookupByLibrary.simpleMessage(
+            "Unable to obtain service information"),
         "unableToSubmitFeedback":
             MessageLookupByLibrary.simpleMessage("Unable to submit feedback"),
-        "version": m4,
-        "viewFormatted": MessageLookupByLibrary.simpleMessage("View Formatted"),
-        "viewRaw": MessageLookupByLibrary.simpleMessage("View Raw"),
-        "visualDensity": m5
+        "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
+        "version": m8,
+        "visualDensity": m9
       };
 }

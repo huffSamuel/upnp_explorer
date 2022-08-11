@@ -8,6 +8,9 @@ class Routes {
   static String deviceList = '/device-list';
   static String service(String id) => '/service/$id';
   static String _service = '/service/:id';
+  static String actionList = '/action-list';
+  static String action = '/action';
+  static String serviceStateTable = '/service-state-table';
 
   static FluroRouter configure(FluroRouter router) {
     router.notFoundHandler = Handler(handlerFunc: (_, __) {
@@ -20,6 +23,9 @@ class Routes {
     router.define(serviceList, handler: serviceListHandler);
     router.define(deviceList, handler: deviceListHandler);
     router.define(_service, handler: serviceHandler);
+    router.define(actionList, handler: actionListHandler);
+    router.define(action, handler: actionHandler);
+    router.define(serviceStateTable, handler: serviceStateTableHandler);
 
     return router;
   }

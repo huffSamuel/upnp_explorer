@@ -60,6 +60,7 @@ class SSDPService {
         port: root.port,
         pathSegments: service.scpdurl.pathSegments,
       );
+      try {
       final serviceDescription = await download.get(downloadUri);
 
       serviceRepository.insert(
@@ -68,6 +69,9 @@ class SSDPService {
           XmlDocument.parse(serviceDescription),
         ),
       );
+      } catch(err) {
+        
+      }
     }
 
     for(final child in device.deviceList.devices) {

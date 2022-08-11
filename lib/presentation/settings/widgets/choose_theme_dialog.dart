@@ -24,7 +24,7 @@ class ChooseThemeDialog extends StatelessWidget {
             value: value,
             groupValue: options.themeMode,
             onChanged: (ThemeMode? v) {
-              if(v == null) {
+              if (v == null) {
                 return;
               }
 
@@ -32,32 +32,20 @@ class ChooseThemeDialog extends StatelessWidget {
                 context,
                 options.copyWith(themeMode: v),
               );
+              Navigator.of(context).pop();
             },
             title: Text(i18n.themeMode(value)),
           ),
         )
         .toList();
 
-    final children = [
-      ...themes,
-      Align(
-        alignment: Alignment.centerRight,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 8.0,
-            right: 16.0,
-          ),
-          child: TextButton(
-            child: Text(i18n.ok),
-            onPressed: Navigator.of(context).pop,
-          ),
-        ),
-      ),
-    ];
-
-    return SimpleDialog(
+    return AlertDialog(
       title: Text(i18n.chooseTheme),
-      children: children,
+      scrollable: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      content: Column(children: [...themes]),
     );
   }
 }
