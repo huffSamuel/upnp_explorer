@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_settings/open_settings.dart';
 
-import '../../../constants.dart';
-import '../../../domain/device.dart';
-import '../../../generated/l10n.dart';
-import '../../../infrastructure/services/ioc.dart';
+import '../../../application/application.dart';
+import '../../../application/ioc.dart';
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/routing/routes.dart';
 import '../bloc/discovery_bloc.dart';
 import '../widgets/device-list-item.dart';
 import '../widgets/refresh-button.dart';
 import '../widgets/scanning-indicator.dart';
 import '../widgets/settings-icon-button.dart';
-import 'device-page.dart';
 
 class _NoNetwork extends StatelessWidget {
   @override
@@ -38,14 +37,10 @@ class _NoNetwork extends StatelessWidget {
 class _Loaded extends StatelessWidget {
   final Loaded state;
 
-  const _Loaded({Key key, this.state}) : super(key: key);
-
-  Widget _makeElement(Device device, Function onTap) {
-    return DeviceListItem(
-      device: device,
-      onTap: onTap,
-    );
-  }
+  const _Loaded({
+    Key? key,
+    required this.state,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,19 +51,14 @@ class _Loaded extends StatelessWidget {
     }
 
     children.addAll(state.devices.map(
-      (e) => _makeElement(
-        e,
-        (device) => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (c) => PageView.builder(
-              itemCount: state.devices.length,
-              controller:
-                  PageController(initialPage: state.devices.indexOf(device)),
-              itemBuilder: (context, index) => DevicePage(
-                device: device,
-              ),
-            ),
-          ),
+      (e) => DeviceListItem(
+        device: e,
+        onTap: (device) => Application.router!.navigateTo(
+          context,
+          Routes.deviceDocument,
+          routeSettings: RouteSettings(
+            arguments: e.description.device
+          )
         ),
       ),
     ));
@@ -108,7 +98,7 @@ class DiscoveryPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             leading: SettingsIconButton(),
-            title: Text(kAppName),
+            title: Text(Application.name),
             actions: [
               RefreshIconButton(
                 onPressed: _scanning ? null : () => _bloc.add(Discover()),

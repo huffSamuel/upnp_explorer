@@ -1,29 +1,30 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'constants.dart';
-import 'data/options.dart';
-import 'data/options_repository.dart';
-import 'data/palette.dart';
-import 'generated/l10n.dart';
-import 'infrastructure/services/device_discovery_service.dart';
-import 'infrastructure/services/ioc.dart';
-import 'presentation/device/pages/discovery-page.dart';
+import 'application/application.dart';
+import 'application/ioc.dart';
+import 'application/l10n/generated/l10n.dart';
+import 'application/routing/routes.dart';
+import 'application/settings/options.dart';
+import 'application/settings/palette.dart';
+import 'infrastructure/settings/options_repository.dart';
+import 'infrastructure/ssdp/device_discovery_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  initializeService().then((_) => runApp(MyApp(
-        optionsRepository: sl(),
-      )));
+  configureDependencies().then((_) => runApp(MyApp(optionsRepository: sl())));
 }
 
 class MyApp extends StatelessWidget {
-  final OptionsRepository optionsRepository;
+  final SettingsRepository optionsRepository;
 
-  const MyApp({
-    Key key,
-    this.optionsRepository,
-  }) : super(key: key);
+  MyApp({
+    Key? key,
+    required this.optionsRepository,
+  }) : super(key: key) {
+    Application.router = Routes.configure(FluroRouter());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +44,13 @@ class MyApp extends StatelessWidget {
               options.protocolOptions;
 
           return MaterialApp(
-            title: kAppName,
+            title: Application.name,
             themeMode: options.themeMode,
             darkTheme: Palette.instance.darkTheme(options),
             theme: Palette.instance.lightTheme(options),
             localizationsDelegates: localizationDelegates,
             supportedLocales: S.delegate.supportedLocales,
-            home: DiscoveryPage(),
+            onGenerateRoute: Application.router!.generator,
           );
         },
       ),

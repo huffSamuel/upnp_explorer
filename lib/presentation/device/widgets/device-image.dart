@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/device_properties.dart';
+import '../../../infrastructure/upnp/device.dart';
 
 class DeviceImage extends StatelessWidget {
-  final DeviceProperties properties;
+  final List<DeviceIcon> icons;
+  final Uri deviceIp;
 
   const DeviceImage({
-    Key key,
-    @required this.properties,
+    Key? key,
+    required this.icons,
+    required this.deviceIp,
   }) : super(key: key);
 
   @override
@@ -15,10 +17,10 @@ class DeviceImage extends StatelessWidget {
     return Container(
       height: 40,
       width: 40,
-      child: properties.imageUri() == null
+      child: icons.isEmpty
           ? Icon(Icons.device_unknown)
           : Image.network(
-              properties.imageUri().toString(),
+              deviceIp.toString() + icons.first.url.toString(),
             ),
     );
   }

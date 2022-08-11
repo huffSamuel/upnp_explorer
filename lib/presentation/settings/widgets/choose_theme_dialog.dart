@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/data/options.dart';
-import 'package:upnp_explorer/generated/l10n.dart';
+
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/settings/options.dart';
 
 void showThemeDialog(BuildContext context) {
   showDialog(
@@ -22,37 +23,29 @@ class ChooseThemeDialog extends StatelessWidget {
           (value) => RadioListTile(
             value: value,
             groupValue: options.themeMode,
-            onChanged: (v) {
+            onChanged: (ThemeMode? v) {
+              if (v == null) {
+                return;
+              }
+
               Options.update(
                 context,
                 options.copyWith(themeMode: v),
               );
+              Navigator.of(context).pop();
             },
             title: Text(i18n.themeMode(value)),
           ),
         )
         .toList();
 
-    final children = [
-      ...themes,
-      Align(
-        alignment: Alignment.centerRight,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 8.0,
-            right: 16.0,
-          ),
-          child: TextButton(
-            child: Text(i18n.ok),
-            onPressed: Navigator.of(context).pop,
-          ),
-        ),
-      ),
-    ];
-
-    return SimpleDialog(
+    return AlertDialog(
       title: Text(i18n.chooseTheme),
-      children: children,
+      scrollable: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      content: Column(children: [...themes]),
     );
   }
 }

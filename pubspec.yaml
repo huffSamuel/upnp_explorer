@@ -2,42 +2,48 @@ name: upnp_explorer
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.5+6
+version: 1.0.7+8
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  bloc: ^7.0.0
-  connectivity_plus: ^1.0.4
-  cupertino_icons: ^1.0.2
-  equatable: ^2.0.0
-  flutter_bloc: ^7.0.1
-  get_it: ^6.0.0
-  http: ^0.13.0
+  bloc: ^8.0.3
+  connectivity_plus: ^2.3.6
+  cupertino_icons: ^1.0.3
+  equatable: ^2.0.3
+  fluro: ^2.0.3
+  flutter_bloc: ^8.0.1
+  get_it: ^7.2.0
+  http: ^0.13.4
+  injectable: ^1.5.3
   intl: ^0.17.0
-  open_settings: ^2.0.1
-  package_info: ^2.0.0
-  settings_ui: ^0.6.0
-  shared_preferences: ^2.0.5
+  open_settings: ^2.0.2
+  package_info: ^2.0.2
+  settings_ui: ^2.0.2
+  shared_preferences: ^2.0.8
   sprintf: ^6.0.0
-  udp: ^3.0.3
-  url_launcher: ^6.0.2
-  xml: ^5.1.0
-  xml2json: ^5.0.0
+  udp: ^5.0.3
+  url_launcher: ^6.0.12
+  xml: ^6.1.0
+  xml2json: ^5.3.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.9.0
-  mockito: ^5.0.7
-  pedantic: ^1.11.0
+  flutter_launcher_icons: ^0.9.2
+  flutter_lints: ^2.0.1
+  injectable_generator: ^1.5.4
+  mockito: ^5.0.16
+  build_runner: ^2.2.0
 
 flutter:
   uses-material-design: true
 flutter_intl:
   enabled: true
+  arb_dir: lib/application/l10n
+  output_dir: lib/application/l10n/generated

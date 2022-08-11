@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class NumberTicker extends StatelessWidget {
-  final int minValue;
-  final int maxValue;
+  final int? minValue;
+  final int? maxValue;
   final int value;
   final Function(int) onChanged;
 
   const NumberTicker({
-    Key key,
-    this.onChanged,
+    Key? key,
+    required this.onChanged,
     this.value = 0,
     this.minValue,
     this.maxValue,
   }) : super(key: key);
 
-  bool get _downEnabled => minValue == null || value > minValue;
-  bool get _upEnabled => maxValue == null || value < maxValue;
+  bool get _downEnabled => minValue == null || value > minValue!;
+  bool get _upEnabled => maxValue == null || value < maxValue!;
 
   get _up => _upEnabled ? () => onChanged(value + 1) : null;
   get _down => _downEnabled ? () => onChanged(value - 1) : null;
@@ -42,18 +42,18 @@ class NumberTicker extends StatelessWidget {
 class NumberTickerListTile extends StatelessWidget {
   final Widget title;
   final EdgeInsets titlePadding;
-  final int minValue;
-  final int maxValue;
+  final int? minValue;
+  final int? maxValue;
   final int value;
   final Function(int) onChanged;
 
   const NumberTickerListTile({
-    Key key,
+    Key? key,
     this.minValue,
     this.maxValue,
-    @required this.value,
-    @required this.onChanged,
-    @required this.title,
+    required this.value,
+    required this.onChanged,
+    required this.title,
     this.titlePadding = const EdgeInsets.only(left: 16.0),
   }) : super(key: key);
 

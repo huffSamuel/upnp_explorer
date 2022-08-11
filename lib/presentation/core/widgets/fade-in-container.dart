@@ -5,12 +5,10 @@ class FadeInContainer extends StatefulWidget {
   final Widget child;
 
   const FadeInContainer({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.duration = const Duration(milliseconds: 250),
-  })  : assert(duration != null),
-        assert(child != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   _FadeInContainerState createState() => _FadeInContainerState();
@@ -18,8 +16,8 @@ class FadeInContainer extends StatefulWidget {
 
 class _FadeInContainerState extends State<FadeInContainer>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {

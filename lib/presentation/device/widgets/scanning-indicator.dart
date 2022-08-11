@@ -4,8 +4,8 @@ class ScanningIndicator extends StatelessWidget {
   final double height;
 
   const ScanningIndicator({
-    Key key,
-    this.height,
+    Key? key,
+    required this.height,
   }) : super(key: key);
 
   @override
