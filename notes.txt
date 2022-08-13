@@ -1,5 +1,0 @@
-- Flutter Intl for localization
-- GetIt for DI
-- About page
-- Options
-- Create Options on startup
