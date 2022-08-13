@@ -159,7 +159,6 @@ class _StateVariable {
   }
 }
 
-// TODO: Enum values in new Flutter
 enum DataType {
   /// Unsigned 1 byte int. Same format as {int} but without the leading sign.
   ui1,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart' as Foundation;
 import 'package:injectable/injectable.dart';
 
 import '../../application/settings/options.dart';
@@ -53,7 +54,7 @@ class Logger {
   /// Log a WARN message.
   ///
   /// When service is degraded, endangered, or may be behaving outside of its
-  /// expeted parameters.
+  /// expected parameters.
   void warning(
     String message, [
     Map<String, dynamic> scopedContext = const {},
@@ -133,6 +134,8 @@ class Logger {
       }
     }
 
-    print(sb);
+    if (Foundation.kDebugMode) {
+      print(sb);
+    }
   }
 }

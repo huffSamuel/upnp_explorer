@@ -6,8 +6,8 @@ import '../../application/application.dart';
 @Singleton()
 class BugReportService {
   void submitBug(String subject, String body, Function() onCannotSubmit) async {
-    if (await canLaunch(Application.submitBugUrl)) {
-      launch(Application.submitBugUrl);
+    if (await canLaunchUrl(Uri.parse(Application.submitBugUrl))) {
+      launchUrl(Uri.parse(Application.submitBugUrl));
     } else {
       onCannotSubmit();
     }

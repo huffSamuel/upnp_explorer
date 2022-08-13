@@ -66,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "discoveryRequiresNetwork": MessageLookupByLibrary.simpleMessage(
             "Device discovery requires network access"),
         "display": MessageLookupByLibrary.simpleMessage("Display"),
+        "legalese": MessageLookupByLibrary.simpleMessage(
+            "I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data."),
         "listSeparator": MessageLookupByLibrary.simpleMessage(", "),
         "mailBody": m3,
         "mailSubject": MessageLookupByLibrary.simpleMessage("App Feedback"),

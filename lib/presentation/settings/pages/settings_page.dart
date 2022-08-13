@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:upnp_explorer/presentation/settings/pages/search_target_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
@@ -120,6 +120,7 @@ class SettingsPage extends StatelessWidget {
       context: c,
       applicationName: info.appName,
       applicationVersion: i18n.version(info.version),
+      applicationLegalese: i18n.legalese,
     );
   }
 }

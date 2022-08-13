@@ -235,8 +235,8 @@ class _IconList {
     return _IconList(
       icons: xml
               ?.findAllElements('icon')
-              ?.map<DeviceIcon>((x) => DeviceIcon.fromXml(x))
-              ?.toList() ??
+              .map<DeviceIcon>((x) => DeviceIcon.fromXml(x))
+              .toList() ??
           [],
     );
   }
