@@ -43,7 +43,9 @@ class ServicePage extends StatelessWidget {
         children: [
           if (description.actionList.actions.isNotEmpty)
             ListTile(
-              title: Text(i18n.actionsN(description.actionList.actions.length)),
+              title: Text(
+                i18n.actionsN(description.actionList.actions.length),
+              ),
               subtitle: Text(
                 description.actionList.actions
                     .map((x) => x.name)

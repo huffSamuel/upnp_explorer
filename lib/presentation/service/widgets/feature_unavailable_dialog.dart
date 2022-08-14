@@ -9,7 +9,9 @@ class FeatureUnavailableDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(i18n.unavailable),
-      content: Text(i18n.serviceControlUnavailable),
+      content: Text(
+        i18n.serviceControlUnavailable,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),

@@ -25,11 +25,13 @@ class NumberTicker extends StatelessWidget {
     return Row(
       children: [
         IconButton(
+          tooltip: _downEnabled ? 'Decrease' : 'Decrease disabled',
           icon: Icon(Icons.remove),
           onPressed: _down,
         ),
         Text(value.toString(), style: Theme.of(context).textTheme.headline5),
         IconButton(
+          tooltip: _upEnabled ? 'Increase' : 'Increase disabled',
           icon: Icon(Icons.add),
           onPressed: _up,
         ),

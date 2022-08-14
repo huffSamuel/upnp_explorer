@@ -40,17 +40,20 @@ class _DeviceListItemState extends State<DeviceListItem>
 
     return FadeTransition(
       opacity: _animation,
-      child: ListTile(
-        leading: DeviceImage(
-          icons: widget.device.description.device.iconList.icons,
-          deviceIp: widget.device.ipAddress,
+      child: Semantics(
+        label: 'Discovered device ${widget.device.description.device.friendlyName}',
+        child: ListTile(
+          leading: DeviceImage(
+            icons: widget.device.description.device.iconList.icons,
+            deviceIp: widget.device.ipAddress,
+          ),
+          title: Text(
+            widget.device.description.device.friendlyName,
+          ),
+          subtitle: Text(widget.device.ipAddress.toString()),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () => widget.onTap(widget.device),
         ),
-        title: Text(
-          widget.device.description.device.friendlyName,
-        ),
-        subtitle: Text(widget.device.ipAddress.toString()),
-        trailing: Icon(Icons.chevron_right),
-        onTap: () => widget.onTap(widget.device),
       ),
     );
   }

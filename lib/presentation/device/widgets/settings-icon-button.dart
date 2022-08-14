@@ -6,6 +6,7 @@ class SettingsIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: 'Settings',
       icon: Icon(Icons.settings),
       onPressed: () => Navigator.of(context).push(
         MaterialPageRoute(

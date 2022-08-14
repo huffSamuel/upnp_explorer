@@ -26,7 +26,9 @@ class DeviceListPage extends StatelessWidget {
             final device = devices.devices[index];
 
             return ListTile(
-              title: Text(device.deviceType.type),
+              title: Text(
+                device.deviceType.type,
+              ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
                 Application.router!.navigateTo(
