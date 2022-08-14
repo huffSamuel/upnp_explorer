@@ -86,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noDevicesFound":
             MessageLookupByLibrary.simpleMessage("No devices found."),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "openPresentationInBrowser": MessageLookupByLibrary.simpleMessage(
+            "Open presentation URL in browser"),
         "responseDelay": m4,
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number"),
         "serviceControlUnavailable": MessageLookupByLibrary.simpleMessage(

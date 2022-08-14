@@ -1,24 +1,27 @@
 import 'package:fluro/fluro.dart';
-import 'package:upnp_explorer/presentation/service/pages/action_page.dart';
 
 import '../../domain/device/service_repository_type.dart';
 import '../../infrastructure/upnp/device.dart';
 import '../../infrastructure/upnp/service_description.dart';
-import '../../presentation/service/pages/actions_page.dart';
-import '../../presentation/device/pages/device_document_page.dart';
 import '../../presentation/device/pages/device_list_page.dart';
+import '../../presentation/device/pages/device_page.dart';
 import '../../presentation/device/pages/discovery-page.dart';
 import '../../presentation/device/pages/service_list_page.dart';
-import '../../presentation/service/pages/service_page.dart';
 import '../../presentation/device/pages/service_state_page.dart';
+import '../../presentation/service/pages/action_page.dart';
+import '../../presentation/service/pages/actions_page.dart';
+import '../../presentation/service/pages/service_page.dart';
 import '../ioc.dart';
 
 var rootHandler = Handler(handlerFunc: (context, _) => DiscoveryPage());
 
 var deviceHandler = Handler(handlerFunc: (context, params) {
-  final args = context!.settings!.arguments as Device;
+  final args = context!.settings!.arguments as DevicePageArguments;
 
-  return DeviceDocumentPage(device: args);
+  return DevicePage(
+    device: args.device,
+    message: args.message,
+  );
 });
 
 var serviceListHandler = Handler(handlerFunc: (context, _) {

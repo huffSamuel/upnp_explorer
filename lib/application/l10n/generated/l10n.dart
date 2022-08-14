@@ -500,6 +500,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Open presentation URL in browser`
+  String get openPresentationInBrowser {
+    return Intl.message(
+      'Open presentation URL in browser',
+      name: 'openPresentationInBrowser',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

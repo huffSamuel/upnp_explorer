@@ -11,6 +11,7 @@ import '../widgets/device-list-item.dart';
 import '../widgets/refresh-button.dart';
 import '../widgets/scanning-indicator.dart';
 import '../widgets/settings-icon-button.dart';
+import 'device_page.dart';
 
 class _NoNetwork extends StatelessWidget {
   @override
@@ -57,8 +58,11 @@ class _Loaded extends StatelessWidget {
           context,
           Routes.deviceDocument,
           routeSettings: RouteSettings(
-            arguments: e.description.device
-          )
+            arguments: DevicePageArguments(
+              e.description.device,
+              e.discoveryResponse,
+            ),
+          ),
         ),
       ),
     ));

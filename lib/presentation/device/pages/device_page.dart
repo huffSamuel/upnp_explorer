@@ -5,13 +5,23 @@ import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/device.dart';
+import '../../../infrastructure/upnp/ssdp_response_message.dart';
 
-class DeviceDocumentPage extends StatelessWidget {
+class DevicePageArguments {
   final Device device;
+  final SSDPResponseMessage message;
 
-  const DeviceDocumentPage({
+  DevicePageArguments(this.device, this.message);
+}
+
+class DevicePage extends StatelessWidget {
+  final Device device;
+  final SSDPResponseMessage message;
+
+  const DevicePage({
     Key? key,
     required this.device,
+    required this.message,
   }) : super(key: key);
 
   @override
@@ -22,6 +32,7 @@ class DeviceDocumentPage extends StatelessWidget {
 
     if (device.presentationUrl != null) {
       fab = FloatingActionButton(
+        tooltip: i18n.openPresentationInBrowser,
         onPressed: () {
           launchUrl(
             device.presentationUrl!,
@@ -40,6 +51,24 @@ class DeviceDocumentPage extends StatelessWidget {
         title: Text(
           device.friendlyName,
         ),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 0,
+                child: Text('Open in browser'),
+              ),
+            ],
+            onSelected: (value) {
+              if (value == 0) {
+                launchUrl(
+                  message.location,
+                  mode: LaunchMode.externalApplication,
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

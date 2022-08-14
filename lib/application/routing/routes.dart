@@ -19,13 +19,13 @@ class Routes {
     });
 
     router.define(root, handler: rootHandler);
-    router.define(deviceDocument, handler: deviceHandler);
-    router.define(serviceList, handler: serviceListHandler);
-    router.define(deviceList, handler: deviceListHandler);
-    router.define(_service, handler: serviceHandler);
-    router.define(actionList, handler: actionListHandler);
-    router.define(action, handler: actionHandler);
-    router.define(serviceStateTable, handler: serviceStateTableHandler);
+    router.define(deviceDocument, handler: deviceHandler, transitionType: TransitionType.inFromRight);
+    router.define(serviceList, handler: serviceListHandler, transitionType: TransitionType.inFromRight);
+    router.define(deviceList, handler: deviceListHandler, transitionType: TransitionType.inFromRight);
+    router.define(_service, handler: serviceHandler, transitionType: TransitionType.inFromRight);
+    router.define(actionList, handler: actionListHandler, transitionType: TransitionType.inFromRight);
+    router.define(action, handler: actionHandler, transitionType: TransitionType.inFromRight);
+    router.define(serviceStateTable, handler: serviceStateTableHandler, transitionType: TransitionType.inFromRight);
 
     return router;
   }
