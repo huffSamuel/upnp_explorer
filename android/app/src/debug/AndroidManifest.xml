@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
     package="com.samueljhuf.upnp_explorer">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
@@ -16,4 +17,16 @@
         <data android:mimeType="*/*" />
     </intent>
 </queries>
+ <application
+        android:label="UPnP Explorer"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+        >
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            tools:replace="android:exported"
+            >
+        </activity>
+    </application>
 </manifest>
