@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../application/l10n/generated/l10n.dart';
 import '../../../domain/device/device.dart';
 import 'device-image.dart';
 
@@ -41,7 +42,9 @@ class _DeviceListItemState extends State<DeviceListItem>
     return FadeTransition(
       opacity: _animation,
       child: Semantics(
-        label: 'Discovered device ${widget.device.description.device.friendlyName}',
+        label: S
+            .of(context)
+            .discoveredDevice(widget.device.description.device.friendlyName),
         child: ListTile(
           leading: DeviceImage(
             icons: widget.device.description.device.iconList.icons,

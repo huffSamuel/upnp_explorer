@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../application/l10n/generated/l10n.dart';
+
 class NumberTicker extends StatelessWidget {
   final int? minValue;
   final int? maxValue;
@@ -22,16 +24,18 @@ class NumberTicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = S.of(context);
+
     return Row(
       children: [
         IconButton(
-          tooltip: _downEnabled ? 'Decrease' : 'Decrease disabled',
+          tooltip: _downEnabled ? i18n.decrease : i18n.decreaseDisabled,
           icon: Icon(Icons.remove),
           onPressed: _down,
         ),
         Text(value.toString(), style: Theme.of(context).textTheme.headline5),
         IconButton(
-          tooltip: _upEnabled ? 'Increase' : 'Increase disabled',
+          tooltip: _upEnabled ? i18n.increase : i18n.increaseDisabled,
           icon: Icon(Icons.add),
           onPressed: _up,
         ),

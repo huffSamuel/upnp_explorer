@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/application/application.dart';
-import 'package:upnp_explorer/application/routing/routes.dart';
 
+import '../../../application/application.dart';
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/device.dart';
 
 class DeviceListPage extends StatelessWidget {
@@ -16,7 +17,7 @@ class DeviceListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Devices'),
+        title: Text(S.of(context).devices),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

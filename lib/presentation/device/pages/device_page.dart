@@ -56,7 +56,7 @@ class DevicePage extends StatelessWidget {
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 0,
-                child: Text('Open in browser'),
+                child: Text(i18n.openInBrowser),
               ),
             ],
             onSelected: (value) {

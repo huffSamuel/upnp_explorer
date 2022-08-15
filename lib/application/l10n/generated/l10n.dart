@@ -510,6 +510,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Decrease`
+  String get decrease {
+    return Intl.message(
+      'Decrease',
+      name: 'decrease',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Decrease disabled`
+  String get decreaseDisabled {
+    return Intl.message(
+      'Decrease disabled',
+      name: 'decreaseDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increase`
+  String get increase {
+    return Intl.message(
+      'Increase',
+      name: 'increase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increase disabled`
+  String get increaseDisabled {
+    return Intl.message(
+      'Increase disabled',
+      name: 'increaseDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scanning for devices`
+  String get scanningForDevices {
+    return Intl.message(
+      'Scanning for devices',
+      name: 'scanningForDevices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh`
+  String get refresh {
+    return Intl.message(
+      'Refresh',
+      name: 'refresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discovered device {name}`
+  String discoveredDevice(Object name) {
+    return Intl.message(
+      'Discovered device $name',
+      name: 'discoveredDevice',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Open in browser`
+  String get openInBrowser {
+    return Intl.message(
+      'Open in browser',
+      name: 'openInBrowser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Devices`
+  String get devices {
+    return Intl.message(
+      'Devices',
+      name: 'devices',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../application/l10n/generated/l10n.dart';
+
 class RefreshIconButton extends StatelessWidget {
   final Function()? onPressed;
 
@@ -11,7 +13,7 @@ class RefreshIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      tooltip: 'Refresh',
+      tooltip: S.of(context).refresh,
       icon: Icon(Icons.refresh),
       onPressed: onPressed,
     );

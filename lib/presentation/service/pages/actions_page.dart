@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../application/l10n/generated/l10n.dart';
 import '../../../infrastructure/upnp/service_description.dart';
 
 class ActionsPage extends StatelessWidget {
@@ -14,17 +15,17 @@ class ActionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Actions'),
+        title: Text(S.of(context).actions),
       ),
       body: Column(
-        children: actionList.actions
-            .map(
-              (x) => ListTile(
-                title: Text(x.name),
-                trailing: Icon(Icons.chevron_right),
-              ),
-            )
-            .toList(),
+        children: [
+          ...actionList.actions.map(
+            (x) => ListTile(
+              title: Text(x.name),
+              trailing: Icon(Icons.chevron_right),
+            ),
+          ),
+        ],
       ),
     );
   }
