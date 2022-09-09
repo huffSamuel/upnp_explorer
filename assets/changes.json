@@ -1,0 +1,24 @@
+[
+  {
+    "version": "1.0.9",
+    "changes": [
+      "Added this dialog so you can see changes we've made.",
+      "Added a button in settings to review this app."
+    ]
+  },
+  {
+    "version": "1.0.8",
+    "changes": ["User interface improvements."]
+  },
+  {
+    "version": "1.0.5",
+    "changes": [
+      "Check network status before scanning.",
+      "Display a message if no devices were found during a scan."
+    ]
+  },
+  {
+    "version": "1.0.2",
+    "changes": ["Scan UPnP-compatible devices and display their information."]
+  }
+]

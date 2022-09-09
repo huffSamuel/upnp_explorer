@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info/package_info.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:upnp_explorer/presentation/update/widgets/update-dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/application.dart';
@@ -80,13 +82,25 @@ class SettingsPage extends StatelessWidget {
               title: Text(i18n.about),
               tiles: [
                 SettingsTile(
+                  title: Text("Rate on Google Play"),
+                  description: Text('Let us know how we\'re doing'),
+                  onPressed: (ctx) =>
+                      InAppReview.instance.openStoreListing(appStoreId: 'com.samueljhuf.upnp_explorer'),
+                ),
+                SettingsTile(
                   title: Text(i18n.submitBug),
                   onPressed: _submitBug,
+                ),
+                SettingsTile(
+                  title: Text('Changelog'),
+                  description: VersionText(),
+                  onPressed: showChangelogDialog,
                 ),
                 SettingsTile(
                   title: Text(i18n.aboutApp(Application.name)),
                   onPressed: _showAboutDialog,
                 ),
+                SettingsTile(title: Text('Privacy Policy'), onPressed: (ctx) => launchUrl(Uri.parse('https://github.com/huffSamuel/upnp_explorer_issues/blob/main/PRIVACY_POLICY.md')),)
               ],
             ),
           ],
@@ -122,5 +136,31 @@ class SettingsPage extends StatelessWidget {
       applicationVersion: i18n.version(info.version),
       applicationLegalese: i18n.legalese,
     );
+  }
+}
+
+class VersionText extends StatefulWidget {
+  @override
+  State<VersionText> createState() => _VersionTextState();
+}
+
+class _VersionTextState extends State<VersionText> {
+  String _version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    PackageInfo.fromPlatform().then(
+      (info) => setState(
+        () {
+          _version = 'Version ${info.version}';
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(_version);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_settings/open_settings.dart';
+import 'package:upnp_explorer/presentation/update/widgets/update-dialog.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
@@ -79,8 +80,22 @@ class _Loaded extends StatelessWidget {
   }
 }
 
-class DiscoveryPage extends StatelessWidget {
+class DiscoveryPage extends StatefulWidget {
+  @override
+  State<DiscoveryPage> createState() => _DiscoveryPageState();
+}
+
+class _DiscoveryPageState extends State<DiscoveryPage> {
   final _bloc = sl<DiscoveryBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      maybeShowChangelogDialog(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
