@@ -5,7 +5,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.9+10
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <3.3.0'
 
 dependencies:
   flutter:
@@ -23,7 +23,6 @@ dependencies:
   injectable: ^1.5.3
   intl: ^0.17.0
   open_settings: ^2.0.2
-  package_info: ^2.0.2
   settings_ui: ^2.0.2
   shared_preferences: ^2.0.8
   sprintf: ^6.0.0
@@ -32,6 +31,7 @@ dependencies:
   xml: ^6.1.0
   xml2json: ^5.3.4
   in_app_review: ^2.0.4
+  package_info_plus: ^1.4.3+1
 
 dev_dependencies:
   flutter_test:
