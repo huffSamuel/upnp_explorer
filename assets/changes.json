@@ -1,5 +1,11 @@
 [
   {
+    "version": "1.0.10",
+    "changes": [
+      "Fix 'App not installed' error when opening from launcher."
+    ]
+  },
+  {
     "version": "1.0.9",
     "changes": [
       "Added this dialog so you can see changes we've made.",
