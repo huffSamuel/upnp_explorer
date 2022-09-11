@@ -23,7 +23,6 @@ dependencies:
   injectable: ^1.5.3
   intl: ^0.17.0
   open_settings: ^2.0.2
-  settings_ui: ^2.0.2
   shared_preferences: ^2.0.8
   sprintf: ^6.0.0
   udp: ^5.0.3
