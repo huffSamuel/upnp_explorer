@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_settings/open_settings.dart';
+import 'package:upnp_explorer/presentation/review/widgets/review_prompt_dialog.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
@@ -94,6 +95,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       maybeShowChangelogDialog(context);
+      // showDialog(context: context, builder: (ctx) => ReviewPromptDialog());
     });
   }
 
