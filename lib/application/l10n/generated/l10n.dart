@@ -50,402 +50,11 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Version {version}`
-  String version(Object version) {
-    return Intl.message(
-      'Version $version',
-      name: 'version',
-      desc: '',
-      args: [version],
-    );
-  }
-
-  /// `About {appName}`
-  String aboutApp(Object appName) {
-    return Intl.message(
-      'About $appName',
-      name: 'aboutApp',
-      desc: '',
-      args: [appName],
-    );
-  }
-
-  /// `Display`
-  String get display {
-    return Intl.message(
-      'Display',
-      name: 'display',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Density`
-  String get density {
-    return Intl.message(
-      'Density',
-      name: 'density',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Theme`
-  String get theme {
-    return Intl.message(
-      'Theme',
-      name: 'theme',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `About`
   String get about {
     return Intl.message(
       'About',
       name: 'about',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Submit Bug`
-  String get submitBug {
-    return Intl.message(
-      'Submit Bug',
-      name: 'submitBug',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Settings`
-  String get settings {
-    return Intl.message(
-      'Settings',
-      name: 'settings',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `OK`
-  String get ok {
-    return Intl.message(
-      'OK',
-      name: 'ok',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `SSDP Protocol`
-  String get ssdpProtocol {
-    return Intl.message(
-      'SSDP Protocol',
-      name: 'ssdpProtocol',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Multicast Hops`
-  String get multicastHops {
-    return Intl.message(
-      'Multicast Hops',
-      name: 'multicastHops',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The maximum network hops for multicast packages originating from this device.`
-  String get multicastHopsDescription {
-    return Intl.message(
-      'The maximum network hops for multicast packages originating from this device.',
-      name: 'multicastHopsDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Choose theme`
-  String get chooseTheme {
-    return Intl.message(
-      'Choose theme',
-      name: 'chooseTheme',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `{themeMode, select, light {Light} dark {Dark} system {System Defined}}`
-  String themeMode(Object themeMode) {
-    return Intl.select(
-      themeMode,
-      {
-        'light': 'Light',
-        'dark': 'Dark',
-        'system': 'System Defined',
-      },
-      name: 'themeMode',
-      desc: '',
-      args: [themeMode],
-    );
-  }
-
-  /// `{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}`
-  String visualDensity(Object visualDensity) {
-    return Intl.select(
-      visualDensity,
-      {
-        'comfortable': 'Comfortable',
-        'standard': 'Standard',
-        'compact': 'Compact',
-        'other': 'Unknown',
-      },
-      name: 'visualDensity',
-      desc: '',
-      args: [visualDensity],
-    );
-  }
-
-  /// `{seconds} seconds`
-  String responseDelay(Object seconds) {
-    return Intl.message(
-      '$seconds seconds',
-      name: 'responseDelay',
-      desc: '',
-      args: [seconds],
-    );
-  }
-
-  /// `Maximum Response Delay`
-  String get maxResponseDelay {
-    return Intl.message(
-      'Maximum Response Delay',
-      name: 'maxResponseDelay',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Advanced Mode`
-  String get advancedMode {
-    return Intl.message(
-      'Advanced Mode',
-      name: 'advancedMode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Allow longer delay response`
-  String get advancedModeDescription {
-    return Intl.message(
-      'Allow longer delay response',
-      name: 'advancedModeDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.`
-  String get maxDelayDescription {
-    return Intl.message(
-      'The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.',
-      name: 'maxDelayDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Unable to submit feedback`
-  String get unableToSubmitFeedback {
-    return Intl.message(
-      'Unable to submit feedback',
-      name: 'unableToSubmitFeedback',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `App Feedback`
-  String get mailSubject {
-    return Intl.message(
-      'App Feedback',
-      name: 'mailSubject',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Version {version}`
-  String mailBody(Object version) {
-    return Intl.message(
-      'Version $version',
-      name: 'mailBody',
-      desc: '',
-      args: [version],
-    );
-  }
-
-  /// `No devices found.`
-  String get noDevicesFound {
-    return Intl.message(
-      'No devices found.',
-      name: 'noDevicesFound',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Device discovery requires network access`
-  String get discoveryRequiresNetwork {
-    return Intl.message(
-      'Device discovery requires network access',
-      name: 'discoveryRequiresNetwork',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Turn on WiFi`
-  String get turnOnWifi {
-    return Intl.message(
-      'Turn on WiFi',
-      name: 'turnOnWifi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Actions {count}`
-  String actionsN(Object count) {
-    return Intl.message(
-      'Actions $count',
-      name: 'actionsN',
-      desc: '',
-      args: [count],
-    );
-  }
-
-  /// `State Variables {count}`
-  String stateVariablesN(Object count) {
-    return Intl.message(
-      'State Variables $count',
-      name: 'stateVariablesN',
-      desc: '',
-      args: [count],
-    );
-  }
-
-  /// `Manufacturer`
-  String get manufacturer {
-    return Intl.message(
-      'Manufacturer',
-      name: 'manufacturer',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Model Name`
-  String get modelName {
-    return Intl.message(
-      'Model Name',
-      name: 'modelName',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Model Number`
-  String get modelNumber {
-    return Intl.message(
-      'Model Number',
-      name: 'modelNumber',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Model Description`
-  String get modelDescription {
-    return Intl.message(
-      'Model Description',
-      name: 'modelDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Serial Number`
-  String get serialNumber {
-    return Intl.message(
-      'Serial Number',
-      name: 'serialNumber',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Services {count}`
-  String servicesN(Object count) {
-    return Intl.message(
-      'Services $count',
-      name: 'servicesN',
-      desc: '',
-      args: [count],
-    );
-  }
-
-  /// `Devices {count}`
-  String devicesN(Object count) {
-    return Intl.message(
-      'Devices $count',
-      name: 'devicesN',
-      desc: '',
-      args: [count],
-    );
-  }
-
-  /// `Services`
-  String get services {
-    return Intl.message(
-      'Services',
-      name: 'services',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Unable to obtain service information`
-  String get unableToObtainInformation {
-    return Intl.message(
-      'Unable to obtain service information',
-      name: 'unableToObtainInformation',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `State Variables`
-  String get stateVariables {
-    return Intl.message(
-      'State Variables',
-      name: 'stateVariables',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Control Unavailable`
-  String get controlUnavailable {
-    return Intl.message(
-      'Control Unavailable',
-      name: 'controlUnavailable',
       desc: '',
       args: [],
     );
@@ -461,51 +70,31 @@ class S {
     );
   }
 
-  /// `Unavailable`
-  String get unavailable {
+  /// `Actions {count}`
+  String actionsN(Object count) {
     return Intl.message(
-      'Unavailable',
-      name: 'unavailable',
+      'Actions $count',
+      name: 'actionsN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Advanced mode`
+  String get advancedMode {
+    return Intl.message(
+      'Advanced mode',
+      name: 'advancedMode',
       desc: '',
       args: [],
     );
   }
 
-  /// `UPnP service control is unavailable at this time.`
-  String get serviceControlUnavailable {
+  /// `Control Unavailable`
+  String get controlUnavailable {
     return Intl.message(
-      'UPnP service control is unavailable at this time.',
-      name: 'serviceControlUnavailable',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `, `
-  String get listSeparator {
-    return Intl.message(
-      ', ',
-      name: 'listSeparator',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.`
-  String get legalese {
-    return Intl.message(
-      'I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.',
-      name: 'legalese',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Open presentation URL in browser`
-  String get openPresentationInBrowser {
-    return Intl.message(
-      'Open presentation URL in browser',
-      name: 'openPresentationInBrowser',
+      'Control Unavailable',
+      name: 'controlUnavailable',
       desc: '',
       args: [],
     );
@@ -531,6 +120,76 @@ class S {
     );
   }
 
+  /// `Visual density`
+  String get density {
+    return Intl.message(
+      'Visual density',
+      name: 'density',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Devices`
+  String get devices {
+    return Intl.message(
+      'Devices',
+      name: 'devices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Devices {count}`
+  String devicesN(Object count) {
+    return Intl.message(
+      'Devices $count',
+      name: 'devicesN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Discovered device {name}`
+  String discoveredDevice(Object name) {
+    return Intl.message(
+      'Discovered device $name',
+      name: 'discoveredDevice',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Discovery`
+  String get discovery {
+    return Intl.message(
+      'Discovery',
+      name: 'discovery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device discovery requires network access`
+  String get discoveryRequiresNetwork {
+    return Intl.message(
+      'Device discovery requires network access',
+      name: 'discoveryRequiresNetwork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Display`
+  String get display {
+    return Intl.message(
+      'Display',
+      name: 'display',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Increase`
   String get increase {
     return Intl.message(
@@ -551,11 +210,161 @@ class S {
     );
   }
 
-  /// `Scanning for devices`
-  String get scanningForDevices {
+  /// `I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.`
+  String get legalese {
     return Intl.message(
-      'Scanning for devices',
-      name: 'scanningForDevices',
+      'I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.',
+      name: 'legalese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `, `
+  String get listSeparator {
+    return Intl.message(
+      ', ',
+      name: 'listSeparator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version {version}`
+  String mailBody(Object version) {
+    return Intl.message(
+      'Version $version',
+      name: 'mailBody',
+      desc: '',
+      args: [version],
+    );
+  }
+
+  /// `App feedback`
+  String get mailSubject {
+    return Intl.message(
+      'App feedback',
+      name: 'mailSubject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manufacturer`
+  String get manufacturer {
+    return Intl.message(
+      'Manufacturer',
+      name: 'manufacturer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.`
+  String get maxDelayDescription {
+    return Intl.message(
+      'The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.',
+      name: 'maxDelayDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum response delay`
+  String get maxResponseDelay {
+    return Intl.message(
+      'Maximum response delay',
+      name: 'maxResponseDelay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Model Description`
+  String get modelDescription {
+    return Intl.message(
+      'Model Description',
+      name: 'modelDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Model Name`
+  String get modelName {
+    return Intl.message(
+      'Model Name',
+      name: 'modelName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Model Number`
+  String get modelNumber {
+    return Intl.message(
+      'Model Number',
+      name: 'modelNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Multicast hops`
+  String get multicastHops {
+    return Intl.message(
+      'Multicast hops',
+      name: 'multicastHops',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum number of network hops for multicast packages originating from this device.`
+  String get multicastHopsDescription {
+    return Intl.message(
+      'Maximum number of network hops for multicast packages originating from this device.',
+      name: 'multicastHopsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No devices found.`
+  String get noDevicesFound {
+    return Intl.message(
+      'No devices found.',
+      name: 'noDevicesFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open in browser`
+  String get openInBrowser {
+    return Intl.message(
+      'Open in browser',
+      name: 'openInBrowser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open presentation URL in browser`
+  String get openPresentationInBrowser {
+    return Intl.message(
+      'Open presentation URL in browser',
+      name: 'openPresentationInBrowser',
       desc: '',
       args: [],
     );
@@ -571,33 +380,304 @@ class S {
     );
   }
 
-  /// `Discovered device {name}`
-  String discoveredDevice(Object name) {
+  /// `{seconds} seconds`
+  String responseDelay(Object seconds) {
     return Intl.message(
-      'Discovered device $name',
-      name: 'discoveredDevice',
+      '$seconds seconds',
+      name: 'responseDelay',
       desc: '',
-      args: [name],
+      args: [seconds],
     );
   }
 
-  /// `Open in browser`
-  String get openInBrowser {
+  /// `Scanning for devices`
+  String get scanningForDevices {
     return Intl.message(
-      'Open in browser',
-      name: 'openInBrowser',
+      'Scanning for devices',
+      name: 'scanningForDevices',
       desc: '',
       args: [],
     );
   }
 
-  /// `Devices`
-  String get devices {
+  /// `Serial Number`
+  String get serialNumber {
     return Intl.message(
-      'Devices',
-      name: 'devices',
+      'Serial Number',
+      name: 'serialNumber',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `UPnP service control is unavailable at this time.`
+  String get serviceControlUnavailable {
+    return Intl.message(
+      'UPnP service control is unavailable at this time.',
+      name: 'serviceControlUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
+  String get services {
+    return Intl.message(
+      'Services',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services {count}`
+  String servicesN(Object count) {
+    return Intl.message(
+      'Services $count',
+      name: 'servicesN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State Variables`
+  String get stateVariables {
+    return Intl.message(
+      'State Variables',
+      name: 'stateVariables',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State Variables {count}`
+  String stateVariablesN(Object count) {
+    return Intl.message(
+      'State Variables $count',
+      name: 'stateVariablesN',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message(
+      'Theme',
+      name: 'theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{themeMode, select, light {Light} dark {Dark} system {System Default}}`
+  String themeMode(Object themeMode) {
+    return Intl.select(
+      themeMode,
+      {
+        'light': 'Light',
+        'dark': 'Dark',
+        'system': 'System Default',
+      },
+      name: 'themeMode',
+      desc: '',
+      args: [themeMode],
+    );
+  }
+
+  /// `Turn on Wi-Fi`
+  String get turnOnWifi {
+    return Intl.message(
+      'Turn on Wi-Fi',
+      name: 'turnOnWifi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to obtain service information`
+  String get unableToObtainInformation {
+    return Intl.message(
+      'Unable to obtain service information',
+      name: 'unableToObtainInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unable to submit feedback`
+  String get unableToSubmitFeedback {
+    return Intl.message(
+      'Unable to submit feedback',
+      name: 'unableToSubmitFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unavailable`
+  String get unavailable {
+    return Intl.message(
+      'Unavailable',
+      name: 'unavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version {version}`
+  String version(Object version) {
+    return Intl.message(
+      'Version $version',
+      name: 'version',
+      desc: '',
+      args: [version],
+    );
+  }
+
+  /// `{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}`
+  String visualDensity(Object visualDensity) {
+    return Intl.select(
+      visualDensity,
+      {
+        'comfortable': 'Comfortable',
+        'standard': 'Standard',
+        'compact': 'Compact',
+        'other': 'Unknown',
+      },
+      name: 'visualDensity',
+      desc: '',
+      args: [visualDensity],
+    );
+  }
+
+  /// `System default theme uses your device's settings to determine when to use light or dark mode.`
+  String get systemThemeDescription {
+    return Intl.message(
+      'System default theme uses your device\'s settings to determine when to use light or dark mode.',
+      name: 'systemThemeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark theme uses a black background to help keep your battery alive longer.`
+  String get darkThemeDescription {
+    return Intl.message(
+      'Dark theme uses a black background to help keep your battery alive longer.',
+      name: 'darkThemeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.`
+  String get advancedModeWarning {
+    return Intl.message(
+      'Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.',
+      name: 'advancedModeWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate on Google Play`
+  String get rateOnGooglePlay {
+    return Intl.message(
+      'Rate on Google Play',
+      name: 'rateOnGooglePlay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let us know how we're doing`
+  String get letUsKnowHowWereDoing {
+    return Intl.message(
+      'Let us know how we\'re doing',
+      name: 'letUsKnowHowWereDoing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Changelog`
+  String get changelog {
+    return Intl.message(
+      'Changelog',
+      name: 'changelog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Found a bug?`
+  String get foundBug {
+    return Intl.message(
+      'Found a bug?',
+      name: 'foundBug',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open an issue on our GitHub`
+  String get openAnIssueOnOurGithub {
+    return Intl.message(
+      'Open an issue on our GitHub',
+      name: 'openAnIssueOnOurGithub',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Licenses`
+  String get licenses {
+    return Intl.message(
+      'Licenses',
+      name: 'licenses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What's new`
+  String get whatsNew {
+    return Intl.message(
+      'What\'s new',
+      name: 'whatsNew',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- {item}`
+  String changelogItem(Object item) {
+    return Intl.message(
+      '- $item',
+      name: 'changelogItem',
+      desc: '',
+      args: [item],
     );
   }
 }

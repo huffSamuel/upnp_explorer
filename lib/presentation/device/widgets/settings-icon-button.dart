@@ -11,7 +11,7 @@ class SettingsIconButton extends StatelessWidget {
       icon: Icon(Icons.settings),
       onPressed: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (c) => SettingsPage(),
+          builder: (c) => MaterialDesignSettingsPage(),
         ),
       ),
     );

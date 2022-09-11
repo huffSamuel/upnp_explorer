@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_settings/open_settings.dart';
-import 'package:upnp_explorer/presentation/update/widgets/update-dialog.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
+import '../../update/widgets/update-dialog.dart';
 import '../bloc/discovery_bloc.dart';
 import '../widgets/device-list-item.dart';
 import '../widgets/refresh-button.dart';

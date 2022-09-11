@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
+import '../../../application/l10n/generated/l10n.dart';
 import '../../../domain/changelog/change_version.dart';
 
 void maybeShowChangelogDialog(BuildContext context) {
@@ -36,8 +37,10 @@ class ChangelogDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = S.of(context);
+
     return AlertDialog(
-      title: Text("What's New"),
+      title: Text(i18n.whatsNew),
       contentPadding: EdgeInsets.only(top: 12.0, bottom: 12.0),
       content: Container(
         width: double.maxFinite,
@@ -51,7 +54,10 @@ class ChangelogDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(onPressed: Navigator.of(context).pop, child: Text('Ok'))
+        TextButton(
+          onPressed: Navigator.of(context).pop,
+          child: Text(i18n.ok),
+        )
       ],
     );
   }
@@ -64,15 +70,21 @@ class _ChangelogVersion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.only(left: 24.0, right: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(change.version, style: Theme.of(context).textTheme.titleMedium),
+          Text(change.version, style: textTheme.titleMedium),
           const SizedBox(height: 4.0),
-          ...change.changes.map((x) =>
-              Text('- ' + x, style: Theme.of(context).textTheme.bodySmall)),
+          ...change.changes.map(
+            (x) => Text(
+              S.of(context).changelogItem(x),
+              style: textTheme.bodySmall,
+            ),
+          ),
         ],
       ),
     );
