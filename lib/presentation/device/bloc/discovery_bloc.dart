@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:upnp_explorer/application/review/review_service.dart';
 
 import '../../../domain/device/device.dart';
 import '../../../infrastructure/ssdp/ssdp_discovery.dart';
@@ -15,19 +16,31 @@ part 'discovery_state.dart';
 class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   final SSDPService _discoveryService;
   final Connectivity _connectivity = Connectivity();
+  final ReviewService _reviewService;
 
   StreamSubscription? _subscription;
   StreamSubscription? _connectivitySubscription;
 
-  DiscoveryBloc(this._discoveryService) : super(DiscoveryInitial()) {
+  DiscoveryBloc(this._discoveryService, this._reviewService)
+      : super(DiscoveryInitial()) {
     on<Discover>((event, emit) => _onDiscover(event, emit));
     on<StopDiscover>((event, emit) => _onStopDiscover(event, emit));
     on<_DeviceDiscovered>((event, emit) => _onDiscovered(event, emit));
+    on<ReviewNow>((event, emit) => _onReviewNow());
+    on<NeverReview>((event, emit) => _onNeverReview());
 
     add(Discover());
 
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_onConnectivityChanged);
+  }
+
+  void _onReviewNow() {
+    _reviewService.launchInAppReview();
+  }
+
+  void _onNeverReview() {
+    _reviewService.neverAskAgain();
   }
 
   @override
@@ -72,6 +85,12 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
       emit(loaded.copyWith(
         isScanning: false,
       ));
+
+      final isAvailable = await _reviewService.isAvailable();
+
+      if (isAvailable) {
+        emit(ReviewRequested());
+      }
     }
   }
 

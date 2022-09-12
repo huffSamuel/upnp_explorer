@@ -19,3 +19,6 @@ class _DeviceDiscovered extends DiscoveryEvent {
   @override
   List<Object> get props => [device];
 }
+
+class NeverReview extends DiscoveryEvent {}
+class ReviewNow extends DiscoveryEvent {}

@@ -6,6 +6,7 @@ import 'package:upnp_explorer/presentation/review/widgets/review_prompt_dialog.d
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/review/review_service.dart';
 import '../../../application/routing/routes.dart';
 import '../../update/widgets/update-dialog.dart';
 import '../bloc/discovery_bloc.dart';
@@ -95,14 +96,27 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       maybeShowChangelogDialog(context);
-      // showDialog(context: context, builder: (ctx) => ReviewPromptDialog());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DiscoveryBloc, DiscoveryState>(
+    return BlocConsumer<DiscoveryBloc, DiscoveryState>(
       bloc: _bloc,
+      listener: (context, state) => {
+        if (state is ReviewRequested)
+          {
+            showDialog(context: context, builder: (ctx) => ReviewPromptDialog())
+                .then((response) {
+              if (response == ReviewResponse.never) {
+                _bloc.add(NeverReview());
+              } else if (response == ReviewResponse.ok) {
+                _bloc.add(ReviewNow());
+              }
+            })
+          }
+      },
+      buildWhen: (oldState, newState) => newState.build,
       builder: (context, state) {
         bool _scanning = state is Loaded && state.isScanning;
 

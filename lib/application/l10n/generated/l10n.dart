@@ -90,11 +90,51 @@ class S {
     );
   }
 
+  /// `Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.`
+  String get advancedModeWarning {
+    return Intl.message(
+      'Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.',
+      name: 'advancedModeWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Changelog`
+  String get changelog {
+    return Intl.message(
+      'Changelog',
+      name: 'changelog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- {item}`
+  String changelogItem(Object item) {
+    return Intl.message(
+      '- $item',
+      name: 'changelogItem',
+      desc: '',
+      args: [item],
+    );
+  }
+
   /// `Control Unavailable`
   String get controlUnavailable {
     return Intl.message(
       'Control Unavailable',
       name: 'controlUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark theme uses a black background to help keep your battery alive longer.`
+  String get darkThemeDescription {
+    return Intl.message(
+      'Dark theme uses a black background to help keep your battery alive longer.',
+      name: 'darkThemeDescription',
       desc: '',
       args: [],
     );
@@ -190,6 +230,16 @@ class S {
     );
   }
 
+  /// `Found a bug?`
+  String get foundBug {
+    return Intl.message(
+      'Found a bug?',
+      name: 'foundBug',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Increase`
   String get increase {
     return Intl.message(
@@ -215,6 +265,26 @@ class S {
     return Intl.message(
       'I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.',
       name: 'legalese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let us know how we're doing`
+  String get letUsKnowHowWereDoing {
+    return Intl.message(
+      'Let us know how we\'re doing',
+      name: 'letUsKnowHowWereDoing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Licenses`
+  String get licenses {
+    return Intl.message(
+      'Licenses',
+      name: 'licenses',
       desc: '',
       args: [],
     );
@@ -330,6 +400,16 @@ class S {
     );
   }
 
+  /// `Never ask again`
+  String get neverAskAgain {
+    return Intl.message(
+      'Never ask again',
+      name: 'neverAskAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No devices found.`
   String get noDevicesFound {
     return Intl.message(
@@ -340,11 +420,31 @@ class S {
     );
   }
 
+  /// `Not now`
+  String get notNow {
+    return Intl.message(
+      'Not now',
+      name: 'notNow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `OK`
   String get ok {
     return Intl.message(
       'OK',
       name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open an issue on our GitHub`
+  String get openAnIssueOnOurGithub {
+    return Intl.message(
+      'Open an issue on our GitHub',
+      name: 'openAnIssueOnOurGithub',
       desc: '',
       args: [],
     );
@@ -365,6 +465,46 @@ class S {
     return Intl.message(
       'Open presentation URL in browser',
       name: 'openPresentationInBrowser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you like {appName}, or you've found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!`
+  String pleaseRateAppName(Object appName) {
+    return Intl.message(
+      'If you like $appName, or you\'ve found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!',
+      name: 'pleaseRateAppName',
+      desc: '',
+      args: [appName],
+    );
+  }
+
+  /// `Privacy policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate {appName}`
+  String rateAppName(Object appName) {
+    return Intl.message(
+      'Rate $appName',
+      name: 'rateAppName',
+      desc: '',
+      args: [appName],
+    );
+  }
+
+  /// `Rate on Google Play`
+  String get rateOnGooglePlay {
+    return Intl.message(
+      'Rate on Google Play',
+      name: 'rateOnGooglePlay',
       desc: '',
       args: [],
     );
@@ -470,6 +610,16 @@ class S {
     );
   }
 
+  /// `System default theme uses your device's settings to determine when to use light or dark mode.`
+  String get systemThemeDescription {
+    return Intl.message(
+      'System default theme uses your device\'s settings to determine when to use light or dark mode.',
+      name: 'systemThemeDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Theme`
   String get theme {
     return Intl.message(
@@ -561,106 +711,6 @@ class S {
     );
   }
 
-  /// `System default theme uses your device's settings to determine when to use light or dark mode.`
-  String get systemThemeDescription {
-    return Intl.message(
-      'System default theme uses your device\'s settings to determine when to use light or dark mode.',
-      name: 'systemThemeDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Dark theme uses a black background to help keep your battery alive longer.`
-  String get darkThemeDescription {
-    return Intl.message(
-      'Dark theme uses a black background to help keep your battery alive longer.',
-      name: 'darkThemeDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.`
-  String get advancedModeWarning {
-    return Intl.message(
-      'Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.',
-      name: 'advancedModeWarning',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Rate on Google Play`
-  String get rateOnGooglePlay {
-    return Intl.message(
-      'Rate on Google Play',
-      name: 'rateOnGooglePlay',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Let us know how we're doing`
-  String get letUsKnowHowWereDoing {
-    return Intl.message(
-      'Let us know how we\'re doing',
-      name: 'letUsKnowHowWereDoing',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Changelog`
-  String get changelog {
-    return Intl.message(
-      'Changelog',
-      name: 'changelog',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Found a bug?`
-  String get foundBug {
-    return Intl.message(
-      'Found a bug?',
-      name: 'foundBug',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Open an issue on our GitHub`
-  String get openAnIssueOnOurGithub {
-    return Intl.message(
-      'Open an issue on our GitHub',
-      name: 'openAnIssueOnOurGithub',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Privacy policy`
-  String get privacyPolicy {
-    return Intl.message(
-      'Privacy policy',
-      name: 'privacyPolicy',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Licenses`
-  String get licenses {
-    return Intl.message(
-      'Licenses',
-      name: 'licenses',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `What's new`
   String get whatsNew {
     return Intl.message(
@@ -668,16 +718,6 @@ class S {
       name: 'whatsNew',
       desc: '',
       args: [],
-    );
-  }
-
-  /// `- {item}`
-  String changelogItem(Object item) {
-    return Intl.message(
-      '- $item',
-      name: 'changelogItem',
-      desc: '',
-      args: [item],
     );
   }
 }

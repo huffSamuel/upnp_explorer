@@ -1,30 +1,41 @@
 import 'package:flutter/material.dart';
 
+import '../../../application/application.dart';
+import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/review/review_service.dart';
+
 class ReviewPromptDialog extends StatelessWidget {
+  void Function() _pop(BuildContext context, ReviewResponse response) {
+    return () => Navigator.of(context).pop(response);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final i18n = S.of(context);
     return AlertDialog(
-      title: Text('Rate UPnP Explorer'),
-      content: Text(
-          'If you like UPnP Explorer or you\'ve found something we need to work on, we\'d love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!'),
+      title: Text(i18n.rateAppName(Application.name)),
+      content: Text(i18n.pleaseRateAppName(Application.name)),
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextButton(onPressed: () {}, child: Text('Not now')),
+            TextButton(
+              onPressed: _pop(context, ReviewResponse.notNow),
+              child: Text(i18n.notNow),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () {},
-                  child: Text('Rate UPnP Explorer'),
+                  onPressed: _pop(context, ReviewResponse.ok),
+                  child: Text(i18n.rateAppName(Application.name)),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: _pop(context, ReviewResponse.never),
                   child: DefaultTextStyle.merge(
                     style: TextStyle(color: Colors.red),
-                    child: Text('Never ask again'),
+                    child: Text(i18n.neverAskAgain),
                   ),
                 ),
               ],

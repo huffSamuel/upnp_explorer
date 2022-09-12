@@ -30,21 +30,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(version) => "Version ${version}";
 
-  static String m5(seconds) => "${seconds} seconds";
+  static String m5(appName) =>
+      "If you like ${appName}, or you\'ve found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!";
 
-  static String m6(count) => "Services ${count}";
+  static String m6(appName) => "Rate ${appName}";
 
-  static String m7(count) => "State Variables ${count}";
+  static String m7(seconds) => "${seconds} seconds";
 
-  static String m8(themeMode) => "${Intl.select(themeMode, {
+  static String m8(count) => "Services ${count}";
+
+  static String m9(count) => "State Variables ${count}";
+
+  static String m10(themeMode) => "${Intl.select(themeMode, {
             'light': 'Light',
             'dark': 'Dark',
             'system': 'System Default',
           })}";
 
-  static String m9(version) => "Version ${version}";
+  static String m11(version) => "Version ${version}";
 
-  static String m10(visualDensity) => "${Intl.select(visualDensity, {
+  static String m12(visualDensity) => "${Intl.select(visualDensity, {
             'comfortable': 'Comfortable',
             'standard': 'Standard',
             'compact': 'Compact',
@@ -100,8 +105,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "multicastHops": MessageLookupByLibrary.simpleMessage("Multicast hops"),
         "multicastHopsDescription": MessageLookupByLibrary.simpleMessage(
             "Maximum number of network hops for multicast packages originating from this device."),
+        "neverAskAgain":
+            MessageLookupByLibrary.simpleMessage("Never ask again"),
         "noDevicesFound":
             MessageLookupByLibrary.simpleMessage("No devices found."),
+        "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "openAnIssueOnOurGithub":
             MessageLookupByLibrary.simpleMessage("Open an issue on our GitHub"),
@@ -109,34 +117,36 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "openPresentationInBrowser": MessageLookupByLibrary.simpleMessage(
             "Open presentation URL in browser"),
+        "pleaseRateAppName": m5,
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy policy"),
+        "rateAppName": m6,
         "rateOnGooglePlay":
             MessageLookupByLibrary.simpleMessage("Rate on Google Play"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-        "responseDelay": m5,
+        "responseDelay": m7,
         "scanningForDevices":
             MessageLookupByLibrary.simpleMessage("Scanning for devices"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number"),
         "serviceControlUnavailable": MessageLookupByLibrary.simpleMessage(
             "UPnP service control is unavailable at this time."),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
-        "servicesN": m6,
+        "servicesN": m8,
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "stateVariables":
             MessageLookupByLibrary.simpleMessage("State Variables"),
-        "stateVariablesN": m7,
+        "stateVariablesN": m9,
         "systemThemeDescription": MessageLookupByLibrary.simpleMessage(
             "System default theme uses your device\'s settings to determine when to use light or dark mode."),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
-        "themeMode": m8,
+        "themeMode": m10,
         "turnOnWifi": MessageLookupByLibrary.simpleMessage("Turn on Wi-Fi"),
         "unableToObtainInformation": MessageLookupByLibrary.simpleMessage(
             "Unable to obtain service information"),
         "unableToSubmitFeedback":
             MessageLookupByLibrary.simpleMessage("Unable to submit feedback"),
         "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
-        "version": m9,
-        "visualDensity": m10,
+        "version": m11,
+        "visualDensity": m12,
         "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new")
       };
 }

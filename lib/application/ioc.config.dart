@@ -13,14 +13,16 @@ import '../domain/device/service_repository_type.dart' as _i7;
 import '../infrastructure/core/bug_report_service.dart' as _i3;
 import '../infrastructure/core/download_service.dart' as _i12;
 import '../infrastructure/core/logger_factory.dart' as _i6;
-import '../infrastructure/settings/options_repository.dart' as _i14;
+import '../infrastructure/settings/options_repository.dart' as _i15;
 import '../infrastructure/ssdp/device_discovery_service.dart' as _i11;
-import '../infrastructure/ssdp/ssdp_discovery.dart' as _i13;
-import '../presentation/device/bloc/discovery_bloc.dart' as _i15;
+import '../infrastructure/ssdp/ssdp_discovery.dart' as _i14;
+import '../presentation/device/bloc/discovery_bloc.dart' as _i16;
 import 'changelog/changelog_service.dart' as _i10;
 import 'device/device_repository.dart' as _i5;
 import 'device/service_repository.dart' as _i8;
-import 'ioc.dart' as _i16; // ignore_for_file: unnecessary_lambdas
+import 'ioc.dart' as _i17;
+import 'review/review_service.dart'
+    as _i13; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -42,16 +44,19 @@ Future<_i1.GetIt> $initIoc(_i1.GetIt get,
       _i11.DeviceDiscoveryService(get<_i6.LoggerFactory>()));
   gh.singleton<_i12.DownloadService>(
       _i12.DownloadService(get<_i6.LoggerFactory>()));
-  gh.singleton<_i13.SSDPService>(_i13.SSDPService(
+  gh.singleton<_i13.ReviewService>(
+      _i13.ReviewService(get<_i9.SharedPreferences>()));
+  gh.singleton<_i14.SSDPService>(_i14.SSDPService(
       get<_i11.DeviceDiscoveryService>(),
       get<_i12.DownloadService>(),
       get<_i6.LoggerFactory>(),
       get<_i4.DeviceRepositoryType>(instanceName: 'DeviceRepository'),
       get<_i7.ServiceRepositoryType>(instanceName: 'ServiceRepository')));
-  gh.singleton<_i14.SettingsRepository>(
-      _i14.SettingsRepository(get<_i9.SharedPreferences>()));
-  gh.singleton<_i15.DiscoveryBloc>(_i15.DiscoveryBloc(get<_i13.SSDPService>()));
+  gh.singleton<_i15.SettingsRepository>(
+      _i15.SettingsRepository(get<_i9.SharedPreferences>()));
+  gh.singleton<_i16.DiscoveryBloc>(
+      _i16.DiscoveryBloc(get<_i14.SSDPService>(), get<_i13.ReviewService>()));
   return get;
 }
 
-class _$RegisterModule extends _i16.RegisterModule {}
+class _$RegisterModule extends _i17.RegisterModule {}

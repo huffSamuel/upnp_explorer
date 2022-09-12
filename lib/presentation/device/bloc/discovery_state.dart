@@ -1,7 +1,8 @@
 part of 'discovery_bloc.dart';
 
 abstract class DiscoveryState extends Equatable {
-  const DiscoveryState();
+  final bool build;
+  const DiscoveryState({this.build = true});
 
   @override
   List<Object> get props => [];
@@ -35,4 +36,8 @@ class Loaded extends DiscoveryState {
         devices,
         isScanning,
       ];
+}
+
+class ReviewRequested extends DiscoveryState {
+  ReviewRequested() : super(build: false);
 }
