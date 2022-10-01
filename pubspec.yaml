@@ -12,34 +12,35 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  bloc: ^8.0.3
-  connectivity_plus: ^2.3.6
+  bloc: ^8.1.0
+  connectivity_plus: ^2.3.7
   cupertino_icons: ^1.0.3
-  equatable: ^2.0.3
+  equatable: ^2.0.5
   fluro: ^2.0.3
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^8.1.1
   get_it: ^7.2.0
-  http: ^0.13.4
+  http: ^0.13.5
   injectable: ^1.5.3
   intl: ^0.17.0
   open_settings: ^2.0.2
   shared_preferences: ^2.0.8
-  sprintf: ^6.0.0
+  sprintf: ^7.0.0
   udp: ^5.0.3
-  url_launcher: ^6.0.12
+  url_launcher: ^6.1.6
   xml: ^6.1.0
-  xml2json: ^5.3.4
+  xml2json: ^5.3.5
   in_app_review: ^2.0.4
   package_info_plus: ^1.4.3+1
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.10.0
   flutter_lints: ^2.0.1
   injectable_generator: ^1.5.4
-  mockito: ^5.0.16
-  build_runner: ^2.2.0
+  mockito: ^5.3.2
+  build_runner: ^2.2.1
 
 flutter:
   uses-material-design: true
