@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../application/settings/options.dart';
-import '../upnp/ssdp_response_message.dart';
-import '../upnp/m_search_request.dart';
 import '../core/logger_factory.dart';
+import '../upnp/m_search_request.dart';
+import '../upnp/ssdp_response_message.dart';
 import 'ssdp_discovery.dart';
 
 const multicastAddress = '239.255.255.250';
@@ -32,7 +32,7 @@ class DeviceDiscoveryService {
 
   final Logger logger;
   final address = InternetAddress.anyIPv4;
-  final _servers = new StreamController<SSDPResponseMessage>.broadcast();
+  late StreamController<SSDPResponseMessage> _servers;
 
   DeviceDiscoveryService(LoggerFactory loggerFactory)
       : logger = loggerFactory.build('DeviceDiscoveryService');
@@ -43,7 +43,7 @@ class DeviceDiscoveryService {
 
   Future<void> init() async {
     logger.information('Initializing discovery service');
-
+_servers = new StreamController<SSDPResponseMessage>.broadcast();
     _interfaces = await NetworkInterface.list();
 
     return await _createSocket(
@@ -96,7 +96,7 @@ class DeviceDiscoveryService {
 
   final List<SSDPResponseMessage> _list = [];
 
-  Future search() {
+  Future search() async {
     var msg = MSearchRequest(
       maxResponseTime: _protocolOptions.maxDelay,
     );
@@ -126,7 +126,6 @@ class DeviceDiscoveryService {
     }
 
     _completer.complete();
-    _servers.sink.addError('Done');
-    print(_list);
+    _servers.sink.close();
   }
 }

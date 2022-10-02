@@ -1,4 +1,6 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
+
 import 'route_handlers.dart';
 
 class Routes {
@@ -19,14 +21,64 @@ class Routes {
     });
 
     router.define(root, handler: rootHandler);
-    router.define(deviceDocument, handler: deviceHandler, transitionType: TransitionType.inFromRight);
-    router.define(serviceList, handler: serviceListHandler, transitionType: TransitionType.inFromRight);
-    router.define(deviceList, handler: deviceListHandler, transitionType: TransitionType.inFromRight);
-    router.define(_service, handler: serviceHandler, transitionType: TransitionType.inFromRight);
-    router.define(actionList, handler: actionListHandler, transitionType: TransitionType.inFromRight);
-    router.define(action, handler: actionHandler, transitionType: TransitionType.inFromRight);
-    router.define(serviceStateTable, handler: serviceStateTableHandler, transitionType: TransitionType.inFromRight);
+    router.define(
+      deviceDocument,
+      handler: deviceHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
+    router.define(
+      serviceList,
+      handler: serviceListHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
+    router.define(
+      deviceList,
+      handler: deviceListHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
+    router.define(
+      _service,
+      handler: serviceHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
+    router.define(
+      actionList,
+      handler: actionListHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
+    router.define(
+      action,
+      handler: actionHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
+    router.define(
+      serviceStateTable,
+      handler: serviceStateTableHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
 
     return router;
   }
+}
+
+Widget transitionBuilder(
+  BuildContext context,
+  Animation<double> animation,
+  Animation<double> secondaryAnimation,
+  Widget child,
+) {
+  const begin = Offset(1.0, 0.0);
+  const end = Offset.zero;
+  const curve = Curves.ease;
+
+  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+  return SlideTransition(position: animation.drive(tween), child: child);
 }

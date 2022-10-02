@@ -17,4 +17,4 @@ Future<void> configureDependencies() => $initIoc(sl);
 abstract class RegisterModule {
   @preResolve
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
-}
+  }

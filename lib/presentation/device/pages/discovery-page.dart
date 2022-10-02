@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_settings/open_settings.dart';
-import 'package:upnp_explorer/presentation/review/widgets/review_prompt_dialog.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/review/review_service.dart';
-import '../../../application/routing/routes.dart';
+import '../../../domain/device/device.dart';
+import '../../core/bloc/application_bloc.dart';
+import '../../review/widgets/review_prompt_dialog.dart';
 import '../../update/widgets/update-dialog.dart';
 import '../bloc/discovery_bloc.dart';
 import '../widgets/device-list-item.dart';
 import '../widgets/refresh-button.dart';
 import '../widgets/scanning-indicator.dart';
 import '../widgets/settings-icon-button.dart';
-import 'device_page.dart';
 
 class _NoNetwork extends StatelessWidget {
   @override
@@ -38,47 +38,88 @@ class _NoNetwork extends StatelessWidget {
   }
 }
 
-class _Loaded extends StatelessWidget {
-  final Loaded state;
-
+class _Loaded extends StatefulWidget {
   const _Loaded({
     Key? key,
-    required this.state,
   }) : super(key: key);
 
   @override
+  State<_Loaded> createState() => _LoadedState();
+}
+
+class _LoadedState extends State<_Loaded> {
+  final _bloc = sl<DiscoveryBloc>();
+
+  bool? _isScanning;
+
+  final List<UPnPDevice> _devices = [];
+  GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _bloc.discoverStream.listen((event) {
+      setState(() {
+        _isScanning = event;
+        if (event) {
+          _listKey = GlobalKey<AnimatedListState>();
+          _devices.clear();
+        }
+      });
+    });
+
+    _bloc.deviceStream.listen((event) {
+      if (_devices.contains(event)) {
+        return;
+      }
+
+      _devices.add(event);
+      _listKey.currentState?.insertItem(_devices.length - 1);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var children = <Widget>[];
-
-    if (state.isScanning) {
-      children.add(ScanningIndicator(height: 7));
-    }
-
-    children.addAll(state.devices.map(
-      (e) => DeviceListItem(
-        device: e,
-        onTap: (device) => Application.router!.navigateTo(
-          context,
-          Routes.deviceDocument,
-          routeSettings: RouteSettings(
-            arguments: DevicePageArguments(
-              e.description.device,
-              e.discoveryResponse,
-            ),
-          ),
-        ),
-      ),
-    ));
-
-    if (children.isEmpty) {
+    if (_devices.length == 0 && _isScanning == false) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(S.of(context).noDevicesFound),
+          child: Text(
+            S.of(context).noDevicesFound,
+          ),
         ),
       );
     }
-    return ListView(children: children);
+
+    return Stack(
+      children: [
+        AnimatedList(
+          key: _listKey,
+          initialItemCount: 0,
+          itemBuilder: (context, index, animation) => FadeTransition(
+            opacity: animation.drive(
+              Tween(
+                begin: 0.0,
+                end: 1.0,
+              ),
+            ),
+            child: DeviceListItem(
+              device: _devices[index],
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: ScanningIndicator(height: _isScanning == true ? 8 : 0),
+        ),
+      ],
+    );
   }
 }
 
@@ -88,42 +129,56 @@ class DiscoveryPage extends StatefulWidget {
 }
 
 class _DiscoveryPageState extends State<DiscoveryPage> {
-  final _bloc = sl<DiscoveryBloc>();
+  final _bloc = sl<ApplicationBloc>();
+  final _discoveryBloc = sl<DiscoveryBloc>();
+
+  bool _scanning = false;
 
   @override
   void initState() {
     super.initState();
+
+    _discoveryBloc.discoverStream.listen((scanning) => setState(() {
+          _scanning = scanning;
+        }));
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       maybeShowChangelogDialog(context);
     });
   }
 
+  void _discover() {
+    _discoveryBloc.discover();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DiscoveryBloc, DiscoveryState>(
+    return BlocConsumer<ApplicationBloc, ApplicationState>(
       bloc: _bloc,
-      listener: (context, state) => {
-        if (state is ReviewRequested)
-          {
-            showDialog(context: context, builder: (ctx) => ReviewPromptDialog())
-                .then((response) {
+      listener: (context, state) {
+        if (state is ReviewRequested) {
+          showDialog(context: context, builder: (ctx) => ReviewPromptDialog())
+              .then(
+            (response) {
               if (response == ReviewResponse.never) {
                 _bloc.add(NeverReview());
               } else if (response == ReviewResponse.ok) {
                 _bloc.add(ReviewNow());
               }
-            })
-          }
+            },
+          );
+        } else if (state is Ready) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            _discover();
+          });
+        }
       },
       buildWhen: (oldState, newState) => newState.build,
       builder: (context, state) {
-        bool _scanning = state is Loaded && state.isScanning;
-
         Widget body;
 
-        if (state is Loaded) {
-          body = _Loaded(state: state);
+        if (state is Ready) {
+          body = _Loaded();
         } else if (state is NoNetwork) {
           body = _NoNetwork();
         } else {
@@ -136,7 +191,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
             title: Text(Application.name),
             actions: [
               RefreshIconButton(
-                onPressed: _scanning ? null : () => _bloc.add(Discover()),
+                onPressed: _scanning ? null : () => _discover(),
               ),
             ],
           ),

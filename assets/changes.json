@@ -1,5 +1,11 @@
 [
   {
+    "version": "1.0.11",
+    "changes": [
+      "User interface improvements."
+    ]
+  },
+  {
     "version": "1.0.10",
     "changes": [
       "Fix 'App not installed' error when opening from launcher."

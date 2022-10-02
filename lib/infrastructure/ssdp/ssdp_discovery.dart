@@ -22,7 +22,8 @@ class SocketOptions {
 
 @Singleton()
 class SSDPService {
-  final controller = StreamController<UPnPDevice>.broadcast();
+  StreamController<UPnPDevice> controller =
+      StreamController<UPnPDevice>.broadcast();
 
   final DownloadService download;
   final DeviceDiscoveryService discovery;
@@ -38,17 +39,7 @@ class SSDPService {
     LoggerFactory loggerFactory,
     @Named('DeviceRepository') this.deviceRepository,
     @Named('ServiceRepository') this.serviceRepository,
-  ) : logger = loggerFactory.build('SSDPService') {
-    discovery.responses.listen(
-      _onData,
-      onDone: () {
-        controller.close();
-      },
-      onError: (err) {
-        controller.addError(err);
-      },
-    );
-  }
+  ) : logger = loggerFactory.build('SSDPService');
 
   _addDevice(Uri root, Device device) async {
     deviceRepository.insert(device);
@@ -61,20 +52,18 @@ class SSDPService {
         pathSegments: service.scpdurl.pathSegments,
       );
       try {
-      final serviceDescription = await download.get(downloadUri);
+        final serviceDescription = await download.get(downloadUri);
 
-      serviceRepository.insert(
-        service.serviceId.toString(),
-        ServiceDescription.fromXml(
-          XmlDocument.parse(serviceDescription),
-        ),
-      );
-      } catch(err) {
-        
-      }
+        serviceRepository.insert(
+          service.serviceId.toString(),
+          ServiceDescription.fromXml(
+            XmlDocument.parse(serviceDescription),
+          ),
+        );
+      } catch (err) {}
     }
 
-    for(final child in device.deviceList.devices) {
+    for (final child in device.deviceList.devices) {
       await _addDevice(root, child);
     }
   }
@@ -102,11 +91,20 @@ class SSDPService {
   }
 
   Stream<UPnPDevice> findDevices() {
-    if (!discovery.isInitialized) {
-      discovery.init().then((_) => discovery.search());
-    } else {
+    controller = StreamController<UPnPDevice>.broadcast();
+
+    discovery.init().then((_) {
+      discovery.responses.listen(
+        _onData,
+        onDone: () {
+          controller.close();
+        },
+        onError: (err) {
+          controller.addError(err);
+        },
+      );
       discovery.search();
-    }
+    });
 
     return stream;
   }

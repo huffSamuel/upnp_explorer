@@ -12,16 +12,21 @@ class ScanningIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: S.of(context).scanningForDevices,
-      child: AnimatedContainer(
-        height: height,
-        curve: Curves.easeInOut,
-        duration: const Duration(milliseconds: 150),
-        child: LinearProgressIndicator(
-          backgroundColor: Theme.of(context).canvasColor,
-          valueColor: AlwaysStoppedAnimation(
-            Theme.of(context).colorScheme.secondary,
+    return AnimatedContainer(
+      height: height,
+      duration: Duration(milliseconds: 175),
+      curve: Curves.easeIn,
+      child: Semantics(
+        label: S.of(context).scanningForDevices,
+        child: AnimatedContainer(
+          height: height,
+          curve: Curves.easeInOut,
+          duration: const Duration(milliseconds: 150),
+          child: LinearProgressIndicator(
+            backgroundColor: Colors.transparent,
+            valueColor: AlwaysStoppedAnimation(
+              Theme.of(context).colorScheme.secondary,
+            ),
           ),
         ),
       ),
