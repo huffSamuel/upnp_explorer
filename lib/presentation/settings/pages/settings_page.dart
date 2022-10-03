@@ -9,6 +9,7 @@ import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/settings/options.dart';
 import '../../../domain/value_converter.dart';
 import '../../../infrastructure/core/bug_report_service.dart';
+import '../../core/widgets/model_binding.dart';
 import '../../core/widgets/number_ticker.dart';
 import '../../update/widgets/update-dialog.dart';
 import '../widgets/settings_category_page.dart';
@@ -68,7 +69,7 @@ class _DisplaySettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = S.of(context);
-    final options = Options.of(context);
+    final options = ModelBinding.of<Options>(context);
 
     return SettingsCategoryPage(
       category: i18n.display,

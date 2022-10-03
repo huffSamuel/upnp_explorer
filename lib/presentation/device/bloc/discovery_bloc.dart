@@ -23,7 +23,7 @@ class DiscoveryBloc {
     _discoveringStreamController.add(false);
   }
 
-  discover() {
+  void discover() {
     _subscription?.cancel();
     _discoveringStreamController.add(true);
     _subscription = _discoveryService.findDevices().listen(

@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `Actions {count}`
+  /// `Actions ({count})`
   String actionsN(Object count) {
     return Intl.message(
-      'Actions $count',
+      'Actions ($count)',
       name: 'actionsN',
       desc: '',
       args: [count],
@@ -120,11 +120,41 @@ class S {
     );
   }
 
+  /// `Close`
+  String get close {
+    return Intl.message(
+      'Close',
+      name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Control Unavailable`
   String get controlUnavailable {
     return Intl.message(
       'Control Unavailable',
       name: 'controlUnavailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copied!`
+  String get copied {
+    return Intl.message(
+      'Copied!',
+      name: 'copied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy`
+  String get copy {
+    return Intl.message(
+      'Copy',
+      name: 'copy',
       desc: '',
       args: [],
     );
@@ -180,13 +210,27 @@ class S {
     );
   }
 
-  /// `Devices {count}`
+  /// `Devices ({count})`
   String devicesN(Object count) {
     return Intl.message(
-      'Devices $count',
+      'Devices ($count)',
       name: 'devicesN',
       desc: '',
       args: [count],
+    );
+  }
+
+  /// `{direction, select, incoming {Incoming} outgoing {Outgoing}}`
+  String direction(Object direction) {
+    return Intl.select(
+      direction,
+      {
+        'incoming': 'Incoming',
+        'outgoing': 'Outgoing',
+      },
+      name: 'direction',
+      desc: '',
+      args: [direction],
     );
   }
 
@@ -237,6 +281,16 @@ class S {
       name: 'foundBug',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `From {address}`
+  String fromAddress(Object address) {
+    return Intl.message(
+      'From $address',
+      name: 'fromAddress',
+      desc: '',
+      args: [address],
     );
   }
 
@@ -490,6 +544,20 @@ class S {
     );
   }
 
+  /// `{protocol, select, upnp {UPnP} ssdp {SSDP}}`
+  String protocol(Object protocol) {
+    return Intl.select(
+      protocol,
+      {
+        'upnp': 'UPnP',
+        'ssdp': 'SSDP',
+      },
+      name: 'protocol',
+      desc: '',
+      args: [protocol],
+    );
+  }
+
   /// `Rate {appName}`
   String rateAppName(Object appName) {
     return Intl.message(
@@ -570,10 +638,10 @@ class S {
     );
   }
 
-  /// `Services {count}`
+  /// `Services ({count})`
   String servicesN(Object count) {
     return Intl.message(
-      'Services $count',
+      'Services ($count)',
       name: 'servicesN',
       desc: '',
       args: [count],
@@ -600,10 +668,10 @@ class S {
     );
   }
 
-  /// `State Variables {count}`
+  /// `State Variables ({count})`
   String stateVariablesN(Object count) {
     return Intl.message(
-      'State Variables $count',
+      'State Variables ($count)',
       name: 'stateVariablesN',
       desc: '',
       args: [count],
@@ -642,6 +710,16 @@ class S {
       name: 'themeMode',
       desc: '',
       args: [themeMode],
+    );
+  }
+
+  /// `Traffic`
+  String get traffic {
+    return Intl.message(
+      'Traffic',
+      name: 'traffic',
+      desc: '',
+      args: [],
     );
   }
 

@@ -3,22 +3,29 @@ import 'package:xml/xml.dart';
 import 'device.dart';
 
 class ServiceDescription {
+  final XmlDocument xml;
   final String namespace;
   final SpecVersion specVersion;
   final ActionList actionList;
   final ServiceStateTable serviceStateTable;
 
-  ServiceDescription({
+  ServiceDescription(this.xml, {
     required this.namespace,
     required this.specVersion,
     required this.actionList,
     required this.serviceStateTable,
   });
 
-  static fromXml(XmlDocument xml) {
+  @override
+  String toString() {
+    return xml.toString();
+  }
+
+  static ServiceDescription fromXml(XmlDocument xml) {
     final root = xml.getElement('scpd');
 
     return ServiceDescription(
+      xml,
       namespace: root!.getAttribute('xmlns')!,
       specVersion: SpecVersion.fromXml(root.getElement('specVersion')!),
       actionList: ActionList.fromXml(root.getElement('actionList')),

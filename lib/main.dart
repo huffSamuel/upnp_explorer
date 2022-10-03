@@ -1,8 +1,9 @@
-import 'dart:io';
-
 import 'package:fluro/fluro.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'presentation/core/widgets/model_binding.dart';
 
 import 'application/application.dart';
 import 'application/ioc.dart';
@@ -14,6 +15,11 @@ import 'infrastructure/settings/options_repository.dart';
 import 'infrastructure/ssdp/device_discovery_service.dart';
 
 void main() {
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
+  
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies().then((_) => runApp(MyApp(optionsRepository: sl())));
 }

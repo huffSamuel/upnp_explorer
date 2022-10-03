@@ -135,7 +135,7 @@ class Logger {
     }
 
     if (Foundation.kDebugMode) {
-      print(sb);
+      //print(sb);
     }
   }
 }

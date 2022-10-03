@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import '../../application/device/traffic_repository.dart';
 
 import '../../application/settings/options.dart';
 import '../core/logger_factory.dart';
@@ -12,6 +13,7 @@ import 'ssdp_discovery.dart';
 
 const multicastAddress = '239.255.255.250';
 const ssdpPort = 1900;
+final defaultPort = 35502;
 final InternetAddress ssdpV4Multicast = new InternetAddress(multicastAddress);
 
 @Singleton()
@@ -30,36 +32,45 @@ class DeviceDiscoveryService {
   bool get isInitialized => _isInitialized;
   List<NetworkInterface> _interfaces = [];
 
-  final Logger logger;
-  final address = InternetAddress.anyIPv4;
-  late StreamController<SSDPResponseMessage> _servers;
-
-  DeviceDiscoveryService(LoggerFactory loggerFactory)
-      : logger = loggerFactory.build('DeviceDiscoveryService');
-
-  Stream<SSDPResponseMessage> get responses => _servers.stream;
+  Stream<SearchMessage> get responses => _servers.stream;
 
   var _sockets = <RawDatagramSocket>[];
 
-  Future<void> init() async {
-    logger.information('Initializing discovery service');
-_servers = new StreamController<SSDPResponseMessage>.broadcast();
-    _interfaces = await NetworkInterface.list();
+  final Logger logger;
+  final address = InternetAddress.anyIPv4;
+  final TrafficRepository trafficRepository;
+  late StreamController<SearchMessage> _servers;
 
-    return await _createSocket(
-      SocketOptions(
-        InternetAddress.anyIPv4,
-        ssdpV4Multicast,
-      ),
-    );
+  DeviceDiscoveryService(LoggerFactory loggerFactory, this.trafficRepository)
+      : logger = loggerFactory.build('DeviceDiscoveryService');
+
+  Future<void> init() async {
+    if (_sockets.isNotEmpty) {
+      return;
+    }
+
+    logger.information('Initializing discovery service');
+    _servers = new StreamController<SearchMessage>.broadcast();
+    final allInterfaces = await NetworkInterface.list();
+    _interfaces = allInterfaces.where((x) => x.name.contains('w')).toList();
+
+    for (final interface in _interfaces) {
+      await _createSocket(
+        SocketOptions(
+          interface,
+          ssdpV4Multicast,
+        ),
+      );
+    }
   }
 
   _createSocket(SocketOptions options) async {
-    var socket = await RawDatagramSocket.bind(
-      address,
+    final socket = await RawDatagramSocket.bind(
+      options.interface.addresses.first,
       0,
       reuseAddress: true,
-      reusePort: defaultTargetPlatform != TargetPlatform.android,
+      reusePort: false,
+      ttl: _protocolOptions.maxDelay + 3,
     )
       ..broadcastEnabled = true
       ..readEventsEnabled = true
@@ -67,11 +78,17 @@ _servers = new StreamController<SSDPResponseMessage>.broadcast();
 
     socket.listen((event) => _onSocketEvent(socket, event));
 
+    try {
+      socket.joinMulticast(ssdpV4Multicast);
+    } catch (e) {
+      logger.error('Unable to join multicast. $e');
+    }
+
     for (var interface in _interfaces) {
       try {
-        socket.joinMulticast(options.multicastAddress, interface);
+        socket.joinMulticast(ssdpV4Multicast, interface);
       } catch (e) {
-        logger.error('Unable to join multicast. $e');
+        print('Unable to join multicast');
       }
     }
 
@@ -79,22 +96,26 @@ _servers = new StreamController<SSDPResponseMessage>.broadcast();
   }
 
   void _onSocketEvent(RawDatagramSocket socket, RawSocketEvent event) {
-    switch (event) {
-      case RawSocketEvent.read:
-        var packet = socket.receive();
-        logger.debug('Response received from ${packet!.address}');
-        var message = SSDPResponseMessage.fromPacket(packet);
-        _servers.add(message);
-        break;
-      case RawSocketEvent.write:
-        break;
-      case RawSocketEvent.closed:
-        logger.debug('Socket closed');
-        break;
+    Datagram? packet = socket.receive();
+
+    if (packet == null) {
+      return;
+    }
+
+    try {
+      final message = SSDPResponseMessage.fromPacket(packet);
+      trafficRepository.add(
+        Traffic<SSDPResponseMessage>(
+          message,
+          TrafficProtocol.ssdp,
+          TrafficDirection.incoming,
+        ),
+      );
+      _servers.add(DeviceFound(message));
+    } catch (err) {
+      print('Failure decoding message from packet');
     }
   }
-
-  final List<SSDPResponseMessage> _list = [];
 
   Future search() async {
     var msg = MSearchRequest(
@@ -109,7 +130,19 @@ _servers = new StreamController<SSDPResponseMessage>.broadcast();
       try {
         _completer = new Completer();
         socket.send(data, addr, ssdpPort);
-      } on SocketException {}
+        trafficRepository.add(
+          Traffic<SearchRequest>(
+            SearchRequest(
+              msg,
+              socket.address.address + ':' + socket.port.toString(),
+            ),
+            TrafficProtocol.ssdp,
+            TrafficDirection.outgoing,
+          ),
+        );
+      } on SocketException {
+        print('Socket exception');
+      }
     }
 
     Future.delayed(
@@ -120,12 +153,24 @@ _servers = new StreamController<SSDPResponseMessage>.broadcast();
   }
 
   void stop() async {
-    logger.debug('Closing sockets');
-    for (var socket in _sockets) {
-      socket.close();
-    }
-
     _completer.complete();
-    _servers.sink.close();
+    _servers.sink.add(SearchComplete());
   }
+}
+
+class SearchRequest {
+  final MSearchRequest request;
+  final String address;
+
+  SearchRequest(this.request, this.address);
+}
+
+abstract class SearchMessage {}
+
+class SearchComplete extends SearchMessage {}
+
+class DeviceFound extends SearchMessage {
+  final SSDPResponseMessage message;
+
+  DeviceFound(this.message);
 }

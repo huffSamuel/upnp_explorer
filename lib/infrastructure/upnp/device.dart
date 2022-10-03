@@ -1,20 +1,28 @@
 import 'package:xml/xml.dart';
 
 class DeviceDescription {
+  final XmlDocument xml;
   final String namespace;
   // final String pnpx; - Plug and Play extensions https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rxad/9225d145-6b2c-40d5-8ee8-7d837379fc25
   // final String df; - Device Foundation for PnPX
   final Device device;
   final SpecVersion specVersion;
 
-  DeviceDescription({
+  DeviceDescription(
+    this.xml, {
     required this.namespace,
     required this.device,
     required this.specVersion,
   });
 
-  static fromXml(XmlDocument xml) {
+  @override
+  toString() {
+    return xml.toString();
+  }
+
+  static DeviceDescription fromXml(XmlDocument xml) {
     return DeviceDescription(
+      xml,
       namespace: xml.rootElement.attributes
           .where((x) => x.qualifiedName == 'xmlns')
           .single

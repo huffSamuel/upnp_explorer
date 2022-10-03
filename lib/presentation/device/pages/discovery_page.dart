@@ -6,6 +6,7 @@ import '../../../application/application.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/review/review_service.dart';
+import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
 import '../../core/bloc/application_bloc.dart';
 import '../../review/widgets/review_prompt_dialog.dart';
@@ -39,8 +40,11 @@ class _NoNetwork extends StatelessWidget {
 }
 
 class _Loaded extends StatefulWidget {
+  final Future Function() onRefresh;
+
   const _Loaded({
     Key? key,
+    required this.onRefresh,
   }) : super(key: key);
 
   @override
@@ -99,18 +103,21 @@ class _LoadedState extends State<_Loaded> {
 
     return Stack(
       children: [
-        AnimatedList(
-          key: _listKey,
-          initialItemCount: 0,
-          itemBuilder: (context, index, animation) => FadeTransition(
-            opacity: animation.drive(
-              Tween(
-                begin: 0.0,
-                end: 1.0,
+        RefreshIndicator(
+          onRefresh: widget.onRefresh,
+          child: AnimatedList(
+            key: _listKey,
+            initialItemCount: 0,
+            itemBuilder: (context, index, animation) => FadeTransition(
+              opacity: animation.drive(
+                Tween(
+                  begin: 0.0,
+                  end: 1.0,
+                ),
               ),
-            ),
-            child: DeviceListItem(
-              device: _devices[index],
+              child: DeviceListItem(
+                device: _devices[index],
+              ),
             ),
           ),
         ),
@@ -147,8 +154,9 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
     });
   }
 
-  void _discover() {
+  Future _discover() {
     _discoveryBloc.discover();
+    return Future.value();
   }
 
   @override
@@ -178,7 +186,9 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
         Widget body;
 
         if (state is Ready) {
-          body = _Loaded();
+          body = _Loaded(
+            onRefresh: _discover,
+          );
         } else if (state is NoNetwork) {
           body = _NoNetwork();
         } else {
@@ -190,6 +200,13 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
             leading: SettingsIconButton(),
             title: Text(Application.name),
             actions: [
+              IconButton(
+                tooltip: 'View network traffic',
+                icon: Icon(Icons.description_outlined),
+                onPressed: () {
+                  Application.router!.navigateTo(context, Routes.traffic);
+                },
+              ),
               RefreshIconButton(
                 onPressed: _scanning ? null : () => _discover(),
               ),

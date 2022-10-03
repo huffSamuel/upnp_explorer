@@ -32,7 +32,7 @@ class SSDPResponseMessage {
   /// A unique name for this device.
   String get uniqueServiceName => parsed['usn']!;
 
-  String get ipAddress => location.origin;
+  String get origin => location.origin;
 
   SSDPResponseMessage(this.raw, this.parsed);
 

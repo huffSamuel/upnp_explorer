@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'options.dart';
 
@@ -30,6 +31,14 @@ class Palette {
       appBarTheme: AppBarTheme(
         color: blackBean,
       ),
+      textTheme: theme.textTheme.copyWith(
+        caption: GoogleFonts.sourceCodeProTextTheme().bodyMedium!.copyWith(
+          color: Colors.white,
+        ),
+      ),
+      listTileTheme: theme.listTileTheme.copyWith(
+        textColor: Colors.white
+      )
     );
   }
 
@@ -41,6 +50,9 @@ class Palette {
       colorScheme: ColorScheme.fromSeed(
         seedColor: secondary,
         brightness: Brightness.light,
+      ),
+      textTheme: theme.textTheme.copyWith(
+        caption: GoogleFonts.sourceCodeProTextTheme().bodyMedium,
       ),
     );
   }

@@ -5,12 +5,13 @@ import '../../infrastructure/upnp/device.dart';
 import '../../infrastructure/upnp/service_description.dart';
 import '../../presentation/device/pages/device_list_page.dart';
 import '../../presentation/device/pages/device_page.dart';
-import '../../presentation/device/pages/discovery-page.dart';
+import '../../presentation/device/pages/discovery_page.dart';
 import '../../presentation/device/pages/service_list_page.dart';
 import '../../presentation/device/pages/service_state_page.dart';
 import '../../presentation/service/pages/action_page.dart';
 import '../../presentation/service/pages/actions_page.dart';
 import '../../presentation/service/pages/service_page.dart';
+import '../../presentation/traffic/pages/traffic_page.dart';
 import '../ioc.dart';
 
 var rootHandler = Handler(handlerFunc: (context, _) => DiscoveryPage());
@@ -63,4 +64,8 @@ final serviceStateTableHandler = Handler(handlerFunc: (context, _) {
   final args = context!.settings!.arguments as ServiceStateTable;
 
   return ServiceStateTablePage(table: args);
+});
+
+final trafficHandler = Handler(handlerFunc: (context, _) {
+  return TrafficPage();
 });

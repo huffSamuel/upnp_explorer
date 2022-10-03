@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:xml/xml.dart';
 
+import '../../application/device/traffic_repository.dart';
 import '../../domain/device/device.dart';
 import '../../domain/device/device_repository_type.dart';
 import '../../domain/device/service_repository_type.dart';
@@ -11,13 +13,12 @@ import '../core/download_service.dart';
 import '../core/logger_factory.dart';
 import '../upnp/device.dart';
 import '../upnp/service_description.dart';
-import '../upnp/ssdp_response_message.dart';
 import 'device_discovery_service.dart';
 
 class SocketOptions {
-  final InternetAddress address;
   final InternetAddress multicastAddress;
-  SocketOptions(this.address, this.multicastAddress);
+  final NetworkInterface interface;
+  SocketOptions(this.interface, this.multicastAddress);
 }
 
 @Singleton()
@@ -30,6 +31,7 @@ class SSDPService {
   final Logger logger;
   final DeviceRepositoryType deviceRepository;
   final ServiceRepositoryType serviceRepository;
+  final TrafficRepository trafficRepository;
 
   Stream<UPnPDevice> get stream => controller.stream;
 
@@ -39,6 +41,7 @@ class SSDPService {
     LoggerFactory loggerFactory,
     @Named('DeviceRepository') this.deviceRepository,
     @Named('ServiceRepository') this.serviceRepository,
+    this.trafficRepository,
   ) : logger = loggerFactory.build('SSDPService');
 
   _addDevice(Uri root, Device device) async {
@@ -52,12 +55,19 @@ class SSDPService {
         pathSegments: service.scpdurl.pathSegments,
       );
       try {
-        final serviceDescription = await download.get(downloadUri);
-
+        final response = await download.get(downloadUri);
+        final serviceDescription = ServiceDescription.fromXml(
+          XmlDocument.parse(response.body),
+        );
         serviceRepository.insert(
           service.serviceId.toString(),
-          ServiceDescription.fromXml(
-            XmlDocument.parse(serviceDescription),
+          serviceDescription,
+        );
+        trafficRepository.add(
+          Traffic<Response>(
+            response,
+            TrafficProtocol.upnp,
+            TrafficDirection.incoming,
           ),
         );
       } catch (err) {}
@@ -68,26 +78,38 @@ class SSDPService {
     }
   }
 
-  _onData(SSDPResponseMessage event) async {
-    final document = await download.get(event.location);
-    final xmlDocument = XmlDocument.parse(document);
+  _onData(SearchMessage event) async {
+    if (event is DeviceFound) {
+      final response = await download.get(event.message.location);
+      final xmlDocument = XmlDocument.parse(response.body);
 
-    final rootDocument = DeviceDescription.fromXml(xmlDocument);
+      final rootDocument = DeviceDescription.fromXml(xmlDocument);
 
-    final device = UPnPDevice(event, rootDocument);
+      trafficRepository.add(
+        Traffic<Response>(
+          response,
+          TrafficProtocol.upnp,
+          TrafficDirection.incoming,
+        ),
+      );
 
-    logger.information(
-      'Discovered device',
-      {
-        'friendlyName': device.description.device.friendlyName,
-        'model': device.description.device.modelName,
-        'manufacturer': device.description.device.manufacturer,
-      },
-    );
+      final device = UPnPDevice(event.message, rootDocument);
 
-    await _addDevice(event.location, device.description.device);
+      logger.information(
+        'Discovered device',
+        {
+          'friendlyName': device.description.device.friendlyName,
+          'model': device.description.device.modelName,
+          'manufacturer': device.description.device.manufacturer,
+        },
+      );
 
-    controller.add(device);
+      await _addDevice(event.message.location, device.description.device);
+
+      controller.add(device);
+    } else if (event is SearchComplete) {
+      controller.close();
+    }
   }
 
   Stream<UPnPDevice> findDevices() {

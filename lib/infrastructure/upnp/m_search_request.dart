@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'search_target.dart';
 
@@ -12,17 +11,16 @@ class MSearchRequest {
     this.maxResponseTime = 5,
   });
 
-  List<int> get encode => utf8.encode(this.toString());
+  List<int> get encode => utf8.encode(toString());
 
   @override
   String toString() {
-    return '''
-M-SEARCH * HTTP/1.1
+    return '''M-SEARCH * HTTP/1.1
 HOST: 239.255.255.250:1900
 MAN: "ssdp:discover"
 MX: $maxResponseTime
 ST: $searchTarget
-USER-AGENT: ${Platform.operatingSystem}/${Platform.operatingSystemVersion} UPnP/1.1 upnpexplorer/1.0
+USER-AGENT: Android/31 UPnP/1.1 upnpexplorer/1.0
 
 ''';
   }

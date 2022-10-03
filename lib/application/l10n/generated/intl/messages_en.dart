@@ -20,36 +20,48 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(count) => "Actions ${count}";
+  static String m0(count) => "Actions (${count})";
 
   static String m1(item) => "- ${item}";
 
-  static String m2(count) => "Devices ${count}";
+  static String m2(count) => "Devices (${count})";
 
-  static String m3(name) => "Discovered device ${name}";
+  static String m3(direction) => "${Intl.select(direction, {
+            'incoming': 'Incoming',
+            'outgoing': 'Outgoing',
+          })}";
 
-  static String m4(version) => "Version ${version}";
+  static String m4(name) => "Discovered device ${name}";
 
-  static String m5(appName) =>
+  static String m5(address) => "From ${address}";
+
+  static String m6(version) => "Version ${version}";
+
+  static String m7(appName) =>
       "If you like ${appName}, or you\'ve found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!";
 
-  static String m6(appName) => "Rate ${appName}";
+  static String m8(protocol) => "${Intl.select(protocol, {
+            'upnp': 'UPnP',
+            'ssdp': 'SSDP',
+          })}";
 
-  static String m7(seconds) => "${seconds} seconds";
+  static String m9(appName) => "Rate ${appName}";
 
-  static String m8(count) => "Services ${count}";
+  static String m10(seconds) => "${seconds} seconds";
 
-  static String m9(count) => "State Variables ${count}";
+  static String m11(count) => "Services (${count})";
 
-  static String m10(themeMode) => "${Intl.select(themeMode, {
+  static String m12(count) => "State Variables (${count})";
+
+  static String m13(themeMode) => "${Intl.select(themeMode, {
             'light': 'Light',
             'dark': 'Dark',
             'system': 'System Default',
           })}";
 
-  static String m11(version) => "Version ${version}";
+  static String m14(version) => "Version ${version}";
 
-  static String m12(visualDensity) => "${Intl.select(visualDensity, {
+  static String m15(visualDensity) => "${Intl.select(visualDensity, {
             'comfortable': 'Comfortable',
             'standard': 'Standard',
             'compact': 'Compact',
@@ -66,8 +78,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects."),
         "changelog": MessageLookupByLibrary.simpleMessage("Changelog"),
         "changelogItem": m1,
+        "close": MessageLookupByLibrary.simpleMessage("Close"),
         "controlUnavailable":
             MessageLookupByLibrary.simpleMessage("Control Unavailable"),
+        "copied": MessageLookupByLibrary.simpleMessage("Copied!"),
+        "copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "darkThemeDescription": MessageLookupByLibrary.simpleMessage(
             "Dark theme uses a black background to help keep your battery alive longer."),
         "decrease": MessageLookupByLibrary.simpleMessage("Decrease"),
@@ -76,12 +91,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "density": MessageLookupByLibrary.simpleMessage("Visual density"),
         "devices": MessageLookupByLibrary.simpleMessage("Devices"),
         "devicesN": m2,
-        "discoveredDevice": m3,
+        "direction": m3,
+        "discoveredDevice": m4,
         "discovery": MessageLookupByLibrary.simpleMessage("Discovery"),
         "discoveryRequiresNetwork": MessageLookupByLibrary.simpleMessage(
             "Device discovery requires network access"),
         "display": MessageLookupByLibrary.simpleMessage("Display"),
         "foundBug": MessageLookupByLibrary.simpleMessage("Found a bug?"),
+        "fromAddress": m5,
         "increase": MessageLookupByLibrary.simpleMessage("Increase"),
         "increaseDisabled":
             MessageLookupByLibrary.simpleMessage("Increase disabled"),
@@ -91,7 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Let us know how we\'re doing"),
         "licenses": MessageLookupByLibrary.simpleMessage("Licenses"),
         "listSeparator": MessageLookupByLibrary.simpleMessage(", "),
-        "mailBody": m4,
+        "mailBody": m6,
         "mailSubject": MessageLookupByLibrary.simpleMessage("App feedback"),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Manufacturer"),
         "maxDelayDescription": MessageLookupByLibrary.simpleMessage(
@@ -117,36 +134,38 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "openPresentationInBrowser": MessageLookupByLibrary.simpleMessage(
             "Open presentation URL in browser"),
-        "pleaseRateAppName": m5,
+        "pleaseRateAppName": m7,
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy policy"),
-        "rateAppName": m6,
+        "protocol": m8,
+        "rateAppName": m9,
         "rateOnGooglePlay":
             MessageLookupByLibrary.simpleMessage("Rate on Google Play"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-        "responseDelay": m7,
+        "responseDelay": m10,
         "scanningForDevices":
             MessageLookupByLibrary.simpleMessage("Scanning for devices"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number"),
         "serviceControlUnavailable": MessageLookupByLibrary.simpleMessage(
             "UPnP service control is unavailable at this time."),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
-        "servicesN": m8,
+        "servicesN": m11,
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "stateVariables":
             MessageLookupByLibrary.simpleMessage("State Variables"),
-        "stateVariablesN": m9,
+        "stateVariablesN": m12,
         "systemThemeDescription": MessageLookupByLibrary.simpleMessage(
             "System default theme uses your device\'s settings to determine when to use light or dark mode."),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
-        "themeMode": m10,
+        "themeMode": m13,
+        "traffic": MessageLookupByLibrary.simpleMessage("Traffic"),
         "turnOnWifi": MessageLookupByLibrary.simpleMessage("Turn on Wi-Fi"),
         "unableToObtainInformation": MessageLookupByLibrary.simpleMessage(
             "Unable to obtain service information"),
         "unableToSubmitFeedback":
             MessageLookupByLibrary.simpleMessage("Unable to submit feedback"),
         "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
-        "version": m11,
-        "visualDensity": m12,
+        "version": m14,
+        "visualDensity": m15,
         "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new")
       };
 }

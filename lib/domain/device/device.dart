@@ -1,11 +1,11 @@
-import '../../infrastructure/upnp/ssdp_response_message.dart';
 import '../../infrastructure/upnp/device.dart';
+import '../../infrastructure/upnp/ssdp_response_message.dart';
 
 class UPnPDevice {
   final SSDPResponseMessage discoveryResponse;
   final DeviceDescription description;
 
-  Uri get ipAddress => Uri.parse(discoveryResponse.ipAddress);
+  Uri get ipAddress => Uri.parse(discoveryResponse.origin);
 
   UPnPDevice(this.discoveryResponse, this.description);
 

@@ -49,7 +49,10 @@ class ChangelogDialog extends StatelessWidget {
             itemCount: changes.length,
             itemBuilder: ((context, index) =>
                 _ChangelogVersion(change: changes[index])),
-            separatorBuilder: (_, __) => const SizedBox(height: 8.0),
+            separatorBuilder: (_, __) => const Divider(
+              height: 16.0,
+              thickness: 1.5,
+            ),
           ),
         ),
       ),
@@ -82,7 +85,7 @@ class _ChangelogVersion extends StatelessWidget {
           ...change.changes.map(
             (x) => Text(
               S.of(context).changelogItem(x),
-              style: textTheme.bodySmall,
+              style: textTheme.bodyMedium,
             ),
           ),
         ],

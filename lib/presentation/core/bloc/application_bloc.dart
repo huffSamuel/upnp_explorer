@@ -4,11 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../application/review/review_service.dart';
-import '../../../domain/device/device.dart';
-import '../../../infrastructure/ssdp/ssdp_discovery.dart';
 
 part 'application_event.dart';
 part 'application_state.dart';
@@ -17,8 +14,6 @@ part 'application_state.dart';
 class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
   final Connectivity _connectivity = Connectivity();
   final ReviewService _reviewService;
-
-  List<UPnPDevice> _deviceFilter = [];
 
   StreamSubscription? _connectivitySubscription;
 

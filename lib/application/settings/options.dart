@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/core/widgets/model_binding.dart';
+
 class ProtocolOptions extends Equatable {
   final int maxDelay;
   final bool advanced;
@@ -73,17 +75,9 @@ class Options extends Equatable {
     );
   }
 
-  static Options of(BuildContext context) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>();
-    return scope!.modelBindingState.currentModel!;
-  }
+  static Options of(BuildContext context) => ModelBinding.of<Options>(context);
 
-  static void update(BuildContext context, Options newModel) {
-    final scope =
-        context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>();
-    scope!.modelBindingState.updateModel(newModel);
-  }
+  static void update(BuildContext context, Options newModel) => ModelBinding.update(context, newModel);
 
   @override
   List<Object> get props => [
@@ -91,59 +85,6 @@ class Options extends Equatable {
         visualDensity,
         protocolOptions,
       ];
-}
-
-class _ModelBindingScope extends InheritedWidget {
-  final _ModelBindingState modelBindingState;
-
-  _ModelBindingScope({
-    Key? key,
-    required this.modelBindingState,
-    required Widget child,
-  }) : super(key: key, child: child);
-
-  @override
-  bool updateShouldNotify(_ModelBindingScope oldWidget) => true;
-}
-
-class ModelBinding extends StatefulWidget {
-  ModelBinding({
-    Key? key,
-    required this.initialModel,
-    required this.child,
-  }) : super(key: key);
-
-  final Options initialModel;
-  final Widget child;
-
-  @override
-  State<StatefulWidget> createState() => _ModelBindingState();
-}
-
-class _ModelBindingState extends State<ModelBinding> {
-  Options? currentModel;
-
-  @override
-  void initState() {
-    super.initState();
-    currentModel = widget.initialModel;
-  }
-
-  void updateModel(Options newModel) {
-    if (newModel != currentModel) {
-      setState(() {
-        currentModel = newModel;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _ModelBindingScope(
-      modelBindingState: this,
-      child: widget.child,
-    );
-  }
 }
 
 String enumToString(Object obj) {
