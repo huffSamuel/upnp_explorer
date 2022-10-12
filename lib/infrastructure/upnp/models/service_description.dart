@@ -1,6 +1,7 @@
+import 'package:upnp_explorer/infrastructure/upnp/models/util.dart';
 import 'package:xml/xml.dart';
 
-import 'device.dart';
+import 'spec_version.dart';
 
 class ServiceDescription {
   final XmlDocument xml;
@@ -9,7 +10,8 @@ class ServiceDescription {
   final ActionList actionList;
   final ServiceStateTable serviceStateTable;
 
-  ServiceDescription(this.xml, {
+  ServiceDescription(
+    this.xml, {
     required this.namespace,
     required this.specVersion,
     required this.actionList,
@@ -44,7 +46,7 @@ class ServiceStateTable {
 
   static fromXml(XmlNode xml) {
     return ServiceStateTable(
-      stateVariables: listOf<_StateVariable>(
+      stateVariables: xmlNodeBuilder<_StateVariable>(
           xml, 'stateVariable', (x) => _StateVariable.fromXml(x)),
     );
   }
@@ -59,7 +61,8 @@ class ActionList {
 
   static fromXml(XmlNode? xml) {
     return ActionList(
-        actions: listOf<Action>(xml, 'action', (x) => Action.fromXml(x)));
+        actions:
+            xmlNodeBuilder<Action>(xml, 'action', (x) => Action.fromXml(x)));
   }
 }
 
@@ -89,7 +92,7 @@ class _ArgumentList {
 
   static fromXml(XmlNode? xml) {
     return _ArgumentList(
-      arguments: listOf<_Argument>(
+      arguments: xmlNodeBuilder<_Argument>(
         xml,
         'argument',
         (x) => _Argument.fromXml(x),
@@ -294,7 +297,8 @@ class _AllowedValueList {
 
   static fromXml(XmlNode? xml) {
     return _AllowedValueList(
-      allowedValues: listOf<String>(xml, 'allowedValue', (p0) => p0.text),
+      allowedValues:
+          xmlNodeBuilder<String>(xml, 'allowedValue', (p0) => p0.text),
     );
   }
 }

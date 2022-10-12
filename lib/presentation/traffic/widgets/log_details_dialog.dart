@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 import '../../../application/device/traffic_repository.dart';
 import '../../../application/l10n/generated/l10n.dart';
+
+final timeFormat = DateFormat('HH:mm:ss.SSS');
 
 class LogDetailsDialog extends StatelessWidget {
   final TrafficDirection direction;
   final String? origin;
   final String text;
+  final DateTime time;
 
   const LogDetailsDialog({
     Key? key,
     required this.direction,
     this.origin,
     required this.text,
+    required this.time,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final i18n = S.of(context);
     final _controller = ScrollController();
+
+    final timeString = timeFormat.format(time);
 
     return AlertDialog(
       title: Text(S.of(context).direction(direction)),
@@ -33,6 +40,11 @@ class LogDetailsDialog extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(i18n.fromAddress(origin!)),
+                SizedBox(height: 4.0),
+                if (direction == TrafficDirection.incoming)
+                  Text(S.of(context).receivedAt(timeString)),
+                if (direction == TrafficDirection.outgoing)
+                  Text(S.of(context).sentAt(timeString)),
                 SizedBox(height: 4.0),
                 Divider(
                   thickness: 1.5,

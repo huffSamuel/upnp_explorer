@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../application/l10n/generated/l10n.dart';
-import '../../../infrastructure/upnp/service_description.dart';
+import '../../../infrastructure/upnp/models/service_description.dart';
 
 class ActionsPage extends StatelessWidget {
   final ActionList actionList;

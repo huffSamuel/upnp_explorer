@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'traffic_filter.dart';
 
 import '../../../application/device/traffic_repository.dart';
 import '../../../application/l10n/generated/l10n.dart';
-import '../../../application/settings/options.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_details_dialog.dart';
+import 'traffic_filter.dart';
 
 String _firstThreeLines(String text) {
   return text.split('\n').take(3).join('\n');
@@ -16,6 +15,7 @@ class LogCard extends StatelessWidget {
   final TrafficProtocol protocol;
   final String origin;
   final String text;
+  final DateTime time;
   final void Function(TrafficFilter) onFilter;
 
   const LogCard({
@@ -24,6 +24,7 @@ class LogCard extends StatelessWidget {
     required this.protocol,
     required this.origin,
     required this.text,
+    required this.time,
     required this.onFilter,
   }) : super(key: key);
 
@@ -80,6 +81,7 @@ class LogCard extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (context) => LogDetailsDialog(
+                      time: time,
                       direction: direction,
                       text: text,
                       origin: origin,

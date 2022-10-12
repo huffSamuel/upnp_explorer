@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:injectable/injectable.dart';
-enum TrafficDirection{
-  incoming,
-  outgoing
-}
+
+enum TrafficDirection { incoming, outgoing }
 
 enum TrafficProtocol {
   ssdp,
@@ -15,8 +13,13 @@ class Traffic<T> {
   final T message;
   final TrafficDirection direction;
   final TrafficProtocol protocol;
+  final DateTime dateTime;
 
-  Traffic(this.message, this.protocol, this.direction);
+  Traffic(
+    this.message,
+    this.protocol,
+    this.direction,
+  ) : dateTime = DateTime.now();
 }
 
 final _controller = StreamController<Traffic>.broadcast();

@@ -1,4 +1,4 @@
-import '../../infrastructure/upnp/device.dart';
+import '../../infrastructure/upnp/models/device.dart';
 import '../../infrastructure/upnp/ssdp_response_message.dart';
 
 class UPnPDevice {

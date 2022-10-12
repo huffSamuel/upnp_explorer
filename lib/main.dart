@@ -12,12 +12,14 @@ import 'application/routing/routes.dart';
 import 'application/settings/options.dart';
 import 'application/settings/palette.dart';
 import 'infrastructure/settings/options_repository.dart';
-import 'infrastructure/ssdp/device_discovery_service.dart';
+import 'infrastructure/upnp/device_discovery_service.dart';
 
 void main() {
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+    final animatedListLicense = await rootBundle.loadString('assets/automatic_animated_list/license.txt');
+    yield LicenseEntryWithLineBreaks(['automatic_animated_list'], animatedListLicense);
   });
   
   WidgetsFlutterBinding.ensureInitialized();

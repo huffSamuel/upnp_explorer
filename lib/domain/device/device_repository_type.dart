@@ -1,4 +1,4 @@
-import '../../infrastructure/upnp/device.dart';
+import '../../infrastructure/upnp/models/device.dart';
 
 abstract class DeviceRepositoryType {
   Device? get(String id);

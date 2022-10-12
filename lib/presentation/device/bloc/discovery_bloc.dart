@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/device/device.dart';
-import '../../../infrastructure/ssdp/ssdp_discovery.dart';
+import '../../../infrastructure/upnp/ssdp_discovery.dart';
 
 @Singleton()
 class DiscoveryBloc {

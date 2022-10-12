@@ -1,5 +1,7 @@
 import 'package:xml/xml.dart';
 
+import 'spec_version.dart';
+
 class DeviceDescription {
   final XmlDocument xml;
   final String namespace;
@@ -33,9 +35,6 @@ class DeviceDescription {
     );
   }
 }
-
-listOf<T>(XmlNode? xml, String elementType, T Function(XmlNode) buildFn) =>
-    xml?.findAllElements(elementType).map<T>(buildFn).toList() ?? [];
 
 class Device {
   final _DeviceType deviceType;
@@ -118,23 +117,6 @@ class _DeviceType {
       urn: fields[1],
       type: fields[3],
       version: int.parse(fields[4]),
-    );
-  }
-}
-
-class SpecVersion {
-  final int major;
-  final int minor;
-
-  SpecVersion({
-    required this.major,
-    required this.minor,
-  });
-
-  static fromXml(XmlNode node) {
-    return SpecVersion(
-      major: int.parse(node.getElement('major')!.text),
-      minor: int.parse(node.getElement('minor')!.text),
     );
   }
 }

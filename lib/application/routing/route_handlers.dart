@@ -1,8 +1,8 @@
 import 'package:fluro/fluro.dart';
 
 import '../../domain/device/service_repository_type.dart';
-import '../../infrastructure/upnp/device.dart';
-import '../../infrastructure/upnp/service_description.dart';
+import '../../infrastructure/upnp/models/device.dart';
+import '../../infrastructure/upnp/models/service_description.dart';
 import '../../presentation/device/pages/device_list_page.dart';
 import '../../presentation/device/pages/device_page.dart';
 import '../../presentation/device/pages/discovery_page.dart';

@@ -1,4 +1,6 @@
 {
+  "sentAt": "Sent at {time}",
+  "receivedAt": "Received at {time}",
   "about": "About",
   "actions": "Actions",
   "actionsN": "Actions ({count})",

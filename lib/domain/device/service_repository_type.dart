@@ -1,4 +1,4 @@
-import '../../infrastructure/upnp/service_description.dart';
+import '../../infrastructure/upnp/models/service_description.dart';
 
 abstract class ServiceRepositoryType {
   ServiceDescription? get(String id);

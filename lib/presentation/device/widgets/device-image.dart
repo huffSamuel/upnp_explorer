@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../infrastructure/upnp/device.dart';
+import '../../../infrastructure/upnp/models/device.dart';
 
 class DeviceImage extends StatelessWidget {
   final List<DeviceIcon> icons;

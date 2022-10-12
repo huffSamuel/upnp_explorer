@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
-import '../../../infrastructure/upnp/device.dart';
+import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/ssdp_response_message.dart';
 
 class DevicePageArguments {

@@ -47,21 +47,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m9(appName) => "Rate ${appName}";
 
-  static String m10(seconds) => "${seconds} seconds";
+  static String m10(time) => "Received at ${time}";
 
-  static String m11(count) => "Services (${count})";
+  static String m11(seconds) => "${seconds} seconds";
 
-  static String m12(count) => "State Variables (${count})";
+  static String m12(time) => "Sent at ${time}";
 
-  static String m13(themeMode) => "${Intl.select(themeMode, {
+  static String m13(count) => "Services (${count})";
+
+  static String m14(count) => "State Variables (${count})";
+
+  static String m15(themeMode) => "${Intl.select(themeMode, {
             'light': 'Light',
             'dark': 'Dark',
             'system': 'System Default',
           })}";
 
-  static String m14(version) => "Version ${version}";
+  static String m16(version) => "Version ${version}";
 
-  static String m15(visualDensity) => "${Intl.select(visualDensity, {
+  static String m17(visualDensity) => "${Intl.select(visualDensity, {
             'comfortable': 'Comfortable',
             'standard': 'Standard',
             'compact': 'Compact',
@@ -140,23 +144,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "rateAppName": m9,
         "rateOnGooglePlay":
             MessageLookupByLibrary.simpleMessage("Rate on Google Play"),
+        "receivedAt": m10,
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-        "responseDelay": m10,
+        "responseDelay": m11,
         "scanningForDevices":
             MessageLookupByLibrary.simpleMessage("Scanning for devices"),
+        "sentAt": m12,
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number"),
         "serviceControlUnavailable": MessageLookupByLibrary.simpleMessage(
             "UPnP service control is unavailable at this time."),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
-        "servicesN": m11,
+        "servicesN": m13,
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "stateVariables":
             MessageLookupByLibrary.simpleMessage("State Variables"),
-        "stateVariablesN": m12,
+        "stateVariablesN": m14,
         "systemThemeDescription": MessageLookupByLibrary.simpleMessage(
             "System default theme uses your device\'s settings to determine when to use light or dark mode."),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
-        "themeMode": m13,
+        "themeMode": m15,
         "traffic": MessageLookupByLibrary.simpleMessage("Traffic"),
         "turnOnWifi": MessageLookupByLibrary.simpleMessage("Turn on Wi-Fi"),
         "unableToObtainInformation": MessageLookupByLibrary.simpleMessage(
@@ -164,8 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "unableToSubmitFeedback":
             MessageLookupByLibrary.simpleMessage("Unable to submit feedback"),
         "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
-        "version": m14,
-        "visualDensity": m15,
+        "version": m16,
+        "visualDensity": m17,
         "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new")
       };
 }

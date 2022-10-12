@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../domain/device/service_repository_type.dart';
-import '../../infrastructure/upnp/service_description.dart';
+import '../../infrastructure/upnp/models/service_description.dart';
 
 @named
 @Singleton(as: ServiceRepositoryType)

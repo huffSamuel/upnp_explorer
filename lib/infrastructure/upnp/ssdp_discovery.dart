@@ -11,8 +11,8 @@ import '../../domain/device/device_repository_type.dart';
 import '../../domain/device/service_repository_type.dart';
 import '../core/download_service.dart';
 import '../core/logger_factory.dart';
-import '../upnp/device.dart';
-import '../upnp/service_description.dart';
+import 'models/device.dart';
+import 'models/service_description.dart';
 import 'device_discovery_service.dart';
 
 class SocketOptions {
@@ -32,6 +32,8 @@ class SSDPService {
   final DeviceRepositoryType deviceRepository;
   final ServiceRepositoryType serviceRepository;
   final TrafficRepository trafficRepository;
+
+  final List<Object> seen = [];
 
   Stream<UPnPDevice> get stream => controller.stream;
 
@@ -56,6 +58,11 @@ class SSDPService {
       );
       try {
         final response = await download.get(downloadUri);
+
+        if (response == null) {
+          continue;
+        }
+
         final serviceDescription = ServiceDescription.fromXml(
           XmlDocument.parse(response.body),
         );
@@ -80,7 +87,18 @@ class SSDPService {
 
   _onData(SearchMessage event) async {
     if (event is DeviceFound) {
+      if (seen.contains(event.message.location)) {
+        return;
+      }
+
+      seen.add(event.message.location);
+
       final response = await download.get(event.message.location);
+
+      if (response == null) {
+        return;
+      }
+
       final xmlDocument = XmlDocument.parse(response.body);
 
       final rootDocument = DeviceDescription.fromXml(xmlDocument);
@@ -106,6 +124,10 @@ class SSDPService {
 
       await _addDevice(event.message.location, device.description.device);
 
+      if (controller.isClosed) {
+        return;
+      }
+
       controller.add(device);
     } else if (event is SearchComplete) {
       controller.close();
@@ -113,6 +135,7 @@ class SSDPService {
   }
 
   Stream<UPnPDevice> findDevices() {
+    seen.clear();
     controller = StreamController<UPnPDevice>.broadcast();
 
     discovery.init().then((_) {

@@ -50,6 +50,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Sent at {time}`
+  String sentAt(Object time) {
+    return Intl.message(
+      'Sent at $time',
+      name: 'sentAt',
+      desc: '',
+      args: [time],
+    );
+  }
+
+  /// `Received at {time}`
+  String receivedAt(Object time) {
+    return Intl.message(
+      'Received at $time',
+      name: 'receivedAt',
+      desc: '',
+      args: [time],
+    );
+  }
+
   /// `About`
   String get about {
     return Intl.message(

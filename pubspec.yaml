@@ -32,6 +32,8 @@ dependencies:
   in_app_review: ^2.0.4
   package_info_plus: ^1.4.3+1
   google_fonts: ^3.0.1
+  diffutil_dart: ^3.0.0
+  device_info_plus: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +49,7 @@ flutter:
   assets:
     - assets/changes.json
     - assets/google_fonts/
+    - assets/automatic_animated_list/
 flutter_intl:
   enabled: true
   arb_dir: lib/application/l10n

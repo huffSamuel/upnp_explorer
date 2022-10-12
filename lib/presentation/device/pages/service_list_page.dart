@@ -5,7 +5,7 @@ import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/service_repository_type.dart';
-import '../../../infrastructure/upnp/device.dart';
+import '../../../infrastructure/upnp/models/device.dart';
 
 class ServiceListPage extends StatelessWidget {
   final ServiceList services;

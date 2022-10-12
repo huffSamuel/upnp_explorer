@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart';
+import 'package:upnp_explorer/presentation/core/widgets/animated_filter_list.dart';
 
 import '../../../application/device/traffic_repository.dart';
-import '../../../infrastructure/ssdp/device_discovery_service.dart';
+import '../../../infrastructure/upnp/device_discovery_service.dart';
 import '../../../infrastructure/upnp/ssdp_response_message.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_card.dart';
@@ -58,6 +59,7 @@ class _TrafficItemsState extends State<TrafficItems> {
 
     return LogCard(
       onFilter: _filter,
+      time: traffic.dateTime,
       direction: traffic.direction,
       protocol: traffic.protocol,
       origin: origin,
@@ -79,9 +81,26 @@ class _TrafficItemsState extends State<TrafficItems> {
   Widget build(BuildContext context) {
     return Scrollbar(
       controller: _scrollController,
-      child: ListView(
+      child: AutomaticAnimatedList(
         controller: _scrollController,
-        children: [..._visibleItems.map((x) => _map(x))],
+        items: _visibleItems,
+        keyingFunction: (item) => Key(item.hashCode.toString()),
+        itemBuilder: (
+          BuildContext context,
+          Traffic<dynamic> item,
+          Animation<double> animation,
+        ) {
+          return FadeTransition(
+            key: Key(item.hashCode.toString()),
+            opacity: animation.drive(
+              Tween(
+                begin: 0.0,
+                end: 1.0,
+              ),
+            ),
+            child: _map(item),
+          );
+        },
       ),
     );
   }

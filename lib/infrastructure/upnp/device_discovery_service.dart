@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:upnp_explorer/infrastructure/upnp/search_request_builder.dart';
 import '../../application/device/traffic_repository.dart';
 
 import '../../application/settings/options.dart';
 import '../core/logger_factory.dart';
-import '../upnp/m_search_request.dart';
-import '../upnp/ssdp_response_message.dart';
+import 'm_search_request.dart';
+import 'ssdp_response_message.dart';
 import 'ssdp_discovery.dart';
 
 const multicastAddress = '239.255.255.250';
@@ -39,10 +40,14 @@ class DeviceDiscoveryService {
   final Logger logger;
   final address = InternetAddress.anyIPv4;
   final TrafficRepository trafficRepository;
+  final SearchRequestBuilder requestBuilder;
   late StreamController<SearchMessage> _servers;
 
-  DeviceDiscoveryService(LoggerFactory loggerFactory, this.trafficRepository)
-      : logger = loggerFactory.build('DeviceDiscoveryService');
+  DeviceDiscoveryService(
+    LoggerFactory loggerFactory,
+    this.trafficRepository,
+    this.requestBuilder,
+  ) : logger = loggerFactory.build('DeviceDiscoveryService');
 
   Future<void> init() async {
     if (_sockets.isNotEmpty) {
@@ -118,32 +123,36 @@ class DeviceDiscoveryService {
   }
 
   Future search() async {
-    var msg = MSearchRequest(
-      maxResponseTime: _protocolOptions.maxDelay,
-    );
-    var data = msg.encode;
+    final msg =
+        requestBuilder.build(maxResponseTime: _protocolOptions.maxDelay);
 
-    for (var socket in _sockets) {
-      logger.debug('Sending SSDP search message');
-      final addr = ssdpV4Multicast;
+    var data = msg.encode();
 
-      try {
-        _completer = new Completer();
-        socket.send(data, addr, ssdpPort);
-        trafficRepository.add(
-          Traffic<SearchRequest>(
-            SearchRequest(
-              msg,
-              socket.address.address + ':' + socket.port.toString(),
+    Stream.periodic(Duration(seconds: 1))
+        .take(_protocolOptions.maxDelay)
+        .listen((_) {
+      for (var socket in _sockets) {
+        logger.debug('Sending SSDP search message');
+        final addr = ssdpV4Multicast;
+
+        try {
+          _completer = new Completer();
+          socket.send(data, addr, ssdpPort);
+          trafficRepository.add(
+            Traffic<SearchRequest>(
+              SearchRequest(
+                msg,
+                socket.address.address + ':' + socket.port.toString(),
+              ),
+              TrafficProtocol.ssdp,
+              TrafficDirection.outgoing,
             ),
-            TrafficProtocol.ssdp,
-            TrafficDirection.outgoing,
-          ),
-        );
-      } on SocketException {
-        print('Socket exception');
+          );
+        } on SocketException {
+          print('Socket exception');
+        }
       }
-    }
+    });
 
     Future.delayed(
       Duration(seconds: _protocolOptions.maxDelay + 2),

@@ -11,7 +11,7 @@ import '../../../domain/value_converter.dart';
 import '../../../infrastructure/core/bug_report_service.dart';
 import '../../core/widgets/model_binding.dart';
 import '../../core/widgets/number_ticker.dart';
-import '../../update/widgets/update-dialog.dart';
+import '../../changelog/widgets/changelog_dialog.dart';
 import '../widgets/settings_category_page.dart';
 import '../widgets/settings_category_tile.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
-import '../../../infrastructure/upnp/device.dart';
+import '../../../infrastructure/upnp/models/device.dart';
 
 class DeviceListPage extends StatelessWidget {
   final DeviceList devices;

@@ -10,7 +10,7 @@ import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
 import '../../core/bloc/application_bloc.dart';
 import '../../review/widgets/review_prompt_dialog.dart';
-import '../../update/widgets/update-dialog.dart';
+import '../../changelog/widgets/changelog_dialog.dart';
 import '../bloc/discovery_bloc.dart';
 import '../widgets/device-list-item.dart';
 import '../widgets/refresh-button.dart';

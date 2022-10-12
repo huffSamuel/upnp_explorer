@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../domain/device/device_repository_type.dart';
-import '../../infrastructure/upnp/device.dart';
+import '../../infrastructure/upnp/models/device.dart';
 
 @named
 @Singleton(as: DeviceRepositoryType)

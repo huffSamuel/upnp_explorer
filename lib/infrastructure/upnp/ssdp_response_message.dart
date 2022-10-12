@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'server.dart';
+import 'models/server.dart';
 
 class SSDPResponseMessage {
   final String raw;

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
-import '../../../infrastructure/upnp/device.dart';
-import '../../../infrastructure/upnp/service_description.dart';
+import '../../../infrastructure/upnp/models/device.dart';
+import '../../../infrastructure/upnp/models/service_description.dart';
 import '../widgets/feature_unavailable_dialog.dart';
 
 class ServicePage extends StatelessWidget {
