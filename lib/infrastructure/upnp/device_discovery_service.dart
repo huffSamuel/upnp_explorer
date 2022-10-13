@@ -122,37 +122,42 @@ class DeviceDiscoveryService {
     }
   }
 
+  void _sendMessage(MSearchRequest message) {
+    final data = message.encode();
+
+    for (var socket in _sockets) {
+      logger.debug('Sending SSDP search message');
+      final addr = ssdpV4Multicast;
+
+      try {
+        _completer = new Completer();
+        socket.send(data, addr, ssdpPort);
+        trafficRepository.add(
+          Traffic<SearchRequest>(
+            SearchRequest(
+              message,
+              socket.address.address + ':' + socket.port.toString(),
+            ),
+            TrafficProtocol.ssdp,
+            TrafficDirection.outgoing,
+          ),
+        );
+      } on SocketException {
+        print('Socket exception');
+      }
+    }
+  }
+
   Future search() async {
-    final msg =
-        requestBuilder.build(maxResponseTime: _protocolOptions.maxDelay);
+    final msg = requestBuilder.build(
+      maxResponseTime: _protocolOptions.maxDelay,
+    );
 
     var data = msg.encode();
 
     Stream.periodic(Duration(seconds: 1))
         .take(_protocolOptions.maxDelay)
-        .listen((_) {
-      for (var socket in _sockets) {
-        logger.debug('Sending SSDP search message');
-        final addr = ssdpV4Multicast;
-
-        try {
-          _completer = new Completer();
-          socket.send(data, addr, ssdpPort);
-          trafficRepository.add(
-            Traffic<SearchRequest>(
-              SearchRequest(
-                msg,
-                socket.address.address + ':' + socket.port.toString(),
-              ),
-              TrafficProtocol.ssdp,
-              TrafficDirection.outgoing,
-            ),
-          );
-        } on SocketException {
-          print('Socket exception');
-        }
-      }
-    });
+        .listen((_) => _sendMessage(msg));
 
     Future.delayed(
       Duration(seconds: _protocolOptions.maxDelay + 2),

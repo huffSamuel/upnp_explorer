@@ -23,13 +23,13 @@ class MSearchRequest {
 
   @override
   String toString() {
-    return '''M-SEARCH * HTTP/1.1
-HOST: 239.255.255.250:1900
-MAN: "ssdp:discover"
-MX: $maxResponseTime
-ST: $searchTarget
-USER-AGENT: $os/$osVersion UPnP/1.1 $packageName/$packageVersion
-
+    return '''M-SEARCH * HTTP/1.1\r
+HOST: 239.255.255.250:1900\r
+MAN: "ssdp:discover"\r
+MX: $maxResponseTime\r
+ST: $searchTarget\r
+USER-AGENT: $os/$osVersion UPnP/1.1 $packageName/$packageVersion\r
+\r
 ''';
   }
 }
