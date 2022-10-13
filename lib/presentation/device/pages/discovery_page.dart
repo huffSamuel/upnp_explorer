@@ -151,6 +151,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       maybeShowChangelogDialog(context);
+      _discover();
     });
   }
 

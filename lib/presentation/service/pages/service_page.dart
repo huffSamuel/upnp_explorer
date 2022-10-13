@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/presentation/core/widgets/row_count.dart';
 
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
@@ -44,13 +45,10 @@ class ServicePage extends StatelessWidget {
           if (description.actionList.actions.isNotEmpty)
             ListTile(
               title: Text(
-                i18n.actionsN(description.actionList.actions.length),
+                i18n.actions,
               ),
-              subtitle: Text(
-                description.actionList.actions
-                    .map((x) => x.name)
-                    .join(i18n.listSeparator),
-                overflow: TextOverflow.ellipsis,
+              subtitle: RowCountOverflowed(
+                labels: List.from(description.actionList.actions.map((x) => x.name)),
               ),
               trailing: Icon(Icons.lock_outline),
               onTap: () => _action(
@@ -66,13 +64,9 @@ class ServicePage extends StatelessWidget {
             ),
           if (description.serviceStateTable.stateVariables.isNotEmpty)
             ListTile(
-              title: Text(i18n.stateVariablesN(
-                  description.serviceStateTable.stateVariables.length)),
-              subtitle: Text(
-                description.serviceStateTable.stateVariables
-                    .map((x) => x.name)
-                    .join(i18n.listSeparator),
-                overflow: TextOverflow.ellipsis,
+              title: Text(i18n.stateVariables),
+              subtitle: RowCountOverflowed(
+                labels: List.from(description.serviceStateTable.stateVariables.map((x) => x.name)),
               ),
               trailing: Icon(Icons.lock_outline),
               onTap: () => _action(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:overflow_view/overflow_view.dart';
+import 'package:upnp_explorer/presentation/core/widgets/row_count.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/application.dart';
@@ -115,15 +117,12 @@ class DevicePage extends StatelessWidget {
               ),
             if (device.serviceList.services.isNotEmpty)
               ListTile(
-                title: Text(i18n.servicesN(device.serviceList.services.length)),
-                subtitle: Text(
-                  device.serviceList.services
-                      .take(3)
-                      .map(
-                        (x) => x.serviceId.serviceId,
-                      )
-                      .join(i18n.listSeparator),
-                  overflow: TextOverflow.ellipsis,
+                title: Text(i18n.services),
+                subtitle: RowCountOverflowed(
+                  labels: List.from(
+                    device.serviceList.services
+                        .map((x) => x.serviceId.serviceId),
+                  ),
                 ),
                 trailing: Icon(Icons.chevron_right),
                 onTap: () => Application.router!.navigateTo(
