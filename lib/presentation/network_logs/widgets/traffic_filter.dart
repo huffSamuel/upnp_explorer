@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 
-import '../../../application/device/traffic_repository.dart';
+import '../../../domain/network_logs/traffic.dart';
 import '../../../infrastructure/upnp/device_discovery_service.dart';
 import '../../../infrastructure/upnp/ssdp_response_message.dart';
 

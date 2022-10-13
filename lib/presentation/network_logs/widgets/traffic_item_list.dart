@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart';
-import 'package:upnp_explorer/presentation/core/widgets/animated_filter_list.dart';
 
-import '../../../application/device/traffic_repository.dart';
+import '../../../domain/network_logs/traffic.dart';
 import '../../../infrastructure/upnp/device_discovery_service.dart';
 import '../../../infrastructure/upnp/ssdp_response_message.dart';
+import '../../core/widgets/animated_filter_list.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_card.dart';
 import 'traffic_filter.dart';

@@ -12,10 +12,10 @@ import '../../core/bloc/application_bloc.dart';
 import '../../review/widgets/review_prompt_dialog.dart';
 import '../../changelog/widgets/changelog_dialog.dart';
 import '../bloc/discovery_bloc.dart';
-import '../widgets/device-list-item.dart';
-import '../widgets/refresh-button.dart';
-import '../widgets/scanning-indicator.dart';
-import '../widgets/settings-icon-button.dart';
+import '../widgets/device_list_image.dart';
+import '../widgets/refresh_button.dart';
+import '../widgets/scanning_indicator.dart';
+import '../widgets/settings_icon_button.dart';
 
 class _NoNetwork extends StatelessWidget {
   @override

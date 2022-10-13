@@ -5,15 +5,16 @@ import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:xml/xml.dart';
 
-import '../../application/device/traffic_repository.dart';
+import '../../application/network_logs/traffic_repository.dart';
 import '../../domain/device/device.dart';
 import '../../domain/device/device_repository_type.dart';
 import '../../domain/device/service_repository_type.dart';
+import '../../domain/network_logs/traffic.dart';
 import '../core/download_service.dart';
 import '../core/logger_factory.dart';
+import 'device_discovery_service.dart';
 import 'models/device.dart';
 import 'models/service_description.dart';
-import 'device_discovery_service.dart';
 
 class SocketOptions {
   final InternetAddress multicastAddress;
@@ -31,7 +32,7 @@ class SSDPService {
   final Logger logger;
   final DeviceRepositoryType deviceRepository;
   final ServiceRepositoryType serviceRepository;
-  final TrafficRepository trafficRepository;
+  final NetworkLogsRepository trafficRepository;
 
   final List<Object> seen = [];
 

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:upnp_explorer/infrastructure/upnp/m_search_request.dart';
+import 'm_search_request.dart';
 
 import 'models/search_target.dart';
 

@@ -5,7 +5,7 @@ import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
 import '../pages/device_page.dart';
-import 'device-image.dart';
+import 'device_image.dart';
 
 class DeviceListItem extends StatelessWidget {
   final UPnPDevice device;

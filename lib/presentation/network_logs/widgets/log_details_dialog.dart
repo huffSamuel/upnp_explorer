@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-import '../../../application/device/traffic_repository.dart';
 import '../../../application/l10n/generated/l10n.dart';
+import '../../../domain/network_logs/traffic.dart';
 
 final timeFormat = DateFormat('HH:mm:ss.SSS');
 

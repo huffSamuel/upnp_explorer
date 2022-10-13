@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../application/device/traffic_repository.dart';
 import '../../../application/l10n/generated/l10n.dart';
+import '../../../domain/network_logs/traffic.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_details_dialog.dart';
 import 'traffic_filter.dart';

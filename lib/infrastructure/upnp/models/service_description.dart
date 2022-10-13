@@ -1,4 +1,4 @@
-import 'package:upnp_explorer/infrastructure/upnp/models/util.dart';
+import 'util.dart';
 import 'package:xml/xml.dart';
 
 import 'spec_version.dart';

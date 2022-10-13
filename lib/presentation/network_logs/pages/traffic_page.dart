@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../application/device/traffic_repository.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/network_logs/traffic_repository.dart';
+import '../../../domain/network_logs/traffic.dart';
 import '../../core/widgets/model_binding.dart';
 import '../widgets/traffic_filter.dart';
 import '../widgets/traffic_item_list.dart';
@@ -16,7 +17,7 @@ class _TrafficPageState extends State<TrafficPage>
     with SingleTickerProviderStateMixin {
   late final List<Traffic<dynamic>> _allItems;
 
-  final _repo = sl<TrafficRepository>();
+  final _repo = sl<NetworkLogsRepository>();
 
   S get i18n => S.of(context);
 

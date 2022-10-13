@@ -11,7 +11,7 @@ import '../../presentation/device/pages/service_state_page.dart';
 import '../../presentation/service/pages/action_page.dart';
 import '../../presentation/service/pages/actions_page.dart';
 import '../../presentation/service/pages/service_page.dart';
-import '../../presentation/traffic/pages/traffic_page.dart';
+import '../../presentation/network_logs/pages/traffic_page.dart';
 import '../ioc.dart';
 
 var rootHandler = Handler(handlerFunc: (context, _) => DiscoveryPage());

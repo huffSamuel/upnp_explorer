@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:upnp_explorer/infrastructure/upnp/search_request_builder.dart';
-import '../../application/device/traffic_repository.dart';
 
+import '../../application/network_logs/traffic_repository.dart';
 import '../../application/settings/options.dart';
+import '../../domain/network_logs/traffic.dart';
 import '../core/logger_factory.dart';
 import 'm_search_request.dart';
-import 'ssdp_response_message.dart';
+import 'search_request_builder.dart';
 import 'ssdp_discovery.dart';
+import 'ssdp_response_message.dart';
 
 const multicastAddress = '239.255.255.250';
 const ssdpPort = 1900;
@@ -39,7 +39,7 @@ class DeviceDiscoveryService {
 
   final Logger logger;
   final address = InternetAddress.anyIPv4;
-  final TrafficRepository trafficRepository;
+  final NetworkLogsRepository trafficRepository;
   final SearchRequestBuilder requestBuilder;
   late StreamController<SearchMessage> _servers;
 

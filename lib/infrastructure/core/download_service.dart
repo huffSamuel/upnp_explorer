@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
-import '../../application/device/traffic_repository.dart';
+import '../../application/network_logs/traffic_repository.dart';
 
 import 'logger_factory.dart';
 

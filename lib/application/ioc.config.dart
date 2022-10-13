@@ -23,7 +23,7 @@ import '../presentation/device/bloc/discovery_bloc.dart' as _i19;
 import 'changelog/changelog_service.dart' as _i12;
 import 'device/device_repository.dart' as _i5;
 import 'device/service_repository.dart' as _i9;
-import 'device/traffic_repository.dart' as _i11;
+import 'network_logs/traffic_repository.dart' as _i11;
 import 'ioc.dart' as _i20;
 import 'review/review_service.dart'
     as _i15; // ignore_for_file: unnecessary_lambdas
@@ -59,12 +59,12 @@ Future<_i1.GetIt> $initIoc(
     () => registerModule.prefs,
     preResolve: true,
   );
-  gh.singleton<_i11.TrafficRepository>(_i11.TrafficRepository());
+  gh.singleton<_i11.NetworkLogsRepository>(_i11.NetworkLogsRepository());
   gh.singleton<_i12.ChangelogService>(
       _i12.ChangelogService(get<_i10.SharedPreferences>()));
   gh.singleton<_i13.DeviceDiscoveryService>(_i13.DeviceDiscoveryService(
     get<_i6.LoggerFactory>(),
-    get<_i11.TrafficRepository>(),
+    get<_i11.NetworkLogsRepository>(),
     get<_i7.SearchRequestBuilder>(),
   ));
   gh.singleton<_i14.DownloadService>(
@@ -77,7 +77,7 @@ Future<_i1.GetIt> $initIoc(
     get<_i6.LoggerFactory>(),
     get<_i4.DeviceRepositoryType>(instanceName: 'DeviceRepository'),
     get<_i8.ServiceRepositoryType>(instanceName: 'ServiceRepository'),
-    get<_i11.TrafficRepository>(),
+    get<_i11.NetworkLogsRepository>(),
   ));
   gh.singleton<_i17.SettingsRepository>(
       _i17.SettingsRepository(get<_i10.SharedPreferences>()));
