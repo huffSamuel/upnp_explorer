@@ -20,6 +20,5 @@ abstract class RegisterModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   @preResolve
-  Future<SearchRequestBuilder> get searchRequestBuilder =>
-      SearchRequestBuilder.create();
+  Future<UserAgentBuilder> get userAgentBuilder => UserAgentBuilder.create();
 }

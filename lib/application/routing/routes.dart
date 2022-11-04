@@ -14,6 +14,7 @@ class Routes {
   static String action = '/action';
   static String serviceStateTable = '/service-state-table';
   static String traffic = '/traffic';
+  static String document =  '/document';
 
   static FluroRouter configure(FluroRouter router) {
     router.notFoundHandler = Handler(handlerFunc: (_, __) {
@@ -25,6 +26,12 @@ class Routes {
     router.define(
       deviceDocument,
       handler: deviceHandler,
+      transitionType: TransitionType.custom,
+      transitionBuilder: transitionBuilder,
+    );
+    router.define(
+      document,
+      handler: documentHandler,
       transitionType: TransitionType.custom,
       transitionBuilder: transitionBuilder,
     );

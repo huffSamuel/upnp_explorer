@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upnp_explorer/presentation/device/bloc/device_bloc.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
@@ -9,7 +11,8 @@ import '../../../infrastructure/upnp/models/device.dart';
 
 class ServiceListPage extends StatelessWidget {
   final ServiceList services;
-  final ServiceRepositoryType repo = sl<ServiceRepositoryType>(instanceName: 'ServiceRepository');
+  final ServiceRepositoryType repo =
+      sl<ServiceRepositoryType>(instanceName: 'ServiceRepository');
 
   ServiceListPage({
     Key? key,
@@ -21,11 +24,14 @@ class ServiceListPage extends StatelessWidget {
       return null;
     }
 
-    return () => Application.router!.navigateTo(
-          context,
-          Routes.service(service.serviceId.toString()),
-          routeSettings: RouteSettings(arguments: service),
-        );
+    return () {
+      BlocProvider.of<DeviceBloc>(context).add(SetService(service));
+      Application.router!.navigateTo(
+        context,
+        Routes.service(service.serviceId.toString()),
+        routeSettings: RouteSettings(arguments: service),
+      );
+    };
   }
 
   @override
@@ -47,7 +53,8 @@ class ServiceListPage extends StatelessWidget {
             return ListTile(
               title: Text(service.serviceId.serviceId),
               trailing: onTap == null ? null : Icon(Icons.chevron_right),
-              subtitle: onTap == null ? Text(i18n.unableToObtainInformation) : null,
+              subtitle:
+                  onTap == null ? Text(i18n.unableToObtainInformation) : null,
               onTap: onTap,
             );
           },

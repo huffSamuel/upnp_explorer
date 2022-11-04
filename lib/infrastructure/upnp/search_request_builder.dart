@@ -7,47 +7,55 @@ import 'm_search_request.dart';
 
 import 'models/search_target.dart';
 
-class SearchRequestBuilder {
-  late PackageInfo packageInfo;
+class UserAgentBuilder {
+  static Future<UserAgentBuilder> create() async {
+    final builder = UserAgentBuilder();
 
-  AndroidDeviceInfo? androidInfo;
-  IosDeviceInfo? iosInfo;
-
-  String os = Platform.operatingSystem;
-
-  static Future<SearchRequestBuilder> create() async {
-    final builder = SearchRequestBuilder();
-
-    await builder.init();
+    builder.init();
 
     return builder;
   }
 
+  late String packageVersion;
+  late String packageName;
+  late String osVersion;
+
+  String os = Platform.operatingSystem;
+
   init() async {
-    packageInfo = await PackageInfo.fromPlatform();
+    final packageInfo = await PackageInfo.fromPlatform();
+    packageName = packageInfo.packageName.split('.').last;
+    packageVersion = packageInfo.version;
     final plugin = DeviceInfoPlugin();
 
     if (Platform.isAndroid) {
-      androidInfo = await plugin.androidInfo;
-      print(androidInfo?.toMap());
+      final androidInfo = await plugin.androidInfo;
+      osVersion = androidInfo.version.sdkInt.toString();
     } else if (Platform.isIOS) {
-      iosInfo = await plugin.iosInfo;
+      final iosInfo = await plugin.iosInfo;
+      osVersion = iosInfo.systemVersion!;
     }
   }
+
+  String build({version = '1.1'}) {
+    return '$os/$osVersion UPnP/$version $packageName/$packageVersion';
+  }
+}
+
+@singleton
+class SearchRequestBuilder {
+  final UserAgentBuilder userAgent;
+
+  SearchRequestBuilder(this.userAgent);
 
   MSearchRequest build({
     SearchTarget searchTarget = const SearchTarget.rootDevice(),
     required int maxResponseTime,
   }) {
-    final packageName = packageInfo.packageName.split('.').last;
-
     return MSearchRequest(
       searchTarget: searchTarget,
       maxResponseTime: maxResponseTime,
-      os: os,
-      osVersion: androidInfo?.version.sdkInt.toString() ?? '1',
-      packageName: packageName,
-      packageVersion: packageInfo.version,
+      userAgent: userAgent.build(version: '1.1'),
     );
   }
 }

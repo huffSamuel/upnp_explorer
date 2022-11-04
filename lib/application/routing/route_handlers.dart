@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 
 import '../../domain/device/service_repository_type.dart';
 import '../../infrastructure/upnp/models/device.dart';
@@ -15,6 +16,15 @@ import '../../presentation/network_logs/pages/traffic_page.dart';
 import '../ioc.dart';
 
 var rootHandler = Handler(handlerFunc: (context, _) => DiscoveryPage());
+
+var documentHandler = Handler(handlerFunc: (context, params) {
+  return Scaffold(
+    appBar: AppBar(),
+    body: SingleChildScrollView(
+      child: Text(params as String),
+    ),
+  );
+});
 
 var deviceHandler = Handler(handlerFunc: (context, params) {
   final args = context!.settings!.arguments as DevicePageArguments;
@@ -49,15 +59,21 @@ var serviceHandler = Handler(handlerFunc: (context, params) {
 });
 
 var actionListHandler = Handler(handlerFunc: (context, _) {
-  final args = context!.settings!.arguments as ActionList;
+  final args = context!.settings!.arguments as List<dynamic>;
 
-  return ActionsPage(actionList: args);
+  return ActionsPage(
+    actionList: args[0],
+    stateTable: args[1],
+  );
 });
 
 final actionHandler = Handler(handlerFunc: (context, _) {
-  final args = context!.settings!.arguments as Action;
+  final args = context!.settings!.arguments as List<dynamic>;
 
-  return ActionPage(action: args);
+  return ActionPage(
+    action: args[0],
+    stateTable: args[1],
+  );
 });
 
 final serviceStateTableHandler = Handler(handlerFunc: (context, _) {

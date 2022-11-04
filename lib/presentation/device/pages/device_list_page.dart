@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upnp_explorer/presentation/device/bloc/device_bloc.dart';
 
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
@@ -12,6 +14,14 @@ class DeviceListPage extends StatelessWidget {
     Key? key,
     required this.devices,
   }) : super(key: key);
+
+  void _onDeviceTapped(BuildContext context, Device device) {
+    Application.router!.navigateTo(
+      context,
+      Routes.deviceDocument,
+      routeSettings: RouteSettings(arguments: device),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +41,7 @@ class DeviceListPage extends StatelessWidget {
                 device.deviceType.type,
               ),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                Application.router!.navigateTo(
-                  context,
-                  Routes.deviceDocument,
-                  routeSettings: RouteSettings(arguments: device),
-                );
-              },
+              onTap: () => _onDeviceTapped(context, device),
             );
           },
         ),

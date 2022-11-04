@@ -9,7 +9,7 @@ import '../../../infrastructure/upnp/models/service_description.dart';
 import '../widgets/feature_unavailable_dialog.dart';
 
 class ServicePage extends StatelessWidget {
-  final unlocked = false;
+  final unlocked = true;
 
   final Service service;
   final ServiceDescription description;
@@ -19,6 +19,10 @@ class ServicePage extends StatelessWidget {
     required this.service,
     required this.description,
   }) : super(key: key);
+
+  Widget _icon(BuildContext context) {
+    return Icon(unlocked ? Icons.chevron_right : Icons.lock_outline);
+  }
 
   void _action(BuildContext context, VoidCallback callback) {
     if (!unlocked) {
@@ -48,16 +52,20 @@ class ServicePage extends StatelessWidget {
                 i18n.actions,
               ),
               subtitle: RowCountOverflowed(
-                labels: List.from(description.actionList.actions.map((x) => x.name)),
+                labels: List.from(
+                    description.actionList.actions.map((x) => x.name)),
               ),
-              trailing: Icon(Icons.lock_outline),
+              trailing: _icon(context),
               onTap: () => _action(
                 context,
                 () => Application.router!.navigateTo(
                   context,
                   Routes.actionList,
                   routeSettings: RouteSettings(
-                    arguments: description.actionList,
+                    arguments: [
+                      description.actionList,
+                      description.serviceStateTable,
+                    ],
                   ),
                 ),
               ),
@@ -66,9 +74,10 @@ class ServicePage extends StatelessWidget {
             ListTile(
               title: Text(i18n.stateVariables),
               subtitle: RowCountOverflowed(
-                labels: List.from(description.serviceStateTable.stateVariables.map((x) => x.name)),
+                labels: List.from(description.serviceStateTable.stateVariables
+                    .map((x) => x.name)),
               ),
-              trailing: Icon(Icons.lock_outline),
+              trailing: _icon(context),
               onTap: () => _action(
                 context,
                 () => Application.router!.navigateTo(

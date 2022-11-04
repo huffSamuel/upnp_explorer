@@ -90,14 +90,11 @@ class _TrafficItemsState extends State<TrafficItems> {
           Traffic<dynamic> item,
           Animation<double> animation,
         ) {
-          return FadeTransition(
-            key: Key(item.hashCode.toString()),
-            opacity: animation.drive(
-              Tween(
-                begin: 0.0,
-                end: 1.0,
-              ),
+          return ScaleTransition(
+            scale: animation.drive(
+              Tween(begin: 0.0, end: 1.0),
             ),
+            key: Key(item.hashCode.toString()),
             child: _map(item),
           );
         },

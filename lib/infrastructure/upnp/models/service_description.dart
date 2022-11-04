@@ -38,7 +38,7 @@ class ServiceDescription {
 }
 
 class ServiceStateTable {
-  final List<_StateVariable> stateVariables;
+  final List<StateVariable> stateVariables;
 
   ServiceStateTable({
     required this.stateVariables,
@@ -46,8 +46,8 @@ class ServiceStateTable {
 
   static fromXml(XmlNode xml) {
     return ServiceStateTable(
-      stateVariables: xmlNodeBuilder<_StateVariable>(
-          xml, 'stateVariable', (x) => _StateVariable.fromXml(x)),
+      stateVariables: xmlNodeBuilder<StateVariable>(
+          xml, 'stateVariable', (x) => StateVariable.fromXml(x)),
     );
   }
 }
@@ -84,7 +84,7 @@ class Action {
 }
 
 class _ArgumentList {
-  final List<_Argument> arguments;
+  final List<Argument> arguments;
 
   _ArgumentList({
     required this.arguments,
@@ -92,28 +92,40 @@ class _ArgumentList {
 
   static fromXml(XmlNode? xml) {
     return _ArgumentList(
-      arguments: xmlNodeBuilder<_Argument>(
+      arguments: xmlNodeBuilder<Argument>(
         xml,
         'argument',
-        (x) => _Argument.fromXml(x),
+        (x) => Argument.fromXml(x),
       ),
     );
   }
 }
 
 class _DataType {
+  final DataType type;
+
+  _DataType(this.type);
+
   static fromXml(XmlNode xml) {
-    return _DataType();
+    DataType type;
+
+    if (dataTypeMap.keys.contains(xml.innerText)) {
+      type = dataTypeMap[xml.innerText]!;
+    } else {
+      type = DataType.string;
+    }
+
+    return _DataType(type);
   }
 }
 
-class _Argument {
+class Argument {
   final String name;
   final String direction;
   final String? retval;
   final String relatedStateVariable;
 
-  _Argument({
+  Argument({
     required this.name,
     required this.direction,
     this.retval,
@@ -121,7 +133,7 @@ class _Argument {
   });
 
   static fromXml(XmlNode xml) {
-    return _Argument(
+    return Argument(
       name: xml.getElement('name')!.text,
       direction: xml.getElement('direction')!.text,
       retval: xml.getElement('retval')?.text,
@@ -130,7 +142,7 @@ class _Argument {
   }
 }
 
-class _StateVariable {
+class StateVariable {
   final bool? sendEvents;
   final bool? multicast;
   final String name;
@@ -139,7 +151,7 @@ class _StateVariable {
   final _AllowedValueList? allowedValueList;
   final _AllowedValueRange? allowedValueRange;
 
-  _StateVariable({
+  StateVariable({
     this.sendEvents,
     this.multicast,
     required this.name,
@@ -154,7 +166,7 @@ class _StateVariable {
     final multicast = xml.getAttribute('multicast');
     final allowedValueRange = xml.getElement('allowedValueRange');
 
-    return _StateVariable(
+    return StateVariable(
       sendEvents: sendEvents != null ? sendEvents == 'yes' : false,
       multicast: multicast != null ? multicast == 'yes' : false,
       name: xml.getElement('name')!.text,
@@ -168,6 +180,15 @@ class _StateVariable {
     );
   }
 }
+
+Map<String, DataType> dataTypeMap = {
+  for (var v in DataType.values) v.toString().substring('DataType.'.length): v,
+  ...{'fixed.14.4': DataType.fixed14_4},
+  ...{'dateTime.tz': DataType.dateTimeTz},
+  ...{'time.tz': DataType.timeTz},
+  ...{'bin.base64': DataType.binaryBase64},
+  ...{'bin.hex': DataType.binaryHex},
+};
 
 enum DataType {
   /// Unsigned 1 byte int. Same format as {int} but without the leading sign.
