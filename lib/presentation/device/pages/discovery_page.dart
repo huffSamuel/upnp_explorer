@@ -11,7 +11,7 @@ import '../../../domain/device/device.dart';
 import '../../core/bloc/application_bloc.dart';
 import '../../review/widgets/review_prompt_dialog.dart';
 import '../../changelog/widgets/changelog_dialog.dart';
-import '../bloc/device_bloc.dart';
+import '../../service/bloc/command_bloc.dart';
 import '../bloc/discovery_bloc.dart';
 import '../widgets/device_list_image.dart';
 import '../widgets/refresh_button.dart';

@@ -1,16 +1,16 @@
-part of 'device_bloc.dart';
+part of 'command_bloc.dart';
 
-class DeviceState extends Equatable {
+class CommandState extends Equatable {
   final UPnPDevice? device;
   final Service? service;
 
-  DeviceState({this.device, this.service});
+  CommandState({this.device, this.service});
 
-  DeviceState copyWith({
+  CommandState copyWith({
     UPnPDevice? device,
     Service? service,
   }) {
-    return DeviceState(
+    return CommandState(
       device: device ?? this.device,
       service: service ?? this.service,
     );
@@ -23,7 +23,7 @@ class DeviceState extends Equatable {
       ];
 }
 
-class ActionSuccess extends DeviceState {
+class ActionSuccess extends CommandState {
   final List<ActionArgument> data;
 
   ActionSuccess(this.data);

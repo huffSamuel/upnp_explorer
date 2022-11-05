@@ -9,33 +9,29 @@ import '../../../domain/upnp/action_command.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/soap_service.dart';
 
-part 'device_event.dart';
-part 'device_state.dart';
+part 'command_event.dart';
+part 'command_state.dart';
 
 @singleton
-class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
+class CommandBloc extends Bloc<CommandEvent, CommandState> {
   final SoapService soap;
 
-  DeviceBloc(this.soap) : super(DeviceState()) {
+  CommandBloc(this.soap) : super(CommandState()) {
     on<SetDevice>(_onSetDevice);
     on<SetService>(_onSetService);
     on<SendCommand>(_onSendCommand);
   }
 
-  _onSetDevice(SetDevice event, Emitter<DeviceState> emit) {
-    print('set device');
+  _onSetDevice(SetDevice event, Emitter<CommandState> emit) {
     emit(state.copyWith(device: event.device));
   }
 
-  _onSetService(SetService event, Emitter<DeviceState> emit) {
-    print('set service');
+  _onSetService(SetService event, Emitter<CommandState> emit) {
     emit(state.copyWith(service: event.service));
   }
 
-  _onSendCommand(SendCommand event, Emitter<DeviceState> emit) async {
+  _onSendCommand(SendCommand event, Emitter<CommandState> emit) async {
     if (state.service == null || state.device == null) {
-      print(state.service);
-      print(state.device);
       return;
     }
 
@@ -63,6 +59,5 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
     final response = await soap.send(uri, invocation);
     emit(ActionSuccess(response.arguments));
     emit(current);
-    print(response.arguments);
   }
 }

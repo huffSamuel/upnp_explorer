@@ -44,7 +44,7 @@ class _TrafficItemsState extends State<TrafficItems> {
 
     if (traffic is Traffic<SearchRequest>) {
       text = traffic.message.request.toString();
-      origin = traffic.message.address;
+      origin = '0.0.0.0';
     }
 
     if (traffic is Traffic<SSDPResponseMessage>) {
@@ -55,6 +55,11 @@ class _TrafficItemsState extends State<TrafficItems> {
     if (traffic is Traffic<Response>) {
       text = _responseToString(traffic.message);
       origin = traffic.message.request!.url.authority;
+    }
+
+    if (traffic is Traffic<Request>) {
+      text= _requestToString(traffic.message);
+      origin = '0.0.0.0';
     }
 
     return LogCard(
@@ -156,6 +161,17 @@ class _SliverFilterHeaderDelegate extends SliverPersistentHeaderDelegate {
   FloatingHeaderSnapConfiguration get snapConfiguration =>
       FloatingHeaderSnapConfiguration(
           curve: Curves.ease, duration: const Duration(milliseconds: 300));
+}
+
+String _requestToString(Request request) {
+  final headers = request.headers.entries.toList()
+  ..sort((a, b) => a.key.compareTo(b.key));
+
+  return '''
+HTTP/1.1
+${headers.map((x) => '${x.key}: ${x.value}').join('\n')}\n
+${request.body}
+''';
 }
 
 String _responseToString(Response response) {

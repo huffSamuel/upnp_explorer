@@ -20,8 +20,8 @@ import '../infrastructure/upnp/search_request_builder.dart' as _i11;
 import '../infrastructure/upnp/soap_service.dart' as _i16;
 import '../infrastructure/upnp/ssdp_discovery.dart' as _i20;
 import '../presentation/core/bloc/application_bloc.dart' as _i17;
-import '../presentation/device/bloc/device_bloc.dart' as _i18;
 import '../presentation/device/bloc/discovery_bloc.dart' as _i21;
+import '../presentation/service/bloc/command_bloc.dart' as _i18;
 import 'changelog/changelog_service.dart' as _i12;
 import 'device/device_repository.dart' as _i5;
 import 'device/service_repository.dart' as _i9;
@@ -72,11 +72,13 @@ Future<_i1.GetIt> $initIoc(
       _i11.SearchRequestBuilder(get<_i11.UserAgentBuilder>()));
   gh.singleton<_i15.SettingsRepository>(
       _i15.SettingsRepository(get<_i10.SharedPreferences>()));
-  gh.singleton<_i16.SoapService>(
-      _i16.SoapService(get<_i11.UserAgentBuilder>()));
+  gh.singleton<_i16.SoapService>(_i16.SoapService(
+    get<_i11.UserAgentBuilder>(),
+    get<_i7.NetworkLogsRepository>(),
+  ));
   gh.singleton<_i17.ApplicationBloc>(
       _i17.ApplicationBloc(get<_i14.ReviewService>()));
-  gh.singleton<_i18.DeviceBloc>(_i18.DeviceBloc(get<_i16.SoapService>()));
+  gh.singleton<_i18.CommandBloc>(_i18.CommandBloc(get<_i16.SoapService>()));
   gh.singleton<_i19.DeviceDiscoveryService>(_i19.DeviceDiscoveryService(
     get<_i6.LoggerFactory>(),
     get<_i7.NetworkLogsRepository>(),

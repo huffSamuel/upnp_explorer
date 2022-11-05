@@ -11,7 +11,7 @@ class UserAgentBuilder {
   static Future<UserAgentBuilder> create() async {
     final builder = UserAgentBuilder();
 
-    builder.init();
+    await builder.init();
 
     return builder;
   }
@@ -22,7 +22,7 @@ class UserAgentBuilder {
 
   String os = Platform.operatingSystem;
 
-  init() async {
+  Future<void> init() async {
     final packageInfo = await PackageInfo.fromPlatform();
     packageName = packageInfo.packageName.split('.').last;
     packageVersion = packageInfo.version;

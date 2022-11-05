@@ -5,7 +5,7 @@ import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
-import '../bloc/device_bloc.dart';
+import '../../service/bloc/command_bloc.dart';
 import '../pages/device_page.dart';
 import 'device_image.dart';
 
@@ -34,7 +34,7 @@ class DeviceListItem extends StatelessWidget {
         subtitle: Text(device.ipAddress.toString()),
         trailing: Icon(Icons.chevron_right),
         onTap: () {
-          BlocProvider.of<DeviceBloc>(context).add(SetDevice(device));
+          BlocProvider.of<CommandBloc>(context).add(SetDevice(device));
 
           Application.router!.navigateTo(
             context,

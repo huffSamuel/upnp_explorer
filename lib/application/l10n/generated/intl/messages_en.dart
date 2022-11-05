@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m8(protocol) => "${Intl.select(protocol, {
             'upnp': 'UPnP',
             'ssdp': 'SSDP',
+            'soap': 'SOAP',
           })}";
 
   static String m9(appName) => "Rate ${appName}";

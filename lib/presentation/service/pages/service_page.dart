@@ -39,7 +39,6 @@ class ServicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(service.serviceId.serviceId),
@@ -47,44 +46,18 @@ class ServicePage extends StatelessWidget {
       body: Column(
         children: [
           if (description.actionList.actions.isNotEmpty)
-            ListTile(
-              title: Text(
-                i18n.actions,
-              ),
-              subtitle: RowCountOverflowed(
-                labels: List.from(
-                    description.actionList.actions.map((x) => x.name)),
-              ),
-              trailing: _icon(context),
-              onTap: () => _action(
-                context,
-                () => Application.router!.navigateTo(
+            ...description.actionList.actions.map(
+              (x) => ListTile(
+                title: Text(x.name),
+                trailing: Icon(Icons.chevron_right),
+                onTap: () => Application.router!.navigateTo(
                   context,
-                  Routes.actionList,
+                  Routes.action,
                   routeSettings: RouteSettings(
                     arguments: [
-                      description.actionList,
+                      x,
                       description.serviceStateTable,
                     ],
-                  ),
-                ),
-              ),
-            ),
-          if (description.serviceStateTable.stateVariables.isNotEmpty)
-            ListTile(
-              title: Text(i18n.stateVariables),
-              subtitle: RowCountOverflowed(
-                labels: List.from(description.serviceStateTable.stateVariables
-                    .map((x) => x.name)),
-              ),
-              trailing: _icon(context),
-              onTap: () => _action(
-                context,
-                () => Application.router!.navigateTo(
-                  context,
-                  Routes.serviceStateTable,
-                  routeSettings: RouteSettings(
-                    arguments: description.serviceStateTable,
                   ),
                 ),
               ),

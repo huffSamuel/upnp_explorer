@@ -14,7 +14,7 @@ import 'application/settings/palette.dart';
 import 'infrastructure/settings/options_repository.dart';
 import 'infrastructure/upnp/device_discovery_service.dart';
 import 'presentation/core/widgets/model_binding.dart';
-import 'presentation/device/bloc/device_bloc.dart';
+import 'presentation/service/bloc/command_bloc.dart';
 
 void main() {
   LicenseRegistry.addLicense(() async* {
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
               options.protocolOptions;
 
           return BlocProvider.value(
-            value: sl<DeviceBloc>(),
+            value: sl<CommandBloc>(),
             child: MaterialApp(
               title: Application.name,
               themeMode: options.themeMode,

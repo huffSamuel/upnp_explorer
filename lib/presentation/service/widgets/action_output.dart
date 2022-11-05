@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../infrastructure/upnp/models/service_description.dart';
-import '../../device/bloc/device_bloc.dart';
+import '../bloc/command_bloc.dart';
 import 'action_input.dart';
 
 class ActionOutput extends StatelessWidget {
@@ -17,7 +17,7 @@ class ActionOutput extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    return BlocBuilder<DeviceBloc, DeviceState>(
+    return BlocBuilder<CommandBloc, CommandState>(
       buildWhen: (oldState, newState) => newState is ActionSuccess,
       builder: (context, state) {
         Map<String, String?> outputValues = {};

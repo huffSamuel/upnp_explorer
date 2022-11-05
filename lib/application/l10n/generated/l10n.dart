@@ -564,13 +564,14 @@ class S {
     );
   }
 
-  /// `{protocol, select, upnp {UPnP} ssdp {SSDP}}`
+  /// `{protocol, select, upnp {UPnP} ssdp {SSDP} soap {SOAP}}`
   String protocol(Object protocol) {
     return Intl.select(
       protocol,
       {
         'upnp': 'UPnP',
         'ssdp': 'SSDP',
+        'soap': 'SOAP',
       },
       name: 'protocol',
       desc: '',

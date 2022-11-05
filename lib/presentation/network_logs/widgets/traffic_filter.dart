@@ -35,7 +35,7 @@ class TrafficFilter {
         String origin = '';
 
         if (traffic is Traffic<SearchRequest>) {
-          origin = traffic.message.address;
+          origin = '0.0.0.0';
         }
 
         if (traffic is Traffic<SSDPResponseMessage>) {
@@ -44,6 +44,10 @@ class TrafficFilter {
 
         if (traffic is Traffic<Response>) {
           origin = traffic.message.request!.url.authority;
+        }
+
+        if(traffic is Traffic<Request>) {
+          origin = '0.0.0.0';
         }
 
         return origin == source;

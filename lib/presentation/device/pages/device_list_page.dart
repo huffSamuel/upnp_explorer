@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:upnp_explorer/presentation/device/bloc/device_bloc.dart';
+import 'package:upnp_explorer/presentation/service/bloc/command_bloc.dart';
 
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';

@@ -86,14 +86,14 @@ class DeviceDiscoveryService {
     try {
       socket.joinMulticast(ssdpV4Multicast);
     } catch (e) {
-      logger.error('Unable to join multicast. $e');
+      logger.error('Unable to join direct multicast. $e');
     }
 
     for (var interface in _interfaces) {
       try {
         socket.joinMulticast(ssdpV4Multicast, interface);
       } catch (e) {
-        print('Unable to join multicast');
+        logger.error('Unable to join interface multicast. $e');
       }
     }
 

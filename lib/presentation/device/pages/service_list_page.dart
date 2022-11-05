@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:upnp_explorer/presentation/device/bloc/device_bloc.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
@@ -8,6 +7,7 @@ import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/service_repository_type.dart';
 import '../../../infrastructure/upnp/models/device.dart';
+import '../../service/bloc/command_bloc.dart';
 
 class ServiceListPage extends StatelessWidget {
   final ServiceList services;
@@ -25,7 +25,7 @@ class ServiceListPage extends StatelessWidget {
     }
 
     return () {
-      BlocProvider.of<DeviceBloc>(context).add(SetService(service));
+      BlocProvider.of<CommandBloc>(context).add(SetService(service));
       Application.router!.navigateTo(
         context,
         Routes.service(service.serviceId.toString()),

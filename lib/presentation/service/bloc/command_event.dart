@@ -1,13 +1,13 @@
-part of 'device_bloc.dart';
+part of 'command_bloc.dart';
 
-abstract class DeviceEvent extends Equatable {
-  const DeviceEvent();
+abstract class CommandEvent extends Equatable {
+  const CommandEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class SetDevice extends DeviceEvent {
+class SetDevice extends CommandEvent {
   final UPnPDevice device;
 
   SetDevice(this.device);
@@ -16,7 +16,7 @@ class SetDevice extends DeviceEvent {
   List<Object> get props => [device];
 }
 
-class SetService extends DeviceEvent {
+class SetService extends CommandEvent {
   final Service service;
 
   SetService(this.service);
@@ -25,7 +25,7 @@ class SetService extends DeviceEvent {
   List<Object> get props => [service];
 }
 
-class SendCommand extends DeviceEvent {
+class SendCommand extends CommandEvent {
   final Map<String, String?> arguments;
   final String actionName;
 

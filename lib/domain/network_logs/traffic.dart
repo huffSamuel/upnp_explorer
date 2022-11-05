@@ -3,6 +3,7 @@ enum TrafficDirection { incoming, outgoing }
 enum TrafficProtocol {
   ssdp,
   upnp,
+  soap,
 }
 
 class Traffic<T> {
