@@ -43,6 +43,7 @@ class DeviceListItem extends StatelessWidget {
               arguments: DevicePageArguments(
                 device.description.device,
                 device.discoveryResponse,
+                xml: device.description.xml,
               ),
             ),
           );

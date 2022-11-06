@@ -1,5 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/presentation/core/page/view_document_page.dart';
+import 'package:xml/xml.dart';
 
 import '../../domain/device/service_repository_type.dart';
 import '../../infrastructure/upnp/models/device.dart';
@@ -18,12 +20,8 @@ import '../ioc.dart';
 var rootHandler = Handler(handlerFunc: (context, _) => DiscoveryPage());
 
 var documentHandler = Handler(handlerFunc: (context, params) {
-  return Scaffold(
-    appBar: AppBar(),
-    body: SingleChildScrollView(
-      child: Text(params as String),
-    ),
-  );
+  final args = context!.settings!.arguments as XmlDocument;
+  return XmlDocumentPage(xml: args);
 });
 
 var deviceHandler = Handler(handlerFunc: (context, params) {
@@ -32,19 +30,24 @@ var deviceHandler = Handler(handlerFunc: (context, params) {
   return DevicePage(
     device: args.device,
     message: args.message,
+    xml: args.xml,
   );
 });
 
 var serviceListHandler = Handler(handlerFunc: (context, _) {
   final args = context!.settings!.arguments as ServiceList;
 
-  return ServiceListPage(services: args);
+  return ServiceListPage(
+    services: args,
+  );
 });
 
 var deviceListHandler = Handler(handlerFunc: (context, _) {
   final args = context!.settings!.arguments as DeviceList;
 
-  return DeviceListPage(devices: args);
+  return DeviceListPage(
+    devices: args,
+  );
 });
 
 var serviceHandler = Handler(handlerFunc: (context, params) {

@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/core/widgets/row_count.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xml/xml.dart';
 
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/ssdp_response_message.dart';
+import '../../core/widgets/row_count.dart';
 
 class DevicePageArguments {
   final Device device;
+  final XmlDocument? xml;
   final SSDPResponseMessage message;
 
-  DevicePageArguments(this.device, this.message);
+  DevicePageArguments(
+    this.device,
+    this.message, {
+    this.xml,
+  });
 }
 
 class DevicePage extends StatelessWidget {
   final Device device;
   final SSDPResponseMessage message;
+  final XmlDocument? xml;
 
   const DevicePage({
     Key? key,
     required this.device,
     required this.message,
+    this.xml,
   }) : super(key: key);
 
   @override
@@ -59,12 +67,25 @@ class DevicePage extends StatelessWidget {
                 value: 0,
                 child: Text(i18n.openInBrowser),
               ),
+              if (xml != null)
+                PopupMenuItem(
+                  value: 1,
+                  child: Text('View XML'),
+                )
             ],
             onSelected: (value) {
               if (value == 0) {
                 launchUrl(
                   message.location,
                   mode: LaunchMode.externalApplication,
+                );
+              } else if (value == 1) {
+                Application.router!.navigateTo(
+                  context,
+                  Routes.document,
+                  routeSettings: RouteSettings(
+                    arguments: xml,
+                  ),
                 );
               }
             },

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../../../application/data_type_config.dart';
+import '../../../application/validators.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
 
 class ArgumentInputForm extends StatefulWidget {
@@ -18,17 +20,31 @@ class ArgumentInputForm extends StatefulWidget {
   State<ArgumentInputForm> createState() => ArgumentInputFormState();
 }
 
-const _defaultValueMap = {
-  DataType.ui1 : '0',
-  DataType.ui2 : '0',
-  DataType.ui4 : '0',
-  DataType.ui8 : '0',
-};
-
 class ArgumentInputFormState extends State<ArgumentInputForm> {
   final _formKey = GlobalKey<FormState>();
-
   late Map<String, String?> _formValue;
+
+  String? _argumentDefaultValue(Argument arg) {
+    final relatedStateVariable = widget.stateTable.stateVariables.singleWhere(
+      (v) => v.name == arg.relatedStateVariable,
+    );
+
+    if (relatedStateVariable.defaultValue != null) {
+      return relatedStateVariable.defaultValue;
+    }
+
+    if (relatedStateVariable.allowedValueList?.allowedValues.isNotEmpty ==
+        true) {
+      return relatedStateVariable.allowedValueList!.allowedValues.first;
+    }
+
+    if (relatedStateVariable.allowedValueRange?.minimum != null) {
+      return relatedStateVariable.allowedValueRange!.minimum;
+    }
+
+    return DataTypeConfig
+        .values[relatedStateVariable.dataType.type]?.defaultValue;
+  }
 
   @override
   void initState() {
@@ -37,28 +53,7 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
     _formValue = Map<String, String?>.fromIterable(
       widget.inputs,
       key: (x) => x.name,
-      value: (x) {
-        final arg = x as Argument;
-        final relatedStateVariable =
-            widget.stateTable.stateVariables.singleWhere(
-          (v) => v.name == arg.relatedStateVariable,
-        );
-
-        if (relatedStateVariable.defaultValue != null) {
-          return relatedStateVariable.defaultValue;
-        }
-
-        if (relatedStateVariable.allowedValueList?.allowedValues.isNotEmpty ==
-            true) {
-          return relatedStateVariable.allowedValueList!.allowedValues.first;
-        }
-
-        if (relatedStateVariable.allowedValueRange?.minimum != null) {
-          return relatedStateVariable.allowedValueRange!.minimum;
-        }
-
-        return _defaultValueMap[relatedStateVariable.dataType.type];
-      },
+      value: (x) => _argumentDefaultValue(x as Argument),
     );
   }
 
@@ -87,7 +82,6 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
               value: _formValue[x.name],
               onChanged: (v) {
                 setState(() {
-                  print('set ${x.name}: $v');
                   _formValue[x.name] = v;
                 });
               },
@@ -245,19 +239,25 @@ class _AllowedRangeInputState extends State<_AllowedRangeInput> {
     super.initState();
   }
 
+  String get _label => value.toInt().toString();
+
+  void _onChangeEnd(double v) {
+    widget.onChanged(v.toInt().toString());
+  }
+
+  void _onChanged(double v) {
+    setState(() {
+      value = v;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Slider(
       value: value,
-      onChangeEnd: (v) {
-        widget.onChanged(v.toInt().toString());
-      },
-      onChanged: (v) {
-        setState(() {
-          value = v;
-        });
-      },
-      label: value.toInt().toString(),
+      onChangeEnd: _onChangeEnd,
+      onChanged: _onChanged,
+      label: _label,
       min: min,
       max: max,
       divisions: div,
@@ -315,16 +315,16 @@ class _TextVariableInput extends StatelessWidget {
     this.value,
   }) : super(key: key);
 
+  DataTypeConfig? get _config =>
+      DataTypeConfig.values[stateVariable?.dataType.type];
+
+  TextInputType? get _keyboardType => _config?.inputType ?? TextInputType.text;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (s) {
-        if (s == null || s.isEmpty) {
-          return '*';
-        }
-
-        return null;
-      },
+      validator: Validators.isNotEmpty,
+      keyboardType: _keyboardType,
       onChanged: onChanged,
       controller: TextEditingController(
         text: value,
