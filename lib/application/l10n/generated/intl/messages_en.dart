@@ -133,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No devices found."),
         "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "open": MessageLookupByLibrary.simpleMessage("Open"),
         "openAnIssueOnOurGithub":
             MessageLookupByLibrary.simpleMessage("Open an issue on our GitHub"),
         "openInBrowser":

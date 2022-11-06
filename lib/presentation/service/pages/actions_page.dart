@@ -21,26 +21,45 @@ class ActionsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.of(context).actions),
       ),
-      body: ListView(
-        children: [
-          ...actionList.actions.map(
-            (x) => ListTile(
-              title: Text(x.name),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => Application.router!.navigateTo(
-                context,
-                Routes.action,
-                routeSettings: RouteSettings(
-                  arguments: [
-                    x,
-                    stateTable,
-                  ],
-                ),
+      body: _Actions(
+        actionList: actionList,
+        stateTable: stateTable,
+      ),
+    );
+  }
+}
+
+class _Actions extends StatelessWidget {
+  final ActionList actionList;
+  final ServiceStateTable stateTable;
+
+  const _Actions({
+    Key? key,
+    required this.actionList,
+    required this.stateTable,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        ...actionList.actions.map(
+          (x) => ListTile(
+            title: Text(x.name),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () => Application.router!.navigateTo(
+              context,
+              Routes.action,
+              routeSettings: RouteSettings(
+                arguments: [
+                  x,
+                  stateTable,
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

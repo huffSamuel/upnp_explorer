@@ -31,6 +31,7 @@ dependencies:
   google_fonts: ^3.0.1
   diffutil_dart: ^3.0.0
   device_info_plus: ^6.0.0
+  string_validator: ^0.3.0
 
 dev_dependencies:
   flutter_test:

@@ -20,6 +20,7 @@
   "devicesN": "Devices ({count})",
   "direction": "{direction, select, incoming {Incoming} outgoing {Outgoing}}",
   "discoveredDevice": "Discovered device {name}",
+  "open": "Open",
   "discovery": "Discovery",
   "discoveryRequiresNetwork": "Device discovery requires network access",
   "display": "Display",

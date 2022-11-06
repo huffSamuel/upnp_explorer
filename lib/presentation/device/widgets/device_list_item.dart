@@ -20,9 +20,7 @@ class DeviceListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: S
-          .of(context)
-          .discoveredDevice(device.description.device.friendlyName),
+      label: S.of(context).open,
       child: ListTile(
         leading: DeviceImage(
           icons: device.description.device.iconList.icons,

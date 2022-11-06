@@ -264,6 +264,16 @@ class S {
     );
   }
 
+  /// `Open`
+  String get open {
+    return Intl.message(
+      'Open',
+      name: 'open',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Discovery`
   String get discovery {
     return Intl.message(

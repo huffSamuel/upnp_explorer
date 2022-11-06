@@ -9,6 +9,7 @@ import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';
 
 class ActionPage extends StatelessWidget {
+  final _controller = ScrollController();
   final upnp.Action action;
   final upnp.ServiceStateTable stateTable;
 
@@ -59,9 +60,10 @@ class ActionPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+            child: Scrollbar(
+              controller: _controller,
               child: ListView(
+                controller: _controller,
                 shrinkWrap: true,
                 children: [
                   if (action.argumentList != null)
@@ -84,6 +86,7 @@ class ActionPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SendCommandButton(
+                name: action.name,
                 onPressed: () => _send(context),
               ),
             ),
@@ -93,3 +96,5 @@ class ActionPage extends StatelessWidget {
     );
   }
 }
+
+

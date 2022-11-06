@@ -66,35 +66,42 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
     return _formValue;
   }
 
+  void _onInputChanged(String name, String? value) {
+    setState(() {
+      _formValue[name] = value;
+    });
+  }
+
+  Widget _mapInputToWidget(Argument arg) {
+    return ArgumentInput(
+      argument: arg,
+      value: _formValue[arg.name],
+      onChanged: (v) => _onInputChanged(arg.name, v),
+      stateVariable: widget.stateTable.stateVariables.firstWhere(
+        (element) => element.name == arg.relatedStateVariable,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Input', style: theme.headline6),
-          ...widget.inputs.map(
-            (x) => ArgumentInput(
-              argument: x,
-              value: _formValue[x.name],
-              onChanged: (v) {
-                setState(() {
-                  _formValue[x.name] = v;
-                });
-              },
-              stateVariable: widget.stateTable.stateVariables.firstWhere(
-                (element) => element.name == x.relatedStateVariable,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Input', style: theme.headline6),
+            ...widget.inputs.map(_mapInputToWidget),
+            const Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Divider(),
             ),
-          ),
-          const Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Divider(),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -136,17 +143,24 @@ class ArgumentOutput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _OneThird(
-      title: Text(
-        name,
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
-      child: TextField(
-        controller: TextEditingController(
-          text: LineSplitter().convert(value ?? '').join(''),
+    return Semantics(
+      label: '$name ${value ?? "unknown"}',
+      child: _OneThird(
+        title: ExcludeSemantics(
+          child: Text(
+            name,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
         ),
-        readOnly: true,
-        maxLines: 1,
+        child: ExcludeSemantics(
+          child: TextField(
+            controller: TextEditingController(
+              text: LineSplitter().convert(value ?? '').join(''),
+            ),
+            readOnly: true,
+            maxLines: 1,
+          ),
+        ),
       ),
     );
   }
@@ -185,6 +199,13 @@ class ArgumentInput extends StatelessWidget {
       );
     }
 
+    if (stateVariable?.dataType.type == DataType.boolean) {
+      return _SwitchInput(
+        value: value == (true.toString()),
+        onChanged: onChanged,
+      );
+    }
+
     return _TextVariableInput(
       value: value,
       onChanged: onChanged,
@@ -201,6 +222,29 @@ class ArgumentInput extends StatelessWidget {
         style: Theme.of(context).textTheme.subtitle1,
       ),
       child: _input(context),
+    );
+  }
+}
+
+class _SwitchInput extends StatelessWidget {
+  final bool value;
+  final void Function(String?) onChanged;
+
+  const _SwitchInput({
+    Key? key,
+    required this.value,
+    required this.onChanged,
+  }) : super(key: key);
+
+  void _onChanged(bool? value) {
+    onChanged((value ?? false).toString());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      value: value,
+      onChanged: _onChanged,
     );
   }
 }
@@ -301,7 +345,7 @@ class _AllowedListInput extends StatelessWidget {
   }
 }
 
-class _TextVariableInput extends StatelessWidget {
+class _TextVariableInput extends StatefulWidget {
   final Argument argument;
   final StateVariable? stateVariable;
   final void Function(String?) onChanged;
@@ -315,22 +359,51 @@ class _TextVariableInput extends StatelessWidget {
     this.value,
   }) : super(key: key);
 
+  @override
+  State<_TextVariableInput> createState() => _TextVariableInputState();
+}
+
+class _TextVariableInputState extends State<_TextVariableInput> {
+  final _controller = TextEditingController();
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    _controller.text = widget.value ?? '';
+
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        _submit(_controller.text);
+      }
+    });
+
+    super.initState();
+  }
+
+  void _submit(String value) {
+    widget.onChanged(value);
+  }
+
   DataTypeConfig? get _config =>
-      DataTypeConfig.values[stateVariable?.dataType.type];
+      DataTypeConfig.values[widget.stateVariable?.dataType.type];
 
   TextInputType? get _keyboardType => _config?.inputType ?? TextInputType.text;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator: Validators.isNotEmpty,
-      keyboardType: _keyboardType,
-      onChanged: onChanged,
-      controller: TextEditingController(
-        text: value,
-      ),
-      decoration: InputDecoration(
-        border: UnderlineInputBorder(),
+    return Focus(
+      focusNode: _focusNode,
+      child: TextFormField(
+        validator: Validators.isNotEmpty,
+        keyboardType: _keyboardType,
+        onFieldSubmitted: _submit,
+        onChanged: (s) => _controller.text = s,
+        controller: TextEditingController(
+          text: widget.value,
+        ),
+        decoration: InputDecoration(
+          border: UnderlineInputBorder(),
+        ),
       ),
     );
   }
