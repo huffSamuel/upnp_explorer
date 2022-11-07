@@ -22,7 +22,6 @@ class HighlightSwitchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Ink(
       color: _color(context),
       child: SwitchSettingsTile(

@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import '../../application/network_logs/network_logs_repository.dart';
 
 import '../../domain/network_logs/direction.dart';
-import '../../domain/network_logs/network_logs_repository_type.dart';
 import '../../domain/network_logs/protocol.dart';
 import '../../domain/network_logs/traffic.dart';
 import '../../domain/upnp/action_command.dart';

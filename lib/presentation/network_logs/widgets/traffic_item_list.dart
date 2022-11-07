@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:http/http.dart';
 
 import '../../../domain/network_logs/traffic.dart';
-import '../../../infrastructure/upnp/device_discovery_service.dart';
-import '../../../infrastructure/upnp/ssdp_response_message.dart';
 import '../../core/widgets/animated_filter_list.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_card.dart';
@@ -81,81 +77,4 @@ class _TrafficItemsState extends State<TrafficItems> {
       ),
     );
   }
-}
-
-class _SliverFilterHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final _controller = ScrollController();
-  final List<String> filters;
-  _SliverFilterHeaderDelegate({
-    required this.vsync,
-    required this.filters,
-  }) : super();
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return Container(
-      color: Theme.of(context).canvasColor,
-      child: Scrollbar(
-        scrollbarOrientation: ScrollbarOrientation.bottom,
-        child: ListView(
-          controller: _controller,
-          scrollDirection: Axis.horizontal,
-          children: [
-            ...filters.map(
-              (x) => FilterChip(
-                label: Text(x),
-                selected: true,
-                onSelected: (_) {},
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => kToolbarHeight;
-
-  @override
-  double get minExtent => 25;
-
-  @override
-  TickerProvider vsync;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-
-  @override
-  FloatingHeaderSnapConfiguration get snapConfiguration =>
-      FloatingHeaderSnapConfiguration(
-          curve: Curves.ease, duration: const Duration(milliseconds: 300));
-}
-
-String _requestToString(Request request) {
-  final headers = request.headers.entries.toList()
-    ..sort((a, b) => a.key.compareTo(b.key));
-
-  return '''
-HTTP/1.1
-${headers.map((x) => '${x.key}: ${x.value}').join('\n')}\n
-${request.body}
-''';
-}
-
-String _responseToString(Response response) {
-  final headers = response.headers.entries.toList()
-    ..sort((a, b) => a.key.compareTo(b.key));
-
-  return '''
-HTTP/1.1 ${response.statusCode}
-${headers.map((x) => '${x.key}: ${x.value}').join('\n')}\n
-${response.body}
-''';
 }

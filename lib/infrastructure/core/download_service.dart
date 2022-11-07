@@ -26,6 +26,7 @@ class DownloadService {
     return response;
     } catch (err) {
       print('Unable to download $url: $err');
+      return null;
     }
   }
 }

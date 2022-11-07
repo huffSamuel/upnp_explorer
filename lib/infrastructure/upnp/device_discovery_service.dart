@@ -154,8 +154,6 @@ class DeviceDiscoveryService {
       maxResponseTime: _protocolOptions.maxDelay,
     );
 
-    var data = msg.encode();
-
     Stream.periodic(Duration(seconds: 1))
         .take(_protocolOptions.maxDelay)
         .listen((_) => _sendMessage(msg));

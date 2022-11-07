@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:xml/xml.dart';
 
