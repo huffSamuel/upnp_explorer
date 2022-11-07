@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../application/settings/options.dart';
+import 'options.dart';
 import '../../domain/value_converter.dart';
 
 const _kThemeKey = 'ThemeMode';

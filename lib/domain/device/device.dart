@@ -1,8 +1,9 @@
 import '../../infrastructure/upnp/models/device.dart';
 import '../../infrastructure/upnp/ssdp_response_message.dart';
 
+/// An aggregate object that represents a discoverable UPnP Device.
 class UPnPDevice {
-  final SSDPResponseMessage discoveryResponse;
+  final DiscoveryResponse discoveryResponse;
   final DeviceDescription description;
 
   Uri get ipAddress => Uri.parse(discoveryResponse.origin);

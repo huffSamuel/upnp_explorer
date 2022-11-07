@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart' as Foundation;
 import 'package:injectable/injectable.dart';
 
-import '../../application/settings/options.dart';
+import 'settings/options.dart';
 
 @Singleton()
 class LoggerFactory {

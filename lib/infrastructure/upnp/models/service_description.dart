@@ -1,7 +1,7 @@
-import 'util.dart';
 import 'package:xml/xml.dart';
 
 import 'spec_version.dart';
+import 'util.dart';
 
 class ServiceDescription {
   final XmlDocument xml;

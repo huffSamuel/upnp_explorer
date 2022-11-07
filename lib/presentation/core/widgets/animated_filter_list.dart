@@ -13,8 +13,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 */
 
-import 'package:flutter/material.dart';
 import 'package:diffutil_dart/diffutil.dart';
+import 'package:flutter/material.dart';
 
 const _duration = Duration(milliseconds: 175);
 

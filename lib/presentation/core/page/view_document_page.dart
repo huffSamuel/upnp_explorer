@@ -15,8 +15,8 @@ class XmlDocumentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text('XML'),
-      ),
+          // title: Text('XML'),
+          ),
       body: Scrollbar(
         controller: controller,
         child: SingleChildScrollView(
@@ -28,7 +28,8 @@ class XmlDocumentPage extends StatelessWidget {
                 pretty: true,
                 indentAttribute: (x) => true,
                 spaceBeforeSelfClose: (x) => true,
-                sortAttributes: (a, b) => a.name.toString().compareTo(b.name.toString()),
+                sortAttributes: (a, b) =>
+                    a.name.toString().compareTo(b.name.toString()),
               ),
             ),
           ),

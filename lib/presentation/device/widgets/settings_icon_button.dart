@@ -4,6 +4,10 @@ import '../../../application/l10n/generated/l10n.dart';
 import '../../settings/pages/settings_page.dart';
 
 class SettingsIconButton extends StatelessWidget {
+  const SettingsIconButton({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return IconButton(

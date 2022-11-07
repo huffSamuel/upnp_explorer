@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -50,23 +51,13 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Sent at {time}`
-  String sentAt(Object time) {
+  /// `View XML`
+  String get viewXml {
     return Intl.message(
-      'Sent at $time',
-      name: 'sentAt',
+      'View XML',
+      name: 'viewXml',
       desc: '',
-      args: [time],
-    );
-  }
-
-  /// `Received at {time}`
-  String receivedAt(Object time) {
-    return Intl.message(
-      'Received at $time',
-      name: 'receivedAt',
-      desc: '',
-      args: [time],
+      args: [],
     );
   }
 
@@ -170,6 +161,16 @@ class S {
     );
   }
 
+  /// `View network traffic`
+  String get viewNetworkTraffic {
+    return Intl.message(
+      'View network traffic',
+      name: 'viewNetworkTraffic',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Copy`
   String get copy {
     return Intl.message(
@@ -264,16 +265,6 @@ class S {
     );
   }
 
-  /// `Open`
-  String get open {
-    return Intl.message(
-      'Open',
-      name: 'open',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Discovery`
   String get discovery {
     return Intl.message(
@@ -341,6 +332,26 @@ class S {
       name: 'increaseDisabled',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Input`
+  String get input {
+    return Intl.message(
+      'Input',
+      name: 'input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name} {value}`
+  String knownValue(Object name, Object value) {
+    return Intl.message(
+      '$name $value',
+      name: 'knownValue',
+      desc: '',
+      args: [name, value],
     );
   }
 
@@ -524,6 +535,16 @@ class S {
     );
   }
 
+  /// `Open`
+  String get open {
+    return Intl.message(
+      'Open',
+      name: 'open',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Open an issue on our GitHub`
   String get openAnIssueOnOurGithub {
     return Intl.message(
@@ -549,6 +570,16 @@ class S {
     return Intl.message(
       'Open presentation URL in browser',
       name: 'openPresentationInBrowser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Output`
+  String get output {
+    return Intl.message(
+      'Output',
+      name: 'output',
       desc: '',
       args: [],
     );
@@ -609,6 +640,16 @@ class S {
     );
   }
 
+  /// `Received at {time}`
+  String receivedAt(Object time) {
+    return Intl.message(
+      'Received at $time',
+      name: 'receivedAt',
+      desc: '',
+      args: [time],
+    );
+  }
+
   /// `Refresh`
   String get refresh {
     return Intl.message(
@@ -636,6 +677,16 @@ class S {
       name: 'scanningForDevices',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Sent at {time}`
+  String sentAt(Object time) {
+    return Intl.message(
+      'Sent at $time',
+      name: 'sentAt',
+      desc: '',
+      args: [time],
     );
   }
 
@@ -791,6 +842,16 @@ class S {
       name: 'unavailable',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{name} unknown`
+  String unknownValue(Object name) {
+    return Intl.message(
+      '$name unknown',
+      name: 'unknownValue',
+      desc: '',
+      args: [name],
     );
   }
 

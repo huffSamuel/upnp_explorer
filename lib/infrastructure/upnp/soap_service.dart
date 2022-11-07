@@ -1,9 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
-import 'package:upnp_explorer/application/network_logs/traffic_repository.dart';
+import '../../application/network_logs/network_logs_repository.dart';
 
+import '../../domain/network_logs/direction.dart';
 import '../../domain/network_logs/network_logs_repository_type.dart';
+import '../../domain/network_logs/protocol.dart';
 import '../../domain/network_logs/traffic.dart';
 import '../../domain/upnp/action_command.dart';
 import '../../domain/upnp/action_response.dart';
@@ -31,21 +33,20 @@ class SoapService {
 
     final body = dto.body();
     final headers = {
+      ...dto.headers,
       'HOST': '${uri.host}:${uri.port}',
-      'CONTENT-LENGTH': body.length.toString(),
-      'CONTENT-TYPE': 'text/xml; charset="utf-8"',
       'USER-AGENT': userAgentBuilder.build(version: '2.0'),
-      'SOAPAction': dto.header(),
     };
 
     final request = Request('POST', uri)
       ..body = body
       ..headers.addAll(headers);
 
-    traffic.add(Traffic<Request>(
-      request,
-      TrafficProtocol.soap,
-      TrafficDirection.outgoing,
+    traffic.add(Traffic(
+      message: requestToString(request),
+      protocol: Protocol.soap,
+      direction: Direction.outgoing,
+      origin: thisDevice,
     ));
 
     final response = await http.post(
@@ -54,10 +55,11 @@ class SoapService {
       body: body,
     );
 
-    traffic.add(Traffic<Response>(
-      response,
-      TrafficProtocol.soap,
-      TrafficDirection.incoming,
+    traffic.add(Traffic(
+      message: responseToString(response),
+      protocol: Protocol.soap,
+      direction: Direction.incoming,
+      origin: response.request!.url.authority,
     ));
 
     try {

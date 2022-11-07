@@ -35,38 +35,42 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m5(address) => "From ${address}";
 
-  static String m6(version) => "Version ${version}";
+  static String m6(name, value) => "${name} ${value}";
 
-  static String m7(appName) =>
+  static String m7(version) => "Version ${version}";
+
+  static String m8(appName) =>
       "If you like ${appName}, or you\'ve found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!";
 
-  static String m8(protocol) => "${Intl.select(protocol, {
+  static String m9(protocol) => "${Intl.select(protocol, {
             'upnp': 'UPnP',
             'ssdp': 'SSDP',
             'soap': 'SOAP',
           })}";
 
-  static String m9(appName) => "Rate ${appName}";
+  static String m10(appName) => "Rate ${appName}";
 
-  static String m10(time) => "Received at ${time}";
+  static String m11(time) => "Received at ${time}";
 
-  static String m11(seconds) => "${seconds} seconds";
+  static String m12(seconds) => "${seconds} seconds";
 
-  static String m12(time) => "Sent at ${time}";
+  static String m13(time) => "Sent at ${time}";
 
-  static String m13(count) => "Services (${count})";
+  static String m14(count) => "Services (${count})";
 
-  static String m14(count) => "State Variables (${count})";
+  static String m15(count) => "State Variables (${count})";
 
-  static String m15(themeMode) => "${Intl.select(themeMode, {
+  static String m16(themeMode) => "${Intl.select(themeMode, {
             'light': 'Light',
             'dark': 'Dark',
             'system': 'System Default',
           })}";
 
-  static String m16(version) => "Version ${version}";
+  static String m17(name) => "${name} unknown";
 
-  static String m17(visualDensity) => "${Intl.select(visualDensity, {
+  static String m18(version) => "Version ${version}";
+
+  static String m19(visualDensity) => "${Intl.select(visualDensity, {
             'comfortable': 'Comfortable',
             'standard': 'Standard',
             'compact': 'Compact',
@@ -107,13 +111,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "increase": MessageLookupByLibrary.simpleMessage("Increase"),
         "increaseDisabled":
             MessageLookupByLibrary.simpleMessage("Increase disabled"),
+        "input": MessageLookupByLibrary.simpleMessage("Input"),
+        "knownValue": m6,
         "legalese": MessageLookupByLibrary.simpleMessage(
             "I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data."),
         "letUsKnowHowWereDoing": MessageLookupByLibrary.simpleMessage(
             "Let us know how we\'re doing"),
         "licenses": MessageLookupByLibrary.simpleMessage("Licenses"),
         "listSeparator": MessageLookupByLibrary.simpleMessage(", "),
-        "mailBody": m6,
+        "mailBody": m7,
         "mailSubject": MessageLookupByLibrary.simpleMessage("App feedback"),
         "manufacturer": MessageLookupByLibrary.simpleMessage("Manufacturer"),
         "maxDelayDescription": MessageLookupByLibrary.simpleMessage(
@@ -140,31 +146,32 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "openPresentationInBrowser": MessageLookupByLibrary.simpleMessage(
             "Open presentation URL in browser"),
-        "pleaseRateAppName": m7,
+        "output": MessageLookupByLibrary.simpleMessage("Output"),
+        "pleaseRateAppName": m8,
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy policy"),
-        "protocol": m8,
-        "rateAppName": m9,
+        "protocol": m9,
+        "rateAppName": m10,
         "rateOnGooglePlay":
             MessageLookupByLibrary.simpleMessage("Rate on Google Play"),
-        "receivedAt": m10,
+        "receivedAt": m11,
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-        "responseDelay": m11,
+        "responseDelay": m12,
         "scanningForDevices":
             MessageLookupByLibrary.simpleMessage("Scanning for devices"),
-        "sentAt": m12,
+        "sentAt": m13,
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number"),
         "serviceControlUnavailable": MessageLookupByLibrary.simpleMessage(
             "UPnP service control is unavailable at this time."),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
-        "servicesN": m13,
+        "servicesN": m14,
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "stateVariables":
             MessageLookupByLibrary.simpleMessage("State Variables"),
-        "stateVariablesN": m14,
+        "stateVariablesN": m15,
         "systemThemeDescription": MessageLookupByLibrary.simpleMessage(
             "System default theme uses your device\'s settings to determine when to use light or dark mode."),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
-        "themeMode": m15,
+        "themeMode": m16,
         "traffic": MessageLookupByLibrary.simpleMessage("Traffic"),
         "turnOnWifi": MessageLookupByLibrary.simpleMessage("Turn on Wi-Fi"),
         "unableToObtainInformation": MessageLookupByLibrary.simpleMessage(
@@ -172,8 +179,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "unableToSubmitFeedback":
             MessageLookupByLibrary.simpleMessage("Unable to submit feedback"),
         "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
-        "version": m16,
-        "visualDensity": m17,
+        "unknownValue": m17,
+        "version": m18,
+        "viewNetworkTraffic":
+            MessageLookupByLibrary.simpleMessage("View network traffic"),
+        "viewXml": MessageLookupByLibrary.simpleMessage("View XML"),
+        "visualDensity": m19,
         "whatsNew": MessageLookupByLibrary.simpleMessage("What\'s new")
       };
 }

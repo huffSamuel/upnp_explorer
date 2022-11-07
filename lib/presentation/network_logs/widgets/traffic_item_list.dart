@@ -25,7 +25,7 @@ class TrafficItems extends StatefulWidget {
 class _TrafficItemsState extends State<TrafficItems> {
   final _scrollController = ScrollController();
 
-  List<Traffic<dynamic>> _visibleItems = [];
+  List<Traffic> _visibleItems = [];
 
   @override
   void didChangeDependencies() {
@@ -38,39 +38,14 @@ class _TrafficItemsState extends State<TrafficItems> {
     });
   }
 
-  Widget _map(Traffic traffic) {
-    String text = '';
-    String origin = '';
-
-    if (traffic is Traffic<SearchRequest>) {
-      text = traffic.message.request.toString();
-      origin = '0.0.0.0';
-    }
-
-    if (traffic is Traffic<SSDPResponseMessage>) {
-      text = traffic.message.toString();
-      origin = traffic.message.location.authority;
-    }
-
-    if (traffic is Traffic<Response>) {
-      text = _responseToString(traffic.message);
-      origin = traffic.message.request!.url.authority;
-    }
-
-    if (traffic is Traffic<Request>) {
-      text= _requestToString(traffic.message);
-      origin = '0.0.0.0';
-    }
-
-    return LogCard(
-      onFilter: _filter,
-      time: traffic.dateTime,
-      direction: traffic.direction,
-      protocol: traffic.protocol,
-      origin: origin,
-      text: text,
-    );
-  }
+  Widget _map(Traffic traffic) => LogCard(
+        onFilter: _filter,
+        time: traffic.dateTime,
+        direction: traffic.direction,
+        protocol: traffic.protocol,
+        origin: traffic.origin,
+        text: traffic.message,
+      );
 
   @override
   void dispose() {
@@ -92,7 +67,7 @@ class _TrafficItemsState extends State<TrafficItems> {
         keyingFunction: (item) => Key(item.hashCode.toString()),
         itemBuilder: (
           BuildContext context,
-          Traffic<dynamic> item,
+          Traffic item,
           Animation<double> animation,
         ) {
           return ScaleTransition(
@@ -165,7 +140,7 @@ class _SliverFilterHeaderDelegate extends SliverPersistentHeaderDelegate {
 
 String _requestToString(Request request) {
   final headers = request.headers.entries.toList()
-  ..sort((a, b) => a.key.compareTo(b.key));
+    ..sort((a, b) => a.key.compareTo(b.key));
 
   return '''
 HTTP/1.1

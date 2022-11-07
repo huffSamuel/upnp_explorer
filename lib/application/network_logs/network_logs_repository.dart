@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../domain/network_logs/network_logs_repository_type.dart';
 import '../../domain/network_logs/traffic.dart';
 
-@Singleton()
+@Singleton(as: NetworkLogsRepositoryType)
 class NetworkLogsRepository extends NetworkLogsRepositoryType {
   final _controller = StreamController<Traffic>.broadcast();
 

@@ -162,6 +162,8 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = S.of(context);
+
     return BlocConsumer<ApplicationBloc, ApplicationState>(
       bloc: _bloc,
       listener: (context, state) {
@@ -198,12 +200,12 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
         return Scaffold(
           appBar: AppBar(
-            leading: SettingsIconButton(),
+            leading: const SettingsIconButton(),
             title: Text(Application.name),
             actions: [
               IconButton(
-                tooltip: 'View network traffic',
-                icon: Icon(Icons.description_outlined),
+                tooltip: i18n.viewNetworkTraffic,
+                icon: const Icon(Icons.description_outlined),
                 onPressed: () {
                   Application.router!.navigateTo(context, Routes.traffic);
                 },

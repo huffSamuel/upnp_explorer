@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'models/server.dart';
 
-class SSDPResponseMessage {
+class DiscoveryResponse {
   final String raw;
   final Map<String, String> parsed;
 
@@ -34,9 +34,9 @@ class SSDPResponseMessage {
 
   String get origin => location.origin;
 
-  SSDPResponseMessage(this.raw, this.parsed);
+  DiscoveryResponse(this.raw, this.parsed);
 
-  factory SSDPResponseMessage.fromPacket(Datagram packet) {
+  factory DiscoveryResponse.fromPacket(Datagram packet) {
     var data = utf8.decode(packet.data);
     Map<String, String> parsed = {};
     for (var segment in data.split('\r\n')) {
@@ -48,13 +48,13 @@ class SSDPResponseMessage {
       }
     }
 
-    return SSDPResponseMessage(data, parsed);
+    return DiscoveryResponse(data, parsed);
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is SSDPResponseMessage) && other.location == this.location;
+      (other is DiscoveryResponse) && other.location == this.location;
 
   @override
   int get hashCode => location.hashCode;

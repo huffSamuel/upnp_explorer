@@ -1,9 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
-import '../../application/network_logs/traffic_repository.dart';
 
-import 'logger_factory.dart';
+import '../../application/logger_factory.dart';
 
 @Singleton()
 class DownloadService {

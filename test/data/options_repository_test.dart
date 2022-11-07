@@ -3,13 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upnp_explorer/application/settings/options.dart';
-import 'package:upnp_explorer/infrastructure/settings/options_repository.dart';
+import 'package:upnp_explorer/application/settings/options_repository.dart';
+import 'package:upnp_explorer/infrastructure/upnp/models/search_target.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 void main() {
-  SharedPreferences mockSharedPreferences;
-  SettingsRepository repository;
+  late SharedPreferences mockSharedPreferences;
+  late SettingsRepository repository;
 
   setUp(() {
     mockSharedPreferences = MockSharedPreferences();
@@ -63,7 +64,8 @@ void main() {
           protocolOptions: ProtocolOptions(
             hops: 1,
             maxDelay: 3,
-            advanced: false
+            advanced: false,
+            searchTarget: SearchTarget.rootDevice().toString(),
           ),
           visualDensity: VisualDensity.standard,
           themeMode: ThemeMode.dark

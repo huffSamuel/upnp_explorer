@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 
-import '../../application/network_logs/traffic_repository.dart';
+import '../../application/network_logs/network_logs_repository.dart';
 import '../../application/settings/options.dart';
+import '../../domain/network_logs/direction.dart';
+import '../../domain/network_logs/protocol.dart';
 import '../../domain/network_logs/traffic.dart';
-import '../core/logger_factory.dart';
+import '../../application/logger_factory.dart';
 import 'm_search_request.dart';
 import 'search_request_builder.dart';
 import 'ssdp_discovery.dart';
@@ -108,12 +110,13 @@ class DeviceDiscoveryService {
     }
 
     try {
-      final message = SSDPResponseMessage.fromPacket(packet);
+      final message = DiscoveryResponse.fromPacket(packet);
       trafficRepository.add(
-        Traffic<SSDPResponseMessage>(
-          message,
-          TrafficProtocol.ssdp,
-          TrafficDirection.incoming,
+        Traffic(
+          message: message.toString(),
+          protocol: Protocol.ssdp,
+          direction: Direction.incoming,
+          origin: message.location.authority,
         ),
       );
       _servers.add(DeviceFound(message));
@@ -133,13 +136,11 @@ class DeviceDiscoveryService {
         _completer = new Completer();
         socket.send(data, addr, ssdpPort);
         trafficRepository.add(
-          Traffic<SearchRequest>(
-            SearchRequest(
-              message,
-              socket.address.address + ':' + socket.port.toString(),
-            ),
-            TrafficProtocol.ssdp,
-            TrafficDirection.outgoing,
+          Traffic(
+            message: message.toString(),
+            origin: thisDevice,
+            protocol: Protocol.ssdp,
+            direction: Direction.outgoing,
           ),
         );
       } on SocketException {
@@ -184,7 +185,7 @@ abstract class SearchMessage {}
 class SearchComplete extends SearchMessage {}
 
 class DeviceFound extends SearchMessage {
-  final SSDPResponseMessage message;
+  final DiscoveryResponse message;
 
   DeviceFound(this.message);
 }

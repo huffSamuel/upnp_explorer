@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:string_validator/string_validator.dart';
 
-import '../../../application/data_type_config.dart';
+import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/validators.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
+import 'labeled_field.dart';
 
 class ArgumentInputForm extends StatefulWidget {
   final List<Argument> inputs;
@@ -59,7 +59,6 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
 
   Map<String, String?>? validate() {
     if (_formKey.currentState?.validate() == false) {
-      print('Invalid');
       return null;
     }
 
@@ -86,6 +85,7 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final i18n = S.of(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -94,72 +94,16 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Input', style: theme.headline6),
+            Text(
+              i18n.input,
+              style: theme.headline6,
+            ),
             ...widget.inputs.map(_mapInputToWidget),
             const Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Divider(),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _OneThird extends StatelessWidget {
-  final Widget title;
-  final Widget child;
-
-  const _OneThird({
-    Key? key,
-    required this.title,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 6.0),
-        title,
-        const SizedBox(height: 4.0),
-        child,
-      ],
-    );
-  }
-}
-
-class ArgumentOutput extends StatelessWidget {
-  final String name;
-  final String? value;
-
-  const ArgumentOutput({
-    Key? key,
-    required this.name,
-    this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: '$name ${value ?? "unknown"}',
-      child: _OneThird(
-        title: ExcludeSemantics(
-          child: Text(
-            name,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-        ),
-        child: ExcludeSemantics(
-          child: TextField(
-            controller: TextEditingController(
-              text: LineSplitter().convert(value ?? '').join(''),
-            ),
-            readOnly: true,
-            maxLines: 1,
-          ),
         ),
       ),
     );
@@ -216,7 +160,7 @@ class ArgumentInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _OneThird(
+    return LabeledField(
       title: Text(
         argument.name,
         style: Theme.of(context).textTheme.subtitle1,
@@ -406,5 +350,122 @@ class _TextVariableInputState extends State<_TextVariableInput> {
         ),
       ),
     );
+  }
+}
+
+class DataTypeConfig {
+  final String? defaultValue;
+  final String? Function(String?)? validator;
+  final TextInputType? inputType;
+
+  DataTypeConfig(
+    this.defaultValue,
+    this.validator,
+    this.inputType,
+  );
+
+  static Map<DataType?, DataTypeConfig> values = Map.fromIterable(
+    DataType.values,
+    key: (e) => e as DataType,
+    value: (e) => fromDataType(e),
+  );
+
+  static DataTypeConfig fromDataType(DataType type) {
+    return DataTypeConfig(
+      _defaultValue(type),
+      _validator(type),
+      _inputType(type),
+    );
+  }
+}
+
+TextInputType? _inputType(DataType type) {
+  switch (type) {
+    case DataType.ui1:
+    case DataType.ui2:
+    case DataType.ui4:
+    case DataType.ui8:
+      return TextInputType.number;
+    case DataType.i1:
+    case DataType.i2:
+    case DataType.i4:
+    case DataType.i8:
+    case DataType.int:
+      return TextInputType.numberWithOptions(
+        signed: true,
+      );
+    case DataType.r4:
+    case DataType.r8:
+    case DataType.number:
+    case DataType.fixed14_4:
+    case DataType.float:
+      return TextInputType.numberWithOptions(
+        signed: true,
+        decimal: true,
+      );
+    case DataType.date:
+    case DataType.dateTime:
+    case DataType.dateTimeTz:
+    case DataType.time:
+    case DataType.timeTz:
+      return TextInputType.datetime;
+    case DataType.uri:
+      return TextInputType.url;
+    default:
+      return null;
+  }
+}
+
+String? Function(String?)? _validator(DataType dataType) {
+  switch (dataType) {
+    case DataType.char:
+      return (s) => s == null || s.length != 1 ? '*' : null;
+    case DataType.binaryBase64:
+      return (s) => s == null || !isBase64(s) ? '*' : null;
+    case DataType.binaryHex:
+      return (s) => s == null || !isHexadecimal(s) ? '*' : null;
+    case DataType.uri:
+      return (s) => s == null || Uri.tryParse(s) == null ? '*' : null;
+    // TODO: Split out individually for each specific format
+    case DataType.date:
+    case DataType.dateTime:
+    case DataType.dateTimeTz:
+    case DataType.time:
+    case DataType.timeTz:
+      return (s) => s == null || DateTime.tryParse(s) == null ? '*' : null;
+    case DataType.boolean:
+      return (s) => s == null || !['true', 'false'].contains(s) ? '*' : null;
+    case DataType.uuid:
+      return (s) => s == null || !isUUID(s) ? '*' : null;
+    // TODO: numerical constraints
+    default:
+      return (s) => s == null || s.length == 0 ? '*' : null;
+  }
+}
+
+String? _defaultValue(DataType type) {
+  switch (type) {
+    case DataType.char:
+    case DataType.string:
+    case DataType.binaryBase64:
+    case DataType.binaryHex:
+    case DataType.uri:
+      return null;
+    case DataType.date:
+      return '1985-04-12';
+    case DataType.dateTime:
+      return '1985-04-12T10:15:30';
+    case DataType.dateTimeTz:
+      return '1985-04-12T10:15:30+0400';
+    case DataType.time:
+      return '23:20:50';
+    case DataType.timeTz:
+      return '23:20:50+0100';
+    case DataType.boolean:
+      return 'true';
+    case DataType.uuid:
+      return '00000000-0000-0000-0000-000000000000';
+    default:
+      return '0';
   }
 }

@@ -1,20 +1,19 @@
 import 'package:fluro/fluro.dart';
-import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/core/page/view_document_page.dart';
 import 'package:xml/xml.dart';
 
 import '../../domain/device/service_repository_type.dart';
 import '../../infrastructure/upnp/models/device.dart';
 import '../../infrastructure/upnp/models/service_description.dart';
+import '../../presentation/core/page/view_document_page.dart';
 import '../../presentation/device/pages/device_list_page.dart';
 import '../../presentation/device/pages/device_page.dart';
 import '../../presentation/device/pages/discovery_page.dart';
 import '../../presentation/device/pages/service_list_page.dart';
 import '../../presentation/device/pages/service_state_page.dart';
+import '../../presentation/network_logs/pages/traffic_page.dart';
 import '../../presentation/service/pages/action_page.dart';
 import '../../presentation/service/pages/actions_page.dart';
 import '../../presentation/service/pages/service_page.dart';
-import '../../presentation/network_logs/pages/traffic_page.dart';
 import '../ioc.dart';
 
 var rootHandler = Handler(handlerFunc: (context, _) => DiscoveryPage());

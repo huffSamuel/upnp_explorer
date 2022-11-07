@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import '../../../application/l10n/generated/l10n.dart';
-import '../../../domain/network_logs/traffic.dart';
+import '../../../domain/network_logs/direction.dart';
 
 final timeFormat = DateFormat('HH:mm:ss.SSS');
 
 class LogDetailsDialog extends StatelessWidget {
-  final TrafficDirection direction;
+  final Direction direction;
   final String? origin;
   final String text;
   final DateTime time;
@@ -41,9 +41,9 @@ class LogDetailsDialog extends StatelessWidget {
               children: [
                 Text(i18n.fromAddress(origin!)),
                 SizedBox(height: 4.0),
-                if (direction == TrafficDirection.incoming)
+                if (direction == Direction.incoming)
                   Text(S.of(context).receivedAt(timeString)),
-                if (direction == TrafficDirection.outgoing)
+                if (direction == Direction.outgoing)
                   Text(S.of(context).sentAt(timeString)),
                 SizedBox(height: 4.0),
                 Divider(

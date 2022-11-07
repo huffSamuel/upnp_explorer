@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../application/l10n/generated/l10n.dart';
-import '../../../domain/network_logs/traffic.dart';
+import '../../../domain/network_logs/direction.dart';
+import '../../../domain/network_logs/protocol.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_details_dialog.dart';
 import 'traffic_filter.dart';
@@ -11,8 +12,8 @@ String _firstThreeLines(String text) {
 }
 
 class LogCard extends StatelessWidget {
-  final TrafficDirection direction;
-  final TrafficProtocol protocol;
+  final Direction direction;
+  final Protocol protocol;
   final String origin;
   final String text;
   final DateTime time;

@@ -12,7 +12,7 @@ import '../../core/widgets/row_count.dart';
 class DevicePageArguments {
   final Device device;
   final XmlDocument? xml;
-  final SSDPResponseMessage message;
+  final DiscoveryResponse message;
 
   DevicePageArguments(
     this.device,
@@ -23,7 +23,7 @@ class DevicePageArguments {
 
 class DevicePage extends StatelessWidget {
   final Device device;
-  final SSDPResponseMessage message;
+  final DiscoveryResponse message;
   final XmlDocument? xml;
 
   const DevicePage({
@@ -70,7 +70,7 @@ class DevicePage extends StatelessWidget {
               if (xml != null)
                 PopupMenuItem(
                   value: 1,
-                  child: Text('View XML'),
+                  child: Text(i18n.viewXml),
                 )
             ],
             onSelected: (value) {

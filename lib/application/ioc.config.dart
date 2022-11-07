@@ -13,8 +13,8 @@ import '../domain/device/device_repository_type.dart' as _i4;
 import '../domain/device/service_repository_type.dart' as _i8;
 import '../infrastructure/core/bug_report_service.dart' as _i3;
 import '../infrastructure/core/download_service.dart' as _i13;
-import '../infrastructure/core/logger_factory.dart' as _i6;
-import '../infrastructure/settings/options_repository.dart' as _i15;
+import 'logger_factory.dart' as _i6;
+import 'settings/options_repository.dart' as _i15;
 import '../infrastructure/upnp/device_discovery_service.dart' as _i19;
 import '../infrastructure/upnp/search_request_builder.dart' as _i11;
 import '../infrastructure/upnp/soap_service.dart' as _i16;
@@ -26,7 +26,7 @@ import 'changelog/changelog_service.dart' as _i12;
 import 'device/device_repository.dart' as _i5;
 import 'device/service_repository.dart' as _i9;
 import 'ioc.dart' as _i22;
-import 'network_logs/traffic_repository.dart' as _i7;
+import 'network_logs/network_logs_repository.dart' as _i7;
 import 'review/review_service.dart'
     as _i14; // ignore_for_file: unnecessary_lambdas
 

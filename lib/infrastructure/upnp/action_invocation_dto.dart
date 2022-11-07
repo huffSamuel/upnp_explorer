@@ -26,9 +26,11 @@ class ActionInvocationDto extends ActionInvocation {
     );
   }
 
-  String header() {
-    return '"$_urn#$actionName"';
-  }
+  Map<String, String> get headers => {
+        'CONTENT-LENGTH': body().length.toString(),
+        'CONTENT-TYPE': 'text/xml; charset="utf-8"',
+        'SOAPAction': '"$_urn#$actionName"',
+      };
 
   String body() {
     final builder = StringBuffer('<?xml version="1.0"?>\r\n');
