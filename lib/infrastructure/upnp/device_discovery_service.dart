@@ -3,12 +3,12 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 
-import '../../application/network_logs/network_logs_repository.dart';
+import '../../application/logger_factory.dart';
 import '../../application/settings/options.dart';
 import '../../domain/network_logs/direction.dart';
+import '../../domain/network_logs/network_logs_repository_type.dart';
 import '../../domain/network_logs/protocol.dart';
 import '../../domain/network_logs/traffic.dart';
-import '../../application/logger_factory.dart';
 import 'm_search_request.dart';
 import 'search_request_builder.dart';
 import 'ssdp_discovery.dart';
@@ -41,7 +41,7 @@ class DeviceDiscoveryService {
 
   final Logger logger;
   final address = InternetAddress.anyIPv4;
-  final NetworkLogsRepository trafficRepository;
+  final NetworkLogsRepositoryType trafficRepository;
   final SearchRequestBuilder requestBuilder;
   late StreamController<SearchMessage> _servers;
 

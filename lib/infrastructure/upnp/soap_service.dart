@@ -1,9 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
-import '../../application/network_logs/network_logs_repository.dart';
 
 import '../../domain/network_logs/direction.dart';
+import '../../domain/network_logs/network_logs_repository_type.dart';
 import '../../domain/network_logs/protocol.dart';
 import '../../domain/network_logs/traffic.dart';
 import '../../domain/upnp/action_command.dart';
@@ -17,7 +17,7 @@ import 'search_request_builder.dart';
 @singleton
 class SoapService {
   final UserAgentBuilder userAgentBuilder;
-  final NetworkLogsRepository traffic;
+  final NetworkLogsRepositoryType traffic;
 
   SoapService(
     this.userAgentBuilder,

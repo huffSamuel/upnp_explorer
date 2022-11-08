@@ -75,14 +75,14 @@ Future<_i1.GetIt> $initIoc(
       _i16.SettingsRepository(get<_i11.SharedPreferences>()));
   gh.singleton<_i17.SoapService>(_i17.SoapService(
     get<_i12.UserAgentBuilder>(),
-    get<_i8.NetworkLogsRepository>(),
+    get<_i7.NetworkLogsRepositoryType>(),
   ));
   gh.singleton<_i18.ApplicationBloc>(
       _i18.ApplicationBloc(get<_i15.ReviewService>()));
   gh.singleton<_i19.CommandBloc>(_i19.CommandBloc(get<_i17.SoapService>()));
   gh.singleton<_i20.DeviceDiscoveryService>(_i20.DeviceDiscoveryService(
     get<_i6.LoggerFactory>(),
-    get<_i8.NetworkLogsRepository>(),
+    get<_i7.NetworkLogsRepositoryType>(),
     get<_i12.SearchRequestBuilder>(),
   ));
   gh.singleton<_i21.SSDPService>(_i21.SSDPService(
@@ -91,7 +91,7 @@ Future<_i1.GetIt> $initIoc(
     get<_i6.LoggerFactory>(),
     get<_i4.DeviceRepositoryType>(instanceName: 'DeviceRepository'),
     get<_i9.ServiceRepositoryType>(instanceName: 'ServiceRepository'),
-    get<_i8.NetworkLogsRepository>(),
+    get<_i7.NetworkLogsRepositoryType>(),
   ));
   gh.singleton<_i22.DiscoveryBloc>(_i22.DiscoveryBloc(get<_i21.SSDPService>()));
   return get;

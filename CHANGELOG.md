@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- Invoke actions on discovered devices
+## [1.1.0] - 2022-10-13
+### Added
 - View logs of all network traffic
 - Drag to refresh
 

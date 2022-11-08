@@ -4,15 +4,15 @@ import 'dart:io';
 import 'package:injectable/injectable.dart';
 import 'package:xml/xml.dart';
 
-import '../../application/network_logs/network_logs_repository.dart';
+import '../../application/logger_factory.dart';
 import '../../domain/device/device.dart';
 import '../../domain/device/device_repository_type.dart';
 import '../../domain/device/service_repository_type.dart';
 import '../../domain/network_logs/direction.dart';
+import '../../domain/network_logs/network_logs_repository_type.dart';
 import '../../domain/network_logs/protocol.dart';
 import '../../domain/network_logs/traffic.dart';
 import '../core/download_service.dart';
-import '../../application/logger_factory.dart';
 import 'device_discovery_service.dart';
 import 'models/device.dart';
 import 'models/service_description.dart';
@@ -33,7 +33,7 @@ class SSDPService {
   final Logger logger;
   final DeviceRepositoryType deviceRepository;
   final ServiceRepositoryType serviceRepository;
-  final NetworkLogsRepository trafficRepository;
+  final NetworkLogsRepositoryType trafficRepository;
 
   final List<Object> seen = [];
 
