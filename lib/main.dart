@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
           return BlocProvider.value(
             value: sl<CommandBloc>(),
             child: MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: Application.name,
               themeMode: options.themeMode,
               darkTheme: Palette.instance.darkTheme(options),

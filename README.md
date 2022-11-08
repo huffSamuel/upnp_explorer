@@ -11,18 +11,22 @@ A free, open-source, Flutter mobile application to find and browse UPnP devices 
 
 Clone this repo with
 ```shell
-git clone https://github.com/huffSamuel/upnp_explorer.git
+$ git clone https://github.com/huffSamuel/upnp_explorer.git
 ```
 
 then build the APK with
 ```shell
-flutter build apk
+$ flutter build apk
 ```
 
 and install it on your device with
 ```shell
-adb install ./build/app/outputs/flutter-apk/app-release.apk
+$ adb install ./build/app/outputs/flutter-apk/app-release.apk
 ```
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
 
 *Based on [makeareadme.com](https://www.makeareadme.com/)*
 

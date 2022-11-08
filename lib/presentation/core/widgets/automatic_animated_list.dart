@@ -49,7 +49,8 @@ class AutomaticAnimatedList<T> extends StatefulWidget {
   final Duration removeDuration;
 
   @override
-  State<AutomaticAnimatedList<T>> createState() => _AutomaticAnimatedListState<T>();
+  State<AutomaticAnimatedList<T>> createState() =>
+      _AutomaticAnimatedListState<T>();
 }
 
 class _AutomaticAnimatedListState<T> extends State<AutomaticAnimatedList<T>> {
@@ -91,8 +92,15 @@ class _AutomaticAnimatedListState<T> extends State<AutomaticAnimatedList<T>> {
         shrinkWrap: widget.shrinkWrap,
         padding: widget.padding,
         initialItemCount: widget.items.length,
-        itemBuilder:
-            (BuildContext context, int index, Animation<double> animation) =>
-                widget.itemBuilder(context, widget.items[index], animation),
+        itemBuilder: (
+          BuildContext context,
+          int index,
+          Animation<double> animation,
+        ) =>
+            widget.itemBuilder(
+          context,
+          widget.items[index],
+          animation,
+        ),
       );
 }

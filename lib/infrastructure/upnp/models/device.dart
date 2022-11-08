@@ -159,6 +159,7 @@ class ServiceList {
 
 class Service {
   final String serviceType;
+  final String serviceVersion;
   final _ServiceId serviceId;
   final Uri scpdurl;
   final Uri controlUrl;
@@ -166,6 +167,7 @@ class Service {
 
   Service({
     required this.serviceType,
+    required this.serviceVersion,
     required this.serviceId,
     required this.scpdurl,
     required this.controlUrl,
@@ -176,9 +178,13 @@ class Service {
     final scpdurl = xml.getElement('SCPDURL')?.text;
     final controlUrl = xml.getElement('controlURL')?.text;
     final eventSubUrl = xml.getElement('eventSubURL')?.text;
+    final serviceType = xml.getElement('serviceType')!.text;
+
+    final serviceTypeFields = serviceType.split(':');
 
     return Service(
-      serviceType: xml.getElement('serviceType')!.text,
+      serviceType: serviceTypeFields[serviceTypeFields.length - 2],
+      serviceVersion: serviceTypeFields[serviceTypeFields.length - 1],
       serviceId: _ServiceId.parse(xml.getElement('serviceId')!.text),
       scpdurl: Uri.parse(scpdurl!),
       controlUrl: Uri.parse(controlUrl!),

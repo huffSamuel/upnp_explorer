@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/network_logs/traffic.dart';
-import '../../core/widgets/animated_filter_list.dart';
+import '../../core/widgets/automatic_animated_list.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_card.dart';
 import 'traffic_filter.dart';
@@ -66,8 +66,8 @@ class _TrafficItemsState extends State<TrafficItems> {
           Traffic item,
           Animation<double> animation,
         ) {
-          return ScaleTransition(
-            scale: animation.drive(
+          return SizeTransition(
+            sizeFactor: animation.drive(
               Tween(begin: 0.0, end: 1.0),
             ),
             key: Key(item.hashCode.toString()),

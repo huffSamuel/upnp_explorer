@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_settings/open_settings.dart';
@@ -58,12 +60,14 @@ class _LoadedState extends State<_Loaded> {
 
   final List<UPnPDevice> _devices = [];
   GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  StreamSubscription? _discoverSubscription;
+  StreamSubscription? _deviceSubscription;
 
   @override
   void initState() {
     super.initState();
 
-    _bloc.discoverStream.listen((event) {
+    _discoverSubscription = _bloc.discoverStream.listen((event) {
       setState(() {
         _isScanning = event;
         if (event) {
@@ -73,11 +77,7 @@ class _LoadedState extends State<_Loaded> {
       });
     });
 
-    _bloc.deviceStream.listen((event) {
-      if (_devices.contains(event)) {
-        return;
-      }
-
+    _deviceSubscription = _bloc.deviceStream.listen((event) {
       _devices.add(event);
       _listKey.currentState?.insertItem(_devices.length - 1);
     });
@@ -86,6 +86,9 @@ class _LoadedState extends State<_Loaded> {
   @override
   void dispose() {
     super.dispose();
+
+    _discoverSubscription?.cancel();
+    _deviceSubscription?.cancel();
   }
 
   @override

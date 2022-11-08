@@ -46,7 +46,7 @@ class ServiceStateTable {
 
   static fromXml(XmlNode xml) {
     return ServiceStateTable(
-      stateVariables: xmlNodeBuilder<StateVariable>(
+      stateVariables: nodeMapper<StateVariable>(
           xml, 'stateVariable', (x) => StateVariable.fromXml(x)),
     );
   }
@@ -62,7 +62,7 @@ class ActionList {
   static fromXml(XmlNode? xml) {
     return ActionList(
         actions:
-            xmlNodeBuilder<Action>(xml, 'action', (x) => Action.fromXml(x)));
+            nodeMapper<Action>(xml, 'action', (x) => Action.fromXml(x)));
   }
 }
 
@@ -92,7 +92,7 @@ class _ArgumentList {
 
   static fromXml(XmlNode? xml) {
     return _ArgumentList(
-      arguments: xmlNodeBuilder<Argument>(
+      arguments: nodeMapper<Argument>(
         xml,
         'argument',
         (x) => Argument.fromXml(x),
@@ -319,7 +319,7 @@ class _AllowedValueList {
   static fromXml(XmlNode? xml) {
     return _AllowedValueList(
       allowedValues:
-          xmlNodeBuilder<String>(xml, 'allowedValue', (p0) => p0.text),
+          nodeMapper<String>(xml, 'allowedValue', (p0) => p0.text),
     );
   }
 }

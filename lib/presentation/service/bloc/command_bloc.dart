@@ -6,6 +6,7 @@ import '../../../application/ioc.dart';
 import '../../../domain/device/device.dart';
 import '../../../domain/upnp/action_argument.dart';
 import '../../../domain/upnp/action_command.dart';
+import '../../../domain/upnp/error.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/soap_service.dart';
 
@@ -35,17 +36,12 @@ class CommandBloc extends Bloc<CommandEvent, CommandState> {
       return;
     }
 
-    final actionArgs = List<ActionArgument>.from(
-      event.arguments.entries.where((x) => x.value != null).map(
-            (x) => ActionArgument(x.key, x.value!),
-          ),
-    );
     final current = state;
     final invocation = ActionInvocation(
       event.actionName,
       state.service!.serviceType,
-      '1',
-      actionArgs,
+      state.service!.serviceVersion,
+      event.arguments,
     );
     final soap = sl<SoapService>();
 
@@ -56,8 +52,15 @@ class CommandBloc extends Bloc<CommandEvent, CommandState> {
       port: ipAddress.port,
       path: state.service!.controlUrl.path,
     );
-    final response = await soap.send(uri, invocation);
-    emit(ActionSuccess(response.arguments));
-    emit(current);
+
+    try {
+      final response = await soap.send(uri, invocation);
+      emit(ActionSuccess(response.arguments));
+      emit(current);
+    } catch (error) {
+      if(error is ActionInvocationError) {
+        // TODO: Do something with this error
+      }
+    }
   }
 }
