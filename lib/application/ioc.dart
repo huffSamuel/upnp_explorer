@@ -12,7 +12,10 @@ final sl = GetIt.instance;
   preferRelativeImports: true,
   asExtension: false,
 )
-Future<void> configureDependencies() => $initIoc(sl);
+Future<void> configureDependencies({String environment = 'prd'}) => $initIoc(
+      sl,
+      environment: environment,
+    );
 
 @module
 abstract class RegisterModule {
