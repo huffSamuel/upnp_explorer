@@ -43,27 +43,32 @@ class Options extends Equatable {
   final ThemeMode themeMode;
   final VisualDensity visualDensity;
   final ProtocolOptions protocolOptions;
+  final bool material3;
 
   const Options({
     required this.themeMode,
     required this.visualDensity,
     required this.protocolOptions,
+    required this.material3,
   });
 
   Options copyWith({
     ThemeMode? themeMode,
     VisualDensity? visualDensity,
     ProtocolOptions? protocolOptions,
+    bool? material3,
   }) {
     return Options(
       themeMode: themeMode ?? this.themeMode,
       visualDensity: visualDensity ?? this.visualDensity,
       protocolOptions: protocolOptions ?? this.protocolOptions,
+      material3: material3 ?? this.material3
     );
   }
 
   static Options base() {
     return Options(
+      material3: false,
       themeMode: ThemeMode.system,
       visualDensity: VisualDensity.standard,
       protocolOptions: ProtocolOptions(

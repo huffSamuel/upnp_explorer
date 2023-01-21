@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:upnp_explorer/application/ioc.dart';
 
+import '../device.dart';
 import 'options.dart';
 
 class Palette {
@@ -23,6 +25,7 @@ class Palette {
     final theme = ThemeData.dark();
 
     return theme.copyWith(
+      useMaterial3: options.material3,
       visualDensity: options.visualDensity,
       colorScheme: ColorScheme.fromSeed(
         seedColor: olivine,
@@ -46,6 +49,7 @@ class Palette {
     final theme = ThemeData.light();
 
     return theme.copyWith(
+      useMaterial3: options.material3,
       visualDensity: options.visualDensity,
       colorScheme: ColorScheme.fromSeed(
         seedColor: secondary,

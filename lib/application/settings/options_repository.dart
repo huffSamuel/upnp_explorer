@@ -17,6 +17,7 @@ const _kThemeMap = {
   ThemeMode.system: 'SYSTEM',
   ThemeMode.light: 'LIGHT'
 };
+const _material3Key = 'material3';
 
 @Singleton()
 class SettingsRepository {
@@ -50,6 +51,10 @@ class SettingsRepository {
         _kAdvanced,
         options.protocolOptions.advanced,
       ),
+      prefs.setBool(
+        _material3Key,
+        options.material3,
+      )
     ]);
   }
 
@@ -63,6 +68,7 @@ class SettingsRepository {
       final hops = prefs.getInt(_kHops);
       final advanced = prefs.getBool(_kAdvanced);
       final searchTarget = prefs.getString(_searchTargetKey);
+      final material3 = prefs.getBool(_material3Key) ?? false;
 
       if ([
         theme,
@@ -76,6 +82,7 @@ class SettingsRepository {
       }
 
       return Options(
+        material3: material3,
         themeMode: theme!,
         visualDensity: VisualDensity(
           horizontal: horizontal!,
@@ -85,7 +92,7 @@ class SettingsRepository {
           advanced: advanced!,
           maxDelay: delay!,
           hops: hops!,
-          searchTarget: searchTarget ?? 'upnp:rootdevice'
+          searchTarget: searchTarget ?? 'upnp:rootdevice',
         ),
       );
     } catch (err) {

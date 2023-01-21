@@ -95,6 +95,7 @@ class _DisplaySettingsPage extends StatelessWidget {
           ),
           onTap: _nav(context, _VisualDensityPage()),
         ),
+        
       ],
     );
   }
