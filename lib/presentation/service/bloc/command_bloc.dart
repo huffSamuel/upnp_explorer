@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../application/ioc.dart';
@@ -58,9 +59,7 @@ class CommandBloc extends Bloc<CommandEvent, CommandState> {
       emit(ActionSuccess(response.arguments));
       emit(current);
     } catch (error) {
-      if(error is ActionInvocationError) {
-        // TODO: Do something with this error
-      }
+      if (error is ActionInvocationError) {}
     }
   }
 }

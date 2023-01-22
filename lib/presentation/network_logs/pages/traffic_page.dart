@@ -48,11 +48,6 @@ class _TrafficPageState extends State<TrafficPage>
         appBar: AppBar(
           title: Text(S.of(context).traffic),
           actions: [
-            // IconButton(
-            //   icon: Icon(Icons.sort_rounded),
-            //   onPressed: _filter,
-            //   tooltip: 'Filter',
-            // ),
             PopupMenuButton(
               itemBuilder: (context) => [
                 PopupMenuItem(

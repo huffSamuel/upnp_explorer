@@ -13,6 +13,7 @@ class SettingsIconButton extends StatelessWidget {
     return IconButton(
       tooltip: S.of(context).settings,
       icon: Icon(Icons.settings),
+      color: Theme.of(context).appBarTheme.foregroundColor,
       onPressed: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (c) => MaterialDesignSettingsPage(),

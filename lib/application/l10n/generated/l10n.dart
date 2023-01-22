@@ -434,10 +434,10 @@ class S {
     );
   }
 
-  /// `Maximum response delay`
+  /// `Response delay`
   String get maxResponseDelay {
     return Intl.message(
-      'Maximum response delay',
+      'Response delay',
       name: 'maxResponseDelay',
       desc: '',
       args: [],
@@ -885,6 +885,26 @@ class S {
     return Intl.message(
       'What\'s new',
       name: 'whatsNew',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `On`
+  String get on {
+    return Intl.message(
+      'On',
+      name: 'on',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Off`
+  String get off {
+    return Intl.message(
+      'Off',
+      name: 'off',
       desc: '',
       args: [],
     );

@@ -125,7 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "maxDelayDescription": MessageLookupByLibrary.simpleMessage(
             "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol."),
         "maxResponseDelay":
-            MessageLookupByLibrary.simpleMessage("Maximum response delay"),
+            MessageLookupByLibrary.simpleMessage("Response delay"),
         "modelDescription":
             MessageLookupByLibrary.simpleMessage("Model Description"),
         "modelName": MessageLookupByLibrary.simpleMessage("Model Name"),
@@ -138,7 +138,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "noDevicesFound":
             MessageLookupByLibrary.simpleMessage("No devices found."),
         "notNow": MessageLookupByLibrary.simpleMessage("Not now"),
+        "off": MessageLookupByLibrary.simpleMessage("Off"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "on": MessageLookupByLibrary.simpleMessage("On"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "openAnIssueOnOurGithub":
             MessageLookupByLibrary.simpleMessage("Open an issue on our GitHub"),

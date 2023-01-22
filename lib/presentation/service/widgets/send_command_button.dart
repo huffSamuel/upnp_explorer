@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SendCommandButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String name;
 
   const SendCommandButton({
@@ -15,7 +15,7 @@ class SendCommandButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {
         FocusScope.of(context).unfocus();
-        onPressed();
+        onPressed?.call();
       },
       child: Semantics(
         label: 'Send $name command',

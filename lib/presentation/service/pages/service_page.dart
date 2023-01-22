@@ -4,63 +4,17 @@ import '../../../application/application.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
-import '../../../infrastructure/upnp/models/service_description.dart' as upnp;
+import '../../core/page/app_page.dart';
 
 class ServicePage extends StatelessWidget {
   final Service service;
   final ServiceDescription description;
+  final unlocked = true;
 
   const ServicePage({
     Key? key,
     required this.service,
     required this.description,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(service.serviceId.serviceId),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 0,
-                child: Text('View XML'),
-              )
-            ],
-            onSelected: (value) {
-              if (value == 0) {
-                Application.router!.navigateTo(
-                  context,
-                  Routes.document,
-                  routeSettings: RouteSettings(
-                    arguments: description.xml,
-                  ),
-                );
-              }
-            },
-          ),
-        ],
-      ),
-      body: description.actionList.actions.isEmpty
-          ? NothingHere()
-          : _Actions(
-              actions: description.actionList.actions,
-              serviceStateTable: description.serviceStateTable),
-    );
-  }
-}
-
-class _Actions extends StatelessWidget {
-  final List<upnp.Action> actions;
-  final ServiceStateTable serviceStateTable;
-  final unlocked = true;
-
-  const _Actions({
-    Key? key,
-    required this.actions,
-    required this.serviceStateTable,
   }) : super(key: key);
 
   Widget _icon(BuildContext context) {
@@ -69,25 +23,59 @@ class _Actions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        ...actions.map(
-          (x) => ListTile(
-            title: Text(x.name),
-            trailing: _icon(context),
-            onTap: () => Application.router!.navigateTo(
-              context,
-              Routes.action,
-              routeSettings: RouteSettings(
-                arguments: [
-                  x,
-                  serviceStateTable,
-                ],
-              ),
-            ),
-          ),
+    final actions = [
+      PopupMenuButton(
+        icon: Icon(
+          Icons.more_vert,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
-      ],
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: 0,
+            child: Text('View XML'),
+          )
+        ],
+        onSelected: (value) {
+          if (value == 0) {
+            Application.router!.navigateTo(
+              context,
+              Routes.document,
+              routeSettings: RouteSettings(
+                arguments: description.xml,
+              ),
+            );
+          }
+        },
+      ),
+    ];
+
+    final children = description.actionList.actions.isEmpty
+        ? [NothingHere()]
+        : List<Widget>.of(
+            description.actionList.actions.map(
+              (x) {
+                return ListTile(
+                  title: Text(x.name),
+                  trailing: _icon(context),
+                  onTap: () => Application.router!.navigateTo(
+                    context,
+                    Routes.action,
+                    routeSettings: RouteSettings(
+                      arguments: [
+                        x,
+                        description.serviceStateTable,
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+
+    return AppPage(
+      title: Text(service.serviceId.serviceId),
+      children: children,
+      actions: actions,
     );
   }
 }
@@ -101,11 +89,12 @@ class NothingHere extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(height: 32.0),
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: theme.primaryColor,
+                color: theme.colorScheme.onBackground,
                 width: 2.0,
               ),
             ),
@@ -114,11 +103,11 @@ class NothingHere extends StatelessWidget {
               child: Icon(
                 Icons.question_mark_rounded,
                 size: 32,
-                color: theme.primaryColor,
+                color: theme.colorScheme.onBackground,
               ),
             ),
           ),
-          SizedBox(height: 8.0),
+          SizedBox(height: 32.0),
           Text('There\'s nothing here.')
         ],
       ),

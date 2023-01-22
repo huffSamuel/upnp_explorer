@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upnp_explorer/presentation/core/page/app_page.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
@@ -38,28 +39,25 @@ class ServiceListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final i18n = S.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(i18n.services),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: services.services.length,
-          itemBuilder: (context, index) {
-            final service = services.services[index];
-            final onTap = _navigateToService(context, service);
+    final children = List<Widget>.from(
+      services.services.map(
+        (service) {
+          final onTap = _navigateToService(context, service);
 
-            return ListTile(
-              title: Text(service.serviceId.serviceId),
-              trailing: onTap == null ? null : Icon(Icons.chevron_right),
-              subtitle:
-                  onTap == null ? Text(i18n.unableToObtainInformation) : null,
-              onTap: onTap,
-            );
-          },
-        ),
+          return ListTile(
+            title: Text(service.serviceId.serviceId),
+            trailing: onTap == null ? null : Icon(Icons.chevron_right),
+            subtitle:
+                onTap == null ? Text(i18n.unableToObtainInformation) : null,
+            onTap: onTap,
+          );
+        },
       ),
+    );
+
+    return AppPage(
+      title: Text(i18n.services),
+      children: children,
     );
   }
 }

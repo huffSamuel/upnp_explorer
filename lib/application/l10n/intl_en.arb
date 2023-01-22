@@ -37,7 +37,7 @@
   "mailSubject": "App feedback",
   "manufacturer": "Manufacturer",
   "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.",
-  "maxResponseDelay": "Maximum response delay",
+  "maxResponseDelay": "Response delay",
   "modelDescription": "Model Description",
   "modelName": "Model Name",
   "modelNumber": "Model Number",
@@ -80,5 +80,7 @@
   "unknownValue": "{name} unknown",
   "version": "Version {version}",
   "visualDensity": "{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}",
-  "whatsNew": "What's new"
+  "whatsNew": "What's new",
+  "on": "On",
+  "off": "Off"
 }

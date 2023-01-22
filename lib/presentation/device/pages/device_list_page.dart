@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/presentation/core/page/app_page.dart';
 
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
@@ -23,27 +24,23 @@ class DeviceListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).devices),
+    final children = List<Widget>.of(
+      devices.devices.map(
+        (device) {
+          return ListTile(
+            title: Text(
+              device.deviceType.type,
+            ),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () => _onDeviceTapped(context, device),
+          );
+        },
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: devices.devices.length,
-          itemBuilder: (context, index) {
-            final device = devices.devices[index];
+    );
 
-            return ListTile(
-              title: Text(
-                device.deviceType.type,
-              ),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () => _onDeviceTapped(context, device),
-            );
-          },
-        ),
-      ),
+    return AppPage(
+      title: Text(S.of(context).devices),
+      children: children,
     );
   }
 }

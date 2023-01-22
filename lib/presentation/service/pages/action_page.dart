@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../infrastructure/upnp/models/service_description.dart' as upnp;
@@ -44,6 +45,8 @@ class ActionPage extends StatelessWidget {
       return;
     }
 
+    HapticFeedback.heavyImpact();
+
     bloc.add(SendCommand(
       formValue,
       action.name,
@@ -52,6 +55,58 @@ class ActionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    final sendButton = Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SendCommandButton(
+          name: action.name,
+          onPressed: () => _send(context),
+        ),
+      ),
+    );
+
+    final children = [
+      if (action.argumentList != null)
+        if (_inputs().isNotEmpty)
+          ArgumentInputForm(
+            key: _formKey,
+            inputs: _inputs(),
+            stateTable: stateTable,
+          ),
+      if (_outputs().isNotEmpty)
+        ActionOutput(
+          outputs: _outputs(),
+        ),
+    ];
+
+    if (theme.useMaterial3) {
+      return Stack(
+        children: [
+          Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar.large(
+                  title: FittedBox(child: Text(action.name)),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => index < children.length
+                        ? children[index]
+                        : SizedBox(height: 86),
+                    childCount: children.length + 1,
+                  ),
+                )
+              ],
+            ),
+          ),
+          sendButton,
+        ],
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(action.name),
@@ -96,5 +151,3 @@ class ActionPage extends StatelessWidget {
     );
   }
 }
-
-

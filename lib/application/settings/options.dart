@@ -89,6 +89,7 @@ class Options extends Equatable {
         themeMode,
         visualDensity,
         protocolOptions,
+        material3,
       ];
 }
 

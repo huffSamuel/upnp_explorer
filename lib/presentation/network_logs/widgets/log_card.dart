@@ -45,34 +45,36 @@ class LogCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                FilterChip(
-                  label: Text(i18n.direction(direction)),
-                  selected: filter == TrafficFilter.direction(direction),
-                  onSelected: (selected) {
-                    final newFilter = selected
-                        ? TrafficFilter.direction(direction)
-                        : TrafficFilter.all();
-
-                    onFilter(newFilter);
-                  },
-                ),
-                SizedBox(width: 8),
-                FilterChip(
-                  label: Text(i18n.protocol(protocol)),
-                  selected: filter == TrafficFilter.protocol(protocol),
-                  onSelected: (selected) =>
-                      _filter(TrafficFilter.protocol(protocol), selected),
-                ),
-                SizedBox(width: 8),
-                FilterChip(
-                  label: Text(origin),
-                  selected: filter == TrafficFilter.origin(origin),
-                  onSelected: (selected) =>
-                      _filter(TrafficFilter.origin(origin), selected),
-                ),
-              ],
+            Container(
+              width: double.infinity,
+              child: Wrap(
+                spacing: 8.0,
+                children: [
+                  FilterChip(
+                    label: Text(i18n.direction(direction)),
+                    selected: filter == TrafficFilter.direction(direction),
+                    onSelected: (selected) {
+                      final newFilter = selected
+                          ? TrafficFilter.direction(direction)
+                          : TrafficFilter.all();
+            
+                      onFilter(newFilter);
+                    },
+                  ),
+                  FilterChip(
+                    label: Text(i18n.protocol(protocol)),
+                    selected: filter == TrafficFilter.protocol(protocol),
+                    onSelected: (selected) =>
+                        _filter(TrafficFilter.protocol(protocol), selected),
+                  ),
+                  FilterChip(
+                    label: Text(origin),
+                    selected: filter == TrafficFilter.origin(origin),
+                    onSelected: (selected) =>
+                        _filter(TrafficFilter.origin(origin), selected),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 12.0),

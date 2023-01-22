@@ -201,22 +201,25 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
           body = Container();
         }
 
+        final actions = [
+          IconButton(
+            tooltip: i18n.viewNetworkTraffic,
+            icon: const Icon(Icons.description_outlined),
+            color: Theme.of(context).appBarTheme.foregroundColor,
+            onPressed: () {
+              Application.router!.navigateTo(context, Routes.traffic);
+            },
+          ),
+          RefreshIconButton(
+            onPressed: _scanning ? null : () => _discover(),
+          ),
+        ];
+
         return Scaffold(
           appBar: AppBar(
             leading: const SettingsIconButton(),
             title: Text(Application.name),
-            actions: [
-              IconButton(
-                tooltip: i18n.viewNetworkTraffic,
-                icon: const Icon(Icons.description_outlined),
-                onPressed: () {
-                  Application.router!.navigateTo(context, Routes.traffic);
-                },
-              ),
-              RefreshIconButton(
-                onPressed: _scanning ? null : () => _discover(),
-              ),
-            ],
+            actions: actions,
           ),
           body: Center(
             child: Scrollbar(child: body),
