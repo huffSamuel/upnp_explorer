@@ -3,6 +3,7 @@
     "version": "2.1.0",
     "changes": [
       "User interface improvements",
+      "New splash screen",
       "Added new Material You layout on Android 12+"
     ]
   },

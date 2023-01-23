@@ -33,7 +33,10 @@ void showChangelogDialog(BuildContext context) {
 class ChangelogDialog extends StatelessWidget {
   final List<ChangeVersion> changes;
 
-  const ChangelogDialog({Key? key, required this.changes}) : super(key: key);
+  const ChangelogDialog({
+    Key? key,
+    required this.changes,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

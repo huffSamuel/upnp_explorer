@@ -18,8 +18,6 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    print(theme.colorScheme);
-
     if (theme.useMaterial3) {
       return Scaffold(
         floatingActionButton: floatingActionButton,

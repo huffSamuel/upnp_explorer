@@ -29,7 +29,6 @@ Function() _nav(BuildContext context, Widget page) {
 class MaterialDesignSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final i18n = S.of(context);
 
     final children = <Widget>[
@@ -129,7 +128,6 @@ class _AdaptiveLayoutPage extends StatelessWidget {
           title: Text('Adaptive Layout'),
           value: value,
           onChanged: (v) {
-            print('On changed: $v');
             final options = Options.of(context);
 
             Options.update(

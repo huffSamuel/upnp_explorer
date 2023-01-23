@@ -121,7 +121,7 @@ class DeviceDiscoveryService {
       );
       _servers.add(DeviceFound(message));
     } catch (err) {
-      print('Failure decoding message from packet');
+      logger.error('Failure decoding message from packet');
     }
   }
 
@@ -144,7 +144,7 @@ class DeviceDiscoveryService {
           ),
         );
       } on SocketException {
-        print('Socket exception');
+        logger.error('Socket exception');
       }
     }
   }

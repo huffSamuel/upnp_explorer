@@ -8,9 +8,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'application/application.dart';
 import 'application/ioc.dart';
 import 'application/l10n/generated/l10n.dart';
-import 'application/settings/options_repository.dart';
 import 'application/routing/routes.dart';
 import 'application/settings/options.dart';
+import 'application/settings/options_repository.dart';
 import 'application/settings/palette.dart';
 import 'infrastructure/upnp/device_discovery_service.dart';
 import 'presentation/core/widgets/model_binding.dart';
@@ -27,7 +27,19 @@ void main() {
   });
 
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies().then((_) => runApp(MyApp(optionsRepository: sl())));
+  configureDependencies().then(
+    (_) => runApp(
+      BlocProvider.value(
+        value: sl<CommandBloc>(),
+        child: ModelBinding(
+          initialModel: sl<SettingsRepository>().get(),
+          child: MyApp(
+            optionsRepository: sl(),
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -42,36 +54,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initialModel = optionsRepository.get();
+    final options = Options.of(context);
+    sl<DeviceDiscoveryService>().protocolOptions = options.protocolOptions;
 
-    return ModelBinding(
-      initialModel: initialModel,
-      child: Builder(
-        builder: (context) {
-          final options = Options.of(context);
+    sl<DeviceDiscoveryService>().protocolOptions = options.protocolOptions;
 
-          if (options != optionsRepository.get()) {
-            optionsRepository.set(options);
-          }
-
-          sl<DeviceDiscoveryService>().protocolOptions =
-              options.protocolOptions;
-
-          return BlocProvider.value(
-            value: sl<CommandBloc>(),
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: Application.name,
-              themeMode: options.themeMode,
-              darkTheme: Palette.instance.darkTheme(options),
-              theme: Palette.instance.lightTheme(options),
-              localizationsDelegates: localizationDelegates,
-              supportedLocales: S.delegate.supportedLocales,
-              onGenerateRoute: Application.router!.generator,
-            ),
-          );
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: Application.name,
+      themeMode: options.themeMode,
+      darkTheme: Palette.instance.darkTheme(options),
+      theme: Palette.instance.lightTheme(options),
+      localizationsDelegates: localizationDelegates,
+      supportedLocales: S.delegate.supportedLocales,
+      onGenerateRoute: Application.router!.generator,
     );
   }
 }
