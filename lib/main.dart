@@ -33,6 +33,7 @@ void main() {
         value: sl<CommandBloc>(),
         child: ModelBinding(
           initialModel: sl<SettingsRepository>().get(),
+          onUpdate: sl<SettingsRepository>().set,
           child: MyApp(
             optionsRepository: sl(),
           ),

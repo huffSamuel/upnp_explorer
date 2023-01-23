@@ -16,18 +16,21 @@ class ModelBinding<T> extends StatefulWidget {
     Key? key,
     required this.initialModel,
     required this.child,
+    this.onUpdate,
   })  : assert(initialModel != null),
         super(key: key);
 
   final T initialModel;
   final Widget child;
+  final void Function(T)? onUpdate;
 
   _ModelBindingState<T> createState() => _ModelBindingState<T>();
 
   static T of<T>(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope<T>>();
+    final scope =
+        context.dependOnInheritedWidgetOfExactType<_ModelBindingScope<T>>();
 
-    if(scope == null || scope.modelBindingState.currentModel == null) {
+    if (scope == null || scope.modelBindingState.currentModel == null) {
       throw '';
     }
 
@@ -35,9 +38,10 @@ class ModelBinding<T> extends StatefulWidget {
   }
 
   static void update<T>(BuildContext context, T newModel) {
-    final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope<T>>();
+    final scope =
+        context.dependOnInheritedWidgetOfExactType<_ModelBindingScope<T>>();
 
-    if(scope == null) {
+    if (scope == null) {
       throw '';
     }
 
@@ -56,6 +60,8 @@ class _ModelBindingState<T> extends State<ModelBinding<T>> {
 
   void updateModel(T newModel) {
     if (newModel != currentModel) {
+      widget.onUpdate?.call(newModel);
+
       setState(() {
         currentModel = newModel;
       });

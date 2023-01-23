@@ -1,5 +1,11 @@
 [
   {
+    "version": "2.1.1",
+    "changes": [
+      "Fixed a bug that caused user settings to be reset on startup"
+    ]
+  },
+  {
     "version": "2.1.0",
     "changes": [
       "User interface improvements",
