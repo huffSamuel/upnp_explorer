@@ -89,7 +89,18 @@ class ActionPage extends StatelessWidget {
             body: CustomScrollView(
               slivers: [
                 SliverAppBar.large(
-                  title: FittedBox(child: Text(action.name)),
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.of(context).pop(),
+                    color: theme.colorScheme.onPrimary,
+                  ),
+                  title: FittedBox(
+                    child: DefaultTextStyle.merge(
+                      style: TextStyle(color: theme.colorScheme.onPrimary),
+                      child: Text(action.name),
+                    ),
+                  ),
+                  foregroundColor: theme.colorScheme.onPrimary,
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
@@ -110,6 +121,7 @@ class ActionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(action.name),
+        elevation: 0,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
