@@ -30,4 +30,4 @@ $ adb install ./build/app/outputs/flutter-apk/app-release.apk
 
 *Based on [makeareadme.com](https://www.makeareadme.com/)*
 
-<a href=""><img src="https://storage.googleapis.com/cms-storage-bucket/916809aa4c8f73ad70d2.svg" width=125></a>
+<a href="https://flutter.dev/"><img src="https://storage.googleapis.com/cms-storage-bucket/916809aa4c8f73ad70d2.svg" width=125></a>
