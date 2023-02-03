@@ -30,7 +30,7 @@ dependencies:
   shared_preferences: ^2.0.17
   string_validator: ^0.3.0
   url_launcher: ^6.1.6
-  xml: ^6.1.0
+  xml: ^6.2.2
 
 dev_dependencies:
   build_runner: ^2.3.3
