@@ -13,11 +13,3 @@ updates:
       - "huffSamuel"
     commit-message:
       prefix: "chore"
-  - package-ecosystem: "gradle"
-    directory: "/android"
-    schedule:
-      interval: "weekly"
-    assignees:
-      - "huffSamuel"
-    commit-message:
-      prefix: "chore"
