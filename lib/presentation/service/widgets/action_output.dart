@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upnp_explorer/presentation/core/has_text_overflowed.dart';
 
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
@@ -67,27 +68,69 @@ class ArgumentOutput extends StatelessWidget {
       ? S.of(context).unknownValue(name)
       : S.of(context).knownValue(name, value!);
 
+  void _showFullText(
+    BuildContext context,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        contentPadding: const EdgeInsets.fromLTRB(24, 12, 8, 16),
+        title: Text(name),
+        children: [
+          Text(text),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              child: Text(S.of(context).close),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField(BuildContext context, TextStyle style) {
+    final field = LabeledField(
+      title: ExcludeSemantics(
+        child: Text(
+          name,
+          style: style,
+        ),
+      ),
+      child: ExcludeSemantics(
+        child: TextField(
+          controller: TextEditingController(
+            text: text,
+          ),
+          enabled: false,
+          readOnly: true,
+          maxLines: 1,
+        ),
+      ),
+    );
+
+    if (hasTextOverflowed(
+      text,
+      style,
+      maxWidth: MediaQuery.of(context).size.width,
+    )) {
+      return GestureDetector(
+        onTap: () => _showFullText(context),
+        child: field,
+      );
+    }
+
+    return field;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Semantics(
       label: label(context),
-      child: LabeledField(
-        title: ExcludeSemantics(
-          child: Text(
-            name,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-        ),
-        child: ExcludeSemantics(
-          child: TextField(
-            controller: TextEditingController(
-              text: text,
-            ),
-            enabled: false,
-            readOnly: true,
-            maxLines: 1,
-          ),
-        ),
+      child: _buildTextField(
+        context,
+        Theme.of(context).textTheme.subtitle1!,
       ),
     );
   }
