@@ -1,31 +1,39 @@
 [
   {
+    "version": "2.1.2",
+    "changes": [
+      "Fixed a bug that would cause service commands to send to an incorrect device.",
+      "You can now tap on long device responses to open the text in a dialog.",
+      "Performance improvements."
+    ]
+  },
+  {
     "version": "2.1.1",
     "changes": [
-      "Fixed a bug that caused user settings to be reset on startup"
+      "Fixed a bug that caused user settings to be reset on startup."
     ]
   },
   {
     "version": "2.1.0",
     "changes": [
-      "User interface improvements",
-      "New splash screen",
-      "Added new Material You layout on Android 12+"
+      "User interface improvements.",
+      "New splash screen.",
+      "Added new Material You layout on Android 12+."
     ]
   },
   {
     "version": "2.0.0",
     "changes": [
-      "Send commands to discovered devices",
-      "User interface improvements"
+      "Send commands to discovered devices.",
+      "User interface improvements."
     ]
   },
   {
     "version": "1.1.0",
     "changes": [
-      "View logs of all network traffic",
-      "User interface improvements",
-      "Fixed a bug that caused some devices to ignore search requests"
+      "View logs of all network traffic.",
+      "User interface improvements.",
+      "Fixed a bug that caused some devices to ignore search requests."
     ]
   },
   {
