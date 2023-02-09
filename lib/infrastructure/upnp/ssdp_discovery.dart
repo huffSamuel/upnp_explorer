@@ -32,7 +32,7 @@ class SSDPService {
   final DeviceDiscoveryService discovery;
   final Logger logger;
   final DeviceRepositoryType deviceRepository;
-  final ServiceRepositoryType serviceRepository;
+  final ServiceDescriptionRepository serviceRepository;
   final NetworkLogsRepositoryType trafficRepository;
 
   final List<Object> seen = [];
@@ -44,7 +44,7 @@ class SSDPService {
     this.download,
     LoggerFactory loggerFactory,
     @Named('DeviceRepository') this.deviceRepository,
-    @Named('ServiceRepository') this.serviceRepository,
+    this.serviceRepository,
     this.trafficRepository,
   ) : logger = loggerFactory.build('SSDPService');
 
@@ -69,6 +69,7 @@ class SSDPService {
           XmlDocument.parse(response.body),
         );
         serviceRepository.insert(
+          device.udn,
           service.serviceId.toString(),
           serviceDescription,
         );

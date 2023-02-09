@@ -37,20 +37,53 @@ class DeviceDescription {
 }
 
 class Device {
+  /// UPnP device type.
   final _DeviceType deviceType;
+
+  /// Short description for end user.
   final String friendlyName;
+
+  /// Manufacturer's name.
   final String manufacturer;
+
+  /// Web site for [manufacturer].
   final Uri? manufacturerUrl;
+
+  /// Long description for end user.
   final String? modelDescription;
+
+  /// Model name.
   final String modelName;
+
+  /// Model number.
   final String? modelNumber;
+
+  /// Web site for model.
   final Uri? modelUrl;
+
+  /// Serial number.
   final String? serialNumber;
+
+  /// Unique device name.
+  ///
+  /// A universally-unique identifier for the device, whether root or embedded.
   final String udn;
+
+  /// Universal product code.
+  ///
+  /// A 12-digit, all numeric code that identifies the consumer packages.
   final String? upc;
+
+  /// List of icons that visually represent this device.
   final _IconList iconList;
+
+  /// List of services available on this device.
   final ServiceList serviceList;
+
+  /// List of child devices on this device.
   final DeviceList deviceList;
+
+  /// URL to presentation for this device.
   final Uri? presentationUrl;
 
   Device({
@@ -71,7 +104,15 @@ class Device {
     this.presentationUrl,
   });
 
-  static fromXml(XmlNode xml) {
+  static List<Device> listFromXmlNode(XmlNode? xml) {
+    return xml
+            ?.findAllElements('device')
+            .map<Device>((e) => Device.fromXml(e))
+            .toList() ??
+        [];
+  }
+
+  static Device fromXml(XmlNode xml) {
     final presentationUrl = xml.getElement('presentationURL');
 
     final modelUrl = xml.getElement('modelURL');
@@ -121,6 +162,7 @@ class _DeviceType {
   }
 }
 
+@deprecated
 class DeviceList {
   final List<Device> devices;
 
@@ -139,6 +181,7 @@ class DeviceList {
   }
 }
 
+@deprecated
 class ServiceList {
   final List<Service> services;
 
@@ -158,11 +201,22 @@ class ServiceList {
 }
 
 class Service {
+  /// UPnP service type.
   final String serviceType;
+
+  ///
   final String serviceVersion;
+
+  /// Service identifier.
   final _ServiceId serviceId;
+
+  /// URL for service description.
   final Uri scpdurl;
+
+  /// URL for control.
   final Uri controlUrl;
+
+  /// URL for eventing.
   final Uri eventSubUrl;
 
   Service({
@@ -174,7 +228,15 @@ class Service {
     required this.eventSubUrl,
   });
 
-  static fromXml(XmlNode xml) {
+  static List<Service> listFromXmlNode(XmlNode? xml) {
+    return xml
+            ?.findAllElements('service')
+            .map<Service>((x) => Service.fromXml(x))
+            .toList() ??
+        [];
+  }
+
+  static Service fromXml(XmlNode xml) {
     final scpdurl = xml.getElement('SCPDURL')?.text;
     final controlUrl = xml.getElement('controlURL')?.text;
     final eventSubUrl = xml.getElement('eventSubURL')?.text;
@@ -220,6 +282,7 @@ class _ServiceId {
   }
 }
 
+@deprecated
 class _IconList {
   final List<DeviceIcon> icons;
 
@@ -239,10 +302,21 @@ class _IconList {
 }
 
 class DeviceIcon {
+  /// Icon's MIME type.
   final String mimeType;
+
+  /// Horizontal dimension of the icon, in pixels.
   final int width;
+
+  /// Vertical dimensions of the icon, in pixels.
   final int height;
+
+  /// Number of color bits per pixel.
   final String depth;
+
+  /// Pointer to the icon image.
+  ///
+  /// Relative to the URL at which the device description is located.
   final Uri url;
 
   DeviceIcon({
@@ -253,7 +327,15 @@ class DeviceIcon {
     required this.url,
   });
 
-  static fromXml(XmlNode xml) {
+  static List<DeviceIcon> listFromXmlNode(XmlNode? xml) {
+    return xml
+            ?.findAllElements('icon')
+            .map<DeviceIcon>((x) => DeviceIcon.fromXml(x))
+            .toList() ??
+        [];
+  }
+
+  static DeviceIcon fromXml(XmlNode xml) {
     return DeviceIcon(
       mimeType: xml.getElement('mimetype')!.text,
       width: int.parse(xml.getElement('width')!.text),

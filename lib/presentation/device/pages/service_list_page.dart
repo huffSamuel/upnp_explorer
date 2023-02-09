@@ -5,23 +5,26 @@ import 'package:upnp_explorer/presentation/core/page/app_page.dart';
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/routing/route_arguments.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/service_repository_type.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../service/bloc/command_bloc.dart';
 
 class ServiceListPage extends StatelessWidget {
+  final String deviceId;
   final ServiceList services;
-  final ServiceRepositoryType repo =
-      sl<ServiceRepositoryType>(instanceName: 'ServiceRepository');
+  final ServiceDescriptionRepository repo =
+      sl<ServiceDescriptionRepository>();
 
   ServiceListPage({
     Key? key,
     required this.services,
+    required this.deviceId,
   }) : super(key: key);
 
   VoidCallback? _navigateToService(BuildContext context, Service service) {
-    if (!repo.has(service.serviceId.toString())) {
+    if (!repo.has(deviceId, service.serviceId.toString())) {
       return null;
     }
 
@@ -30,7 +33,12 @@ class ServiceListPage extends StatelessWidget {
       Application.router!.navigateTo(
         context,
         Routes.service(service.serviceId.toString()),
-        routeSettings: RouteSettings(arguments: service),
+        routeSettings: RouteSettings(
+          arguments: ServicePageRouteArgs(
+            service,
+            deviceId,
+          ),
+        ),
       );
     };
   }
