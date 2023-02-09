@@ -4,6 +4,7 @@ import 'package:xml/xml.dart';
 
 import '../../../application/application.dart';
 import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/routing/route_arguments.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/ssdp_response_message.dart';
@@ -150,7 +151,12 @@ class DevicePage extends StatelessWidget {
                   onTap: () => Application.router!.navigateTo(
                     context,
                     Routes.serviceList,
-                    routeSettings: RouteSettings(arguments: device.serviceList),
+                    routeSettings: RouteSettings(
+                      arguments: ServiceListPageRouteArgs(
+                        device.serviceList,
+                        device.udn,
+                      ),
+                    ),
                   ),
                 ),
               if (device.deviceList.devices.isNotEmpty)

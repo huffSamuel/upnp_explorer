@@ -74,7 +74,7 @@ class ArgumentOutput extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => SimpleDialog(
-        contentPadding: const EdgeInsets.fromLTRB(24, 12, 8, 16),
+        contentPadding: const EdgeInsets.fromLTRB(24, 12, 16, 16),
         title: Text(name),
         children: [
           Text(text),

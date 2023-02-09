@@ -3,26 +3,29 @@ import 'package:injectable/injectable.dart';
 import '../../domain/device/service_repository_type.dart';
 import '../../infrastructure/upnp/models/service_description.dart';
 
-@named
-@Singleton(as: ServiceRepositoryType)
-class ServiceRepository extends ServiceRepositoryType {
+@Singleton(as: ServiceDescriptionRepository)
+class InMemoryServiceDescriptionRepository extends ServiceDescriptionRepository {
   Map<String, ServiceDescription> services = {};
   @override
-  ServiceDescription? get(String id) {
-    if (!services.containsKey(id)) {
+  ServiceDescription? get(String deviceId, String id) {
+    if (!services.containsKey(_key(deviceId, id))) {
       return null;
     }
 
-    return services[id];
+    return services[_key(deviceId, id)];
   }
 
   @override
-  bool has(String id) {
-    return services.containsKey(id);
+  bool has(String deviceId, String id) {
+    return services.containsKey(_key(deviceId, id));
   }
 
   @override
-  void insert(String id, ServiceDescription service) {
-    services[id] = service;
+  void insert(String deviceId, String id, ServiceDescription service) {
+    services[_key(deviceId, id)] = service;
+  }
+
+  String _key(String deviceId, String id) {
+    return '$deviceId:$id';
   }
 }

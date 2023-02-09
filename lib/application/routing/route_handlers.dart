@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:upnp_explorer/application/routing/route_arguments.dart';
 import 'package:xml/xml.dart';
 
 import '../../domain/device/service_repository_type.dart';
@@ -34,10 +35,11 @@ var deviceHandler = Handler(handlerFunc: (context, params) {
 });
 
 var serviceListHandler = Handler(handlerFunc: (context, _) {
-  final args = context!.settings!.arguments as ServiceList;
+  final args = context!.settings!.arguments as ServiceListPageRouteArgs;
 
   return ServiceListPage(
-    services: args,
+    services: args.serviceList,
+    deviceId: args.deviceId,
   );
 });
 
@@ -50,13 +52,15 @@ var deviceListHandler = Handler(handlerFunc: (context, _) {
 });
 
 var serviceHandler = Handler(handlerFunc: (context, params) {
+  final args = context!.settings!.arguments as ServicePageRouteArgs;
+
   final id = params['id']![0];
 
-  final repo = sl.get<ServiceRepositoryType>(instanceName: 'ServiceRepository');
+  final repo = sl.get<ServiceDescriptionRepository>();
 
   return ServicePage(
-    description: repo.get(id)!,
-    service: context!.settings!.arguments as Service,
+    description: repo.get(args.deviceId, id)!,
+    service: args.service,
   );
 });
 
