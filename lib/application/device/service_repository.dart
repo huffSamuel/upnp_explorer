@@ -8,20 +8,24 @@ class InMemoryServiceDescriptionRepository extends ServiceDescriptionRepository 
   Map<String, ServiceDescription> services = {};
   @override
   ServiceDescription? get(String deviceId, String id) {
-    if (!services.containsKey(id)) {
+    if (!services.containsKey(_key(deviceId, id))) {
       return null;
     }
 
-    return services[id];
+    return services[_key(deviceId, id)];
   }
 
   @override
   bool has(String deviceId, String id) {
-    return services.containsKey(id);
+    return services.containsKey(_key(deviceId, id));
   }
 
   @override
   void insert(String deviceId, String id, ServiceDescription service) {
-    services[id] = service;
+    services[_key(deviceId, id)] = service;
+  }
+
+  String _key(String deviceId, String id) {
+    return '$deviceId:$id';
   }
 }
