@@ -24,7 +24,16 @@ class ActionOutput extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: BlocBuilder<CommandBloc, CommandState>(
+      child: BlocConsumer<CommandBloc, CommandState>(
+        listener: (context, state) {
+          if (state is ActionFault) {
+            final snackbar = SnackBar(
+              content:
+                  Text('Command failed to send. Error code: ' + state.code),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }
+        },
         buildWhen: (oldState, newState) => newState is ActionSuccess,
         builder: (context, state) {
           Map<String, String?> outputValues = {};

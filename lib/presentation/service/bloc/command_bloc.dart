@@ -58,7 +58,9 @@ class CommandBloc extends Bloc<CommandEvent, CommandState> {
       emit(ActionSuccess(response.arguments));
       emit(current);
     } catch (error) {
-      if (error is ActionInvocationError) {}
+      if (error is ActionInvocationError) {
+        emit(ActionFault(error.code, error.description));
+      }
     }
   }
 }

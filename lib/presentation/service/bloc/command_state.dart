@@ -33,3 +33,10 @@ class ActionSuccess extends CommandState {
         ...super.props,
       ];
 }
+
+class ActionFault extends CommandState {
+  final String code;
+  final String description;
+
+  ActionFault(this.code, this.description);
+}
