@@ -3,11 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'application/application.dart';
 import 'application/ioc.dart';
-import 'application/l10n/generated/l10n.dart';
 import 'application/routing/routes.dart';
 import 'application/settings/options.dart';
 import 'application/settings/options_repository.dart';
@@ -66,16 +65,9 @@ class MyApp extends StatelessWidget {
       themeMode: options.themeMode,
       darkTheme: Palette.instance.darkTheme(options),
       theme: Palette.instance.lightTheme(options),
-      localizationsDelegates: localizationDelegates,
-      supportedLocales: S.delegate.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: Application.router!.generator,
     );
   }
 }
-
-List<LocalizationsDelegate> localizationDelegates = [
-  S.delegate,
-  GlobalMaterialLocalizations.delegate,
-  GlobalWidgetsLocalizations.delegate,
-  GlobalCupertinoLocalizations.delegate,
-];

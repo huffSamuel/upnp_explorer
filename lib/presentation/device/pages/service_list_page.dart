@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:upnp_explorer/presentation/core/page/app_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/application.dart';
 import '../../../application/ioc.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/route_arguments.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/service_repository_type.dart';
 import '../../../infrastructure/upnp/models/device.dart';
+import '../../core/page/app_page.dart';
 import '../../service/bloc/command_bloc.dart';
 
 class ServiceListPage extends StatelessWidget {
   final String deviceId;
   final List<Service> services;
-  final ServiceDescriptionRepository repo =
-      sl<ServiceDescriptionRepository>();
+  final ServiceDescriptionRepository repo = sl<ServiceDescriptionRepository>();
 
   ServiceListPage({
     Key? key,
@@ -45,7 +44,7 @@ class ServiceListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     final children = List<Widget>.from(
       services.map(

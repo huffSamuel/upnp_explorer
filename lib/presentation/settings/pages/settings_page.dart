@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../application/application.dart';
 import '../../../application/device.dart';
 import '../../../application/ioc.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../application/settings/options.dart';
 import '../../../domain/value_converter.dart';
@@ -29,7 +29,7 @@ Function() _nav(BuildContext context, Widget page) {
 class MaterialDesignSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     final children = <Widget>[
       CategoryTile(
@@ -74,7 +74,7 @@ class MaterialDesignSettingsPage extends StatelessWidget {
 class _DisplaySettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final options = ModelBinding.of<Options>(context);
 
     return SettingsCategoryPage(
@@ -82,7 +82,7 @@ class _DisplaySettingsPage extends StatelessWidget {
       children: [
         SettingsTile(
           title: Text(i18n.theme),
-          subtitle: Text(i18n.themeMode(options.themeMode)),
+          subtitle: Text(i18n.themeMode(options.themeMode.name)),
           leading: Icon(Icons.brightness_medium_outlined),
           onTap: _nav(
             context,
@@ -94,9 +94,11 @@ class _DisplaySettingsPage extends StatelessWidget {
           leading: Icon(Icons.density_medium_rounded),
           subtitle: Text(
             i18n.visualDensity(
-              kVisualDensityConverter.from(
-                options.visualDensity,
-              ),
+              kVisualDensityConverter
+                  .from(
+                    options.visualDensity,
+                  )
+                  .name,
             ),
           ),
           onTap: _nav(context, _VisualDensityPage()),
@@ -149,7 +151,7 @@ class _AdaptiveLayoutPage extends StatelessWidget {
 class _VisualDensityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final options = Options.of(context);
 
     final currentValue = kVisualDensityConverter.from(options.visualDensity);
@@ -169,7 +171,7 @@ class _VisualDensityPage extends StatelessWidget {
                 options.copyWith(visualDensity: kVisualDensityConverter.to(v)),
               );
             },
-            title: Text(i18n.visualDensity(value)),
+            title: Text(i18n.visualDensity(value.name)),
           ),
         )
         .toList();
@@ -184,7 +186,7 @@ class _VisualDensityPage extends StatelessWidget {
 class _ThemeSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final options = Options.of(context);
 
     final themes = ThemeMode.values
@@ -202,7 +204,7 @@ class _ThemeSettingsPage extends StatelessWidget {
                 options.copyWith(themeMode: v),
               );
             },
-            title: Text(i18n.themeMode(value)),
+            title: Text(i18n.themeMode(value.name)),
           ),
         )
         .toList();
@@ -233,7 +235,7 @@ class _ThemeSettingsPage extends StatelessWidget {
 class _ProtocolSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final options = Options.of(context);
 
     return SettingsCategoryPage(
@@ -266,7 +268,7 @@ class _AdvancedModePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final options = Options.of(context);
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return SettingsCategoryPage(
       category: i18n.advancedMode,
@@ -313,7 +315,7 @@ class _MulticastHopsPageState extends State<_MulticastHopsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final options = Options.of(context);
 
     return WillPopScope(
@@ -371,7 +373,7 @@ class _MaximumResponseDelayPageState extends State<_MaximumResponseDelayPage> {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final options = Options.of(context);
     final advanced = options.protocolOptions.advanced;
 
@@ -418,7 +420,7 @@ class _MaximumResponseDelayPageState extends State<_MaximumResponseDelayPage> {
 
 class _AboutSettingsPage extends StatelessWidget {
   void _submitBug(BuildContext c) async {
-    final i18n = S.of(c);
+    final i18n = AppLocalizations.of(c)!;
     final bugService = sl<BugReportService>();
     final info = await PackageInfo.fromPlatform();
 
@@ -436,7 +438,7 @@ class _AboutSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return SettingsCategoryPage(
       category: i18n.about,
@@ -503,7 +505,7 @@ class _VersionTextState extends State<VersionText> {
     PackageInfo.fromPlatform().then(
       (info) => setState(
         () {
-          _version = S.of(context).version(info.version);
+          _version = AppLocalizations.of(context)!.version(info.version);
         },
       ),
     );

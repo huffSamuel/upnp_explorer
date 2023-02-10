@@ -4,15 +4,15 @@
     "changes": [
       "Fixed a bug that would cause service commands to send to the wrong device.",
       "You can now tap on long device responses to open the text in a dialog.",
-      "Performance improvements.",
-      "Request localized device documents from UPnP devices when supported."
+      "Request localized device documents from UPnP devices when supported.",
+      "Fixed visual bug that moved the send button above command parameter fields.",
+      "Display error when command fails.",
+      "Performance improvements."
     ]
   },
   {
     "version": "2.1.1",
-    "changes": [
-      "Fixed a bug that caused user settings to be reset on startup."
-    ]
+    "changes": ["Fixed a bug that caused user settings to be reset on startup."]
   },
   {
     "version": "2.1.0",
@@ -39,15 +39,11 @@
   },
   {
     "version": "1.0.11",
-    "changes": [
-      "User interface improvements."
-    ]
+    "changes": ["User interface improvements."]
   },
   {
     "version": "1.0.10",
-    "changes": [
-      "Fix 'App not installed' error when opening from launcher."
-    ]
+    "changes": ["Fix 'App not installed' error when opening from launcher."]
   },
   {
     "version": "1.0.9",

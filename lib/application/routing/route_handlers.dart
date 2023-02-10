@@ -1,5 +1,4 @@
 import 'package:fluro/fluro.dart';
-import 'package:upnp_explorer/application/routing/route_arguments.dart';
 import 'package:xml/xml.dart';
 
 import '../../domain/device/service_repository_type.dart';
@@ -17,6 +16,7 @@ import '../../presentation/service/pages/action_page.dart';
 import '../../presentation/service/pages/actions_page.dart';
 import '../../presentation/service/pages/service_page.dart';
 import '../ioc.dart';
+import 'route_arguments.dart';
 
 var rootHandler = Handler(handlerFunc: (context, _) => DiscoveryPage());
 

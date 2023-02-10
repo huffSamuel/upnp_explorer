@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/settings/widgets/settings/switch_tile.dart';
+import 'switch_tile.dart';
 
 class HighlightSwitchTile extends StatelessWidget {
   final Widget title;

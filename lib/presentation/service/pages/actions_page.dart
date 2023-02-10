@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/core/page/app_page.dart';
+import '../../core/page/app_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/application.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
 
@@ -38,7 +38,7 @@ class ActionsPage extends StatelessWidget {
     );
 
     return AppPage(
-      title: Text(S.of(context).actions),
+      title: Text(AppLocalizations.of(context)!.actions),
       children: children,
     );
   }

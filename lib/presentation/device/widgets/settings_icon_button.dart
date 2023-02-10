@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 import '../../settings/pages/settings_page.dart';
 
 class SettingsIconButton extends StatelessWidget {
@@ -11,7 +11,7 @@ class SettingsIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      tooltip: S.of(context).settings,
+      tooltip: AppLocalizations.of(context)!.settings,
       icon: Icon(Icons.settings),
       color: Theme.of(context).appBarTheme.foregroundColor,
       onPressed: () => Navigator.of(context).push(

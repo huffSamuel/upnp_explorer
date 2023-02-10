@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../domain/network_logs/direction.dart';
 import '../../../domain/network_logs/protocol.dart';
 import '../../core/widgets/model_binding.dart';
@@ -37,7 +37,7 @@ class LogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final filter = ModelBinding.of<TrafficFilter>(context);
     return Card(
       child: Container(
@@ -51,7 +51,7 @@ class LogCard extends StatelessWidget {
                 spacing: 8.0,
                 children: [
                   FilterChip(
-                    label: Text(i18n.direction(direction)),
+                    label: Text(i18n.direction(direction.name)),
                     selected: filter == TrafficFilter.direction(direction),
                     onSelected: (selected) {
                       final newFilter = selected
@@ -62,7 +62,7 @@ class LogCard extends StatelessWidget {
                     },
                   ),
                   FilterChip(
-                    label: Text(i18n.protocol(protocol)),
+                    label: Text(i18n.protocol(protocol.name)),
                     selected: filter == TrafficFilter.protocol(protocol),
                     onSelected: (selected) =>
                         _filter(TrafficFilter.protocol(protocol), selected),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/core/page/app_page.dart';
+import '../../core/page/app_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/application.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 
@@ -39,7 +39,7 @@ class DeviceListPage extends StatelessWidget {
     );
 
     return AppPage(
-      title: Text(S.of(context).devices),
+      title: Text(AppLocalizations.of(context)!.devices),
       children: children,
     );
   }

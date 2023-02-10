@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:upnp_explorer/presentation/core/has_text_overflowed.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
+import '../../core/has_text_overflowed.dart';
 import '../bloc/command_bloc.dart';
 import 'labeled_field.dart';
 
@@ -19,7 +19,7 @@ class ActionOutput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final theme = Theme.of(context).textTheme;
 
     return Padding(
@@ -28,8 +28,7 @@ class ActionOutput extends StatelessWidget {
         listener: (context, state) {
           if (state is ActionFault) {
             final snackbar = SnackBar(
-              content:
-                  Text('Command failed to send. Error code: ' + state.code),
+              content: Text(i18n.commandFailedWithError(state.code)),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackbar);
           }
@@ -74,8 +73,8 @@ class ArgumentOutput extends StatelessWidget {
   get text => LineSplitter().convert(value ?? '').join('');
 
   String label(BuildContext context) => value == null
-      ? S.of(context).unknownValue(name)
-      : S.of(context).knownValue(name, value!);
+      ? AppLocalizations.of(context)!.unknownValue(name)
+      : AppLocalizations.of(context)!.knownValue(name, value!);
 
   void _showFullText(
     BuildContext context,
@@ -90,7 +89,7 @@ class ArgumentOutput extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              child: Text(S.of(context).close),
+              child: Text(AppLocalizations.of(context)!.close),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),

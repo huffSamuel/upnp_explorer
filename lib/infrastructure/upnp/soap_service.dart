@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
-import 'package:upnp_explorer/domain/upnp/action_fault.dart';
+import '../../domain/upnp/action_fault.dart';
 
 import '../../domain/network_logs/direction.dart';
 import '../../domain/network_logs/network_logs_repository_type.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/core/page/app_page.dart';
+import '../../core/page/app_page.dart';
 
 class SettingsCategoryPage extends StatelessWidget {
   final String category;

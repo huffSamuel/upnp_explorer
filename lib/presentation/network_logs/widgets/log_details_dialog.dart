@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../domain/network_logs/direction.dart';
-
-final timeFormat = DateFormat('HH:mm:ss.SSS');
 
 class LogDetailsDialog extends StatelessWidget {
   final Direction direction;
@@ -23,13 +20,11 @@ class LogDetailsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final _controller = ScrollController();
 
-    final timeString = timeFormat.format(time);
-
     return AlertDialog(
-      title: Text(S.of(context).direction(direction)),
+      title: Text(AppLocalizations.of(context)!.direction(direction.name)),
       content: Container(
         width: MediaQuery.of(context).size.width,
         child: Scrollbar(
@@ -42,9 +37,9 @@ class LogDetailsDialog extends StatelessWidget {
                 Text(i18n.fromAddress(origin!)),
                 SizedBox(height: 4.0),
                 if (direction == Direction.incoming)
-                  Text(S.of(context).receivedAt(timeString)),
+                  Text(AppLocalizations.of(context)!.receivedAt(time)),
                 if (direction == Direction.outgoing)
-                  Text(S.of(context).sentAt(timeString)),
+                  Text(AppLocalizations.of(context)!.sentAt(time)),
                 SizedBox(height: 4.0),
                 Divider(
                   thickness: 1.5,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
 import '../../core/page/app_page.dart';
 
@@ -12,7 +12,7 @@ class ServiceStateTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     final children = List<Widget>.from(
       table.stateVariables.map(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/application.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/review/review_service.dart';
 
 class ReviewPromptDialog extends StatelessWidget {
@@ -11,7 +11,7 @@ class ReviewPromptDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
     return AlertDialog(
       title: Text(i18n.rateAppName(Application.name)),
       content: Text(i18n.pleaseRateAppName(Application.name)),

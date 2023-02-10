@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:string_validator/string_validator.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/validators.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
 import 'labeled_field.dart';
@@ -85,7 +85,7 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 
 class RefreshIconButton extends StatelessWidget {
   final Function()? onPressed;
@@ -13,7 +13,7 @@ class RefreshIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      tooltip: S.of(context).refresh,
+      tooltip: AppLocalizations.of(context)!.refresh,
       icon: Icon(Icons.refresh),
       onPressed: onPressed,
       color: Theme.of(context).appBarTheme.foregroundColor,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/application.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
 import '../../service/bloc/command_bloc.dart';
@@ -20,7 +20,7 @@ class DeviceListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: S.of(context).open,
+      label: AppLocalizations.of(context)!.open,
       child: ListTile(
         leading: DeviceImage(
           icons: device.description.device.iconList,

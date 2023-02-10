@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/l10n/generated/l10n.dart';
 
 class ScanningIndicator extends StatelessWidget {
   final double height;
@@ -17,7 +17,7 @@ class ScanningIndicator extends StatelessWidget {
       duration: Duration(milliseconds: 175),
       curve: Curves.easeIn,
       child: Semantics(
-        label: S.of(context).scanningForDevices,
+        label: AppLocalizations.of(context)!.scanningForDevices,
         child: AnimatedContainer(
           height: height,
           curve: Curves.easeInOut,

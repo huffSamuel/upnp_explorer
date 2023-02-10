@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/settings/widgets/settings_category_tile.dart';
+import '../settings_category_tile.dart';
 
 class CategoryTile extends StatelessWidget {
   final Widget? leading;

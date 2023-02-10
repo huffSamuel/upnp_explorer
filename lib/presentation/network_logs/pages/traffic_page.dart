@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/ioc.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../domain/network_logs/network_logs_repository_type.dart';
 import '../../../domain/network_logs/traffic.dart';
 import '../../core/widgets/model_binding.dart';
@@ -19,7 +19,7 @@ class _TrafficPageState extends State<TrafficPage>
 
   final _repo = sl<NetworkLogsRepositoryType>();
 
-  S get i18n => S.of(context);
+  AppLocalizations get i18n => AppLocalizations.of(context)!;
 
   void _clear() {
     _repo.clear();
@@ -46,7 +46,7 @@ class _TrafficPageState extends State<TrafficPage>
       initialModel: TrafficFilter.all(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(S.of(context).traffic),
+          title: Text(i18n.traffic),
           actions: [
             PopupMenuButton(
               itemBuilder: (context) => [

@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings/open_settings.dart';
 
 import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/review/review_service.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
@@ -22,7 +22,7 @@ import '../widgets/settings_icon_button.dart';
 class _NoNetwork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return Center(
       child: Column(
@@ -98,7 +98,7 @@ class _LoadedState extends State<_Loaded> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            S.of(context).noDevicesFound,
+            AppLocalizations.of(context)!.noDevicesFound,
           ),
         ),
       );
@@ -173,7 +173,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = S.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return BlocConsumer<ApplicationBloc, ApplicationState>(
       bloc: _bloc,

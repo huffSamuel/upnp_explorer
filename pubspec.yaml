@@ -34,7 +34,6 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.3.3
-  flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
@@ -43,12 +42,9 @@ dev_dependencies:
   test: ^1.22.0
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/changes.json
     - assets/google_fonts/
     - assets/automatic_animated_list/
-flutter_intl:
-  enabled: true
-  arb_dir: lib/application/l10n
-  output_dir: lib/application/l10n/generated

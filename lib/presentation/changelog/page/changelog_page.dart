@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
-import '../../../application/l10n/generated/l10n.dart';
 import '../../../domain/changelog/change_version.dart';
 import '../../core/page/app_page.dart';
 
@@ -44,7 +44,7 @@ class _ChangelogPageState extends State<ChangelogPage> {
     }
 
     return AppPage(
-      title: Text(S.of(context).whatsNew),
+      title: Text(AppLocalizations.of(context)!.whatsNew),
       leading: IconButton(
         icon: Icon(Icons.close),
         onPressed: () {
@@ -97,7 +97,7 @@ class _ChangelogVersion extends StatelessWidget {
             (x) => Padding(
               padding: const EdgeInsets.all(2.0),
               child: Text(
-                S.of(context).changelogItem(x),
+                AppLocalizations.of(context)!.changelogItem(x),
                 style: bodyTheme,
               ),
             ),
