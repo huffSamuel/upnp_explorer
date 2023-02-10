@@ -1,0 +1,8 @@
+analyzer:
+  plugins:
+    - dart_code_metrics
+
+dart_code_metrics:
+  metrics-exclude:
+    - test/**
+    - integration_test/**
