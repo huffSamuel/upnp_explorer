@@ -86,31 +86,34 @@ class ActionPage extends StatelessWidget {
       return Stack(
         children: [
           Scaffold(
-            body: CustomScrollView(
-              slivers: [
-                SliverAppBar.large(
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.of(context).pop(),
-                    color: theme.colorScheme.onPrimary,
-                  ),
-                  title: FittedBox(
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(color: theme.colorScheme.onPrimary),
-                      child: Text(action.name),
+            body: SizedBox(
+              height: MediaQuery.of(context).size.height - 86.0,
+              child: CustomScrollView(
+                slivers: [
+                  SliverAppBar.large(
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () => Navigator.of(context).pop(),
+                      color: theme.colorScheme.onPrimary,
                     ),
+                    title: FittedBox(
+                      child: DefaultTextStyle.merge(
+                        style: TextStyle(color: theme.colorScheme.onPrimary),
+                        child: Text(action.name),
+                      ),
+                    ),
+                    foregroundColor: theme.colorScheme.onPrimary,
                   ),
-                  foregroundColor: theme.colorScheme.onPrimary,
-                ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => index < children.length
-                        ? children[index]
-                        : SizedBox(height: 86),
-                    childCount: children.length + 1,
-                  ),
-                )
-              ],
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => index < children.length
+                          ? children[index]
+                          : SizedBox(height: 86),
+                      childCount: children.length + 1,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           sendButton,
@@ -148,16 +151,7 @@ class ActionPage extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SendCommandButton(
-                name: action.name,
-                onPressed: () => _send(context),
-              ),
-            ),
-          ),
+          sendButton,
         ],
       ),
     );
