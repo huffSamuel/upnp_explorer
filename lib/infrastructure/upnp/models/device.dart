@@ -75,13 +75,13 @@ class Device {
   final String? upc;
 
   /// List of icons that visually represent this device.
-  final _IconList iconList;
+  final List<DeviceIcon> iconList;
 
   /// List of services available on this device.
-  final ServiceList serviceList;
+  final List<Service> services;
 
   /// List of child devices on this device.
-  final DeviceList deviceList;
+  final List<Device> devices;
 
   /// URL to presentation for this device.
   final Uri? presentationUrl;
@@ -99,8 +99,8 @@ class Device {
     required this.udn,
     this.upc,
     required this.iconList,
-    required this.serviceList,
-    required this.deviceList,
+    required this.services,
+    required this.devices,
     this.presentationUrl,
   });
 
@@ -131,9 +131,9 @@ class Device {
       serialNumber: xml.getElement('serialNumber')?.text,
       udn: xml.getElement('UDN')!.text,
       upc: xml.getElement('UPC')?.text,
-      iconList: _IconList.fromXml(xml.getElement('iconList')),
-      serviceList: ServiceList.fromXml(xml.getElement('serviceList')),
-      deviceList: DeviceList.fromXml(xml.getElement('deviceList')),
+      iconList: DeviceIcon.listFromXmlNode(xml.getElement('iconList')),
+      services: Service.listFromXmlNode(xml.getElement('serviceList')),
+      devices: Device.listFromXmlNode(xml.getElement('deviceList')),
       presentationUrl:
           presentationUrl != null ? Uri.parse(presentationUrl.text) : null,
     );
@@ -161,45 +161,6 @@ class _DeviceType {
     );
   }
 }
-
-@deprecated
-class DeviceList {
-  final List<Device> devices;
-
-  DeviceList({
-    required this.devices,
-  });
-
-  static fromXml(XmlNode? xml) {
-    return DeviceList(
-      devices: xml
-              ?.findAllElements('device')
-              .map<Device>((e) => Device.fromXml(e))
-              .toList() ??
-          [],
-    );
-  }
-}
-
-@deprecated
-class ServiceList {
-  final List<Service> services;
-
-  ServiceList({
-    required this.services,
-  });
-
-  static fromXml(XmlNode? xml) {
-    return ServiceList(
-      services: xml
-              ?.findAllElements('service')
-              .map<Service>((x) => Service.fromXml(x))
-              .toList() ??
-          [],
-    );
-  }
-}
-
 class Service {
   /// UPnP service type.
   final String serviceType;
@@ -279,25 +240,6 @@ class _ServiceId {
   @override
   String toString() {
     return _fields;
-  }
-}
-
-@deprecated
-class _IconList {
-  final List<DeviceIcon> icons;
-
-  _IconList({
-    required this.icons,
-  });
-
-  static fromXml(XmlNode? xml) {
-    return _IconList(
-      icons: xml
-              ?.findAllElements('icon')
-              .map<DeviceIcon>((x) => DeviceIcon.fromXml(x))
-              .toList() ??
-          [],
-    );
   }
 }
 

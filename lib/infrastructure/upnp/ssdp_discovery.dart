@@ -51,7 +51,7 @@ class SSDPService {
   _addDevice(Uri root, Device device) async {
     deviceRepository.insert(device);
 
-    for (final service in device.serviceList.services) {
+    for (final service in device.services) {
       final downloadUri = new Uri(
         scheme: root.scheme,
         host: root.host,
@@ -84,7 +84,7 @@ class SSDPService {
       } catch (err) {}
     }
 
-    for (final child in device.deviceList.devices) {
+    for (final child in device.devices) {
       await _addDevice(root, child);
     }
   }

@@ -4,7 +4,8 @@
     "changes": [
       "Fixed a bug that would cause service commands to send to the wrong device.",
       "You can now tap on long device responses to open the text in a dialog.",
-      "Performance improvements."
+      "Performance improvements.",
+      "Request localized device documents from UPnP devices when supported."
     ]
   },
   {

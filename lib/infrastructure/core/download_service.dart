@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
@@ -10,6 +12,10 @@ class DownloadService {
   DownloadService(LoggerFactory loggerFactory)
       : logger = loggerFactory.build('DeviceDataService');
 
+  String _currentLanguage() {
+    return Platform.localeName.substring(0, 2);
+  }
+
   Future<http.Response?> get(Uri uri) async {
     return download(uri.toString());
   }
@@ -18,11 +24,13 @@ class DownloadService {
     logger.debug('Downloading $url');
 
     try {
-    final uri = Uri.parse(url);
+      final uri = Uri.parse(url);
 
-    final response = await http.get(uri);
+      final response = await http.get(uri, headers: {
+        'ACCEPT-LANGUAGE': _currentLanguage(),
+      });
 
-    return response;
+      return response;
     } catch (err) {
       logger.error('Unable to download $url: $err');
       return null;

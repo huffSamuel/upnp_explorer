@@ -13,7 +13,7 @@ import '../../service/bloc/command_bloc.dart';
 
 class ServiceListPage extends StatelessWidget {
   final String deviceId;
-  final ServiceList services;
+  final List<Service> services;
   final ServiceDescriptionRepository repo =
       sl<ServiceDescriptionRepository>();
 
@@ -48,7 +48,7 @@ class ServiceListPage extends StatelessWidget {
     final i18n = S.of(context);
 
     final children = List<Widget>.from(
-      services.services.map(
+      services.map(
         (service) {
           final onTap = _navigateToService(context, service);
 

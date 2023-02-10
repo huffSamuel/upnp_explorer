@@ -138,12 +138,12 @@ class DevicePage extends StatelessWidget {
                   title: Text(i18n.serialNumber),
                   subtitle: Text(device.serialNumber!),
                 ),
-              if (device.serviceList.services.isNotEmpty)
+              if (device.services.isNotEmpty)
                 ListTile(
                   title: Text(i18n.services),
                   subtitle: RowCountOverflowed(
                     labels: List.from(
-                      device.serviceList.services
+                      device.services
                           .map((x) => x.serviceId.serviceId),
                     ),
                   ),
@@ -153,17 +153,17 @@ class DevicePage extends StatelessWidget {
                     Routes.serviceList,
                     routeSettings: RouteSettings(
                       arguments: ServiceListPageRouteArgs(
-                        device.serviceList,
+                        device.services,
                         device.udn,
                       ),
                     ),
                   ),
                 ),
-              if (device.deviceList.devices.isNotEmpty)
+              if (device.devices.isNotEmpty)
                 ListTile(
-                  title: Text(i18n.devicesN(device.deviceList.devices.length)),
+                  title: Text(i18n.devicesN(device.devices.length)),
                   subtitle: Text(
-                    device.deviceList.devices
+                    device.devices
                         .take(3)
                         .map(
                           (x) => x.deviceType.type,
@@ -175,7 +175,7 @@ class DevicePage extends StatelessWidget {
                   onTap: () => Application.router!.navigateTo(
                     context,
                     Routes.deviceList,
-                    routeSettings: RouteSettings(arguments: device.deviceList),
+                    routeSettings: RouteSettings(arguments: device.devices),
                   ),
                 ),
             ],

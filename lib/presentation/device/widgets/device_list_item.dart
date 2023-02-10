@@ -23,7 +23,7 @@ class DeviceListItem extends StatelessWidget {
       label: S.of(context).open,
       child: ListTile(
         leading: DeviceImage(
-          icons: device.description.device.iconList.icons,
+          icons: device.description.device.iconList,
           deviceIp: device.ipAddress,
         ),
         title: Text(

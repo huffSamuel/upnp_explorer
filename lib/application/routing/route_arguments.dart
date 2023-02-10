@@ -1,7 +1,7 @@
 import '../../infrastructure/upnp/models/device.dart';
 
 class ServiceListPageRouteArgs {
-  final ServiceList serviceList;
+  final List<Service> serviceList;
   final String deviceId;
 
   ServiceListPageRouteArgs(this.serviceList, this.deviceId);

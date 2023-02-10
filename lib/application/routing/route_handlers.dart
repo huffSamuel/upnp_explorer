@@ -45,7 +45,7 @@ var serviceListHandler = Handler(handlerFunc: (context, _) {
 });
 
 var deviceListHandler = Handler(handlerFunc: (context, _) {
-  final args = context!.settings!.arguments as DeviceList;
+  final args = context!.settings!.arguments as List<Device>;
 
   return DeviceListPage(
     devices: args,

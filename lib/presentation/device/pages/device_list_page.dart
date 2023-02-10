@@ -7,7 +7,7 @@ import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 
 class DeviceListPage extends StatelessWidget {
-  final DeviceList devices;
+  final List<Device> devices;
 
   const DeviceListPage({
     Key? key,
@@ -25,7 +25,7 @@ class DeviceListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final children = List<Widget>.of(
-      devices.devices.map(
+      devices.map(
         (device) {
           return ListTile(
             title: Text(
