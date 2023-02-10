@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../application/application.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
 import '../../core/page/app_page.dart';
+import '../../core/page/view_document_page.dart';
+import 'action_page.dart';
 
 class ServicePage extends StatelessWidget {
   final Service service;
@@ -37,11 +38,10 @@ class ServicePage extends StatelessWidget {
         ],
         onSelected: (value) {
           if (value == 0) {
-            Application.router!.navigateTo(
-              context,
-              Routes.document,
-              routeSettings: RouteSettings(
-                arguments: description.xml,
+            Navigator.of(context).push(
+              makeRoute(
+                context,
+                XmlDocumentPage(xml: description.xml),
               ),
             );
           }
@@ -57,14 +57,13 @@ class ServicePage extends StatelessWidget {
                 return ListTile(
                   title: Text(x.name),
                   trailing: _icon(context),
-                  onTap: () => Application.router!.navigateTo(
-                    context,
-                    Routes.action,
-                    routeSettings: RouteSettings(
-                      arguments: [
-                        x,
-                        description.serviceStateTable,
-                      ],
+                  onTap: () => Navigator.of(context).push(
+                    makeRoute(
+                      context,
+                      ActionPage(
+                        action: x,
+                        stateTable: description.serviceStateTable,
+                      ),
                     ),
                   ),
                 );

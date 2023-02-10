@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/application.dart';
 import '../../../application/ioc.dart';
-import '../../../application/routing/route_arguments.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/service_repository_type.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../core/page/app_page.dart';
 import '../../service/bloc/command_bloc.dart';
+import '../../service/pages/service_page.dart';
 
 class ServiceListPage extends StatelessWidget {
   final String deviceId;
@@ -29,14 +28,16 @@ class ServiceListPage extends StatelessWidget {
 
     return () {
       BlocProvider.of<CommandBloc>(context).add(SetService(service));
-      Application.router!.navigateTo(
-        context,
-        Routes.service(service.serviceId.toString()),
-        routeSettings: RouteSettings(
-          arguments: ServicePageRouteArgs(
-            service,
+
+      final description = sl.get<ServiceDescriptionRepository>().get(
             deviceId,
-          ),
+            service.serviceId.toString(),
+          )!;
+
+      Navigator.of(context).push(
+        makeRoute(
+          context,
+          ServicePage(service: service, description: description),
         ),
       );
     };

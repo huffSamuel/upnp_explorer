@@ -8,6 +8,7 @@ import '../../../../application/application.dart';
 import '../../../../application/ioc.dart';
 import '../../../../application/routing/routes.dart';
 import '../../../../infrastructure/core/bug_report_service.dart';
+import '../../../changelog/page/changelog_page.dart';
 import '../../widgets/settings/about_tile.dart';
 import '../../widgets/settings_category_page.dart';
 import '../../widgets/settings_category_tile.dart';
@@ -15,7 +16,9 @@ import '../../widgets/version_text.dart';
 
 class AboutSettingsPage extends StatelessWidget {
   Function() _openPage(BuildContext context, Widget page) {
-    return () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => page));
+    return () => Navigator.of(context).push(
+          makeRoute(context, page),
+        );
   }
 
   void _submitBug(BuildContext c) async {
@@ -53,9 +56,9 @@ class AboutSettingsPage extends StatelessWidget {
           leading: Icon(Icons.history_rounded),
           title: Text(i18n.changelog),
           subtitle: VersionText(),
-          onTap: () => Application.router!.navigateTo(
+          onTap: _openPage(
             context,
-            Routes.changelog,
+            ChangelogPage(),
           ),
         ),
         SettingsTile(

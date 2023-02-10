@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/application.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
 import '../../core/page/app_page.dart';
+import 'action_page.dart';
 
 class ActionsPage extends StatelessWidget {
   final ActionList actionList;
@@ -23,14 +23,13 @@ class ActionsPage extends StatelessWidget {
         (x) => ListTile(
           title: Text(x.name),
           trailing: Icon(Icons.chevron_right),
-          onTap: () => Application.router!.navigateTo(
-            context,
-            Routes.action,
-            routeSettings: RouteSettings(
-              arguments: [
-                x,
-                stateTable,
-              ],
+          onTap: () => Navigator.of(context).push(
+            makeRoute(
+              context,
+              ActionPage(
+                action: x,
+                stateTable: stateTable,
+              ),
             ),
           ),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../application/application.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
 import '../../service/bloc/command_bloc.dart';
@@ -34,13 +33,12 @@ class DeviceListItem extends StatelessWidget {
         onTap: () {
           BlocProvider.of<CommandBloc>(context).add(SetDevice(device));
 
-          Application.router!.navigateTo(
-            context,
-            Routes.deviceDocument,
-            routeSettings: RouteSettings(
-              arguments: DevicePageArguments(
-                device.description.device,
-                device.discoveryResponse,
+          Navigator.of(context).push(
+            makeRoute(
+              context,
+              DevicePage(
+                device: device.description.device,
+                deviceLocation: device.discoveryResponse.location,
                 xml: device.description.xml,
               ),
             ),

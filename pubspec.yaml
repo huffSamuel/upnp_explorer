@@ -1,5 +1,5 @@
 name: upnp_explorer
-description: A new Flutter project.
+description: Discover and control UPnP devices.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 2.1.2+10
@@ -13,7 +13,6 @@ dependencies:
   device_info_plus: ^8.0.0
   diffutil_dart: ^3.0.0
   equatable: ^2.0.5
-  fluro: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings/open_settings.dart';
+import 'package:upnp_explorer/presentation/changelog/page/changelog_page.dart';
 
 import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
@@ -12,6 +13,7 @@ import '../../../application/review/review_service.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
 import '../../core/bloc/application_bloc.dart';
+import '../../network_logs/pages/traffic_page.dart';
 import '../../review/widgets/review_prompt_dialog.dart';
 import '../bloc/discovery_bloc.dart';
 import '../widgets/device_list_item.dart';
@@ -161,7 +163,12 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
   void _checkChangelog() {
     sl<ChangelogService>().shouldDisplayChangelog().then((display) {
       if (display) {
-        Application.router!.navigateTo(context, Routes.changelog);
+        Navigator.of(context).push(
+          makeRoute(
+            context,
+            ChangelogPage(),
+          ),
+        );
       }
     });
   }
@@ -214,9 +221,12 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
             tooltip: i18n.viewNetworkTraffic,
             icon: const Icon(Icons.description_outlined),
             color: Theme.of(context).appBarTheme.foregroundColor,
-            onPressed: () {
-              Application.router!.navigateTo(context, Routes.traffic);
-            },
+            onPressed: () => Navigator.of(context).push(
+              makeRoute(
+                context,
+                TrafficPage(),
+              ),
+            ),
           ),
           RefreshIconButton(
             onPressed: _scanning ? null : () => _discover(),

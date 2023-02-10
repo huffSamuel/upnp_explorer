@@ -1,13 +1,12 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'presentation/device/pages/discovery_page.dart';
 
 import 'application/application.dart';
 import 'application/ioc.dart';
-import 'application/routing/routes.dart';
 import 'application/settings/options.dart';
 import 'application/settings/options_repository.dart';
 import 'application/settings/palette.dart';
@@ -48,17 +47,14 @@ class MyApp extends StatelessWidget {
   MyApp({
     Key? key,
     required this.optionsRepository,
-  }) : super(key: key) {
-    Application.router = Routes.configure(FluroRouter());
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final options = Options.of(context);
-    sl<DeviceDiscoveryService>().protocolOptions = options.protocolOptions;
 
     sl<DeviceDiscoveryService>().protocolOptions = options.protocolOptions;
-
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: Application.name,
@@ -67,7 +63,7 @@ class MyApp extends StatelessWidget {
       theme: Palette.instance.lightTheme(options),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      onGenerateRoute: Application.router!.generator,
+      home: DiscoveryPage(),
     );
   }
 }

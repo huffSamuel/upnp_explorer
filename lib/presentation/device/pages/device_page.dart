@@ -3,13 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xml/xml.dart';
 
-import '../../../application/application.dart';
-import '../../../application/routing/route_arguments.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/device.dart';
 import '../../../infrastructure/upnp/ssdp_response_message.dart';
 import '../../core/page/app_page.dart';
+import '../../core/page/view_document_page.dart';
 import '../../core/widgets/row_count.dart';
+import 'device_list_page.dart';
+import 'service_list_page.dart';
 
 class DevicePageArguments {
   final Device device;
@@ -25,13 +26,13 @@ class DevicePageArguments {
 
 class DevicePage extends StatelessWidget {
   final Device device;
-  final DiscoveryResponse message;
+  final Uri deviceLocation;
   final XmlDocument? xml;
 
   const DevicePage({
     Key? key,
     required this.device,
-    required this.message,
+    required this.deviceLocation,
     this.xml,
   }) : super(key: key);
 
@@ -79,15 +80,16 @@ class DevicePage extends StatelessWidget {
           onSelected: (value) {
             if (value == 0) {
               launchUrl(
-                message.location,
+                deviceLocation,
                 mode: LaunchMode.externalApplication,
               );
             } else if (value == 1) {
-              Application.router!.navigateTo(
-                context,
-                Routes.document,
-                routeSettings: RouteSettings(
-                  arguments: xml,
+              Navigator.of(context).push(
+                makeRoute(
+                  context,
+                  XmlDocumentPage(
+                    xml: xml!,
+                  ),
                 ),
               );
             }
@@ -143,18 +145,16 @@ class DevicePage extends StatelessWidget {
                   title: Text(i18n.services),
                   subtitle: RowCountOverflowed(
                     labels: List.from(
-                      device.services
-                          .map((x) => x.serviceId.serviceId),
+                      device.services.map((x) => x.serviceId.serviceId),
                     ),
                   ),
                   trailing: Icon(Icons.chevron_right),
-                  onTap: () => Application.router!.navigateTo(
-                    context,
-                    Routes.serviceList,
-                    routeSettings: RouteSettings(
-                      arguments: ServiceListPageRouteArgs(
-                        device.services,
-                        device.udn,
+                  onTap: () => Navigator.of(context).push(
+                    makeRoute(
+                      context,
+                      ServiceListPage(
+                        services: device.services,
+                        deviceId: device.udn,
                       ),
                     ),
                   ),
@@ -172,10 +172,14 @@ class DevicePage extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   trailing: Icon(Icons.chevron_right),
-                  onTap: () => Application.router!.navigateTo(
-                    context,
-                    Routes.deviceList,
-                    routeSettings: RouteSettings(arguments: device.devices),
+                  onTap: () => Navigator.of(context).push(
+                    makeRoute(
+                      context,
+                      DeviceListPage(
+                        devices: device.devices,
+                        deviceLocation: deviceLocation,
+                      ),
+                    ),
                   ),
                 ),
             ],
