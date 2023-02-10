@@ -2,7 +2,7 @@
   {
     "version": "2.1.2",
     "changes": [
-      "Fixed a bug that would cause service commands to send to an incorrect device.",
+      "Fixed a bug that would cause service commands to send to the wrong device.",
       "You can now tap on long device responses to open the text in a dialog.",
       "Performance improvements."
     ]

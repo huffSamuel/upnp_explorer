@@ -5,6 +5,7 @@ import 'package:xml/xml.dart';
 import '../../domain/device/service_repository_type.dart';
 import '../../infrastructure/upnp/models/device.dart';
 import '../../infrastructure/upnp/models/service_description.dart';
+import '../../presentation/changelog/page/changelog_page.dart';
 import '../../presentation/core/page/view_document_page.dart';
 import '../../presentation/device/pages/device_list_page.dart';
 import '../../presentation/device/pages/device_page.dart';
@@ -90,4 +91,9 @@ final serviceStateTableHandler = Handler(handlerFunc: (context, _) {
 
 final trafficHandler = Handler(handlerFunc: (context, _) {
   return TrafficPage();
+});
+
+
+final changelogHandler = Handler(handlerFunc: (context, _) {
+  return ChangelogPage();
 });

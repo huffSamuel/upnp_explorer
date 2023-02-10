@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_settings/open_settings.dart';
 
 import '../../../application/application.dart';
+import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
 import '../../../application/review/review_service.dart';
 import '../../../application/routing/routes.dart';
 import '../../../domain/device/device.dart';
-import '../../changelog/widgets/changelog_dialog.dart';
 import '../../core/bloc/application_bloc.dart';
 import '../../review/widgets/review_prompt_dialog.dart';
 import '../bloc/discovery_bloc.dart';
@@ -153,8 +153,16 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
         }));
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      maybeShowChangelogDialog(context);
+      _checkChangelog();
       _discover();
+    });
+  }
+
+  void _checkChangelog() {
+    sl<ChangelogService>().shouldDisplayChangelog().then((display) {
+      if (display) {
+        Application.router!.navigateTo(context, Routes.changelog);
+      }
     });
   }
 

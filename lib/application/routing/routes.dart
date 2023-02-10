@@ -14,7 +14,8 @@ class Routes {
   static String action = '/action';
   static String serviceStateTable = '/service-state-table';
   static String traffic = '/traffic';
-  static String document =  '/document';
+  static String document = '/document';
+  static String changelog = '/changelog';
 
   static FluroRouter configure(FluroRouter router) {
     router.notFoundHandler = Handler(handlerFunc: (_, __) {
@@ -23,59 +24,27 @@ class Routes {
     });
 
     router.define(root, handler: rootHandler);
-    router.define(
-      deviceDocument,
-      handler: deviceHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      document,
-      handler: documentHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      serviceList,
-      handler: serviceListHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      deviceList,
-      handler: deviceListHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      _service,
-      handler: serviceHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      actionList,
-      handler: actionListHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      action,
-      handler: actionHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      serviceStateTable,
-      handler: serviceStateTableHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
-    );
-    router.define(
-      traffic,
-      handler: trafficHandler,
-      transitionType: TransitionType.custom,
-      transitionBuilder: transitionBuilder,
+
+    final Map<String, Handler> map = {
+      deviceDocument: deviceHandler,
+      document: documentHandler,
+      serviceList: serviceListHandler,
+      deviceList: deviceListHandler,
+      _service: serviceHandler,
+      actionList: actionListHandler,
+      action: actionHandler,
+      serviceStateTable: serviceStateTableHandler,
+      traffic: trafficHandler,
+      changelog: changelogHandler
+    };
+
+    map.forEach(
+      (route, handler) => router.define(
+        route,
+        handler: handler,
+        transitionType: TransitionType.custom,
+        transitionBuilder: transitionBuilder,
+      ),
     );
 
     return router;

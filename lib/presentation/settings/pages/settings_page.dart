@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:upnp_explorer/presentation/settings/widgets/settings/about_tile.dart';
-import 'package:upnp_explorer/presentation/settings/widgets/settings/switch_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/application.dart';
 import '../../../application/device.dart';
 import '../../../application/ioc.dart';
 import '../../../application/l10n/generated/l10n.dart';
+import '../../../application/routing/routes.dart';
 import '../../../application/settings/options.dart';
 import '../../../domain/value_converter.dart';
 import '../../../infrastructure/core/bug_report_service.dart';
-import '../../changelog/widgets/changelog_dialog.dart';
 import '../../core/page/app_page.dart';
 import '../../core/widgets/model_binding.dart';
 import '../../core/widgets/number_ticker.dart';
+import '../widgets/settings/about_tile.dart';
 import '../widgets/settings/category_tile.dart';
 import '../widgets/settings/highlight_switch_tile.dart';
+import '../widgets/settings/switch_tile.dart';
 import '../widgets/settings_category_page.dart';
 import '../widgets/settings_category_tile.dart';
 
@@ -452,7 +452,10 @@ class _AboutSettingsPage extends StatelessWidget {
           leading: Icon(Icons.history_rounded),
           title: Text(i18n.changelog),
           subtitle: VersionText(),
-          onTap: () => showChangelogDialog(context),
+          onTap: () => Application.router!.navigateTo(
+            context,
+            Routes.changelog,
+          ),
         ),
         SettingsTile(
           leading: Icon(Icons.bug_report_outlined),

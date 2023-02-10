@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../application/logger_factory.dart';
@@ -11,11 +10,11 @@ class DownloadService {
   DownloadService(LoggerFactory loggerFactory)
       : logger = loggerFactory.build('DeviceDataService');
 
-  Future<Response?> get(Uri uri) async {
+  Future<http.Response?> get(Uri uri) async {
     return download(uri.toString());
   }
 
-  Future<Response?> download(String url) async {
+  Future<http.Response?> download(String url) async {
     logger.debug('Downloading $url');
 
     try {

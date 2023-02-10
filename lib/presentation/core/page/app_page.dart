@@ -5,6 +5,7 @@ class AppPage extends StatelessWidget {
   final List<Widget> children;
   final List<Widget>? actions;
   final Widget? floatingActionButton;
+  final Widget? leading;
 
   const AppPage({
     super.key,
@@ -12,6 +13,7 @@ class AppPage extends StatelessWidget {
     required this.children,
     this.actions,
     this.floatingActionButton,
+    this.leading,
   });
 
   @override
@@ -24,7 +26,7 @@ class AppPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar.large(
-              leading: IconButton(
+              leading: leading ?? IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () => Navigator.of(context).pop(),
                 color: theme.colorScheme.onPrimary,
@@ -53,6 +55,7 @@ class AppPage extends StatelessWidget {
       appBar: AppBar(
         title: title,
         elevation: 0,
+        leading: leading,
       ),
       body: ListView(children: children),
     );
