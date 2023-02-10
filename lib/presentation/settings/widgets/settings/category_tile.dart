@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../settings_category_tile.dart';
 
 class CategoryTile extends StatelessWidget {

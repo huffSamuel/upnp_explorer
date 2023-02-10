@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../core/page/app_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/application.dart';
 import '../../../application/routing/routes.dart';
 import '../../../infrastructure/upnp/models/service_description.dart';
+import '../../core/page/app_page.dart';
 
 class ActionsPage extends StatelessWidget {
   final ActionList actionList;

@@ -1,13 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/upnp/action_fault.dart';
 
 import '../../domain/network_logs/direction.dart';
 import '../../domain/network_logs/network_logs_repository_type.dart';
 import '../../domain/network_logs/protocol.dart';
 import '../../domain/network_logs/traffic.dart';
 import '../../domain/upnp/action_command.dart';
+import '../../domain/upnp/action_fault.dart';
 import '../../domain/upnp/action_response.dart';
 import '../../domain/upnp/error.dart';
 import 'search_request_builder.dart';

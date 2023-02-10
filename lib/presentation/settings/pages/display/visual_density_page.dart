@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../application/settings/options.dart';
+import '../../../../domain/value_converter.dart';
+import '../../widgets/settings_category_page.dart';
+
+class VisualDensityPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+    final options = Options.of(context);
+
+    final currentValue = kVisualDensityConverter.from(options.visualDensity);
+
+    final density = Density.values
+        .map(
+          (value) => RadioListTile(
+            value: value,
+            groupValue: currentValue,
+            onChanged: (Density? v) {
+              if (v == null) {
+                return;
+              }
+
+              Options.update(
+                context,
+                options.copyWith(visualDensity: kVisualDensityConverter.to(v)),
+              );
+            },
+            title: Text(i18n.visualDensity(value.name)),
+          ),
+        )
+        .toList();
+
+    return SettingsCategoryPage(
+      category: i18n.density,
+      children: density,
+    );
+  }
+}

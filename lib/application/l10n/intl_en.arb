@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "adaptiveLayout": "Adaptive layout",
+  "adaptiveLayoutDescription": "Adapt the layout and color scheme of the app to the platform's operating system and dynamic color settings.",
   "about": "About",
   "@about": {
     "description": "About"

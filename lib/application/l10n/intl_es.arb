@@ -1,5 +1,7 @@
 {
   "@@locale": "es",
+  "adaptiveLayout": "Layout adattivo",
+  "adaptiveLayoutDescription": "Adatta il layout e la combinazione di colori dell'app al sistema operativo della piattaforma e alle impostazioni di colore dinamiche.",
   "about": "Acerca de",
   "actions": "Acciones",
   "actionsN": "Acciones ({count})",

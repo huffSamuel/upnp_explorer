@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/page/app_page.dart';
 
 class SettingsCategoryPage extends StatelessWidget {
