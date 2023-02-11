@@ -44,7 +44,7 @@ class ActionOutput extends StatelessWidget {
             children: [
               Text(
                 i18n.output,
-                style: theme.headline6,
+                style: theme.titleLarge,
               ),
               ...outputs.map(
                 (x) => ArgumentOutput(
@@ -138,7 +138,7 @@ class ArgumentOutput extends StatelessWidget {
       label: label(context),
       child: _buildTextField(
         context,
-        Theme.of(context).textTheme.subtitle1!,
+        Theme.of(context).textTheme.titleMedium!,
       ),
     );
   }

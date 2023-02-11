@@ -54,7 +54,7 @@ class SettingsTile extends StatelessWidget {
           ? DefaultTextStyle.merge(
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(fontWeight: FontWeight.w400),
               child: title ?? Container(),
             )

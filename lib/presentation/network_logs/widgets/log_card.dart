@@ -79,7 +79,7 @@ class LogCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 12.0),
               child: GestureDetector(
-                child: Text(_firstThreeLines(text), style: Theme.of(context).textTheme.caption),
+                child: Text(_firstThreeLines(text), style: Theme.of(context).textTheme.bodySmall),
                 onTap: () {
                   showDialog(
                     context: context,

@@ -33,7 +33,7 @@ class NumberTicker extends StatelessWidget {
           icon: Icon(Icons.remove),
           onPressed: _down,
         ),
-        Text(value.toString(), style: Theme.of(context).textTheme.headline5),
+        Text(value.toString(), style: Theme.of(context).textTheme.headlineSmall),
         IconButton(
           tooltip: _upEnabled ? i18n.increase : i18n.increaseDisabled,
           icon: Icon(Icons.add),

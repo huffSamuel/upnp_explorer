@@ -23,8 +23,7 @@ class HighlightSwitchTile extends StatelessWidget {
     }
 
     return activeColor ??
-        theme.switchTheme.thumbColor!.resolve({MaterialState.selected}) ??
-        theme.toggleableActiveColor;
+        theme.switchTheme.thumbColor!.resolve({MaterialState.selected})!;
   }
 
   @override

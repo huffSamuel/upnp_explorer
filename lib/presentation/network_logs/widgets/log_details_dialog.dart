@@ -47,7 +47,7 @@ class LogDetailsDialog extends StatelessWidget {
                 SizedBox(height: 4.0),
                 Text(
                   text,
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),

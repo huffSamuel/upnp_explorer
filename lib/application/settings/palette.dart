@@ -26,7 +26,7 @@ class Palette {
   final c = Color.fromARGB(255, 233, 210, 217);
   final c2 = Color.fromARGB(255, 136, 100, 111);
 
-  TextStyle get _caption => GoogleFonts.sourceCodeProTextTheme().bodyMedium!;
+  TextStyle get _bodySmall => GoogleFonts.sourceCodeProTextTheme().bodyMedium!;
 
   ThemeData darkTheme(Options options) {
     final theme = ThemeData.dark(
@@ -71,7 +71,7 @@ class Palette {
         actionsIconTheme: const IconThemeData(color: Colors.white),
       ),
       textTheme: theme.textTheme.copyWith(
-        caption: _caption.copyWith(
+        bodySmall: _bodySmall.copyWith(
           color: Colors.white,
         ),
       ),
@@ -135,7 +135,7 @@ class Palette {
         actionsIconTheme: const IconThemeData(color: Colors.white),
       ),
       textTheme: theme.textTheme.copyWith(
-        caption: _caption,
+        bodySmall: _bodySmall,
       ),
       radioTheme: RadioThemeData(
         fillColor: MaterialStateProperty.resolveWith<Color?>(

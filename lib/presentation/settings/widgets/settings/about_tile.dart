@@ -14,7 +14,7 @@ class AboutTile extends StatelessWidget {
       title: Container(height: 12.0),
       subtitle: DefaultTextStyle(
         child: child,
-        style: theme.textTheme.bodyText2!.copyWith(color: theme.disabledColor),
+        style: theme.textTheme.bodyMedium!.copyWith(color: theme.disabledColor),
       ),
       leading: Icon(Icons.info_outline_rounded),
       centerLeading: false,
@@ -28,7 +28,7 @@ class AboutTile extends StatelessWidget {
     return ListTile(
       title: Container(height: 12.0),
       subtitle: DefaultTextStyle(
-        style: theme.textTheme.bodyText2!,
+        style: theme.textTheme.bodyMedium!,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

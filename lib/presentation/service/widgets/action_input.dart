@@ -96,7 +96,7 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
           children: [
             Text(
               i18n.input,
-              style: theme.headline6,
+              style: theme.titleLarge,
             ),
             ...widget.inputs.map(_mapInputToWidget),
             const Padding(
@@ -163,7 +163,7 @@ class ArgumentInput extends StatelessWidget {
     return LabeledField(
       title: Text(
         argument.name,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       child: _input(context),
     );
