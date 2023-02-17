@@ -83,10 +83,10 @@ class ActionPage extends StatelessWidget {
     ];
 
     if (theme.useMaterial3) {
-      return Stack(
-        children: [
-          Scaffold(
-            body: SizedBox(
+      return Scaffold(
+        body: Stack(
+          children: [
+            SizedBox(
               height: MediaQuery.of(context).size.height - 86.0,
               child: CustomScrollView(
                 slivers: [
@@ -115,9 +115,9 @@ class ActionPage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          sendButton,
-        ],
+            sendButton,
+          ],
+        ),
       );
     }
 

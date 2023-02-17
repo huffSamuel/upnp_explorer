@@ -66,11 +66,8 @@ class LogDetailsDialog extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   width: 100,
-                  content: Container(
-                    height: 15.0,
-                    child: Center(
-                      child: Text(i18n.copied),
-                    ),
+                  content: Center(
+                    child: Text(i18n.copied),
                   ),
                 ),
               );
