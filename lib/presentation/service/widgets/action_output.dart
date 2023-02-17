@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/presentation/service/widgets/action_output_dialog.dart';
 
 import '../../../infrastructure/upnp/models/service_description.dart';
 import '../../core/has_text_overflowed.dart';
@@ -81,19 +82,9 @@ class ArgumentOutput extends StatelessWidget {
   ) {
     showDialog(
       context: context,
-      builder: (context) => SimpleDialog(
-        contentPadding: const EdgeInsets.fromLTRB(24, 12, 16, 16),
-        title: Text(name),
-        children: [
-          Text(text),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              child: Text(AppLocalizations.of(context)!.close),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ),
-        ],
+      builder: (context) => ActionOutputDialog(
+        text: text,
+        propertyName: name,
       ),
     );
   }

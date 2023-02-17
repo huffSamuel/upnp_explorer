@@ -3,11 +3,10 @@
     "version": "2.1.2",
     "changes": [
       "Fixed a bug that would cause service commands to send to the wrong device.",
-      "You can now tap on long device responses to open the text in a dialog.",
-      "Request localized device documents from UPnP devices when supported.",
-      "Fixed visual bug that moved the send button above command parameter fields.",
-      "Display error when command fails.",
-      "Performance improvements."
+      "Fixed a visual bug that moved the send button above command parameter fields.",
+      "Added tapping long responses opens a new window.",
+      "Added requesting localized device documents.",
+      "Added displaying a message when commands fail."
     ]
   },
   {
