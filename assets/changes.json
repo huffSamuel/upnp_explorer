@@ -1,6 +1,6 @@
 [
   {
-    "version": "2.1.2",
+    "version": "2.2.0",
     "changes": [
       "Fixed a bug that would cause service commands to send to the wrong device.",
       "Fixed a visual bug that moved the send button above command parameter fields.",
