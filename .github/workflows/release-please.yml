@@ -10,4 +10,4 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
         with:
           token: ${{ secrets.pat }}
-          command: manifest
+          release-type: dart
