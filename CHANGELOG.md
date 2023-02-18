@@ -21,6 +21,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * release 2.2.0 ([a74e3cf](https://github.com/huffSamuel/upnp_explorer/commit/a74e3cf7ec9da06d89506c053aed80ef37bbfe0c))
 
+## [2.2.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.2.0...v2.2.0) (2023-02-18)
+
+
+### Features
+
+* display markdown changelog ([d4595e1](https://github.com/huffSamuel/upnp_explorer/commit/d4595e17fd419490590c10d12f20c409b8b03f19))
+
+
+### Bug Fixes
+
+* remove duplicate copied notification ([111d6af](https://github.com/huffSamuel/upnp_explorer/commit/111d6af7e641a9062bfd0ae9f1f20ee0a567cdce))
+
+
+### Miscellaneous Chores
+
+* release 2.2.0 ([a74e3cf](https://github.com/huffSamuel/upnp_explorer/commit/a74e3cf7ec9da06d89506c053aed80ef37bbfe0c))
+
 ## [2.2.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.2.1...v2.2.0) (2023-02-18)
 
 
