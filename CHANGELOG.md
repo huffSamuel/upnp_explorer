@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - Invoke actions on discovered devices
+## [2.2.1](https://github.com/huffSamuel/upnp_explorer/compare/v2.2.0...v2.2.1) (2023-02-18)
+
+
+### Bug Fixes
+
+* remove duplicate copied notification ([111d6af](https://github.com/huffSamuel/upnp_explorer/commit/111d6af7e641a9062bfd0ae9f1f20ee0a567cdce))
+
 ## [2.2.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.1.0...v2.2.0) (2023-02-17)
 
 
