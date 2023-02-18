@@ -48,4 +48,4 @@ flutter:
   assets:
     - assets/google_fonts/
     - assets/automatic_animated_list/
-    - assets/changelog.md
+    - assets/CHANGELOG.md
