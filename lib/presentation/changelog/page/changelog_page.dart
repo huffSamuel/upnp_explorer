@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
@@ -13,7 +14,7 @@ class ChangelogPage extends StatefulWidget {
 
 class _ChangelogPageState extends State<ChangelogPage> {
   bool _loading = true;
-  late List<ChangeVersion> _changes;
+  late String _changes;
 
   @override
   void initState() {
@@ -31,27 +32,17 @@ class _ChangelogPageState extends State<ChangelogPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children;
-
-    if (_loading) {
-      children = [Container()];
-    } else {
-      children = [];
-
-      for (var i = 0; i < _changes.length; ++i) {
-        children.add(_ChangelogVersion(change: _changes[i], current: i == 0));
-      }
-    }
-
     return AppPage(
       title: Text(AppLocalizations.of(context)!.whatsNew),
       leading: IconButton(
-        icon: Icon(Icons.close),
-        onPressed: () {
-          Navigator.of(context).pop();
-        }
-      ),
-      children: children,
+          icon: Icon(Icons.close),
+          onPressed: () {
+            Navigator.of(context).pop();
+          }),
+      children: [Container()],
+      sliver: _loading
+          ? null
+          : SliverFillRemaining(child: Markdown(data: _changes)),
     );
   }
 }

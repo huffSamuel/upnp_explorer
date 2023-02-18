@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../domain/changelog/change_version.dart';
 
 const String lastChangelogVersion = 'lastChangelogVersion';
 
@@ -27,10 +24,7 @@ class ChangelogService {
     return false;
   }
 
-  Future<List<ChangeVersion>> changes() async {
-    final json = await rootBundle.loadString('assets/changes.json');
-    return (jsonDecode(json) as List<dynamic>)
-        .map((x) => ChangeVersion.fromJson(x))
-        .toList();
+  Future<String> changes() async {
+    return rootBundle.loadString('assets/changelog.md');
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppPage extends StatelessWidget {
   final Widget title;
   final List<Widget> children;
+  final Widget? sliver;
   final List<Widget>? actions;
   final Widget? floatingActionButton;
   final Widget? leading;
@@ -14,6 +15,7 @@ class AppPage extends StatelessWidget {
     this.actions,
     this.floatingActionButton,
     this.leading,
+    this.sliver,
   });
 
   @override
@@ -26,11 +28,12 @@ class AppPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar.large(
-              leading: leading ?? IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () => Navigator.of(context).pop(),
-                color: theme.colorScheme.onPrimary,
-              ),
+              leading: leading ??
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.of(context).pop(),
+                    color: theme.colorScheme.onPrimary,
+                  ),
               title: FittedBox(
                 child: DefaultTextStyle.merge(
                   style: TextStyle(color: theme.colorScheme.onPrimary),
@@ -40,12 +43,14 @@ class AppPage extends StatelessWidget {
               actions: actions,
               foregroundColor: Colors.white,
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => children[index],
-                childCount: children.length,
-              ),
-            )
+            if (sliver != null) sliver!,
+            if (sliver == null)
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => children[index],
+                  childCount: children.length,
+                ),
+              )
           ],
         ),
       );

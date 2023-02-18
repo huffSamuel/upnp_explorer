@@ -1,8 +1,9 @@
-# Changelog
-All notable changes to this project will be documented in this file.
+## [2.2.1](https://github.com/huffSamuel/upnp_explorer/compare/v2.2.0...v2.2.1) (2023-02-18)
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+### Bug Fixes
+
+* remove duplicate copied notification ([111d6af](https://github.com/huffSamuel/upnp_explorer/commit/111d6af7e641a9062bfd0ae9f1f20ee0a567cdce))
 
 ## [2.2.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.1.0...v2.2.0) (2023-02-17)
 
@@ -26,77 +27,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * snackbar displayed below send button ([8340410](https://github.com/huffSamuel/upnp_explorer/commit/83404101df13632483788e281dd84b268f83494d))
 * tap for modal on long device response ([3526c4c](https://github.com/huffSamuel/upnp_explorer/commit/3526c4c074b715101e6f1a017cba6c284a90af51))
 
-## 2.1.0 (2023-1-23)
+## [1.1.0] - 2022-10-13
+### Added
+- View logs of all network traffic
+- Drag to refresh
 
+## [1.0.11] - 2022-10-1
+### Changed
+- Animations on page transitions.
+- Animations on device discovered.
+- Moved scanning indicator to bottom of screen to prevent the devices list from moving when scanning is complete.
 
-## Features
+## [1.0.10] - 2022-09-11
+### Added
+- Changelog dialog.
+- App review button.
+- Privacy policy button.
 
-* android 12 splash screen
-* improved app icons
-* material 3 ui
+## [1.0.8] - 2022-08-12
+### Changed
+- Updated and improved the UI.
 
-## 2.0.0 (2022-09-07)
+## [1.0.5] - 2021-06-29
+### Added
+- Check network status before scanning and prompt if unavailable.
+- Indicate when scanning completes and no devices found.
 
-
-### Features
-
-* send commands to devices
-
-### Changes
-
-* minor ui improvements
-
-## 1.1.0 (2022-10-13)
-
-
-### Features
-
-* view send and received network messages
-* pull to refresh device list
-
-## 1.0.11 (2022-10-1)
-
-
-### Features
-
-* improve animations between pages
-
-## Changes
-
-* move scanning indicator to bottom of screen
-
-## 1.0.10 (2022-09-11)
-
-
-### Changes
-
-* ui improvements
-
-## 1.0.9 (2022-09-11)
-
-
-### Changes
-
-* ui improvements
-
-## 1.0.8 (2022-08-12)
-
-
-### Changes
-
-* ui improvements
-
-## 1.0.5 (2021-06-29)
-
-
-### Features
-
-* check network status before scanning
-* display message if no devices found
-
-## 1.0.2 (2021-06-10)
-
-
-### Features
-
-* scan for devices on the network
+## [1.0.2] - 2021-06-10
+### Added
+- Scan UPnP devices on a network.
