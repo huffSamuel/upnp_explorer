@@ -39,18 +39,6 @@ class ActionOutputDialog extends StatelessWidget {
           onPressed: () {
             Clipboard.setData(ClipboardData(text: text)).then((_) {
               Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  width: 100,
-                  content: Center(
-                    child: Text(i18n.copied),
-                  ),
-                ),
-              );
             });
           },
           child: Text(i18n.copy),
