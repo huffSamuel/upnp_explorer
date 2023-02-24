@@ -25,6 +25,6 @@ class ChangelogService {
   }
 
   Future<String> changes() async {
-    return rootBundle.loadString('assets/changelog.md');
+    return rootBundle.loadString('assets/CHANGELOG.md');
   }
 }

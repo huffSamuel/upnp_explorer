@@ -12,8 +12,7 @@ class ChangelogPage extends StatefulWidget {
 }
 
 class _ChangelogPageState extends State<ChangelogPage> {
-  bool _loading = true;
-  late String _changes;
+  String? _changes;
 
   @override
   void initState() {
@@ -21,7 +20,6 @@ class _ChangelogPageState extends State<ChangelogPage> {
 
     service.changes().then((changes) {
       setState(() {
-        _loading = false;
         _changes = changes;
       });
     });
@@ -31,17 +29,44 @@ class _ChangelogPageState extends State<ChangelogPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppPage(
-      title: Text(AppLocalizations.of(context)!.whatsNew),
-      leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () {
-            Navigator.of(context).pop();
-          }),
-      children: [Container()],
-      sliver: _loading
-          ? null
-          : SliverFillRemaining(child: Markdown(data: _changes)),
+    final theme = Theme.of(context);
+    final title = Text(AppLocalizations.of(context)!.whatsNew);
+    final child = _changes == null ? Container() : Markdown(data: _changes!);
+    final leading = IconButton(
+        icon: Icon(Icons.close),
+        onPressed: () {
+          Navigator.of(context).pop();
+        });
+
+    if (theme.useMaterial3) {
+      return Scaffold(
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar.large(
+              leading: leading,
+              title: FittedBox(
+                child: DefaultTextStyle.merge(
+                  style: TextStyle(color: theme.colorScheme.onPrimary),
+                  child: title,
+                ),
+              ),
+              foregroundColor: Colors.white,
+            ),
+            SliverFillRemaining(
+              child: child,
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: title,
+        elevation: 0,
+        leading: leading,
+      ),
+      body: child,
     );
   }
 }

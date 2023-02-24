@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class AppPage extends StatelessWidget {
   final Widget title;
   final List<Widget> children;
-  final Widget? sliver;
   final List<Widget>? actions;
   final Widget? floatingActionButton;
   final Widget? leading;
@@ -15,7 +14,6 @@ class AppPage extends StatelessWidget {
     this.actions,
     this.floatingActionButton,
     this.leading,
-    this.sliver,
   });
 
   @override
@@ -43,14 +41,12 @@ class AppPage extends StatelessWidget {
               actions: actions,
               foregroundColor: Colors.white,
             ),
-            if (sliver != null) sliver!,
-            if (sliver == null)
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => children[index],
-                  childCount: children.length,
-                ),
-              )
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => children[index],
+                childCount: children.length,
+              ),
+            )
           ],
         ),
       );
