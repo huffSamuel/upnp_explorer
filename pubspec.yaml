@@ -23,7 +23,7 @@ dependencies:
   google_fonts: ^4.0.3
   http: ^0.13.5
   in_app_review: ^2.0.4
-  injectable: ^2.1.0
+  injectable: ^2.1.1
   intl: ^0.17.0
   open_settings: ^2.0.2
   package_info_plus: ^3.0.1
