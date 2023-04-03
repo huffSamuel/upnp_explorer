@@ -29,7 +29,7 @@ class SettingsRepository {
     await Future.wait([
       prefs.setString(
         _kThemeKey,
-        enumToString(options.themeMode),
+        options.themeMode.name,
       ),
       prefs.setDouble(
         _kVisualDensityHorizontal,

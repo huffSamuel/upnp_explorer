@@ -17,13 +17,17 @@ class MSearchRequest {
 
   @override
   String toString() {
-    return '''M-SEARCH * HTTP/1.1\r
-HOST: 239.255.255.250:1900\r
-MAN: "ssdp:discover"\r
-MX: $maxResponseTime\r
-ST: $searchTarget\r
-USER-AGENT: $userAgent\r
-\r
-''';
+    final builder = StringBuffer();
+
+    builder
+      ..write('M-SEARCH * HTTP/1.1\r\n')
+      ..write('HOST: 239.255.255.250:1900\r\n')
+      ..write('MAN: "ssdp:discover"\r\n')
+      ..write('MX: $maxResponseTime\r\n')
+      ..write('ST: $searchTarget\r\n')
+      ..write('USER-AGENT: $userAgent\r\n')
+      ..write('\r\n');
+      
+    return builder.toString();
   }
 }

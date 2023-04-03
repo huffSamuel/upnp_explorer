@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/application/licenses.dart';
 import 'presentation/device/pages/discovery_page.dart';
 
 import 'application/application.dart';
@@ -15,14 +14,7 @@ import 'presentation/core/widgets/model_binding.dart';
 import 'presentation/service/bloc/command_bloc.dart';
 
 void main() {
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-    final animatedListLicense = await rootBundle
-        .loadString('assets/automatic_animated_list/license.txt');
-    yield LicenseEntryWithLineBreaks(
-        ['automatic_animated_list'], animatedListLicense);
-  });
+  registerLicenses();
 
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies().then(

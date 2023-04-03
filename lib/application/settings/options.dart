@@ -92,9 +92,3 @@ class Options extends Equatable {
         material3,
       ];
 }
-
-String enumToString(Object obj) {
-  final str = obj.toString();
-  final i = str.indexOf('.') + 1;
-  return str.substring(i).toUpperCase();
-}

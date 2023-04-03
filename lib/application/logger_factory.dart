@@ -92,7 +92,7 @@ class Logger {
     final sb = StringBuffer()
       ..write(timestamp.toUtc())
       ..write(' | ')
-      ..write(enumToString(level))
+      ..write(level.name)
       ..write(' | ')
       ..write(className)
       ..write(' | ')
