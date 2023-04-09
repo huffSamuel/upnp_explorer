@@ -6,18 +6,14 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 const minimumMaterialYouSdkVersion = 31;
 
-@Singleton()
+@lazySingleton
 class DeviceInfo {
   final String os;
   final String osVersion;
   final String packageName;
   final String packageVersion;
   final int? androidSdkVersion;
-
-  get supportsMaterial3 =>
-      Platform.isAndroid &&
-      (androidSdkVersion ?? 0) >= minimumMaterialYouSdkVersion;
-
+  
   DeviceInfo(
     this.os,
     this.osVersion,

@@ -16,7 +16,7 @@ class _MulticastHopsPageState extends State<MulticastHopsPage> {
   late int _hops;
   @override
   void didChangeDependencies() {
-    _hops = Options.of(context).protocolOptions.hops;
+    _hops = Settings.of(context).protocolOptions.hops;
     super.didChangeDependencies();
   }
 
@@ -29,11 +29,11 @@ class _MulticastHopsPageState extends State<MulticastHopsPage> {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
-    final options = Options.of(context);
+    final options = Settings.of(context);
 
     return WillPopScope(
       onWillPop: () {
-        Options.update(
+        Settings.update(
           context,
           options.copyWith(
             protocolOptions: options.protocolOptions.copyWith(hops: _hops),

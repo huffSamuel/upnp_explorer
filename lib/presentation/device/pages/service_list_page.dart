@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
-import '../../../application/ioc.dart';
 import '../../../application/routing/routes.dart';
-import '../../../domain/device/service_repository_type.dart';
-import '../../../infrastructure/upnp/models/device.dart';
 import '../../core/page/app_page.dart';
-import '../../service/bloc/command_bloc.dart';
 import '../../service/pages/service_page.dart';
 
 class ServiceListPage extends StatelessWidget {
   final String deviceId;
-  final List<Service> services;
-  final ServiceDescriptionRepository repo = sl<ServiceDescriptionRepository>();
+  final List<ServiceAggregate> services;
 
   ServiceListPage({
     Key? key,
@@ -21,23 +16,13 @@ class ServiceListPage extends StatelessWidget {
     required this.deviceId,
   }) : super(key: key);
 
-  VoidCallback? _navigateToService(BuildContext context, Service service) {
-    if (!repo.has(deviceId, service.serviceId.toString())) {
-      return null;
-    }
-
+  VoidCallback? _navigateToService(
+      BuildContext context, ServiceAggregate service) {
     return () {
-      BlocProvider.of<CommandBloc>(context).add(SetService(service));
-
-      final description = sl.get<ServiceDescriptionRepository>().get(
-            deviceId,
-            service.serviceId.toString(),
-          )!;
-
       Navigator.of(context).push(
         makeRoute(
           context,
-          ServicePage(service: service, description: description),
+          ServicePage(service: service),
         ),
       );
     };
@@ -53,7 +38,7 @@ class ServiceListPage extends StatelessWidget {
           final onTap = _navigateToService(context, service);
 
           return ListTile(
-            title: Text(service.serviceId.serviceId),
+            title: Text(service.document.serviceId.serviceId),
             trailing: onTap == null ? null : Icon(Icons.chevron_right),
             subtitle:
                 onTap == null ? Text(i18n.unableToObtainInformation) : null,

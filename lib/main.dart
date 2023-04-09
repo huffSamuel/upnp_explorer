@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/application/licenses.dart';
-import 'presentation/device/pages/discovery_page.dart';
 
 import 'application/application.dart';
+import 'application/device.dart';
 import 'application/ioc.dart';
+import 'application/licenses.dart';
 import 'application/settings/options.dart';
 import 'application/settings/options_repository.dart';
 import 'application/settings/palette.dart';
-import 'infrastructure/upnp/device_discovery_service.dart';
+import 'domain/upnp/upnp.dart';
 import 'presentation/core/widgets/model_binding.dart';
-import 'presentation/service/bloc/command_bloc.dart';
+import 'presentation/device/pages/discovery_page.dart';
 
 void main() {
   registerLicenses();
@@ -19,14 +18,21 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies().then(
     (_) => runApp(
-      BlocProvider.value(
-        value: sl<CommandBloc>(),
-        child: ModelBinding(
-          initialModel: sl<SettingsRepository>().get(),
-          onUpdate: sl<SettingsRepository>().set,
-          child: MyApp(
-            optionsRepository: sl(),
-          ),
+      ModelBinding(
+        initialModel: sl<SettingsRepository>().get(),
+        onUpdate: (m) {
+          final device = sl<DeviceInfo>();
+          sl<SettingsRepository>().set(m);
+          sl<UpnpDiscovery>().options(
+            Options(
+              osUserAgent: '${device.os}/${device.osVersion}',
+              maxDelay: m.protocolOptions.maxDelay,
+              multicastHops: m.protocolOptions.hops,
+            ),
+          );
+        },
+        child: MyApp(
+          optionsRepository: sl(),
         ),
       ),
     ),
@@ -43,10 +49,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final options = Options.of(context);
+    final options = Settings.of(context);
 
-    sl<DeviceDiscoveryService>().protocolOptions = options.protocolOptions;
-    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: Application.name,

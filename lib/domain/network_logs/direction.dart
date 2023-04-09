@@ -1,1 +1,0 @@
-enum Direction { incoming, outgoing }

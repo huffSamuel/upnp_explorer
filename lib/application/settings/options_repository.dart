@@ -17,15 +17,13 @@ const _kThemeMap = {
   ThemeMode.system: 'SYSTEM',
   ThemeMode.light: 'LIGHT'
 };
-const _material3Key = 'material3';
-
-@Singleton()
+@lazySingleton
 class SettingsRepository {
   final SharedPreferences prefs;
 
   SettingsRepository(this.prefs);
 
-  set(Options options) async {
+  set(Settings options) async {
     await Future.wait([
       prefs.setString(
         _kThemeKey,
@@ -51,14 +49,10 @@ class SettingsRepository {
         _kAdvanced,
         options.protocolOptions.advanced,
       ),
-      prefs.setBool(
-        _material3Key,
-        options.material3,
-      )
     ]);
   }
 
-  Options get() {
+  Settings get() {
     try {
       final themeValue = prefs.getString(_kThemeKey);
       final theme = keyFromValue(_kThemeMap, themeValue);
@@ -68,7 +62,6 @@ class SettingsRepository {
       final hops = prefs.getInt(_kHops);
       final advanced = prefs.getBool(_kAdvanced);
       final searchTarget = prefs.getString(_searchTargetKey);
-      final material3 = prefs.getBool(_material3Key) ?? false;
 
       if ([
         theme,
@@ -78,17 +71,16 @@ class SettingsRepository {
         hops,
         advanced,
       ].any((x) => x == null)) {
-        return Options.base();
+        return Settings.base();
       }
 
-      return Options(
-        material3: material3,
+      return Settings(
         themeMode: theme!,
         visualDensity: VisualDensity(
           horizontal: horizontal!,
           vertical: vertical!,
         ),
-        protocolOptions: ProtocolOptions(
+        protocolOptions: ProtocolSettings(
           advanced: advanced!,
           maxDelay: delay!,
           hops: hops!,
@@ -96,7 +88,7 @@ class SettingsRepository {
         ),
       );
     } catch (err) {
-      return Options.base();
+      return Settings.base();
     }
   }
 }

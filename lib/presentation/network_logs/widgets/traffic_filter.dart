@@ -1,9 +1,7 @@
-import '../../../domain/network_logs/direction.dart';
-import '../../../domain/network_logs/protocol.dart';
-import '../../../domain/network_logs/traffic.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 class TrafficFilter {
-  final bool Function(Traffic) callback;
+  final bool Function(NetworkMessage) callback;
   final String id;
 
   TrafficFilter._(this.id, this.callback);
@@ -12,14 +10,14 @@ class TrafficFilter {
     return TrafficFilter._('all', (p) => true);
   }
 
-  factory TrafficFilter.direction(Direction direction) {
+  factory TrafficFilter.direction(MessageDirection direction) {
     return TrafficFilter._(
       direction.toString(),
       (p) => p.direction == direction,
     );
   }
 
-  factory TrafficFilter.protocol(Protocol protocol) {
+  factory TrafficFilter.protocol(MessageProtocol protocol) {
     return TrafficFilter._(
       protocol.toString(),
       (p) => p.protocol == protocol,
@@ -29,7 +27,10 @@ class TrafficFilter {
   factory TrafficFilter.origin(String source) {
     return TrafficFilter._(
       'source.$source',
-      (traffic) => traffic.origin == source,
+      (traffic) {
+        return true;
+// return traffic == source;
+      } 
     );
   }
 
@@ -37,7 +38,7 @@ class TrafficFilter {
   bool operator ==(Object other) =>
       identical(this, other) || (other is TrafficFilter) && other.id == this.id;
 
-  bool permit(Traffic traffic) => callback(traffic);
+  bool permit(NetworkMessage traffic) => callback(traffic);
 
   @override
   int get hashCode => id.hashCode;

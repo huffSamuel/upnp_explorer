@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 import '../../../application/routing/routes.dart';
-import '../../../infrastructure/upnp/models/device.dart';
 import '../../core/page/app_page.dart';
 import 'device_page.dart';
 
 class DeviceListPage extends StatelessWidget {
   final Uri deviceLocation;
-  final List<Device> devices;
+  final List<DeviceAggregate> devices;
 
   const DeviceListPage({
     Key? key,
@@ -16,7 +16,7 @@ class DeviceListPage extends StatelessWidget {
     required this.deviceLocation,
   }) : super(key: key);
 
-  void _onDeviceTapped(BuildContext context, Device device) {
+  void _onDeviceTapped(BuildContext context, DeviceAggregate device) {
     Navigator.of(context).push(
       makeRoute(
         context,
@@ -34,9 +34,7 @@ class DeviceListPage extends StatelessWidget {
       devices.map(
         (device) {
           return ListTile(
-            title: Text(
-              device.deviceType.type,
-            ),
+            title: Text(device.document.deviceType.deviceType),
             trailing: Icon(Icons.chevron_right),
             onTap: () => _onDeviceTapped(context, device),
           );

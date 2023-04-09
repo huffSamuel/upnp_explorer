@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/routing/routes.dart';
-import '../../../infrastructure/upnp/models/device.dart';
-import '../../../infrastructure/upnp/models/service_description.dart';
 import '../../core/page/app_page.dart';
-import '../../core/page/view_document_page.dart';
 import 'action_page.dart';
 
 class ServicePage extends StatelessWidget {
-  final Service service;
-  final ServiceDescription description;
+  final ServiceAggregate service;
   final unlocked = true;
 
   const ServicePage({
     Key? key,
     required this.service,
-    required this.description,
   }) : super(key: key);
 
   Widget _icon(BuildContext context) {
@@ -31,28 +28,24 @@ class ServicePage extends StatelessWidget {
           color: Theme.of(context).colorScheme.onPrimary,
         ),
         itemBuilder: (context) => [
+          
           PopupMenuItem(
             value: 0,
-            child: Text('View XML'),
+            child: Text('View in browser'),
           )
         ],
         onSelected: (value) {
           if (value == 0) {
-            Navigator.of(context).push(
-              makeRoute(
-                context,
-                XmlDocumentPage(xml: description.xml),
-              ),
-            );
+            launchUrl(service.location);
           }
         },
       ),
     ];
 
-    final children = description.actionList.actions.isEmpty
+    final children = service.service == null || service.service!.actions.isEmpty == true
         ? [NothingHere()]
         : List<Widget>.of(
-            description.actionList.actions.map(
+            service.service!.actions.map(
               (x) {
                 return ListTile(
                   title: Text(x.name),
@@ -62,7 +55,7 @@ class ServicePage extends StatelessWidget {
                       context,
                       ActionPage(
                         action: x,
-                        stateTable: description.serviceStateTable,
+                        stateTable: service.service!.serviceStateTable,
                       ),
                     ),
                   ),
@@ -72,7 +65,7 @@ class ServicePage extends StatelessWidget {
           );
 
     return AppPage(
-      title: Text(service.serviceId.serviceId),
+      title: Text(service.document.serviceId.serviceId),
       children: children,
       actions: actions,
     );

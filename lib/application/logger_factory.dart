@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart' as Foundation;
 import 'package:injectable/injectable.dart';
 
-import 'settings/options.dart';
-
-@Singleton()
+@lazySingleton
 class LoggerFactory {
   Logger build(String className) {
     return Logger(className, this);

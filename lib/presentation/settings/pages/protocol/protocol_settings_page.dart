@@ -17,7 +17,7 @@ class ProtocolSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
-    final options = Options.of(context);
+    final options = Settings.of(context);
 
     return SettingsCategoryPage(
       category: i18n.discovery,

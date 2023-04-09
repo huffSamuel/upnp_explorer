@@ -9,7 +9,7 @@ import '../../widgets/settings_category_page.dart';
 class AdvancedModePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final options = Options.of(context);
+    final options = Settings.of(context);
     final i18n = AppLocalizations.of(context)!;
 
     return SettingsCategoryPage(
@@ -19,7 +19,7 @@ class AdvancedModePage extends StatelessWidget {
         HighlightSwitchTile(
           title: Text(i18n.advancedMode),
           value: options.protocolOptions.advanced,
-          onChanged: (v) => Options.update(
+          onChanged: (v) => Settings.update(
             context,
             options.copyWith(
               protocolOptions: options.protocolOptions.copyWith(

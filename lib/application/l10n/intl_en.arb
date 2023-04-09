@@ -57,7 +57,7 @@
       }
     }
   },
-  "direction": "{direction, select, incoming {Incoming} outgoing {Outgoing} other {Unknown}}",
+  "direction": "{direction, select, incoming {Received} outgoing {Sent} other {Unknown}}",
   "@direction": {
     "description": "Display name for a `Direction`",
     "placeholders": {
@@ -142,7 +142,7 @@
     }
   },
   "privacyPolicy": "Privacy policy",
-  "protocol": "{protocol, select, upnp {UPnP} ssdp {SSDP} soap {SOAP} other {Unknown}}",
+  "protocol": "{protocol, select, upnp {UPnP} ssdp {SSDP} soap {SOAP} http {HTTP} other {Unknown}}",
   "@protocol": {
     "description": "Display name for a message `Protocol`",
     "placeholders": {
@@ -181,7 +181,7 @@
     }
   },
   "scanningForDevices": "Scanning for devices",
-  "sentAt": "Sent at {time}",
+  "sentAt": "at {time}",
   "@sentAt": {
     "placeholders": {
       "time": {

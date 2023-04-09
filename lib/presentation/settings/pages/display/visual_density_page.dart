@@ -9,7 +9,7 @@ class VisualDensityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
-    final options = Options.of(context);
+    final options = Settings.of(context);
 
     final currentValue = kVisualDensityConverter.from(options.visualDensity);
 
@@ -23,7 +23,7 @@ class VisualDensityPage extends StatelessWidget {
                 return;
               }
 
-              Options.update(
+              Settings.update(
                 context,
                 options.copyWith(visualDensity: kVisualDensityConverter.to(v)),
               );

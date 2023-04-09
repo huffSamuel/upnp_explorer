@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 import '../../../application/routing/routes.dart';
-import '../../../infrastructure/upnp/models/service_description.dart';
 import '../../core/page/app_page.dart';
 import 'action_page.dart';
 
 class ActionsPage extends StatelessWidget {
-  final ActionList actionList;
+  final List<ServiceAction> actions;
   final ServiceStateTable stateTable;
 
   const ActionsPage({
     Key? key,
-    required this.actionList,
+    required this.actions,
     required this.stateTable,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final children = List<Widget>.of(
-      actionList.actions.map(
+      actions.map(
         (x) => ListTile(
           title: Text(x.name),
           trailing: Icon(Icons.chevron_right),

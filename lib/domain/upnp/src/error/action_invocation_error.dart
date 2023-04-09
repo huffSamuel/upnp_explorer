@@ -1,3 +1,5 @@
+part of upnp;
+
 class ActionInvocationError extends Error {
   final String description;
   final String code;

@@ -1,21 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 import 'package:upnp_explorer/presentation/service/widgets/action_output_dialog.dart';
 
-import '../../../infrastructure/upnp/models/service_description.dart';
 import '../../core/has_text_overflowed.dart';
-import '../bloc/command_bloc.dart';
 import 'labeled_field.dart';
 
 class ActionOutput extends StatelessWidget {
   final List<Argument> outputs;
+  final Map<String, String> values;
 
   const ActionOutput({
     Key? key,
     required this.outputs,
+    required this.values,
   }) : super(key: key);
 
   @override
@@ -25,37 +25,20 @@ class ActionOutput extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: BlocConsumer<CommandBloc, CommandState>(
-        listener: (context, state) {
-          if (state is ActionFault) {
-            final snackbar = SnackBar(
-              content: Text(i18n.commandFailedWithError(state.code)),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackbar);
-          }
-        },
-        buildWhen: (oldState, newState) => newState is ActionSuccess,
-        builder: (context, state) {
-          Map<String, String?> outputValues = {};
-          if (state is ActionSuccess) {
-            state.data.forEach((x) => outputValues[x.name] = x.value);
-          }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                i18n.output,
-                style: theme.titleLarge,
-              ),
-              ...outputs.map(
-                (x) => ArgumentOutput(
-                  name: x.name,
-                  value: outputValues[x.name],
-                ),
-              ),
-            ],
-          );
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            i18n.output,
+            style: theme.titleLarge,
+          ),
+          ...outputs.map(
+            (x) => ArgumentOutput(
+              name: x.name,
+              value: values[x.name],
+            ),
+          ),
+        ],
       ),
     );
   }

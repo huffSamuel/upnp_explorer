@@ -10,7 +10,7 @@ class ThemeSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
-    final options = Options.of(context);
+    final options = Settings.of(context);
 
     final themes = ThemeMode.values
         .map(
@@ -22,7 +22,7 @@ class ThemeSettingsPage extends StatelessWidget {
                 return;
               }
 
-              Options.update(
+              Settings.update(
                 context,
                 options.copyWith(themeMode: v),
               );

@@ -4,7 +4,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
-import '../../core/page/app_page.dart';
 
 class ChangelogPage extends StatefulWidget {
   @override
@@ -38,7 +37,6 @@ class _ChangelogPageState extends State<ChangelogPage> {
           Navigator.of(context).pop();
         });
 
-    if (theme.useMaterial3) {
       return Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
@@ -58,15 +56,6 @@ class _ChangelogPageState extends State<ChangelogPage> {
           ],
         ),
       );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: title,
-        elevation: 0,
-        leading: leading,
-      ),
-      body: child,
-    );
+   
   }
 }

@@ -1,28 +1,27 @@
 import 'dart:async';
 
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/subjects.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 import '../../domain/network_logs/network_logs_repository_type.dart';
-import '../../domain/network_logs/traffic.dart';
 
 @Singleton(as: NetworkLogsRepositoryType)
 class NetworkLogsRepository extends NetworkLogsRepositoryType {
-  final _controller = StreamController<Traffic>.broadcast();
+  ReplaySubject<NetworkMessage> _subject = ReplaySubject<NetworkMessage>();
 
-  Stream<Traffic> get traffic => _controller.stream;
+  NetworkLogsRepository() {
+    messageEvents.listen((event) {
+      _subject.add(event);
+    });
+  }
 
-  List<Traffic> _traffic = [];
-
-  List<Traffic> getAll() {
-    return _traffic;
+  Stream<NetworkMessage> get messages {
+    return _subject.stream;
   }
 
   void clear() {
-    _traffic.clear();
-  }
-
-  void add(Traffic item) {
-    _traffic.add(item);
-    _controller.add(item);
+    _subject.close();
+    _subject = ReplaySubject<NetworkMessage>();
   }
 }

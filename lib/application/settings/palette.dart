@@ -28,9 +28,9 @@ class Palette {
 
   TextStyle get _bodySmall => GoogleFonts.sourceCodeProTextTheme().bodyMedium!;
 
-  ThemeData darkTheme(Options options) {
+  ThemeData darkTheme(Settings options) {
     final theme = ThemeData.dark(
-      useMaterial3: options.material3,
+      useMaterial3: true,
     );
 
     return theme.copyWith(
@@ -92,9 +92,9 @@ class Palette {
     );
   }
 
-  ThemeData lightTheme(Options options) {
+  ThemeData lightTheme(Settings options) {
     final theme = ThemeData.light(
-      useMaterial3: options.material3,
+      useMaterial3: true,
     );
 
     return theme.copyWith(

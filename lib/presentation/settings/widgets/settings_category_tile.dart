@@ -48,17 +48,14 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return ListTile(
-      title: theme.useMaterial3
-          ? DefaultTextStyle.merge(
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(fontWeight: FontWeight.w400),
-              child: title ?? Container(),
-            )
-          : title,
+      title: DefaultTextStyle.merge(
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(fontWeight: FontWeight.w400),
+        child: title ?? Container(),
+      ),
       subtitle: subtitle,
       trailing: trailing,
       leading: effectiveLeading(),

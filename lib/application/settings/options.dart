@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 
 import '../../presentation/core/widgets/model_binding.dart';
 
-class ProtocolOptions extends Equatable {
+class ProtocolSettings extends Equatable {
   final int maxDelay;
   final bool advanced;
   final int hops;
   final String searchTarget;
 
-  const ProtocolOptions({
+  const ProtocolSettings({
     required this.maxDelay,
     required this.advanced,
     required this.hops,
     required this.searchTarget
   });
 
-  ProtocolOptions copyWith({
+  ProtocolSettings copyWith({
     int? maxDelay,
     bool? advanced,
     int? hops,
     String? searchTarget
   }) {
-    return ProtocolOptions(
+    return ProtocolSettings(
       maxDelay: maxDelay ?? this.maxDelay,
       advanced: advanced ?? this.advanced,
       hops: hops ?? this.hops,
@@ -39,39 +39,34 @@ class ProtocolOptions extends Equatable {
       ];
 }
 
-class Options extends Equatable {
+class Settings extends Equatable {
   final ThemeMode themeMode;
   final VisualDensity visualDensity;
-  final ProtocolOptions protocolOptions;
-  final bool material3;
+  final ProtocolSettings protocolOptions;
 
-  const Options({
+  const Settings({
     required this.themeMode,
     required this.visualDensity,
     required this.protocolOptions,
-    required this.material3,
   });
 
-  Options copyWith({
+  Settings copyWith({
     ThemeMode? themeMode,
     VisualDensity? visualDensity,
-    ProtocolOptions? protocolOptions,
-    bool? material3,
+    ProtocolSettings? protocolOptions,
   }) {
-    return Options(
+    return Settings(
       themeMode: themeMode ?? this.themeMode,
       visualDensity: visualDensity ?? this.visualDensity,
       protocolOptions: protocolOptions ?? this.protocolOptions,
-      material3: material3 ?? this.material3
     );
   }
 
-  static Options base() {
-    return Options(
-      material3: false,
+  static Settings base() {
+    return Settings(
       themeMode: ThemeMode.system,
       visualDensity: VisualDensity.standard,
-      protocolOptions: ProtocolOptions(
+      protocolOptions: ProtocolSettings(
         advanced: false,
         maxDelay: 3,
         hops: 1,
@@ -80,15 +75,14 @@ class Options extends Equatable {
     );
   }
 
-  static Options of(BuildContext context) => ModelBinding.of<Options>(context);
+  static Settings of(BuildContext context) => ModelBinding.of<Settings>(context);
 
-  static void update(BuildContext context, Options newModel) => ModelBinding.update(context, newModel);
+  static void update(BuildContext context, Settings newModel) => ModelBinding.update(context, newModel);
 
   @override
   List<Object> get props => [
         themeMode,
         visualDensity,
         protocolOptions,
-        material3,
       ];
 }

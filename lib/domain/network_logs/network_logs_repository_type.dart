@@ -1,7 +1,6 @@
-import 'traffic.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 abstract class NetworkLogsRepositoryType {
-  List<Traffic> getAll();
+  Stream<NetworkMessage> get messages;
   void clear();
-  void add(Traffic item);
 }

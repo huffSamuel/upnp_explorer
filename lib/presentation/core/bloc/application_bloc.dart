@@ -10,7 +10,7 @@ import '../../../application/review/review_service.dart';
 part 'application_event.dart';
 part 'application_state.dart';
 
-@Singleton()
+@lazySingleton
 class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
   final Connectivity _connectivity = Connectivity();
   final ReviewService _reviewService;

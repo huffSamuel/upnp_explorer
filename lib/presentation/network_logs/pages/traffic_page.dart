@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 import '../../../application/ioc.dart';
 import '../../../domain/network_logs/network_logs_repository_type.dart';
-import '../../../domain/network_logs/traffic.dart';
 import '../../core/widgets/model_binding.dart';
 import '../widgets/traffic_filter.dart';
 import '../widgets/traffic_item_list.dart';
@@ -15,29 +17,40 @@ class TrafficPage extends StatefulWidget {
 
 class _TrafficPageState extends State<TrafficPage>
     with SingleTickerProviderStateMixin {
-  late final List<Traffic> _allItems;
-
   final _repo = sl<NetworkLogsRepositoryType>();
 
+  List<NetworkMessage> _messages = [];
+  late StreamSubscription _messageSubscription;
   AppLocalizations get i18n => AppLocalizations.of(context)!;
 
   void _clear() {
     _repo.clear();
-    
+
     setState(() {
-      _allItems.clear();
+      _messages.clear();
+    });
+  }
+
+  void _onMessage(NetworkMessage message) {
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _messages.add(message);
     });
   }
 
   @override
-  void initState() {
-    _allItems = _repo.getAll();
-    super.initState();
+  void dispose() {
+    _messageSubscription.cancel();
+    super.dispose();
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    _messageSubscription = _repo.messages.listen(_onMessage);
   }
 
   @override
@@ -64,7 +77,7 @@ class _TrafficPageState extends State<TrafficPage>
           ],
         ),
         body: TrafficItems(
-          items: _allItems,
+          items: _messages,
         ),
       ),
     );

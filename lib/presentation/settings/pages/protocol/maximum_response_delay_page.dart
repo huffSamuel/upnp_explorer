@@ -18,7 +18,7 @@ class _MaximumResponseDelayPageState extends State<MaximumResponseDelayPage> {
 
   @override
   void didChangeDependencies() {
-    final options = Options.of(context).protocolOptions;
+    final options = Settings.of(context).protocolOptions;
     _delay = options.maxDelay;
     _advanced = options.advanced;
     super.didChangeDependencies();
@@ -33,12 +33,12 @@ class _MaximumResponseDelayPageState extends State<MaximumResponseDelayPage> {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
-    final options = Options.of(context);
+    final options = Settings.of(context);
     final advanced = options.protocolOptions.advanced;
 
     return WillPopScope(
       onWillPop: () {
-        Options.update(
+        Settings.update(
           context,
           options.copyWith(
             protocolOptions: options.protocolOptions.copyWith(

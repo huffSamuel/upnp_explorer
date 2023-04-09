@@ -20,7 +20,6 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    if (theme.useMaterial3) {
       return Scaffold(
         floatingActionButton: floatingActionButton,
         body: CustomScrollView(
@@ -50,15 +49,6 @@ class AppPage extends StatelessWidget {
           ],
         ),
       );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: title,
-        elevation: 0,
-        leading: leading,
-      ),
-      body: ListView(children: children),
-    );
+   
   }
 }

@@ -7,7 +7,7 @@ import '../application.dart';
 const _launchedDateKey = 'review_launchedDate';
 const _neverAskAgainKey = 'review_neverAskAgain';
 
-@Singleton()
+@lazySingleton
 class ReviewService {
   final _days = 7;
   final _inAppReview = InAppReview.instance;

@@ -1,39 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xml/xml.dart';
 
 import '../../../application/routing/routes.dart';
-import '../../../infrastructure/upnp/models/device.dart';
-import '../../../infrastructure/upnp/ssdp_response_message.dart';
 import '../../core/page/app_page.dart';
-import '../../core/page/view_document_page.dart';
 import '../../core/widgets/row_count.dart';
 import 'device_list_page.dart';
 import 'service_list_page.dart';
 
 class DevicePageArguments {
-  final Device device;
-  final XmlDocument? xml;
-  final DiscoveryResponse message;
+  final DeviceAggregate device;
 
-  DevicePageArguments(
-    this.device,
-    this.message, {
-    this.xml,
-  });
+  DevicePageArguments(this.device);
 }
 
 class DevicePage extends StatelessWidget {
-  final Device device;
+  final DeviceAggregate device;
   final Uri deviceLocation;
-  final XmlDocument? xml;
 
   const DevicePage({
     Key? key,
     required this.device,
     required this.deviceLocation,
-    this.xml,
   }) : super(key: key);
 
   @override
@@ -42,12 +31,12 @@ class DevicePage extends StatelessWidget {
 
     Widget? fab;
 
-    if (device.presentationUrl != null) {
+    if (device.document.presentationUrl != null) {
       fab = FloatingActionButton(
         tooltip: i18n.openPresentationInBrowser,
         onPressed: () {
           launchUrl(
-            device.presentationUrl!,
+            device.document.presentationUrl!,
             mode: LaunchMode.externalApplication,
           );
         },
@@ -59,7 +48,7 @@ class DevicePage extends StatelessWidget {
 
     return AppPage(
       floatingActionButton: fab,
-      title: Text(device.friendlyName),
+      title: Text(device.document.friendlyName),
       actions: [
         PopupMenuButton(
           icon: Icon(
@@ -71,26 +60,12 @@ class DevicePage extends StatelessWidget {
               value: 0,
               child: Text(i18n.openInBrowser),
             ),
-            if (xml != null)
-              PopupMenuItem(
-                value: 1,
-                child: Text(i18n.viewXml),
-              )
           ],
           onSelected: (value) {
             if (value == 0) {
               launchUrl(
                 deviceLocation,
                 mode: LaunchMode.externalApplication,
-              );
-            } else if (value == 1) {
-              Navigator.of(context).push(
-                makeRoute(
-                  context,
-                  XmlDocumentPage(
-                    xml: xml!,
-                  ),
-                ),
               );
             }
           },
@@ -104,48 +79,50 @@ class DevicePage extends StatelessWidget {
             children: [
               ListTile(
                 title: Text(i18n.manufacturer),
-                subtitle: Text(device.manufacturer),
-                onTap: device.manufacturerUrl == null
+                subtitle: Text(device.document.manufacturer),
+                onTap: device.document.manufacturerUrl == null
                     ? null
                     : () => launchUrl(
-                          device.manufacturerUrl!,
+                          device.document.manufacturerUrl!,
                           mode: LaunchMode.externalApplication,
                         ),
-                trailing: device.manufacturerUrl == null
+                trailing: device.document.manufacturerUrl == null
                     ? null
                     : Icon(Icons.chevron_right),
               ),
               ListTile(
                 title: Text(i18n.modelName),
-                subtitle: Text(device.modelName),
-                onTap: device.modelUrl == null
+                subtitle: Text(device.document.modelName),
+                onTap: device.document.modelUrl == null
                     ? null
-                    : () => launchUrl(device.modelUrl!,
+                    : () => launchUrl(device.document.modelUrl!,
                         mode: LaunchMode.externalApplication),
-                trailing:
-                    device.modelUrl == null ? null : Icon(Icons.chevron_right),
+                trailing: device.document.modelUrl == null
+                    ? null
+                    : Icon(Icons.chevron_right),
               ),
-              if (device.modelNumber != null)
+              if (device.document.modelNumber != null)
                 ListTile(
                   title: Text(i18n.modelNumber),
-                  subtitle: Text(device.modelNumber!),
+                  subtitle: Text(device.document.modelNumber!),
                 ),
-              if (device.modelDescription != null)
+              if (device.document.modelDescription != null)
                 ListTile(
                   title: Text(i18n.modelDescription),
-                  subtitle: Text(device.modelDescription!),
+                  subtitle: Text(device.document.modelDescription!),
                 ),
-              if (device.serialNumber != null)
+              if (device.document.serialNumber != null)
                 ListTile(
                   title: Text(i18n.serialNumber),
-                  subtitle: Text(device.serialNumber!),
+                  subtitle: Text(device.document.serialNumber!),
                 ),
               if (device.services.isNotEmpty)
                 ListTile(
                   title: Text(i18n.services),
                   subtitle: RowCountOverflowed(
                     labels: List.from(
-                      device.services.map((x) => x.serviceId.serviceId),
+                      device.services
+                          .map((x) => x.document.serviceId.serviceId),
                     ),
                   ),
                   trailing: Icon(Icons.chevron_right),
@@ -154,7 +131,7 @@ class DevicePage extends StatelessWidget {
                       context,
                       ServiceListPage(
                         services: device.services,
-                        deviceId: device.udn,
+                        deviceId: device.document.udn,
                       ),
                     ),
                   ),
@@ -166,7 +143,7 @@ class DevicePage extends StatelessWidget {
                     device.devices
                         .take(3)
                         .map(
-                          (x) => x.deviceType.type,
+                          (x) => x.document.deviceType.deviceType,
                         )
                         .join(i18n.listSeparator),
                     overflow: TextOverflow.ellipsis,

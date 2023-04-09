@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 import '../../../application/routing/routes.dart';
-import '../../../domain/device/device.dart';
-import '../../service/bloc/command_bloc.dart';
 import '../pages/device_page.dart';
 import 'device_image.dart';
 
@@ -22,24 +20,21 @@ class DeviceListItem extends StatelessWidget {
       label: AppLocalizations.of(context)!.open,
       child: ListTile(
         leading: DeviceImage(
-          icons: device.description.device.iconList,
-          deviceIp: device.ipAddress,
+          icons: device.document.iconList,
+          deviceIp: device.client.location!,
         ),
         title: Text(
-          device.description.device.friendlyName,
+          device.document.friendlyName,
         ),
-        subtitle: Text(device.ipAddress.toString()),
+        subtitle: Text(device.client.location!.host.toString()),
         trailing: Icon(Icons.chevron_right),
         onTap: () {
-          BlocProvider.of<CommandBloc>(context).add(SetDevice(device));
-
           Navigator.of(context).push(
             makeRoute(
               context,
               DevicePage(
-                device: device.description.device,
-                deviceLocation: device.discoveryResponse.location,
-                xml: device.description.xml,
+                device: device,
+                deviceLocation: device.client.location!,
               ),
             ),
           );

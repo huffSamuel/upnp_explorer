@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:string_validator/string_validator.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 import '../../../application/validators.dart';
-import '../../../infrastructure/upnp/models/service_description.dart';
 import 'labeled_field.dart';
 
 class ArgumentInputForm extends StatefulWidget {
@@ -25,7 +25,8 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
   late Map<String, String?> _formValue;
 
   String? _argumentDefaultValue(Argument arg) {
-    final relatedStateVariable = widget.stateTable.stateVariables.singleWhere(
+    final StateVariable relatedStateVariable =
+        widget.stateTable.stateVariables.singleWhere(
       (v) => v.name == arg.relatedStateVariable,
     );
 
@@ -33,17 +34,15 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
       return relatedStateVariable.defaultValue;
     }
 
-    if (relatedStateVariable.allowedValueList?.allowedValues.isNotEmpty ==
-        true) {
-      return relatedStateVariable.allowedValueList!.allowedValues.first;
+    if (relatedStateVariable.allowedValues?.isNotEmpty == true) {
+      return relatedStateVariable.allowedValues!.first;
     }
 
     if (relatedStateVariable.allowedValueRange?.minimum != null) {
       return relatedStateVariable.allowedValueRange!.minimum;
     }
 
-    return DataTypeConfig
-        .values[relatedStateVariable.dataType.type]?.defaultValue;
+    return relatedStateVariable.dataType.defaultValue;
   }
 
   @override
@@ -72,13 +71,14 @@ class ArgumentInputFormState extends State<ArgumentInputForm> {
   }
 
   Widget _mapInputToWidget(Argument arg) {
+    final stateVariable = widget.stateTable.stateVariables.firstWhere(
+      (element) => element.name == arg.relatedStateVariable,
+    );
     return ArgumentInput(
       argument: arg,
       value: _formValue[arg.name],
       onChanged: (v) => _onInputChanged(arg.name, v),
-      stateVariable: widget.stateTable.stateVariables.firstWhere(
-        (element) => element.name == arg.relatedStateVariable,
-      ),
+      stateVariable: stateVariable,
     );
   }
 
@@ -125,7 +125,7 @@ class ArgumentInput extends StatelessWidget {
   }) : super(key: key);
 
   Widget _input(BuildContext context) {
-    if (stateVariable?.allowedValueList?.allowedValues.isNotEmpty ?? false) {
+    if (stateVariable?.allowedValues?.isNotEmpty ?? false) {
       return _AllowedListInput(
         value: value,
         argument: argument,
@@ -143,7 +143,7 @@ class ArgumentInput extends StatelessWidget {
       );
     }
 
-    if (stateVariable?.dataType.type == DataType.boolean) {
+    if (stateVariable?.dataType.type == DataTypeValue.boolean) {
       return _SwitchInput(
         value: value == (true.toString()),
         onChanged: onChanged,
@@ -222,8 +222,7 @@ class _AllowedRangeInputState extends State<_AllowedRangeInput> {
     value = double.parse(widget.value ?? '0');
     min = double.parse(widget.stateVariable!.allowedValueRange!.minimum);
     max = double.parse(widget.stateVariable!.allowedValueRange!.maximum);
-    div = (max - min) ~/
-        int.parse(widget.stateVariable!.allowedValueRange!.step ?? '1');
+    div = (max - min) ~/ widget.stateVariable!.allowedValueRange!.step;
     super.initState();
   }
 
@@ -269,7 +268,7 @@ class _AllowedListInput extends StatelessWidget {
 
   List<DropdownMenuItem<String>> _buildItems() {
     return List.from(
-      stateVariable!.allowedValueList!.allowedValues.map(
+      stateVariable!.allowedValues!.map(
         (x) => DropdownMenuItem(
           value: x,
           child: Text(x),
@@ -310,10 +309,16 @@ class _TextVariableInput extends StatefulWidget {
 class _TextVariableInputState extends State<_TextVariableInput> {
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
+  late final DataTypeConfig _config;
 
   @override
   void initState() {
-    _controller.text = widget.value ?? '';
+    _config = DataTypeConfig.values[widget.stateVariable?.dataType.type]!;
+
+    if(widget.value != null) {
+      print('Value ${widget.value}');
+      _controller.text = widget.value!;
+    }
 
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
@@ -328,10 +333,7 @@ class _TextVariableInputState extends State<_TextVariableInput> {
     widget.onChanged(value);
   }
 
-  DataTypeConfig? get _config =>
-      DataTypeConfig.values[widget.stateVariable?.dataType.type];
-
-  TextInputType? get _keyboardType => _config?.inputType ?? TextInputType.text;
+  TextInputType? get _keyboardType => _config.inputType ?? TextInputType.text;
 
   @override
   Widget build(BuildContext context) {
@@ -342,9 +344,7 @@ class _TextVariableInputState extends State<_TextVariableInput> {
         keyboardType: _keyboardType,
         onFieldSubmitted: _submit,
         onChanged: (s) => _controller.text = s,
-        controller: TextEditingController(
-          text: widget.value,
-        ),
+        controller: _controller,
         decoration: InputDecoration(
           border: UnderlineInputBorder(),
         ),
@@ -354,118 +354,88 @@ class _TextVariableInputState extends State<_TextVariableInput> {
 }
 
 class DataTypeConfig {
-  final String? defaultValue;
   final String? Function(String?)? validator;
   final TextInputType? inputType;
 
   DataTypeConfig(
-    this.defaultValue,
     this.validator,
     this.inputType,
   );
 
-  static Map<DataType?, DataTypeConfig> values = Map.fromIterable(
-    DataType.values,
-    key: (e) => e as DataType,
+  static Map<DataTypeValue?, DataTypeConfig> values = Map.fromIterable(
+    DataTypeValue.values,
+    key: (e) => e as DataTypeValue,
     value: (e) => fromDataType(e),
   );
 
-  static DataTypeConfig fromDataType(DataType type) {
+  static DataTypeConfig fromDataType(DataTypeValue type) {
     return DataTypeConfig(
-      _defaultValue(type),
       _validator(type),
       _inputType(type),
     );
   }
 }
 
-TextInputType? _inputType(DataType type) {
+TextInputType? _inputType(DataTypeValue type) {
   switch (type) {
-    case DataType.ui1:
-    case DataType.ui2:
-    case DataType.ui4:
-    case DataType.ui8:
+    case DataTypeValue.ui1:
+    case DataTypeValue.ui2:
+    case DataTypeValue.ui4:
+    case DataTypeValue.ui8:
       return TextInputType.number;
-    case DataType.i1:
-    case DataType.i2:
-    case DataType.i4:
-    case DataType.i8:
-    case DataType.int:
+    case DataTypeValue.i1:
+    case DataTypeValue.i2:
+    case DataTypeValue.i4:
+    case DataTypeValue.i8:
+    case DataTypeValue.int:
       return TextInputType.numberWithOptions(
         signed: true,
       );
-    case DataType.r4:
-    case DataType.r8:
-    case DataType.number:
-    case DataType.fixed14_4:
-    case DataType.float:
+    case DataTypeValue.r4:
+    case DataTypeValue.r8:
+    case DataTypeValue.number:
+    case DataTypeValue.fixed14_4:
+    case DataTypeValue.float:
       return TextInputType.numberWithOptions(
         signed: true,
         decimal: true,
       );
-    case DataType.date:
-    case DataType.dateTime:
-    case DataType.dateTimeTz:
-    case DataType.time:
-    case DataType.timeTz:
+    case DataTypeValue.date:
+    case DataTypeValue.dateTime:
+    case DataTypeValue.dateTimeTz:
+    case DataTypeValue.time:
+    case DataTypeValue.timeTz:
       return TextInputType.datetime;
-    case DataType.uri:
+    case DataTypeValue.uri:
       return TextInputType.url;
     default:
       return null;
   }
 }
 
-String? Function(String?)? _validator(DataType dataType) {
+String? Function(String?)? _validator(DataTypeValue dataType) {
   switch (dataType) {
-    case DataType.char:
+    case DataTypeValue.char:
       return (s) => s == null || s.length != 1 ? '*' : null;
-    case DataType.binaryBase64:
+    case DataTypeValue.binaryBase64:
       return (s) => s == null || !isBase64(s) ? '*' : null;
-    case DataType.binaryHex:
+    case DataTypeValue.binaryHex:
       return (s) => s == null || !isHexadecimal(s) ? '*' : null;
-    case DataType.uri:
+    case DataTypeValue.uri:
       return (s) => s == null || Uri.tryParse(s) == null ? '*' : null;
     // TODO: Split out individually for each specific format
-    case DataType.date:
-    case DataType.dateTime:
-    case DataType.dateTimeTz:
-    case DataType.time:
-    case DataType.timeTz:
+    case DataTypeValue.date:
+    case DataTypeValue.dateTime:
+    case DataTypeValue.dateTimeTz:
+    case DataTypeValue.time:
+    case DataTypeValue.timeTz:
       return (s) => s == null || DateTime.tryParse(s) == null ? '*' : null;
-    case DataType.boolean:
+    case DataTypeValue.boolean:
       return (s) => s == null || !['true', 'false'].contains(s) ? '*' : null;
-    case DataType.uuid:
+    case DataTypeValue.uuid:
       return (s) => s == null || !isUUID(s) ? '*' : null;
     // TODO: numerical constraints
     default:
       return (s) => s == null || s.length == 0 ? '*' : null;
-  }
-}
-
-String? _defaultValue(DataType type) {
-  switch (type) {
-    case DataType.char:
-    case DataType.string:
-    case DataType.binaryBase64:
-    case DataType.binaryHex:
-    case DataType.uri:
-      return null;
-    case DataType.date:
-      return '1985-04-12';
-    case DataType.dateTime:
-      return '1985-04-12T10:15:30';
-    case DataType.dateTimeTz:
-      return '1985-04-12T10:15:30+0400';
-    case DataType.time:
-      return '23:20:50';
-    case DataType.timeTz:
-      return '23:20:50+0100';
-    case DataType.boolean:
-      return 'true';
-    case DataType.uuid:
-      return '00000000-0000-0000-0000-000000000000';
-    default:
-      return '0';
   }
 }

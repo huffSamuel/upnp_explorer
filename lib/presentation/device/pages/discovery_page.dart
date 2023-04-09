@@ -1,21 +1,20 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings/open_settings.dart';
-import 'package:upnp_explorer/presentation/changelog/page/changelog_page.dart';
+import 'package:animated_list_plus/animated_list_plus.dart';
+import '../../../domain/upnp/upnp.dart';
 
 import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
-import '../../../application/review/review_service.dart';
 import '../../../application/routing/routes.dart';
-import '../../../domain/device/device.dart';
+import '../../changelog/page/changelog_page.dart';
 import '../../core/bloc/application_bloc.dart';
 import '../../network_logs/pages/traffic_page.dart';
-import '../../review/widgets/review_prompt_dialog.dart';
-import '../bloc/discovery_bloc.dart';
 import '../widgets/device_list_item.dart';
 import '../widgets/refresh_button.dart';
 import '../widgets/scanning_indicator.dart';
@@ -43,59 +42,21 @@ class _NoNetwork extends StatelessWidget {
   }
 }
 
-class _Loaded extends StatefulWidget {
-  final Future Function() onRefresh;
+class _Loaded extends StatelessWidget {
+  final Future<void> Function() onRefresh;
+  final List<UPnPDevice> devices;
+  final bool? scanning;
 
   const _Loaded({
     Key? key,
     required this.onRefresh,
+    required this.scanning,
+    required this.devices,
   }) : super(key: key);
 
   @override
-  State<_Loaded> createState() => _LoadedState();
-}
-
-class _LoadedState extends State<_Loaded> {
-  final _bloc = sl<DiscoveryBloc>();
-
-  bool? _isScanning;
-
-  final List<UPnPDevice> _devices = [];
-  GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  StreamSubscription? _discoverSubscription;
-  StreamSubscription? _deviceSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _discoverSubscription = _bloc.discoverStream.listen((event) {
-      setState(() {
-        _isScanning = event;
-        if (event) {
-          _listKey = GlobalKey<AnimatedListState>();
-          _devices.clear();
-        }
-      });
-    });
-
-    _deviceSubscription = _bloc.deviceStream.listen((event) {
-      _devices.add(event);
-      _listKey.currentState?.insertItem(_devices.length - 1);
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _discoverSubscription?.cancel();
-    _deviceSubscription?.cancel();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_devices.length == 0 && _isScanning == false) {
+    if (devices.length == 0 && scanning == false) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -109,26 +70,23 @@ class _LoadedState extends State<_Loaded> {
     return Stack(
       children: [
         RefreshIndicator(
-          onRefresh: widget.onRefresh,
-          child: AnimatedList(
-            key: _listKey,
-            initialItemCount: 0,
-            itemBuilder: (context, index, animation) => FadeTransition(
-              opacity: animation.drive(
-                Tween(
-                  begin: 0.0,
-                  end: 1.0,
-                ),
-              ),
-              child: DeviceListItem(
-                device: _devices[index],
-              ),
+          onRefresh: onRefresh,
+          child: ImplicitlyAnimatedList<UPnPDevice>(
+            items: devices,
+            insertDuration: Duration(milliseconds: 150),
+            removeDuration: Duration.zero,
+            itemBuilder: (context, animation, item, index) => FadeTransition(
+              opacity: animation,
+              child: DeviceListItem(device: item),
             ),
+            areItemsTheSame: (a, b) => a.document.udn == b.document.udn,
           ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: ScanningIndicator(height: _isScanning == true ? 8 : 0),
+          child: ScanningIndicator(
+            height: scanning == true ? 8 : 0,
+          ),
         ),
       ],
     );
@@ -142,21 +100,26 @@ class DiscoveryPage extends StatefulWidget {
 
 class _DiscoveryPageState extends State<DiscoveryPage> {
   final _bloc = sl<ApplicationBloc>();
-  final _discoveryBloc = sl<DiscoveryBloc>();
+  final _discovery = sl<UpnpDiscovery>();
+  bool _scanning = true;
+  List<UPnPDevice> _devices = [];
 
-  bool _scanning = false;
+  _DiscoveryPageState();
 
   @override
   void initState() {
     super.initState();
 
-    _discoveryBloc.discoverStream.listen((scanning) => setState(() {
-          _scanning = scanning;
-        }));
+    deviceEvents.listen((device) {
+      setState(() {
+        _devices.add(device);
+      });
+    });
+
+    _discovery.start().then((_) => _discover());
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _checkChangelog();
-      _discover();
     });
   }
 
@@ -173,35 +136,28 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
     });
   }
 
-  Future _discover() {
-    _discoveryBloc.discover();
-    return Future.value();
+  Future<void> _discover() {
+    setState(() {
+      _scanning = true;
+      _devices.clear();
+    });
+
+    return _discovery
+        .search(
+          searchTarget: SearchTarget.rootDevice(),
+          locale: Platform.localeName.substring(0, 2),
+        )
+        .then(
+          (_) => setState(() => _scanning = false),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
 
-    return BlocConsumer<ApplicationBloc, ApplicationState>(
+    return BlocBuilder<ApplicationBloc, ApplicationState>(
       bloc: _bloc,
-      listener: (context, state) {
-        if (state is ReviewRequested) {
-          showDialog(context: context, builder: (ctx) => ReviewPromptDialog())
-              .then(
-            (response) {
-              if (response == ReviewResponse.never) {
-                _bloc.add(NeverReview());
-              } else if (response == ReviewResponse.ok) {
-                _bloc.add(ReviewNow());
-              }
-            },
-          );
-        } else if (state is Ready) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            _discover();
-          });
-        }
-      },
       buildWhen: (oldState, newState) => newState.build,
       builder: (context, state) {
         Widget body;
@@ -209,6 +165,8 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
         if (state is Ready) {
           body = _Loaded(
             onRefresh: _discover,
+            scanning: _scanning,
+            devices: _devices,
           );
         } else if (state is NoNetwork) {
           body = _NoNetwork();

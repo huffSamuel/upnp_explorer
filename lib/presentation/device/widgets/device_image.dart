@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../infrastructure/upnp/models/device.dart';
+import 'package:upnp_explorer/domain/upnp/upnp.dart';
 
 class DeviceImage extends StatelessWidget {
   final List<DeviceIcon> icons;
@@ -20,7 +19,12 @@ class DeviceImage extends StatelessWidget {
       child: icons.isEmpty
           ? Icon(Icons.device_unknown)
           : Image.network(
-              deviceIp.toString() + icons.first.url.toString(),
+              Uri(
+                scheme: deviceIp.scheme,
+                host: deviceIp.host,
+                port: deviceIp.port,
+                path: icons.first.url.toString(),
+              ).toString(),
             ),
     );
   }
