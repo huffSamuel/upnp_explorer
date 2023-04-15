@@ -1,4 +1,4 @@
-import 'package:upnp_explorer/domain/upnp/upnp.dart';
+import 'package:upnp_explorer/packages/upnp/upnp.dart';
 
 class TrafficFilter {
   final bool Function(NetworkMessage) callback;

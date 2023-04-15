@@ -20,7 +20,7 @@ import 'package:upnp_explorer/application/settings/options_repository.dart'
     as _i12;
 import 'package:upnp_explorer/domain/network_logs/network_logs_repository_type.dart'
     as _i6;
-import 'package:upnp_explorer/domain/upnp/upnp.dart' as _i13;
+import 'package:upnp_explorer/packages/upnp/upnp.dart' as _i13;
 import 'package:upnp_explorer/infrastructure/core/bug_report_service.dart'
     as _i3;
 import 'package:upnp_explorer/presentation/core/bloc/application_bloc.dart'

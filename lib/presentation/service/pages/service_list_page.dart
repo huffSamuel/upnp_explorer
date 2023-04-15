@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/domain/upnp/upnp.dart';
+import 'package:upnp_explorer/packages/upnp/upnp.dart';
 
 import '../../../application/routing/routes.dart';
 import '../../core/page/app_page.dart';
-import '../../service/pages/service_page.dart';
+import 'service_page.dart';
 
 class ServiceListPage extends StatelessWidget {
   final String deviceId;
@@ -35,7 +35,7 @@ class ServiceListPage extends StatelessWidget {
     final children = List<Widget>.from(
       services.map(
         (service) {
-          final onTap = _navigateToService(context, service);
+          final onTap =  service.service == null ? null : _navigateToService(context, service);
 
           return ListTile(
             title: Text(service.document.serviceId.serviceId),

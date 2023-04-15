@@ -114,7 +114,7 @@ class UpnpDiscovery {
   ) async {
     final socket = await RawDatagramSocket.bind(
       address,
-      0,
+      port,
       reuseAddress: true,
       reusePort: !Platform.isAndroid,
     )
@@ -189,28 +189,28 @@ class UpnpDiscovery {
       pathSegments: document.scpdurl.pathSegments,
     );
 
-    final response = await http.get(uri, headers: headers);
-    _messageController.add(
-      HttpMessage(
-        response,
-      ),
-    );
-    final control = ServiceControl(
-      document,
-      client.location!,
-      _options.osUserAgent,
-    );
-
     Service? service;
 
     try {
+      final response = await http.get(uri, headers: headers);
+      _messageController.add(
+        HttpMessage(
+          response,
+        ),
+      );
+      final control = ServiceControl(
+        document,
+        client.location!,
+        _options.osUserAgent,
+      );
+
       service = Service.fromXml(
         XmlDocument.parse(
           response.body,
         ),
         control,
       );
-    } on XmlParserException {
+    } catch (err) {
       service = null;
     }
 
@@ -267,6 +267,8 @@ class UpnpDiscovery {
         XmlDocument.parse(response.body).rootElement.getElement('device');
     final device = DeviceDocument.fromXml(deviceDocument!);
 
+    _getExtensions(response, deviceDocument);
+
     final aggregate = await _getDevice(
       client,
       device,
@@ -279,5 +281,20 @@ class UpnpDiscovery {
       aggregate.services,
       aggregate.devices,
     );
+  }
+
+  Future<void> _getExtensions(http.Response response, XmlNode document) async {
+    if (WakeOnLan.supportedBy(response, document)) {
+      print('Supports wake on lan');
+    }
+
+    if (response.headers.containsKey('application-url')) {
+      final dial = DialService(response.headers['application-url']!);
+      http.get(Uri.parse(dial.url + 'YouTube')).then((r) {
+        print(r.body);
+        print(r.statusCode);
+        print(r.headers);
+      });
+    }
   }
 }

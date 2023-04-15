@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/domain/upnp/upnp.dart';
+import 'package:upnp_explorer/packages/upnp/upnp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/routing/routes.dart';

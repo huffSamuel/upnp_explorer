@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:upnp_explorer/domain/upnp/upnp.dart';
+import 'package:upnp_explorer/packages/upnp/upnp.dart';
 
 import '../../domain/network_logs/network_logs_repository_type.dart';
 

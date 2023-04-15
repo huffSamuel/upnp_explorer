@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/domain/upnp/upnp.dart';
+import 'package:upnp_explorer/packages/upnp/upnp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/routing/routes.dart';
 import '../../core/page/app_page.dart';
 import '../../core/widgets/row_count.dart';
 import 'device_list_page.dart';
-import 'service_list_page.dart';
+import '../../service/pages/service_list_page.dart';
 
 class DevicePageArguments {
   final DeviceAggregate device;
@@ -25,31 +25,25 @@ class DevicePage extends StatelessWidget {
     required this.deviceLocation,
   }) : super(key: key);
 
+  _openPresentationUrl() {
+    launchUrl(
+      device.document.presentationUrl!,
+      mode: LaunchMode.externalApplication,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
 
-    Widget? fab;
-
-    if (device.document.presentationUrl != null) {
-      fab = FloatingActionButton(
-        tooltip: i18n.openPresentationInBrowser,
-        onPressed: () {
-          launchUrl(
-            device.document.presentationUrl!,
-            mode: LaunchMode.externalApplication,
-          );
-        },
-        child: Icon(
-          Icons.open_in_browser_rounded,
-        ),
-      );
-    }
-
     return AppPage(
-      floatingActionButton: fab,
       title: Text(device.document.friendlyName),
       actions: [
+        IconButton(
+          tooltip: i18n.openPresentationInBrowser,
+          icon: Icon(Icons.open_in_browser),
+          onPressed: _openPresentationUrl,
+        ),
         PopupMenuButton(
           icon: Icon(
             Icons.more_vert,

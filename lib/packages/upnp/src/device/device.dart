@@ -410,7 +410,7 @@ class DataType {
   DataType(this.type);
 
   /// Default value for {type}.
-  /// 
+  ///
   /// **Not Spec:**
   /// This property is not from the UPnP spec and is included for convenience.
   String? get defaultValue => _defaultValue(type);

@@ -8,7 +8,7 @@ import 'application/licenses.dart';
 import 'application/settings/options.dart';
 import 'application/settings/options_repository.dart';
 import 'application/settings/palette.dart';
-import 'domain/upnp/upnp.dart';
+import 'packages/upnp/upnp.dart';
 import 'presentation/core/widgets/model_binding.dart';
 import 'presentation/device/pages/discovery_page.dart';
 

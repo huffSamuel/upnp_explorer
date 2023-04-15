@@ -1,7 +1,7 @@
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/upnp/upnp.dart';
+import '../../../packages/upnp/upnp.dart';
 import '../../core/widgets/model_binding.dart';
 import 'log_card.dart';
 import 'log_details_dialog.dart';

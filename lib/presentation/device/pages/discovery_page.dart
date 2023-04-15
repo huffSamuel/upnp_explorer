@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings/open_settings.dart';
 import 'package:animated_list_plus/animated_list_plus.dart';
-import '../../../domain/upnp/upnp.dart';
+import '../../../packages/upnp/upnp.dart';
 
 import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
