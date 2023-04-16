@@ -20,12 +20,6 @@ class LogCard extends StatelessWidget {
     required this.children,
   }) : super(key: key);
 
-  void _filter(TrafficFilter filter, bool selected) {
-    final newFilter = selected ? filter : TrafficFilter.all();
-
-    onFilter(newFilter);
-  }
-
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;

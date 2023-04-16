@@ -39,6 +39,7 @@ class DevicePage extends StatelessWidget {
     return AppPage(
       title: Text(device.document.friendlyName),
       actions: [
+        if(device.document.presentationUrl != null)
         IconButton(
           tooltip: i18n.openPresentationInBrowser,
           icon: Icon(Icons.open_in_browser),
