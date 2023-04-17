@@ -15,10 +15,12 @@ abstract class NetworkMessage {
   final MessageDirection direction;
   final MessageProtocol protocol;
   final DateTime time;
+  final String messageType;
 
   NetworkMessage({
     required this.direction,
     required this.protocol,
+    required this.messageType,
   }) : time = DateTime.now();
 }
 
@@ -29,7 +31,12 @@ class SearchRequest extends NetworkMessage {
       : super(
           direction: MessageDirection.outgoing,
           protocol: MessageProtocol.ssdp,
+          messageType: 'M-SEARCH',
         );
+
+  toString() {
+    return this.content;
+  }
 }
 
 class NotifyResponse extends NetworkMessage {
@@ -40,24 +47,12 @@ class NotifyResponse extends NetworkMessage {
       : super(
           direction: MessageDirection.incoming,
           protocol: MessageProtocol.ssdp,
+          messageType: 'NOTIFY',
         );
-}
 
-class InvokeActionRequest extends NetworkMessage {
-  final String requestBody;
-  final String responseBody;
-  final String uri;
-  final int status;
-
-  InvokeActionRequest(
-    this.uri,
-    this.requestBody,
-    this.responseBody,
-    this.status,
-  ) : super(
-          direction: MessageDirection.outgoing,
-          protocol: MessageProtocol.soap,
-        );
+  toString() {
+    return this.content;
+  }
 }
 
 class HttpMessage extends NetworkMessage {
@@ -67,7 +62,14 @@ class HttpMessage extends NetworkMessage {
   HttpMessage(
     this.response,
   ) : super(
-          direction: MessageDirection.outgoing,
-          protocol: MessageProtocol.http,
-        );
+            direction: MessageDirection.outgoing,
+            protocol: MessageProtocol.http,
+            messageType: 'HTTP ${response.request!.method}');
+
+  toString() {
+    var sb = StringBuffer('HTTP/1.1 ${this.response.statusCode}\n');
+    this.response.headers.forEach((k, v) => sb.writeln('$k: $v'));
+    sb.writeln(this.response.body);
+    return sb.toString();
+  }
 }

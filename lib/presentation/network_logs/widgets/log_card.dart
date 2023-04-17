@@ -1,63 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../../../packages/upnp/upnp.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
-
-import 'traffic_filter.dart';
 
 class LogCard extends StatelessWidget {
-  final MessageDirection direction;
-  final MessageProtocol protocol;
-  final DateTime time;
-  final List<Widget> children;
-  final void Function(TrafficFilter) onFilter;
+  final VoidCallback onTap;
+  final NetworkMessage traffic;
 
   const LogCard({
     Key? key,
-    required this.direction,
-    required this.protocol,
-    required this.time,
-    required this.onFilter,
-    required this.children,
+    required this.traffic,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
 
-    return Card(
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(i18n.direction(direction.name) +
-                ' ' +
-                i18n.protocol(protocol.name) +
-                ' message'),
-            Text(i18n.sentAt(time)),
-            ...children,
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 12.0),
-            //   child: GestureDetector(
-            //     child: Text(
-            //       _firstThreeLines(text),
-            //       style: Theme.of(context).textTheme.bodySmall,
-            //     ),
-            //     onTap: () {
-            //       showDialog(
-            //         context: context,
-            //         builder: (context) => LogDetailsDialog(
-            //           time: time,
-            //           direction: direction,
-            //           text: text,
-            //           origin: origin,
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
-          ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                i18n.messageLog(
+                  traffic.messageType,
+                  traffic.direction.name,
+                  DateFormat('H:m:s:SSS').format(traffic.time),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 6,
+                ),
+                width: double.infinity,
+                child: Text(
+                  traffic.toString(),
+                  style: Theme.of(context).textTheme.bodySmall,
+                  maxLines: 3,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

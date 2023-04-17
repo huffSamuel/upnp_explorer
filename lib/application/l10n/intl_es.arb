@@ -24,6 +24,7 @@
   "discovery": "Descubrimiento",
   "discoveryRequiresNetwork": "La detección de dispositivos requiere acceso a la red",
   "display": "Monstrar",
+  "messageLog": "{type} {direction, select, incoming {recibida} outgoing {enviada} other {Unknown}} a las {time}",
   "foundBug": "¿Encontraste un error?",
   "fromAddress": "De {address}",
   "increase": "Aumentar",

@@ -116,6 +116,20 @@
   "manufacturer": "Manufacturer",
   "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.",
   "maxResponseDelay": "Response delay",
+  "messageLog": "{type} {direction, select, incoming {received} outgoing {sent} other {Unknown}} at {time}",
+  "@messageLog": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "direction": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "modelDescription": "Model Description",
   "modelName": "Model Name",
   "modelNumber": "Model Number",

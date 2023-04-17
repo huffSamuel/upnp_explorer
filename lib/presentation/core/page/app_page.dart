@@ -24,7 +24,7 @@ class AppPage extends StatelessWidget {
         floatingActionButton: floatingActionButton,
         body: CustomScrollView(
           slivers: <Widget>[
-            SliverAppBar.large(
+            SliverAppBar.medium(
               leading: leading ??
                   IconButton(
                     icon: Icon(Icons.arrow_back),
