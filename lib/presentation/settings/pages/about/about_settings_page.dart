@@ -21,6 +21,10 @@ class AboutSettingsPage extends StatelessWidget {
         );
   }
 
+  void _openSource(BuildContext c) async {
+    launchUrl(Uri.parse(Application.repoUrl));
+  }
+
   void _submitBug(BuildContext c) async {
     final i18n = AppLocalizations.of(c)!;
     final bugService = sl<BugReportService>();
@@ -65,7 +69,7 @@ class AboutSettingsPage extends StatelessWidget {
           leading: Icon(Icons.code),
           title: Text("We're open source"),
           subtitle: Text("View this app's source code on GitHub"),
-          onTap: () => _submitBug(context),
+          onTap: () => _openSource(context),
         ),
         SettingsTile(
           leading: Icon(Icons.bug_report_outlined),

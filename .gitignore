@@ -9,6 +9,7 @@
 .history
 .svn/
 notes.txt
+untranslated.txt
 
 # IntelliJ related
 *.iml
