@@ -32,8 +32,13 @@ class SettingsTile extends StatelessWidget {
     return MainAxisAlignment.start;
   }
 
-  Widget effectiveLeading() {
-    final _leading = leading ?? const Icon(null);
+  Widget _effectiveLeading(BuildContext context) {
+
+    final _leading = CircleAvatar(
+      child: leading ?? const Icon(null),
+      backgroundColor: Colors.transparent,
+      foregroundColor: Theme.of(context).colorScheme.onBackground,
+    );
 
     if (!centerLeading) {
       return _leading;
@@ -58,7 +63,7 @@ class SettingsTile extends StatelessWidget {
       ),
       subtitle: subtitle,
       trailing: trailing,
-      leading: effectiveLeading(),
+      leading: _effectiveLeading(context),
       onTap: onTap,
     );
   }
