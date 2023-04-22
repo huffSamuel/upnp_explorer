@@ -67,8 +67,8 @@ class AboutSettingsPage extends StatelessWidget {
         ),
         SettingsTile(
           leading: Icon(Icons.code),
-          title: Text("We're open source"),
-          subtitle: Text("View this app's source code on GitHub"),
+          title: Text(i18n.wereOpenSource),
+          subtitle: Text(i18n.viewSourceCode),
           onTap: () => _openSource(context),
         ),
         SettingsTile(

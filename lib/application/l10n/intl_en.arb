@@ -282,5 +282,7 @@
   "viewNetworkTraffic": "View network traffic",
   "viewXml": "View XML",
   "visualDensity": "{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}",
-  "whatsNew": "What's new"
+  "whatsNew": "What's new",
+  "wereOpenSource": "We're open source",
+  "viewSourceCode": "View this app's source code on GitHub"
 }

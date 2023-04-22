@@ -98,5 +98,7 @@
   "viewNetworkTraffic": "Ver tráfico de red",
   "viewXml": "Ver XML",
   "visualDensity": "{visualDensity, select, comfortable {Cómodo} standard {Estándar} compact {Compacto} other {Desconocido}}",
-  "whatsNew": "Qué hay de nuevo"
+  "whatsNew": "Qué hay de nuevo",
+  "wereOpenSource": "Nosotros somos de código abierto",
+  "viewSourceCode": "Ver el código fuente de esta aplicación en GitHub"
 }
