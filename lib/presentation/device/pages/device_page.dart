@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/routing/routes.dart';
+import '../../../packages/upnp/upnp.dart';
 import '../../core/page/app_page.dart';
-import '../../core/widgets/row_count.dart';
-import 'device_list_page.dart';
-import '../../service/pages/service_list_page.dart';
+import '../../service/pages/service_page.dart';
 
 class DevicePageArguments {
   final DeviceAggregate device;
@@ -15,7 +13,7 @@ class DevicePageArguments {
   DevicePageArguments(this.device);
 }
 
-class DevicePage extends StatelessWidget {
+class DevicePage extends StatefulWidget {
   final DeviceAggregate device;
   final Uri deviceLocation;
 
@@ -25,11 +23,139 @@ class DevicePage extends StatelessWidget {
     required this.deviceLocation,
   }) : super(key: key);
 
+  @override
+  State<DevicePage> createState() => _DevicePageState();
+}
+
+class _DevicePageState extends State<DevicePage> {
+  int _current = 0;
+
   _openPresentationUrl() {
     launchUrl(
-      device.document.presentationUrl!,
+      widget.device.document.presentationUrl!,
       mode: LaunchMode.externalApplication,
     );
+  }
+
+  Iterable<Widget> _info(
+    AppLocalizations i18n,
+  ) {
+    return [
+      ListTile(
+        title: Text(i18n.manufacturer),
+        subtitle: Text(widget.device.document.manufacturer),
+        onTap: widget.device.document.manufacturerUrl == null
+            ? null
+            : () => launchUrl(
+                  widget.device.document.manufacturerUrl!,
+                  mode: LaunchMode.externalApplication,
+                ),
+        trailing: widget.device.document.manufacturerUrl == null
+            ? null
+            : Icon(Icons.chevron_right),
+      ),
+      ListTile(
+        title: Text(i18n.modelName),
+        subtitle: Text(widget.device.document.modelName),
+        onTap: widget.device.document.modelUrl == null
+            ? null
+            : () => launchUrl(widget.device.document.modelUrl!,
+                mode: LaunchMode.externalApplication),
+        trailing: widget.device.document.modelUrl == null
+            ? null
+            : Icon(Icons.chevron_right),
+      ),
+      if (widget.device.document.modelNumber != null)
+        ListTile(
+          title: Text(i18n.modelNumber),
+          subtitle: Text(widget.device.document.modelNumber!),
+        ),
+      if (widget.device.document.modelDescription != null)
+        ListTile(
+          title: Text(i18n.modelDescription),
+          subtitle: Text(widget.device.document.modelDescription!),
+        ),
+      if (widget.device.document.serialNumber != null)
+        ListTile(
+          title: Text(i18n.serialNumber),
+          subtitle: Text(widget.device.document.serialNumber!),
+        )
+    ];
+  }
+
+  VoidCallback? _navigateToService(
+      BuildContext context, ServiceAggregate service) {
+    return () {
+      Navigator.of(context).push(
+        makeRoute(
+          context,
+          ServicePage(service: service),
+        ),
+      );
+    };
+  }
+
+  Iterable<Widget> _services(AppLocalizations i18n) {
+    if (widget.device.services.length == 0) {
+      return [
+        Center(child: Text("There's nothing here.")),
+      ];
+    }
+
+    return widget.device.services.map(
+      (service) {
+        final onTap = service.service == null
+            ? null
+            : _navigateToService(context, service);
+
+        return ListTile(
+          title: Text(service.document.serviceId.serviceId),
+          trailing: onTap == null ? null : Icon(Icons.chevron_right),
+          subtitle: onTap == null ? Text(i18n.unableToObtainInformation) : null,
+          onTap: onTap,
+        );
+      },
+    );
+  }
+
+  void _onDeviceTapped(BuildContext context, DeviceAggregate device) {
+    Navigator.of(context).push(
+      makeRoute(
+        context,
+        DevicePage(
+          device: device,
+          deviceLocation: widget.deviceLocation,
+        ),
+      ),
+    );
+  }
+
+  Iterable<Widget> _devices(AppLocalizations i18n) {
+    if (widget.device.devices.length == 0) {
+      return [
+        Center(child: Text("There's nothing here.")),
+      ];
+    }
+
+    return widget.device.devices.map(
+      (device) {
+        return ListTile(
+          title: Text(device.document.deviceType.deviceType),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () => _onDeviceTapped(context, device),
+        );
+      },
+    );
+  }
+
+  void _navigate(int index) {
+    if (index < 0 || index > 2) {
+      throw '';
+    }
+
+    setState(() {
+      _current = index;
+    });
   }
 
   @override
@@ -37,14 +163,32 @@ class DevicePage extends StatelessWidget {
     final i18n = AppLocalizations.of(context)!;
 
     return AppPage(
-      title: Text(device.document.friendlyName),
+      title: Text(widget.device.document.friendlyName),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _current,
+        onTap: _navigate,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            label: 'Info',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category_outlined),
+            label: 'Services',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.device_hub_rounded),
+            label: 'Devices',
+          ),
+        ],
+      ),
       actions: [
-        if(device.document.presentationUrl != null)
-        IconButton(
-          tooltip: i18n.openPresentationInBrowser,
-          icon: Icon(Icons.open_in_browser),
-          onPressed: _openPresentationUrl,
-        ),
+        if (widget.device.document.presentationUrl != null)
+          IconButton(
+            tooltip: i18n.openPresentationInBrowser,
+            icon: Icon(Icons.open_in_browser),
+            onPressed: _openPresentationUrl,
+          ),
         PopupMenuButton(
           icon: Icon(
             Icons.more_vert,
@@ -59,7 +203,7 @@ class DevicePage extends StatelessWidget {
           onSelected: (value) {
             if (value == 0) {
               launchUrl(
-                deviceLocation,
+                widget.deviceLocation,
                 mode: LaunchMode.externalApplication,
               );
             }
@@ -72,88 +216,9 @@ class DevicePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ListTile(
-                title: Text(i18n.manufacturer),
-                subtitle: Text(device.document.manufacturer),
-                onTap: device.document.manufacturerUrl == null
-                    ? null
-                    : () => launchUrl(
-                          device.document.manufacturerUrl!,
-                          mode: LaunchMode.externalApplication,
-                        ),
-                trailing: device.document.manufacturerUrl == null
-                    ? null
-                    : Icon(Icons.chevron_right),
-              ),
-              ListTile(
-                title: Text(i18n.modelName),
-                subtitle: Text(device.document.modelName),
-                onTap: device.document.modelUrl == null
-                    ? null
-                    : () => launchUrl(device.document.modelUrl!,
-                        mode: LaunchMode.externalApplication),
-                trailing: device.document.modelUrl == null
-                    ? null
-                    : Icon(Icons.chevron_right),
-              ),
-              if (device.document.modelNumber != null)
-                ListTile(
-                  title: Text(i18n.modelNumber),
-                  subtitle: Text(device.document.modelNumber!),
-                ),
-              if (device.document.modelDescription != null)
-                ListTile(
-                  title: Text(i18n.modelDescription),
-                  subtitle: Text(device.document.modelDescription!),
-                ),
-              if (device.document.serialNumber != null)
-                ListTile(
-                  title: Text(i18n.serialNumber),
-                  subtitle: Text(device.document.serialNumber!),
-                ),
-              if (device.services.isNotEmpty)
-                ListTile(
-                  title: Text(i18n.services),
-                  subtitle: RowCountOverflowed(
-                    labels: List.from(
-                      device.services
-                          .map((x) => x.document.serviceId.serviceId),
-                    ),
-                  ),
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () => Navigator.of(context).push(
-                    makeRoute(
-                      context,
-                      ServiceListPage(
-                        services: device.services,
-                        deviceId: device.document.udn,
-                      ),
-                    ),
-                  ),
-                ),
-              if (device.devices.isNotEmpty)
-                ListTile(
-                  title: Text(i18n.devicesN(device.devices.length)),
-                  subtitle: Text(
-                    device.devices
-                        .take(3)
-                        .map(
-                          (x) => x.document.deviceType.deviceType,
-                        )
-                        .join(i18n.listSeparator),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () => Navigator.of(context).push(
-                    makeRoute(
-                      context,
-                      DeviceListPage(
-                        devices: device.devices,
-                        deviceLocation: deviceLocation,
-                      ),
-                    ),
-                  ),
-                ),
+              if (_current == 0) ..._info(i18n),
+              if (_current == 1) ..._services(i18n),
+              if (_current == 2) ..._devices(i18n),
             ],
           ),
         ),
