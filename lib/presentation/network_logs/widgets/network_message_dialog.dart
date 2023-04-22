@@ -51,11 +51,11 @@ class NetworkMessageDialog extends StatelessWidget {
       title: Text(message.messageType),
       actions: [
         TextButton(
-          child: Text('Copy JSON'),
+          child: Text(i18n.copyJson),
           onPressed: () => _copyJson(context),
         ),
         TextButton(
-          child: Text('Close'),
+          child: Text(i18n.close),
           onPressed: () => _close(context),
         ),
       ],
@@ -122,7 +122,7 @@ class HttpNetworkMessageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = AppLocalizations.of(context);
+    final i18n = AppLocalizations.of(context)!;
     final theme = Theme.of(context).textTheme;
 
     final codeTheme = theme.bodySmall;
@@ -135,11 +135,11 @@ class HttpNetworkMessageDialog extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          child: Text('Copy JSON'),
+          child: Text(i18n.copyJson),
           onPressed: () => _copyJson(context),
         ),
         TextButton(
-          child: Text('Close'),
+          child: Text(i18n.close),
           onPressed: () => _close(context),
         ),
       ],
@@ -148,7 +148,7 @@ class HttpNetworkMessageDialog extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Request', style: theme.labelLarge),
+              Text(i18n.request, style: theme.labelLarge),
               _pad(Text('${message.request.method} ${message.request.url}',
                   style: codeTheme)),
               _pad(Text('${_mapToString(message.request.headers)}',
@@ -156,7 +156,7 @@ class HttpNetworkMessageDialog extends StatelessWidget {
               if (message.request.body.isNotEmpty == true)
                 _pad(Text(message.request.body, style: codeTheme)),
               Divider(),
-              Text('Response', style: theme.labelLarge),
+              Text(i18n.response, style: theme.labelLarge),
               _pad(
                 Text(
                   '${message.response.statusCode} - ${message.response.reasonPhrase}',

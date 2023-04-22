@@ -98,7 +98,7 @@ class _DevicePageState extends State<DevicePage> {
   Iterable<Widget> _services(AppLocalizations i18n) {
     if (widget.device.services.length == 0) {
       return [
-        Center(child: Text("There's nothing here.")),
+        Center(child: Text(i18n.nothingHere)),
       ];
     }
 
@@ -133,7 +133,7 @@ class _DevicePageState extends State<DevicePage> {
   Iterable<Widget> _devices(AppLocalizations i18n) {
     if (widget.device.devices.length == 0) {
       return [
-        Center(child: Text("There's nothing here.")),
+        Center(child: Text(i18n.nothingHere)),
       ];
     }
 

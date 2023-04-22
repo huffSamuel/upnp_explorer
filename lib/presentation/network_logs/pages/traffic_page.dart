@@ -25,16 +25,16 @@ class _TrafficPageState extends State<TrafficPage>
   late StreamSubscription _messageSubscription;
   AppLocalizations get i18n => AppLocalizations.of(context)!;
 
-  void _clear(BuildContext context) {
+  void _clear(BuildContext context, AppLocalizations i18n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Clear Messages?'),
-        content: Text('This will clear all network message history.'),
+        title: Text(i18n.clearMessages),
+        content: Text(i18n.thisWillClearAllMessages),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text('No, keep history'),
+            child: Text(i18n.keepHistory),
           ),
           TextButton(
             style: TextButton.styleFrom(
@@ -42,7 +42,7 @@ class _TrafficPageState extends State<TrafficPage>
                   Theme.of(context).buttonTheme.colorScheme!.tertiaryContainer,
             ),
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text('Yes, clear history'),
+            child: Text(i18n.clearHistory),
           ),
         ],
       ),
@@ -101,20 +101,22 @@ class _TrafficPageState extends State<TrafficPage>
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Messages'),
+        title: Text(i18n.messages),
         actions: [
           IconButton(
             icon: Icon(Icons.filter_list_rounded),
-            tooltip: 'Filter',
+            tooltip: i18n.filter,
             onPressed: () =>
                 Navigator.of(context).push(makeRoute(context, FiltersPage())),
           ),
           IconButton(
             icon: Icon(Icons.delete_forever_outlined),
-            tooltip: 'Clear All',
-            onPressed: () => _clear(context),
+            tooltip: i18n.clearAll,
+            onPressed: () => _clear(context, i18n,),
           ),
         ],
       ),

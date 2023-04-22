@@ -62,6 +62,12 @@ class AboutSettingsPage extends StatelessWidget {
           ),
         ),
         SettingsTile(
+          leading: Icon(Icons.code),
+          title: Text("We're open source"),
+          subtitle: Text("View this app's source code on GitHub"),
+          onTap: () => _submitBug(context),
+        ),
+        SettingsTile(
           leading: Icon(Icons.bug_report_outlined),
           title: Text(i18n.foundBug),
           subtitle: Text(i18n.openAnIssueOnOurGithub),

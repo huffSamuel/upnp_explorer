@@ -1,16 +1,11 @@
 {
   "@@locale": "en",
-  "adaptiveLayout": "Adaptive layout",
-  "adaptiveLayoutDescription": "Adapt the layout and color scheme of the app to the platform's operating system and dynamic color settings.",
-  "about": "About",
   "@about": {
     "description": "About"
   },
-  "actions": "Actions",
   "@actions": {
     "description": "Actions"
   },
-  "actionsN": "Actions ({count})",
   "@actionsN": {
     "placeholders": {
       "count": {
@@ -18,13 +13,9 @@
       }
     }
   },
-  "advancedMode": "Advanced mode",
-  "advancedModeWarning": "Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.",
   "@advancedModeWarning": {
     "description": "Message to warn users of the dangers of enabling advanced mode."
   },
-  "changelog": "Changelog",
-  "changelogItem": "- {item}",
   "@changelogItem": {
     "description": "A single changelog line item",
     "placeholders": {
@@ -33,8 +24,6 @@
       }
     }
   },
-  "close": "Close",
-  "commandFailedWithError": "Command failed {error}",
   "@commandFailedWithError": {
     "placeholders": {
       "error": {
@@ -42,14 +31,6 @@
       }
     }
   },
-  "controlUnavailable": "Control Unavailable",
-  "copy": "Copy",
-  "darkThemeDescription": "Dark theme uses a black background to help keep your battery alive longer.",
-  "decrease": "Decrease",
-  "decreaseDisabled": "Decrease disabled",
-  "density": "Visual density",
-  "devices": "Devices",
-  "devicesN": "Devices ({count})",
   "@devicesN": {
     "placeholders": {
       "count": {
@@ -57,7 +38,6 @@
       }
     }
   },
-  "direction": "{direction, select, incoming {Received} outgoing {Sent} other {Unknown}}",
   "@direction": {
     "description": "Display name for a `Direction`",
     "placeholders": {
@@ -66,7 +46,6 @@
       }
     }
   },
-  "discoveredDevice": "Discovered device {name}",
   "@discoveredDevice": {
     "placeholders": {
       "name": {
@@ -74,11 +53,6 @@
       }
     }
   },
-  "discovery": "Discovery",
-  "discoveryRequiresNetwork": "Device discovery requires network access",
-  "display": "Display",
-  "foundBug": "Found a bug?",
-  "fromAddress": "From {address}",
   "@fromAddress": {
     "placeholders": {
       "address": {
@@ -86,10 +60,6 @@
       }
     }
   },
-  "increase": "Increase",
-  "increaseDisabled": "Increase disabled",
-  "input": "Input",
-  "knownValue": "{name} {value}",
   "@knownValue": {
     "placeholders": {
       "name": {
@@ -100,11 +70,6 @@
       }
     }
   },
-  "legalese": "I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.",
-  "letUsKnowHowWereDoing": "Let us know how we're doing",
-  "licenses": "Licenses",
-  "listSeparator": ", ",
-  "mailBody": "Version {version}",
   "@mailBody": {
     "placeholders": {
       "version": {
@@ -112,24 +77,160 @@
       }
     }
   },
-  "mailSubject": "App feedback",
-  "manufacturer": "Manufacturer",
-  "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.",
-  "maxResponseDelay": "Response delay",
-  "messageLog": "{type} {direction, select, incoming {received} outgoing {sent} other {Unknown}} at {time}",
   "@messageLog": {
     "placeholders": {
-      "type": {
-        "type": "String"
-      },
       "direction": {
         "type": "String"
       },
       "time": {
         "type": "String"
+      },
+      "type": {
+        "type": "String"
       }
     }
   },
+  "@pleaseRateAppName": {
+    "description": "Request the user to rate the app.",
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
+  "@protocol": {
+    "description": "Display name for a message `Protocol`",
+    "placeholders": {
+      "protocol": {
+        "type": "String"
+      }
+    }
+  },
+  "@rateAppName": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
+  "@receivedAt": {
+    "placeholders": {
+      "time": {
+        "format": "HH:mm:ss.SSS",
+        "isCustomDateFormat": "true",
+        "type": "DateTime"
+      }
+    }
+  },
+  "@responseDelay": {
+    "description": "A number of seconds",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@sentAt": {
+    "placeholders": {
+      "time": {
+        "format": "HH:mm:ss.SSS",
+        "isCustomDateFormat": "true",
+        "type": "DateTime"
+      }
+    }
+  },
+  "@servicesN": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@stateVariablesN": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@themeMode": {
+    "description": "Display name for a `ThemeMode`",
+    "placeholders": {
+      "themeMode": {
+        "type": "String"
+      }
+    }
+  },
+  "@unknownValue": {
+    "description": "Display when a value is unknown",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@version": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@visualDensity": {
+    "description": "Display name for a `VisualDensity`",
+    "placeholders": {
+      "visualDensity": {
+        "type": "String"
+      }
+    }
+  },
+  "about": "About",
+  "actions": "Actions",
+  "actionsN": "Actions ({count})",
+  "adaptiveLayout": "Adaptive layout",
+  "adaptiveLayoutDescription": "Adapt the layout and color scheme of the app to the platform's operating system and dynamic color settings.",
+  "advancedMode": "Advanced mode",
+  "advancedModeWarning": "Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.",
+  "changelog": "Changelog",
+  "changelogItem": "- {item}",
+  "clearAll": "Clear All",
+  "clearHistory": "Yes, clear history",
+  "clearMessages": "Clear Messages?",
+  "close": "Close",
+  "commandFailedWithError": "Command failed {error}",
+  "controlUnavailable": "Control Unavailable",
+  "copy": "Copy",
+  "copyJson": "Copy JSON",
+  "darkThemeDescription": "Dark theme uses a black background to help keep your battery alive longer.",
+  "decrease": "Decrease",
+  "decreaseDisabled": "Decrease disabled",
+  "density": "Visual density",
+  "devices": "Devices",
+  "devicesN": "Devices ({count})",
+  "direction": "{direction, select, incoming {Received} outgoing {Sent} other {Unknown}}",
+  "discoveredDevice": "Discovered device {name}",
+  "discovery": "Discovery",
+  "discoveryRequiresNetwork": "Device discovery requires network access",
+  "display": "Display",
+  "filter": "Filter",
+  "foundBug": "Found a bug?",
+  "fromAddress": "From {address}",
+  "increase": "Increase",
+  "increaseDisabled": "Increase disabled",
+  "input": "Input",
+  "keepHistory": "No, keep history",
+  "knownValue": "{name} {value}",
+  "legalese": "I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.",
+  "letUsKnowHowWereDoing": "Let us know how we're doing",
+  "licenses": "Licenses",
+  "listSeparator": ", ",
+  "mailBody": "Version {version}",
+  "mailSubject": "App feedback",
+  "manufacturer": "Manufacturer",
+  "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.",
+  "maxResponseDelay": "Response delay",
+  "messageLog": "{type} {direction, select, incoming {received} outgoing {sent} other {Unknown}} at {time}",
+  "messages": "Messages",
   "modelDescription": "Model Description",
   "modelName": "Model Name",
   "modelNumber": "Model Number",
@@ -137,6 +238,7 @@
   "multicastHopsDescription": "Maximum number of network hops for multicast packages originating from this device.",
   "neverAskAgain": "Never ask again",
   "noDevicesFound": "No devices found.",
+  "nothingHere": "There's nothing here.",
   "notNow": "Not now",
   "off": "Off",
   "ok": "OK",
@@ -147,128 +249,38 @@
   "openPresentationInBrowser": "Open presentation URL in browser",
   "output": "Output",
   "pleaseRateAppName": "If you like {appName}, or you've found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!",
-  "@pleaseRateAppName": {
-    "description": "Request the user to rate the app.",
-    "placeholders": {
-      "appName": {
-        "type": "String"
-      }
-    }
-  },
   "privacyPolicy": "Privacy policy",
   "protocol": "{protocol, select, upnp {UPnP} ssdp {SSDP} soap {SOAP} http {HTTP} other {Unknown}}",
-  "@protocol": {
-    "description": "Display name for a message `Protocol`",
-    "placeholders": {
-      "protocol": {
-        "type": "String"
-      }
-    }
-  },
   "rateAppName": "Rate {appName}",
-  "@rateAppName": {
-    "placeholders": {
-      "appName": {
-        "type": "String"
-      }
-    }
-  },
   "rateOnGooglePlay": "Rate on Google Play",
   "receivedAt": "Received at {time}",
-  "@receivedAt": {
-    "placeholders": {
-      "time": {
-        "type": "DateTime",
-        "format": "HH:mm:ss.SSS",
-        "isCustomDateFormat": "true"
-      }
-    }
-  },
   "refresh": "Refresh",
+  "request": "Request",
+  "response": "Response",
   "responseDelay": "{count, plural, =1{1 second} other{{count} seconds}}",
-  "@responseDelay": {
-    "description": "A number of seconds",
-    "placeholders": {
-      "count": {
-        "type": "num"
-      }
-    }
-  },
   "scanningForDevices": "Scanning for devices",
   "sentAt": "at {time}",
-  "@sentAt": {
-    "placeholders": {
-      "time": {
-        "type": "DateTime",
-        "format": "HH:mm:ss.SSS",
-        "isCustomDateFormat": "true"
-      }
-    }
-  },
   "serialNumber": "Serial Number",
   "serviceControlUnavailable": "UPnP service control is unavailable at this time.",
   "services": "Services",
   "servicesN": "Services ({count})",
-  "@servicesN": {
-    "placeholders": {
-      "count": {
-        "type": "num"
-      }
-    }
-  },
   "settings": "Settings",
   "stateVariables": "State Variables",
   "stateVariablesN": "State Variables ({count})",
-  "@stateVariablesN": {
-    "placeholders": {
-      "count": {
-        "type": "num"
-      }
-    }
-  },
   "systemThemeDescription": "System default theme uses your device's settings to determine when to use light or dark mode.",
   "theme": "Theme",
   "themeMode": "{themeMode, select, light {Light} dark {Dark} system {System Default} other {Unknown}}",
-  "@themeMode": {
-    "description": "Display name for a `ThemeMode`",
-    "placeholders": {
-      "themeMode": {
-        "type": "String"
-      }
-    }
-  },
+  "thisWillClearAllMessages": "This will clear all network message history.",
   "traffic": "Traffic",
   "turnOnWifi": "Turn on Wi-Fi",
   "unableToObtainInformation": "Unable to obtain service information",
   "unableToSubmitFeedback": "Unable to submit feedback",
   "unavailable": "Unavailable",
   "unknownValue": "{name} unknown",
-  "@unknownValue": {
-    "description": "Display when a value is unknown",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "version": "Version {version}",
-  "@version": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
+  "viewInBrowser": "View in browser",
   "viewNetworkTraffic": "View network traffic",
   "viewXml": "View XML",
   "visualDensity": "{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}",
-  "@visualDensity": {
-    "description": "Display name for a `VisualDensity`",
-    "placeholders": {
-      "visualDensity": {
-        "type": "String"
-      }
-    }
-  },
   "whatsNew": "What's new"
 }

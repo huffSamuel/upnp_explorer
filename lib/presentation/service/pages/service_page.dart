@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:upnp_explorer/packages/upnp/upnp.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/routing/routes.dart';
 import '../../core/page/app_page.dart';
@@ -21,6 +22,8 @@ class ServicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
     final actions = [
       PopupMenuButton(
         icon: Icon(
@@ -31,7 +34,7 @@ class ServicePage extends StatelessWidget {
           
           PopupMenuItem(
             value: 0,
-            child: Text('View in browser'),
+            child: Text(i18n.viewInBrowser),
           )
         ],
         onSelected: (value) {
@@ -75,6 +78,7 @@ class ServicePage extends StatelessWidget {
 class NothingHere extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return Center(
@@ -100,7 +104,7 @@ class NothingHere extends StatelessWidget {
             ),
           ),
           SizedBox(height: 32.0),
-          Text('There\'s nothing here.')
+          Text(i18n.nothingHere)
         ],
       ),
     );
