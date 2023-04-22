@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/presentation/network_logs/pages/traffic_page.dart';
 
 import 'application/application.dart';
 import 'application/device.dart';
 import 'application/ioc.dart';
 import 'application/licenses.dart';
+import 'application/network_logs/filter_state.dart';
 import 'application/settings/options.dart';
 import 'application/settings/options_repository.dart';
 import 'application/settings/palette.dart';
@@ -19,20 +21,23 @@ void main() {
   configureDependencies().then(
     (_) => runApp(
       ModelBinding(
-        initialModel: sl<SettingsRepository>().get(),
-        onUpdate: (m) {
-          final device = sl<DeviceInfo>();
-          sl<SettingsRepository>().set(m);
-          sl<UpnpDiscovery>().options(
-            Options(
-              osUserAgent: '${device.os}/${device.osVersion}',
-              maxDelay: m.protocolOptions.maxDelay,
-              multicastHops: m.protocolOptions.hops,
-            ),
-          );
-        },
-        child: MyApp(
-          optionsRepository: sl(),
+        initialModel: FilterState(filters: []),
+        child: ModelBinding(
+          initialModel: sl<SettingsRepository>().get(),
+          onUpdate: (m) {
+            final device = sl<DeviceInfo>();
+            sl<SettingsRepository>().set(m);
+            sl<UpnpDiscovery>().options(
+              Options(
+                osUserAgent: '${device.os}/${device.osVersion}',
+                maxDelay: m.protocolOptions.maxDelay,
+                multicastHops: m.protocolOptions.hops,
+              ),
+            );
+          },
+          child: MyApp(
+            optionsRepository: sl(),
+          ),
         ),
       ),
     ),

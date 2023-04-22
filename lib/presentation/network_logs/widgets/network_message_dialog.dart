@@ -44,7 +44,11 @@ class NetworkMessageDialog extends StatelessWidget {
     final codeTheme = theme.bodySmall;
 
     return AlertDialog(
-      contentPadding: EdgeInsets.all(12.0),
+      contentPadding: EdgeInsets.only(
+        left: 24.0,
+        right: 8.0,
+      ),
+      title: Text(message.messageType),
       actions: [
         TextButton(
           child: Text('Copy JSON'),
@@ -60,14 +64,10 @@ class NetworkMessageDialog extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                message.messageType,
-                style: theme.labelLarge,
-              ),
               if (message is NotifyResponse)
                 _pad(
                   Text(
-                    (message as NotifyResponse).uri,
+                    (message as NotifyResponse).uri.authority,
                     style: codeTheme,
                   ),
                 ),
@@ -106,13 +106,11 @@ class NetworkMessageDialog extends StatelessWidget {
 }
 
 class HttpNetworkMessageDialog extends StatelessWidget {
-  final Request request;
-  final Response response;
+  final HttpMessage message;
 
   const HttpNetworkMessageDialog({
     super.key,
-    required this.request,
-    required this.response,
+    required this.message,
   });
 
   Widget _pad(Widget child) {
@@ -130,7 +128,11 @@ class HttpNetworkMessageDialog extends StatelessWidget {
     final codeTheme = theme.bodySmall;
 
     return AlertDialog(
-      contentPadding: EdgeInsets.all(12.0),
+      title: Text(message.messageType),
+      contentPadding: EdgeInsets.only(
+        left: 24.0,
+        right: 8.0,
+      ),
       actions: [
         TextButton(
           child: Text('Copy JSON'),
@@ -147,27 +149,29 @@ class HttpNetworkMessageDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Request', style: theme.labelLarge),
-              _pad(Text('${request.method} ${request.url}', style: codeTheme)),
-              _pad(Text('${_mapToString(request.headers)}', style: codeTheme)),
-              if (request.body.isNotEmpty == true)
-                _pad(Text(request.body, style: codeTheme)),
+              _pad(Text('${message.request.method} ${message.request.url}',
+                  style: codeTheme)),
+              _pad(Text('${_mapToString(message.request.headers)}',
+                  style: codeTheme)),
+              if (message.request.body.isNotEmpty == true)
+                _pad(Text(message.request.body, style: codeTheme)),
               Divider(),
               Text('Response', style: theme.labelLarge),
               _pad(
                 Text(
-                  '${response.statusCode} - ${response.reasonPhrase}',
+                  '${message.response.statusCode} - ${message.response.reasonPhrase}',
                   style: theme.bodySmall,
                 ),
               ),
               _pad(
                 Text(
-                  '${_mapToString(response.headers)}',
+                  '${_mapToString(message.response.headers)}',
                   style: theme.bodySmall,
                 ),
               ),
               _pad(
                 Text(
-                  '${response.body}',
+                  '${message.response.body}',
                   style: theme.bodySmall,
                 ),
               ),
@@ -181,15 +185,15 @@ class HttpNetworkMessageDialog extends StatelessWidget {
   void _copyJson(BuildContext context) {
     final obj = {
       'request': {
-        'headers': request.headers,
-        'url': request.url.toString(),
-        'body': request.body,
+        'headers': message.request.headers,
+        'url': message.request.url.toString(),
+        'body': message.request.body,
       },
       'response': {
-        'headers': response.headers,
-        'status': response.statusCode,
-        'reasonPhrase': response.reasonPhrase,
-        'body': response.body
+        'headers': message.response.headers,
+        'status': message.response.statusCode,
+        'reasonPhrase': message.response.reasonPhrase,
+        'body': message.response.body
       }
     };
 

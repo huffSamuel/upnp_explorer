@@ -6,6 +6,7 @@ class AppPage extends StatelessWidget {
   final List<Widget>? actions;
   final Widget? floatingActionButton;
   final Widget? leading;
+  final Widget? bottomNavigationBar;
 
   const AppPage({
     super.key,
@@ -14,6 +15,7 @@ class AppPage extends StatelessWidget {
     this.actions,
     this.floatingActionButton,
     this.leading,
+    this.bottomNavigationBar,
   });
 
   @override
@@ -22,6 +24,7 @@ class AppPage extends StatelessWidget {
 
       return Scaffold(
         floatingActionButton: floatingActionButton,
+        bottomNavigationBar: bottomNavigationBar,
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar.medium(

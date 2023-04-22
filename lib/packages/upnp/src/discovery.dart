@@ -121,6 +121,7 @@ class UpnpDiscovery {
       ..broadcastEnabled = true
       ..readEventsEnabled = true
       ..writeEventsEnabled = false
+      ..multicastLoopback = false
       ..multicastHops = _options.multicastHops;
 
     socket.listen((event) => _onSocketEvent(socket, event));
@@ -155,7 +156,6 @@ class UpnpDiscovery {
 
     try {
       final client = Client.fromPacket(packet);
-
       if (_seen.contains(client.location!.authority)) {
         return;
       }
@@ -163,7 +163,7 @@ class UpnpDiscovery {
       _seen.add(client.location!.authority);
       _messageController.add(
         NotifyResponse(
-          client.location!.authority,
+          client.location!,
           client.toString(),
         ),
       );

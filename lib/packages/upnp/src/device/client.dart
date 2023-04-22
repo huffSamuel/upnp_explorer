@@ -46,6 +46,10 @@ class Client {
       }
     }
 
+    if(parsed['location'] == null) {
+      print(data);
+    }
+
     return Client._(data, parsed);
   }
 
