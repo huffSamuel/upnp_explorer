@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/ioc.dart';
 import '../../../application/network_logs/filter_state.dart';
@@ -28,11 +29,13 @@ class _FiltersPageState extends State<FiltersPage> {
     }
 
     setState(() {
+      final i18n = AppLocalizations.of(context)!;
+
       if (!_protocol.any((x) => x.id == 'Protocol: ${message.protocol.name}')) {
         _protocol.add(
           Filter(
             (x) => x.protocol == message.protocol,
-            message.protocol.name,
+            message.protocol.name.toUpperCase(),
             id: 'Protocol: ${message.protocol.name}',
           ),
         );
@@ -40,20 +43,34 @@ class _FiltersPageState extends State<FiltersPage> {
 
       if (!_direction
           .any((x) => x.id == 'Direction: ${message.direction.name}')) {
-        _direction.add(Filter(
-            (x) => x.direction == message.direction, message.direction.name,
-            id: 'Direction: ${message.direction.name}'));
+        _direction.add(
+          Filter(
+            (x) => x.direction == message.direction,
+            i18n.direction(message.direction.name),
+            id: 'Direction: ${message.direction.name}',
+          ),
+        );
       }
 
       if (message.to != null && !_to.any((x) => x.id == 'To: ${message.to}')) {
-        _to.add(Filter((x) => x.to == message.to, message.to!,
-            id: 'To: ${message.to}'));
+        _to.add(
+          Filter(
+            (x) => x.to == message.to,
+            message.to!,
+            id: 'To: ${message.to}',
+          ),
+        );
       }
 
       if (message.from != null &&
           !_from.any((x) => x.id == 'From: ${message.from}')) {
-        _from.add(Filter((x) => x.from == message.from, message.from!,
-            id: 'From: ${message.from}'));
+        _from.add(
+          Filter(
+            (x) => x.from == message.from,
+            message.from!,
+            id: 'From: ${message.from}',
+          ),
+        );
       }
     });
   }
@@ -123,18 +140,22 @@ class _FiltersPageState extends State<FiltersPage> {
   Widget _sectionTitle(String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0),
-      child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final filterState = FilterState.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Filters',
+          i18n.filters,
         ),
       ),
       body: Scrollbar(
@@ -142,28 +163,28 @@ class _FiltersPageState extends State<FiltersPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _sectionTitle('Direction'),
+              _sectionTitle(i18n.directionDescription),
               _wrap(
                 _direction.map(
                   (x) => _makeChip(filterState.filters, x),
                 ),
               ),
               Divider(),
-              _sectionTitle('Protocol'),
+              _sectionTitle(i18n.protocolDescription),
               _wrap(
                 _protocol.map(
                   (x) => _makeChip(filterState.filters, x),
                 ),
               ),
               Divider(),
-              _sectionTitle('From'),
+              _sectionTitle(i18n.from),
               _wrap(
                 _from.map(
                   (x) => _makeChip(filterState.filters, x),
                 ),
               ),
               Divider(),
-              _sectionTitle('To'),
+              _sectionTitle(i18n.to),
               _wrap(
                 _to.map(
                   (x) => _makeChip(filterState.filters, x),

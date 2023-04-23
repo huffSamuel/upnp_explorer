@@ -1,5 +1,10 @@
 {
   "@@locale": "es",
+  "filters": "Filtros",
+  "directionDescription": "Dirección",
+  "protocolDescription": "Protocolo",
+  "from": "De",
+  "to": "A",
   "about": "Acerca de",
   "actions": "Acciones",
   "actionsN": "Acciones ({count})",

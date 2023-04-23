@@ -184,6 +184,11 @@
       }
     }
   },
+  "filters": "Filters",
+  "directionDescription": "Direction",
+  "protocolDescription": "Protocol",
+  "from": "From",
+  "to": "To",
   "about": "About",
   "actions": "Actions",
   "actionsN": "Actions ({count})",
