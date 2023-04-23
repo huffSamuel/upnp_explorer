@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.3.1...v2.4.0) (2023-04-22)
+
+
+### Features
+
+* better network message filters ([c39d590](https://github.com/huffSamuel/upnp_explorer/commit/c39d59093870acfce64881bb0c626489780c68fc))
+* bottom navigation view of devices ([56ddeab](https://github.com/huffSamuel/upnp_explorer/commit/56ddeab61704c7c11f08d616ddf1ea208e6e6de4))
+* discovery auto-notify devices ([5b6a3c9](https://github.com/huffSamuel/upnp_explorer/commit/5b6a3c936ca8b7b212e8ca53c19e7250490f7015))
+* link to github repo ([1c9a00e](https://github.com/huffSamuel/upnp_explorer/commit/1c9a00eda44161922399cb65efd99376eac7ae67))
+* new message log format ([2978499](https://github.com/huffSamuel/upnp_explorer/commit/2978499b4ff5a1d52bbb780badbe9c8e48bad770))
+
+
+### Bug Fixes
+
+* hide presentation button when no url ([c3b2980](https://github.com/huffSamuel/upnp_explorer/commit/c3b298074c250f4998d4511deb6038c99cbd1af0))
+* open proper source URL ([dfdbb43](https://github.com/huffSamuel/upnp_explorer/commit/dfdbb430d0e1f2aa7b072d37d1fb20bbd6360f4f))
+* setting tile icon color ([41b4173](https://github.com/huffSamuel/upnp_explorer/commit/41b41737c765b4bdfc152a514ccc97bff812fd73))
+
 ## [2.3.1](https://github.com/huffSamuel/upnp_explorer/compare/v2.3.0...v2.3.1) (2023-02-24)
 
 
