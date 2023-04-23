@@ -3,7 +3,8 @@ part of upnp;
 final InternetAddress v4Multicast = InternetAddress('239.255.255.250');
 final InternetAddress v6Multicast = InternetAddress('FF05::C');
 
-const port = 1900;
+const ssdpPort = 1900;
+const anyPort = 0;
 
 class Options {
   /// User agent of the current operating system.
@@ -68,15 +69,33 @@ class UpnpDiscovery {
     final interfaces = await NetworkInterface.list();
 
     await Future.wait([
-      _createSocket(InternetAddress.anyIPv4, interfaces),
-      _createSocket(InternetAddress.anyIPv6, interfaces),
+      _createSocket(
+        InternetAddress.anyIPv4,
+        interfaces,
+        ssdpPort,
+      ),
+      _createSocket(
+        InternetAddress.anyIPv6,
+        interfaces,
+        ssdpPort,
+      ),
+      _createSocket(
+        InternetAddress.anyIPv4,
+        interfaces,
+        anyPort,
+      ),
+      _createSocket(
+        InternetAddress.anyIPv6,
+        interfaces,
+        anyPort,
+      ),
     ]);
   }
 
   Future<void> search({
     required String searchTarget,
     String? locale,
-  }) {
+  }) async {
     _locale = locale ?? Platform.localeName.substring(0, 2);
     _seen.clear();
 
@@ -88,14 +107,14 @@ class UpnpDiscovery {
     for (final socket in _sockets) {
       if (socket.address.type == v4Multicast.type) {
         try {
-          socket.send(data, v4Multicast, port);
+          socket.send(data, v4Multicast, ssdpPort);
           _messageController.add(message);
         } on SocketException {}
       }
 
       if (socket.address.type == v6Multicast.type) {
         try {
-          socket.send(data, v6Multicast, port);
+          socket.send(data, v6Multicast, ssdpPort);
           _messageController.add(message);
         } on SocketException {}
       }
@@ -111,6 +130,7 @@ class UpnpDiscovery {
   Future<void> _createSocket(
     InternetAddress address,
     List<NetworkInterface> interfaces,
+    int port,
   ) async {
     final socket = await RawDatagramSocket.bind(
       address,
@@ -126,21 +146,17 @@ class UpnpDiscovery {
 
     socket.listen((event) => _onSocketEvent(socket, event));
 
-    try {
-      socket.joinMulticast(v4Multicast);
-    } on OSError {}
+    final multicast = address.type == InternetAddress.anyIPv4.type
+        ? v4Multicast
+        : v6Multicast;
 
     try {
-      socket.joinMulticast(v6Multicast);
+      socket.joinMulticast(multicast);
     } on OSError {}
 
     for (var interface in interfaces) {
       try {
-        socket.joinMulticast(v4Multicast, interface);
-      } on OSError {}
-
-      try {
-        socket.joinMulticast(v6Multicast, interface);
+        socket.joinMulticast(multicast, interface);
       } on OSError {}
     }
 
@@ -156,6 +172,7 @@ class UpnpDiscovery {
 
     try {
       final client = Client.fromPacket(packet);
+
       if (_seen.contains(client.location!.authority)) {
         return;
       }
@@ -174,7 +191,9 @@ class UpnpDiscovery {
       ).then((agg) {
         _deviceController.add(agg);
       });
-    } catch (err) {}
+    } catch (err) {
+      // TODO: Check for other M-SEARCH requests
+    }
   }
 
   Future<ServiceAggregate> _getService(
@@ -267,8 +286,6 @@ class UpnpDiscovery {
         XmlDocument.parse(response.body).rootElement.getElement('device');
     final device = DeviceDocument.fromXml(deviceDocument!);
 
-    _getExtensions(response, deviceDocument);
-
     final aggregate = await _getDevice(
       client,
       device,
@@ -281,20 +298,5 @@ class UpnpDiscovery {
       aggregate.services,
       aggregate.devices,
     );
-  }
-
-  Future<void> _getExtensions(http.Response response, XmlNode document) async {
-    if (WakeOnLan.supportedBy(response, document)) {
-      print('Supports wake on lan');
-    }
-
-    if (response.headers.containsKey('application-url')) {
-      final dial = DialService(response.headers['application-url']!);
-      http.get(Uri.parse(dial.url + 'YouTube')).then((r) {
-        print(r.body);
-        print(r.statusCode);
-        print(r.headers);
-      });
-    }
   }
 }

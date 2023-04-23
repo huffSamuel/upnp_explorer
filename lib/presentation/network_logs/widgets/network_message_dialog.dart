@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
+
+import '../../../packages/upnp/upnp.dart';
 
 class NetworkMessageDialog extends StatelessWidget {
   final NetworkMessage message;

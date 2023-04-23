@@ -316,7 +316,6 @@ class _TextVariableInputState extends State<_TextVariableInput> {
     _config = DataTypeConfig.values[widget.stateVariable?.dataType.type]!;
 
     if(widget.value != null) {
-      print('Value ${widget.value}');
       _controller.text = widget.value!;
     }
 

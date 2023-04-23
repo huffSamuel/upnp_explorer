@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
-import 'package:upnp_explorer/presentation/core/page/app_page.dart';
 
 import '../../../application/ioc.dart';
 import '../../../application/network_logs/filter_state.dart';
 import '../../../domain/network_logs/network_logs_repository_type.dart';
+import '../../../packages/upnp/upnp.dart';
 
 class FiltersPage extends StatefulWidget {
   @override

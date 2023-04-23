@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/presentation/network_logs/pages/traffic_page.dart';
 
 import 'application/application.dart';
 import 'application/device.dart';

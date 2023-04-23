@@ -28,9 +28,9 @@ class LogCard extends StatelessWidget {
             children: [
               Text(
                 i18n.messageLog(
-                  traffic.messageType,
                   traffic.direction.name,
                   DateFormat('H:m:s:SSS').format(traffic.time),
+                  traffic.messageType,
                 ),
               ),
               Container(
