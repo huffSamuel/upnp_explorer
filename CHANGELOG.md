@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.2](https://github.com/huffSamuel/upnp_explorer/compare/v2.4.1...v2.4.2) (2023-04-23)
+
+
+### Bug Fixes
+
+* add missing translations ([fb21b20](https://github.com/huffSamuel/upnp_explorer/commit/fb21b20454b85b26e96b8c97267121c495295b86))
+
 ## [2.4.1](https://github.com/huffSamuel/upnp_explorer/compare/v2.4.0...v2.4.1) (2023-04-23)
 
 
