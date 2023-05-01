@@ -20,7 +20,7 @@ dependencies:
     sdk: flutter
   flutter_markdown: ^0.6.14
   get_it: ^7.2.0
-  google_fonts: ^4.0.3
+  google_fonts: ^4.0.4
   http: ^0.13.5
   in_app_review: ^2.0.4
   injectable: ^2.1.0
