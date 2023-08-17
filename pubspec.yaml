@@ -9,9 +9,8 @@ environment:
 
 dependencies:
   bloc: ^8.1.1
-  connectivity_plus: ^3.0.0
-  device_info_plus: ^8.0.0
-  diffutil_dart: ^3.0.0
+  connectivity_plus: ^4.0.2
+  device_info_plus: ^9.0.3
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -26,7 +25,7 @@ dependencies:
   injectable: ^2.1.0
   intl: ^0.18.0
   open_settings: ^2.0.2
-  package_info_plus: ^3.0.1
+  package_info_plus: ^4.1.0
   shared_preferences: ^2.0.17
   string_validator: ^1.0.0
   url_launcher: ^6.1.8
