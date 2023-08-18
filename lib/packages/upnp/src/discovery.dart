@@ -10,7 +10,7 @@ class Options {
   /// User agent of the current operating system.
   ///
   /// ### Example
-  /// Android/33
+  /// "Android/33"
   final String osUserAgent;
 
   /// Scan IPv4 addresses.

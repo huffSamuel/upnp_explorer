@@ -13,81 +13,81 @@ const _kHops = 'hops';
 const _kAdvanced = 'advanced';
 const _searchTargetKey = 'search_target';
 const _kThemeMap = {
-  ThemeMode.dark: 'DARK',
-  ThemeMode.system: 'SYSTEM',
-  ThemeMode.light: 'LIGHT'
+  ThemeMode.dark: 'dark',
+  ThemeMode.system: 'system',
+  ThemeMode.light: 'light'
 };
 @lazySingleton
 class SettingsRepository {
-  final SharedPreferences prefs;
+  final SharedPreferences preferences;
 
-  SettingsRepository(this.prefs);
+  SettingsRepository(this.preferences);
 
   set(Settings options) async {
     await Future.wait([
-      prefs.setString(
+      preferences.setString(
         _kThemeKey,
         options.themeMode.name,
       ),
-      prefs.setDouble(
+      preferences.setDouble(
         _kVisualDensityHorizontal,
         options.visualDensity.horizontal,
       ),
-      prefs.setDouble(
+      preferences.setDouble(
         _kVisualDensityVertical,
         options.visualDensity.vertical,
       ),
-      prefs.setInt(
+      preferences.setInt(
         _kMaxDelay,
         options.protocolOptions.maxDelay,
       ),
-      prefs.setInt(
+      preferences.setInt(
         _kHops,
         options.protocolOptions.hops,
       ),
-      prefs.setBool(
+      preferences.setBool(
         _kAdvanced,
         options.protocolOptions.advanced,
       ),
     ]);
+
+    print('Set preferences');
   }
 
   Settings get() {
     try {
-      final themeValue = prefs.getString(_kThemeKey);
+      final themeValue = preferences.getString(_kThemeKey);
       final theme = keyFromValue(_kThemeMap, themeValue);
-      final horizontal = prefs.getDouble(_kVisualDensityHorizontal);
-      final vertical = prefs.getDouble(_kVisualDensityVertical);
-      final delay = prefs.getInt(_kMaxDelay);
-      final hops = prefs.getInt(_kHops);
-      final advanced = prefs.getBool(_kAdvanced);
-      final searchTarget = prefs.getString(_searchTargetKey);
+      final horizontal = preferences.getDouble(_kVisualDensityHorizontal);
+      final vertical = preferences.getDouble(_kVisualDensityVertical);
+      final delay = preferences.getInt(_kMaxDelay);
+      final hops = preferences.getInt(_kHops);
+      final advanced = preferences.getBool(_kAdvanced);
+      final searchTarget = preferences.getString(_searchTargetKey);
 
-      if ([
-        theme,
-        horizontal,
-        vertical,
-        delay,
-        hops,
-        advanced,
-      ].any((x) => x == null)) {
-        return Settings.base();
+      VisualDensity? density;
+
+      if (horizontal != null && vertical != null) {
+        density = VisualDensity(vertical: vertical, horizontal: horizontal);
       }
 
-      return Settings(
-        themeMode: theme!,
-        visualDensity: VisualDensity(
-          horizontal: horizontal!,
-          vertical: vertical!,
-        ),
-        protocolOptions: ProtocolSettings(
-          advanced: advanced!,
-          maxDelay: delay!,
-          hops: hops!,
-          searchTarget: searchTarget ?? 'upnp:rootdevice',
+      var settings = Settings.base();
+
+      print('Got settings\nTheme: $theme\nThemeValue: $themeValue');
+
+      return settings.copyWith(
+        themeMode: theme,
+        visualDensity: density,
+        protocolOptions: settings.protocolOptions.copyWith(
+          advanced: advanced,
+          hops: hops,
+          maxDelay: delay,
+          searchTarget: searchTarget,
         ),
       );
+
     } catch (err) {
+      print('Failed to deserialize settings');
       return Settings.base();
     }
   }

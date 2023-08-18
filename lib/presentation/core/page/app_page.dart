@@ -20,38 +20,30 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-      return Scaffold(
-        floatingActionButton: floatingActionButton,
-        bottomNavigationBar: bottomNavigationBar,
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar.medium(
-              leading: leading ??
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.of(context).pop(),
-                    color: theme.colorScheme.onPrimary,
-                  ),
-              title: FittedBox(
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(color: theme.colorScheme.onPrimary),
-                  child: title,
+    return Scaffold(
+      floatingActionButton: floatingActionButton,
+      bottomNavigationBar: bottomNavigationBar,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar.medium(
+            leading: leading ??
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-              ),
-              actions: actions,
-              foregroundColor: Colors.white,
+            title: FittedBox(
+              child: title,
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => children[index],
-                childCount: children.length,
-              ),
-            )
-          ],
-        ),
-      );
-   
+            actions: actions,
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => children[index],
+              childCount: children.length,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

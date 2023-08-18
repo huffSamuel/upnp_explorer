@@ -16,7 +16,7 @@ class LogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
-
+    final colorScheme = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -35,8 +35,23 @@ class LogCard extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
+                  color: ElevationOverlay.applySurfaceTint(
+                    colorScheme.surface,
+                    colorScheme.surfaceTint,
+                    1,
+                  ),
                   borderRadius: BorderRadius.circular(8.0),
-                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  border: Border.all(
+                    width: 1,
+                    color: ElevationOverlay.applySurfaceTint(
+                      colorScheme.surface,
+                      colorScheme.surfaceTint,
+                      10,
+                    ),
+                  ),
+                ),
+                margin: const EdgeInsets.only(
+                  top: 4,
                 ),
                 padding: const EdgeInsets.symmetric(
                   vertical: 4,

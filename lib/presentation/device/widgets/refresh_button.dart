@@ -16,7 +16,6 @@ class RefreshIconButton extends StatelessWidget {
       tooltip: AppLocalizations.of(context)!.refresh,
       icon: Icon(Icons.refresh),
       onPressed: onPressed,
-      color: Theme.of(context).appBarTheme.foregroundColor,
     );
   }
 }

@@ -28,7 +28,6 @@ class _ChangelogPageState extends State<ChangelogPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final title = Text(AppLocalizations.of(context)!.whatsNew);
     final child = _changes == null ? Container() : Markdown(data: _changes!);
     final leading = IconButton(
@@ -37,25 +36,22 @@ class _ChangelogPageState extends State<ChangelogPage> {
           Navigator.of(context).pop();
         });
 
-      return Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar.large(
-              leading: leading,
-              title: FittedBox(
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(color: theme.colorScheme.onPrimary),
-                  child: title,
-                ),
-              ),
-              foregroundColor: Colors.white,
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar.large(
+            floating: false,
+            pinned: false,
+            leading: leading,
+            title: FittedBox(
+              child: title,
             ),
-            SliverFillRemaining(
-              child: child,
-            ),
-          ],
-        ),
-      );
-   
+          ),
+          SliverFillRemaining(
+            child: child,
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -192,7 +192,6 @@ class _DevicePageState extends State<DevicePage> {
         PopupMenuButton(
           icon: Icon(
             Icons.more_vert,
-            color: Theme.of(context).colorScheme.onPrimary,
           ),
           itemBuilder: (context) => [
             PopupMenuItem(
