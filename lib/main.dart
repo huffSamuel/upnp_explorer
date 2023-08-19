@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 
 import 'application/application.dart';
 import 'application/device.dart';
@@ -17,6 +18,7 @@ void main() {
   registerLicenses();
 
   WidgetsFlutterBinding.ensureInitialized();
+  
   configureDependencies().then(
     (_) => runApp(
       ModelBinding(
@@ -55,15 +57,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final options = Settings.of(context);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: Application.name,
-      themeMode: options.themeMode,
-      darkTheme: Palette.instance.darkTheme(options),
-      theme: Palette.instance.lightTheme(options),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: DiscoveryPage(),
-    );
+    return DynamicColorBuilder(builder: (
+      ColorScheme? lightDynamic,
+      ColorScheme? darkDynamic,
+    ) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: Application.name,
+        themeMode: options.themeMode,
+        darkTheme: Palette.buildDarkTheme(darkDynamic).copyWith(visualDensity: options.visualDensity),
+        theme: Palette.buildLightTheme(lightDynamic).copyWith(visualDensity: options.visualDensity),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: DiscoveryPage(),
+      );
+    });
   }
 }

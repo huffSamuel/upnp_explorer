@@ -93,7 +93,7 @@ class _FiltersPageState extends State<FiltersPage> {
         FilterState.of(context).filters,
       );
 
-      filters.removeWhere((x) => x.label == filter.label);
+      filters.removeWhere((x) => x.id == filter.id);
 
       FilterState.update(
         context,
@@ -121,6 +121,15 @@ class _FiltersPageState extends State<FiltersPage> {
     Filter<NetworkMessage> filter,
   ) {
     return FilterChip(
+      shape: StadiumBorder(side: BorderSide(
+        width: 1,
+      )),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      selectedColor: ElevationOverlay.applySurfaceTint(
+        Theme.of(context).colorScheme.background,
+        Theme.of(context).colorScheme.surfaceTint,
+        4,
+      ),
       selected: filters.any((f) => f.id == filter.id),
       label: Text(filter.label),
       onSelected: (v) => _onFilterSelected(v, filter),

@@ -37,10 +37,6 @@ class _TrafficPageState extends State<TrafficPage>
             child: Text(i18n.keepHistory),
           ),
           TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor:
-                  Theme.of(context).buttonTheme.colorScheme!.tertiaryContainer,
-            ),
             onPressed: () => Navigator.of(context).pop(true),
             child: Text(i18n.clearHistory),
           ),

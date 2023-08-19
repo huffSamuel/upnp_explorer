@@ -28,34 +28,37 @@ class _ChangelogPageState extends State<ChangelogPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final title = Text(AppLocalizations.of(context)!.whatsNew);
-    final child = _changes == null ? Container() : Markdown(data: _changes!);
+    final child =
+        _changes == null ? Container() : MarkdownBody(data: _changes!);
     final leading = IconButton(
         icon: Icon(Icons.close),
         onPressed: () {
           Navigator.of(context).pop();
         });
 
-      return Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar.large(
-              leading: leading,
-              title: FittedBox(
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(color: theme.colorScheme.onPrimary),
-                  child: title,
-                ),
-              ),
-              foregroundColor: Colors.white,
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar.large(
+            floating: true,
+            pinned: true,
+            leading: leading,
+            title: FittedBox(
+              child: title,
             ),
-            SliverFillRemaining(
-              child: child,
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: child),
+              childCount: 1,
             ),
-          ],
-        ),
-      );
-   
+            
+          ),
+        ],
+      ),
+    );
   }
 }

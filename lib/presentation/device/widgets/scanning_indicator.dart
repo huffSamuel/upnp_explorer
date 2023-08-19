@@ -22,12 +22,7 @@ class ScanningIndicator extends StatelessWidget {
           height: height,
           curve: Curves.easeInOut,
           duration: const Duration(milliseconds: 150),
-          child: LinearProgressIndicator(
-            backgroundColor: Colors.transparent,
-            valueColor: AlwaysStoppedAnimation(
-              Theme.of(context).colorScheme.secondary,
-            ),
-          ),
+          child: LinearProgressIndicator(),
         ),
       ),
     );

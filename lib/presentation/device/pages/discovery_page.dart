@@ -178,7 +178,6 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
           IconButton(
             tooltip: i18n.viewNetworkTraffic,
             icon: const Icon(Icons.description_outlined),
-            color: Theme.of(context).appBarTheme.foregroundColor,
             onPressed: () => Navigator.of(context).push(
               makeRoute(
                 context,

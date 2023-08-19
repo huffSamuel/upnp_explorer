@@ -28,7 +28,6 @@ class ServicePage extends StatelessWidget {
       PopupMenuButton(
         icon: Icon(
           Icons.more_vert,
-          color: Theme.of(context).colorScheme.onPrimary,
         ),
         itemBuilder: (context) => [
           
@@ -90,7 +89,6 @@ class NothingHere extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: theme.colorScheme.onBackground,
                 width: 2.0,
               ),
             ),
@@ -99,7 +97,6 @@ class NothingHere extends StatelessWidget {
               child: Icon(
                 Icons.question_mark_rounded,
                 size: 32,
-                color: theme.colorScheme.onBackground,
               ),
             ),
           ),

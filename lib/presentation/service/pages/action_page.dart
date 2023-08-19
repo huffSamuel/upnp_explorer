@@ -108,15 +108,12 @@ class _ActionPageState extends State<ActionPage> {
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: () => Navigator.of(context).pop(),
-                    color: theme.colorScheme.onPrimary,
                   ),
                   title: FittedBox(
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(color: theme.colorScheme.onPrimary),
-                      child: Text(widget.action.name),
-                    ),
+                    child: 
+                      Text(widget.action.name),
+                    
                   ),
-                  foregroundColor: theme.colorScheme.onPrimary,
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(

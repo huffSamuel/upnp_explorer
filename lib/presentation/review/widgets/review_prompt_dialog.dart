@@ -33,10 +33,7 @@ class ReviewPromptDialog extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: _pop(context, ReviewResponse.never),
-                  child: DefaultTextStyle.merge(
-                    style: TextStyle(color: Colors.red),
-                    child: Text(i18n.neverAskAgain),
-                  ),
+                  child: Text(i18n.neverAskAgain),
                 ),
               ],
             )
