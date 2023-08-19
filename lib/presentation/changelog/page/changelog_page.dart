@@ -29,7 +29,8 @@ class _ChangelogPageState extends State<ChangelogPage> {
   @override
   Widget build(BuildContext context) {
     final title = Text(AppLocalizations.of(context)!.whatsNew);
-    final child = _changes == null ? Container() : Markdown(data: _changes!);
+    final child =
+        _changes == null ? Container() : MarkdownBody(data: _changes!);
     final leading = IconButton(
         icon: Icon(Icons.close),
         onPressed: () {
@@ -40,15 +41,21 @@ class _ChangelogPageState extends State<ChangelogPage> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar.large(
-            floating: false,
-            pinned: false,
+            floating: true,
+            pinned: true,
             leading: leading,
             title: FittedBox(
               child: title,
             ),
           ),
-          SliverFillRemaining(
-            child: child,
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: child),
+              childCount: 1,
+            ),
+            
           ),
         ],
       ),
