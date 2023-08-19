@@ -50,8 +50,6 @@ class SettingsRepository {
         options.protocolOptions.advanced,
       ),
     ]);
-
-    print('Set preferences');
   }
 
   Settings get() {
@@ -73,8 +71,6 @@ class SettingsRepository {
 
       var settings = Settings.base();
 
-      print('Got settings\nTheme: $theme\nThemeValue: $themeValue');
-
       return settings.copyWith(
         themeMode: theme,
         visualDensity: density,
@@ -87,7 +83,6 @@ class SettingsRepository {
       );
 
     } catch (err) {
-      print('Failed to deserialize settings');
       return Settings.base();
     }
   }

@@ -25,14 +25,15 @@ class Palette {
     return _applyCommon(
       ThemeData.from(
         colorScheme: scheme ??
-            ColorScheme.fromSeed(seedColor: Palette.instance.primaryPurple).copyWith(),
+            ColorScheme.fromSeed(
+              seedColor: Palette.instance.primaryPurple,
+            ),
       ),
     );
   }
 
   static ThemeData buildDarkTheme(ColorScheme? scheme) {
     return _applyCommon(
-
       ThemeData.from(
         colorScheme: scheme ??
             ColorScheme.fromSeed(
@@ -52,12 +53,16 @@ class Palette {
       ),
       switchTheme: themeData.switchTheme.copyWith(
         trackColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => _resolveSelectedColor(states, themeData.colorScheme.secondary.withOpacity(0.3)),
+          (states) => _resolveSelectedColor(
+              states, themeData.colorScheme.secondary.withOpacity(0.3)),
         ),
         thumbColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => _resolveSelectedColor(states, themeData.colorScheme.secondary)
-        )
-      )
+          (states) => _resolveSelectedColor(
+            states,
+            themeData.colorScheme.secondary,
+          ),
+        ),
+      ),
     );
   }
 
