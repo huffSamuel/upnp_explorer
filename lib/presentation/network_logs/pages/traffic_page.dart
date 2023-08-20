@@ -13,6 +13,8 @@ import '../widgets/network_message_dialog.dart';
 import 'filters_page.dart';
 
 class TrafficPage extends StatefulWidget {
+  const TrafficPage();
+
   @override
   State<TrafficPage> createState() => _TrafficPageState();
 }

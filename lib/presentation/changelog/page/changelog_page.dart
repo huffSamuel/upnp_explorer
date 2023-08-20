@@ -5,12 +5,57 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
 
-class ChangelogPage extends StatefulWidget {
+class ChangelogPage extends StatelessWidget {
   @override
-  State<ChangelogPage> createState() => _ChangelogPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar.large(
+            floating: true,
+            pinned: true,
+            leading: const _CloseButton(),
+            title: FittedBox(
+              child: Text(AppLocalizations.of(context)!.whatsNew),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => const Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: const _ChangelogMarkdown(),
+              ),
+              childCount: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _ChangelogPageState extends State<ChangelogPage> {
+class _CloseButton extends StatelessWidget {
+  const _CloseButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.close),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+  }
+}
+
+class _ChangelogMarkdown extends StatefulWidget {
+  const _ChangelogMarkdown();
+
+  @override
+  State<_ChangelogMarkdown> createState() => _ChangelogMarkdownState();
+}
+
+class _ChangelogMarkdownState extends State<_ChangelogMarkdown> {
   String? _changes;
 
   @override
@@ -28,37 +73,10 @@ class _ChangelogPageState extends State<ChangelogPage> {
 
   @override
   Widget build(BuildContext context) {
-    final title = Text(AppLocalizations.of(context)!.whatsNew);
-    final child =
-        _changes == null ? Container() : MarkdownBody(data: _changes!);
-    final leading = IconButton(
-        icon: Icon(Icons.close),
-        onPressed: () {
-          Navigator.of(context).pop();
-        });
+    if (_changes == null) {
+      return const SizedBox();
+    }
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar.large(
-            floating: true,
-            pinned: true,
-            leading: leading,
-            title: FittedBox(
-              child: title,
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: child),
-              childCount: 1,
-            ),
-            
-          ),
-        ],
-      ),
-    );
+    return MarkdownBody(data: _changes!);
   }
 }

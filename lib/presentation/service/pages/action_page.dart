@@ -11,7 +11,7 @@ class ActionPage extends StatefulWidget {
   final ServiceAction action;
   final ServiceStateTable stateTable;
 
-  ActionPage({
+  const ActionPage({
     Key? key,
     required this.action,
     required this.stateTable,
@@ -69,8 +69,6 @@ class _ActionPageState extends State<ActionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final sendButton = Align(
       alignment: Alignment.bottomCenter,
       child: Container(

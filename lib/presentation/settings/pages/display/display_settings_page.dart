@@ -10,6 +10,8 @@ import '../../widgets/settings_category_page.dart';
 import '../../widgets/settings_category_tile.dart';
 
 class DisplaySettingsPage extends StatelessWidget {
+  const DisplaySettingsPage();
+
   Function() _openPage(BuildContext context, Widget page) {
     return () => Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => page));

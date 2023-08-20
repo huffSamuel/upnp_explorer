@@ -5,6 +5,8 @@ import '../../../application/application.dart';
 import '../../../application/review/review_service.dart';
 
 class ReviewPromptDialog extends StatelessWidget {
+  const ReviewPromptDialog();
+
   void Function() _pop(BuildContext context, ReviewResponse response) {
     return () => Navigator.of(context).pop(response);
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SettingsDivider extends StatelessWidget {
+  const SettingsDivider();
+
   @override
   Widget build(BuildContext context) {
     return Divider(thickness: 2.0);

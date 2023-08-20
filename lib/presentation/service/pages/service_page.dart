@@ -78,7 +78,6 @@ class NothingHere extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
 
     return Center(
       child: Column(

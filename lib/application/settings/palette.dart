@@ -1,7 +1,6 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'options.dart';
 
 Color? _resolveSelectedColor(Set<MaterialState> states, Color color) {
   if (states.contains(MaterialState.disabled)) {
@@ -15,31 +14,30 @@ Color? _resolveSelectedColor(Set<MaterialState> states, Color color) {
   return null;
 }
 
+const _primaryPurple = Color(0xFF982649);
+const _primaryPurpleDark = Color(0xFF521427);
+
 class Palette {
   static final Palette _palette = Palette._internal();
   static Palette get instance => _palette;
 
   Palette._internal();
 
-  static ThemeData buildLightTheme(ColorScheme? scheme) {
+  static ThemeData makeTheme(
+      ColorScheme? scheme, Brightness brightness, VisualDensity visualDensity) {
     return _applyCommon(
       ThemeData.from(
-        colorScheme: scheme ??
-            ColorScheme.fromSeed(
-              seedColor: Palette.instance.primaryPurple,
-            ),
-      ),
-    );
-  }
-
-  static ThemeData buildDarkTheme(ColorScheme? scheme) {
-    return _applyCommon(
-      ThemeData.from(
-        colorScheme: scheme ??
-            ColorScheme.fromSeed(
-              seedColor: Palette.instance.primaryPurpleDark,
-              brightness: Brightness.dark,
-            ),
+        useMaterial3: true,
+        colorScheme: (scheme ??
+                ColorScheme.fromSeed(
+                  brightness: brightness,
+                  seedColor: brightness == Brightness.dark
+                      ? _primaryPurpleDark
+                      : _primaryPurple,
+                ))
+            .harmonized(),
+      ).copyWith(
+        visualDensity: visualDensity,
       ),
     );
   }
@@ -65,7 +63,4 @@ class Palette {
       ),
     );
   }
-
-  final primaryPurple = Color(0xFF982649);
-  final primaryPurpleDark = Color(0xFF521427);
 }

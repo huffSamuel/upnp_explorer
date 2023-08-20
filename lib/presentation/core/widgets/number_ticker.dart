@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class NumberTicker extends StatelessWidget {
   final int? minValue;
   final int? maxValue;
@@ -30,13 +29,16 @@ class NumberTicker extends StatelessWidget {
       children: [
         IconButton(
           tooltip: _downEnabled ? i18n.decrease : i18n.decreaseDisabled,
-          icon: Icon(Icons.remove),
+          icon: const Icon(Icons.remove),
           onPressed: _down,
         ),
-        Text(value.toString(), style: Theme.of(context).textTheme.headlineSmall),
+        Text(
+          value.toString(),
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         IconButton(
           tooltip: _upEnabled ? i18n.increase : i18n.increaseDisabled,
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: _up,
         ),
       ],

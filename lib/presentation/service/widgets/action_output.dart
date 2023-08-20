@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
-import 'package:upnp_explorer/presentation/service/widgets/action_output_dialog.dart';
+import '../../../packages/upnp/upnp.dart';
+import 'action_output_dialog.dart';
 
-import '../../core/has_text_overflowed.dart';
 import 'labeled_field.dart';
 
 class ActionOutput extends StatelessWidget {
@@ -92,7 +91,7 @@ class ArgumentOutput extends StatelessWidget {
       ),
     );
 
-    if (hasTextOverflowed(
+    if (_hasTextOverflowed(
       text,
       style,
       maxWidth: MediaQuery.of(context).size.width,
@@ -116,4 +115,23 @@ class ArgumentOutput extends StatelessWidget {
       ),
     );
   }
+}
+
+bool _hasTextOverflowed(
+  String text,
+  TextStyle style, {
+  double minWidth = 0,
+  double maxWidth = double.infinity,
+  int maxLines = 1,
+}) {
+  final painter = TextPainter(
+    text: TextSpan(text: text, style: style),
+    maxLines: maxLines,
+    textDirection: TextDirection.ltr,
+  )..layout(
+      minWidth: minWidth,
+      maxWidth: maxWidth,
+    );
+
+  return painter.didExceedMaxLines;
 }

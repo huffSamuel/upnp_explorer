@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class VersionText extends StatefulWidget {
+  const VersionText();
+
   @override
   State<VersionText> createState() => _VersionTextState();
 }
