@@ -114,7 +114,7 @@ class _RowCountState extends State<_RowCount> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: widget.width,
       child: Row(
         children: _rowItems,

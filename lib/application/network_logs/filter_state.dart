@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../packages/upnp/upnp.dart';
@@ -18,7 +17,7 @@ class Filter<T> {
   }) : id = id ?? label;
 }
 
-class FilterState extends Equatable {
+class FilterState  {
   final List<Filter<NetworkMessage>> filters;
 
   const FilterState({
@@ -43,11 +42,6 @@ class FilterState extends Equatable {
 
     return allowed;
   }
-
-  @override
-  List<Object?> get props => [
-        ...filters,
-      ];
 
   static FilterState of(BuildContext context) =>
       ModelBinding.of<FilterState>(context);

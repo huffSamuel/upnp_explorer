@@ -61,7 +61,7 @@ class SettingsTile extends StatelessWidget {
             .textTheme
             .titleLarge!
             .copyWith(fontWeight: FontWeight.w400),
-        child: title ?? Container(),
+        child: title ?? const SizedBox(),
       ),
       subtitle: subtitle,
       trailing: trailing,

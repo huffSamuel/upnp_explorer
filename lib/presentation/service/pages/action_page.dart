@@ -71,7 +71,7 @@ class _ActionPageState extends State<ActionPage> {
   Widget build(BuildContext context) {
     final sendButton = Align(
       alignment: Alignment.bottomCenter,
-      child: Container(
+      child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SendCommandButton(
           name: widget.action.name,

@@ -16,7 +16,7 @@ class ActionOutputDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(propertyName),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Scrollbar(
           controller: _controller,
