@@ -38,7 +38,7 @@ class LogCard extends StatelessWidget {
                   color: ElevationOverlay.applySurfaceTint(
                     colorScheme.surface,
                     colorScheme.surfaceTint,
-                    1,
+                    10,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(
@@ -46,7 +46,7 @@ class LogCard extends StatelessWidget {
                     color: ElevationOverlay.applySurfaceTint(
                       colorScheme.surface,
                       colorScheme.surfaceTint,
-                      10,
+                      20,
                     ),
                   ),
                 ),

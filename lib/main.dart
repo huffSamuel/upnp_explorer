@@ -1,6 +1,6 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 
 import 'application/application.dart';
 import 'application/device.dart';
@@ -65,11 +65,12 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: Application.name,
         themeMode: options.themeMode,
-        darkTheme: Palette.makeTheme(
-            darkDynamic, Brightness.dark, options.visualDensity),
-        theme: Palette.makeTheme(
+        darkTheme: AppTheme.dark(
+          darkDynamic,
+          options.visualDensity,
+        ),
+        theme: AppTheme.light(
           lightDynamic,
-          Brightness.light,
           options.visualDensity,
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,

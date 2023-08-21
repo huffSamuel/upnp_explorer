@@ -19,17 +19,16 @@ class HighlightSwitchTile extends StatelessWidget {
     return ElevationOverlay.applySurfaceTint(
       colorScheme.surface,
       colorScheme.surfaceTint,
-      20,
+      10,
     );
   }
 
-  Color? _inactiveColor(ColorScheme? colorScheme) {
-    if (colorScheme == null) {
-      return null;
-    }
-
+  Color? _inactiveColor(ThemeData theme) {
     return ElevationOverlay.applySurfaceTint(
-        colorScheme.surface, colorScheme.surfaceTint, 1);
+      theme.colorScheme.surface,
+      theme.colorScheme.secondary,
+      5,
+    );
   }
 
   @override
@@ -39,15 +38,17 @@ class HighlightSwitchTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: ListTile(
+        selected: value,
+        splashColor: Colors.transparent,
         onTap: () => onChanged?.call(!value),
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 16.0,
           vertical: 8,
         ),
         title: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: DefaultTextStyle.merge(
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20.0,
             ),
             child: title,
@@ -56,8 +57,8 @@ class HighlightSwitchTile extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(26.0),
         ),
-        tileColor:
-            value ? _activeColor(colorScheme) : _inactiveColor(colorScheme),
+        selectedTileColor: _activeColor(colorScheme),
+        tileColor: _inactiveColor(Theme.of(context)),
         trailing: Switch(
           value: value,
           onChanged: onChanged,

@@ -2,63 +2,63 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color? _resolveSelectedColor(Set<MaterialState> states, Color color) {
-  if (states.contains(MaterialState.disabled)) {
-    return null;
-  }
-
-  if (states.contains(MaterialState.selected)) {
-    return color;
-  }
-
-  return null;
-}
-
 const _primaryPurple = Color(0xFF982649);
 const _primaryPurpleDark = Color(0xFF521427);
 
-class Palette {
-  static final Palette _palette = Palette._internal();
-  static Palette get instance => _palette;
+class AppTheme {
+  static ThemeData dark(
+    ColorScheme? scheme,
+    VisualDensity visualDensity,
+  ) {
+    final effectiveScheme = scheme ??
+        ColorScheme.fromSeed(
+          seedColor: _primaryPurpleDark,
+          brightness: Brightness.dark,
+        );
 
-  Palette._internal();
-
-  static ThemeData makeTheme(
-      ColorScheme? scheme, Brightness brightness, VisualDensity visualDensity) {
-    return _applyCommon(
-      ThemeData.from(
-        useMaterial3: true,
-        colorScheme: (scheme ??
-                ColorScheme.fromSeed(
-                  brightness: brightness,
-                  seedColor: brightness == Brightness.dark
-                      ? _primaryPurpleDark
-                      : _primaryPurple,
-                ))
-            .harmonized(),
-      ).copyWith(
-        visualDensity: visualDensity,
-      ),
+    return _theme(
+      effectiveScheme,
+      visualDensity,
     );
   }
 
-  static ThemeData _applyCommon(ThemeData themeData) {
-    return themeData.copyWith(
-      textTheme: themeData.textTheme.copyWith(
-        bodySmall: themeData.textTheme.bodySmall!.copyWith(
-          fontFamily: GoogleFonts.sourceCodePro().fontFamily,
-        ),
+  static ThemeData light(
+    ColorScheme? scheme,
+    VisualDensity visualDensity,
+  ) {
+    final effectiveScheme = scheme ??
+        ColorScheme.fromSeed(
+          seedColor: _primaryPurple,
+          brightness: Brightness.light,
+        );
+
+    return _theme(
+      effectiveScheme,
+      visualDensity,
+    );
+  }
+
+  static ThemeData _theme(
+    ColorScheme scheme,
+    VisualDensity visualDensity,
+  ) {
+    final effectiveScheme = scheme.harmonized();
+
+    final theme = ThemeData.from(
+      useMaterial3: true,
+      colorScheme: effectiveScheme,
+    ).copyWith(
+      visualDensity: visualDensity,
+      appBarTheme: AppBarTheme(
+        backgroundColor: effectiveScheme.primary,
+        foregroundColor: effectiveScheme.onPrimary,
       ),
-      switchTheme: themeData.switchTheme.copyWith(
-        trackColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => _resolveSelectedColor(
-              states, themeData.colorScheme.secondary.withOpacity(0.3)),
-        ),
-        thumbColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => _resolveSelectedColor(
-            states,
-            themeData.colorScheme.secondary,
-          ),
+    );
+
+    return theme.copyWith(
+      textTheme: theme.textTheme.copyWith(
+        bodySmall: theme.textTheme.bodySmall!.copyWith(
+          fontFamily: GoogleFonts.sourceCodePro().fontFamily,
         ),
       ),
     );
