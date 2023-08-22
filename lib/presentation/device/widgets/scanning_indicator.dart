@@ -14,7 +14,7 @@ class ScanningIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       height: height,
-      duration: Duration(milliseconds: 175),
+      duration: const Duration(milliseconds: 175),
       curve: Curves.easeIn,
       child: Semantics(
         label: AppLocalizations.of(context)!.scanningForDevices,
@@ -22,7 +22,7 @@ class ScanningIndicator extends StatelessWidget {
           height: height,
           curve: Curves.easeInOut,
           duration: const Duration(milliseconds: 150),
-          child: LinearProgressIndicator(),
+          child: const LinearProgressIndicator(),
         ),
       ),
     );

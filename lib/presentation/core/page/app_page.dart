@@ -16,6 +16,19 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget child;
+
+    if (children.length == 1) {
+      child = SliverFillRemaining(child: children[0]);
+    } else {
+      child = SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) => children[index],
+          childCount: children.length,
+        ),
+      );
+    }
+
     return Scaffold(
       bottomNavigationBar: bottomNavigationBar,
       body: CustomScrollView(
@@ -30,12 +43,7 @@ class AppPage extends StatelessWidget {
             ),
             actions: actions,
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => children[index],
-              childCount: children.length,
-            ),
-          )
+          child,
         ],
       ),
     );

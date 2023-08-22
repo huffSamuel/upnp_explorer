@@ -20,16 +20,21 @@ class DiscoveryStateService {
   final _destroying = PublishSubject();
 
   DiscoveryState get _value => _subject.value;
+  Stream<DiscoveryState> get state => _subject.stream;
 
   DiscoveryStateService(
     this._connectivity,
     this._discovery,
   ) {
+    // Start the discovery engine
     final d = _discovery.start().then((v) => true);
+
+    // Check network connectivity
     final c = _connectivity.checkConnectivity().then(
           (v) => v == ConnectivityResult.wifi,
         );
 
+    // When both complete, set the initial state and trigger the initial search
     Future.wait<bool>([d, c]).then((r) {
       _subject.add(_value.copyWith(
         loading: false,
@@ -39,25 +44,19 @@ class DiscoveryStateService {
       search();
     });
 
+    // Whenever connectivity changes emit the new connectivity state
     _connectivity.onConnectivityChanged
         .map((event) => event == ConnectivityResult.wifi)
         .distinct()
         .takeUntil(_destroying)
-        .listen(
-      (event) {
-        _subject.add(
-          _value.copyWith(
-            wifi: event,
-          ),
-        );
+        .listen((event) {
+      if (event) {
+        search();
+      }
+    });
 
-        if (event) {
-          search();
-        }
-      },
-    );
-
-    deviceEvents.listen(
+    // Whenever new devices are emitted, add them to the state
+    deviceEvents.takeUntil(_destroying).listen(
       (event) {
         _subject.add(
           _value.copyWith(
@@ -72,6 +71,10 @@ class DiscoveryStateService {
   }
 
   Future<void> search() {
+    if (!_value.wifi) {
+      return Future.value();
+    }
+
     _subject.add(_value.copyWith(
       devices: [],
       scanning: true,
@@ -93,6 +96,4 @@ class DiscoveryStateService {
     _destroying.add(true);
     _destroying.close();
   }
-
-  Stream<DiscoveryState> get state => _subject.stream;
 }

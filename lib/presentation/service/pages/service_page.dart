@@ -30,7 +30,6 @@ class ServicePage extends StatelessWidget {
           Icons.more_vert,
         ),
         itemBuilder: (context) => [
-          
           PopupMenuItem(
             value: 0,
             child: Text(i18n.viewInBrowser),
@@ -44,27 +43,28 @@ class ServicePage extends StatelessWidget {
       ),
     ];
 
-    final children = service.service == null || service.service!.actions.isEmpty == true
-        ? [NothingHere()]
-        : List<Widget>.of(
-            service.service!.actions.map(
-              (x) {
-                return ListTile(
-                  title: Text(x.name),
-                  trailing: _icon(context),
-                  onTap: () => Navigator.of(context).push(
-                    makeRoute(
-                      context,
-                      ActionPage(
-                        action: x,
-                        stateTable: service.service!.serviceStateTable,
+    final children =
+        service.service == null || service.service!.actions.isEmpty == true
+            ? [NothingHere()]
+            : List<Widget>.of(
+                service.service!.actions.map(
+                  (x) {
+                    return ListTile(
+                      title: Text(x.name),
+                      trailing: _icon(context),
+                      onTap: () => Navigator.of(context).push(
+                        makeRoute(
+                          context,
+                          ActionPage(
+                            action: x,
+                            stateTable: service.service!.serviceStateTable,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
+                    );
+                  },
+                ),
+              );
 
     return AppPage(
       title: Text(service.document.serviceId.serviceId),
@@ -85,21 +85,23 @@ class NothingHere extends StatelessWidget {
         children: [
           const SizedBox(height: 32.0),
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(
-                width: 2.0,
+              border: const Border.fromBorderSide(
+                BorderSide(
+                  width: 2,
+                ),
               ),
             ),
-            child: Padding(
+            child: const Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(
+              child: const Icon(
                 Icons.question_mark_rounded,
                 size: 32,
               ),
             ),
           ),
-          SizedBox(height: 32.0),
+          const SizedBox(height: 32.0),
           Text(i18n.nothingHere)
         ],
       ),
