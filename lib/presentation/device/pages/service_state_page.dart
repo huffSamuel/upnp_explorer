@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
 
+import '../../../packages/upnp/upnp.dart';
 import '../../core/page/app_page.dart';
 
 class ServiceStateTablePage extends StatelessWidget {
   final ServiceStateTable table;
 
-  const ServiceStateTablePage({Key? key, required this.table})
-      : super(key: key);
+  const ServiceStateTablePage({
+    Key? key,
+    required this.table,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

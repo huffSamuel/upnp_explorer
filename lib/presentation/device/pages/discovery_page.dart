@@ -33,9 +33,9 @@ class _NoNetwork extends StatelessWidget {
           Text(i18n.discoveryRequiresNetwork),
           const SizedBox(height: 15.0),
           ElevatedButton(
-            onPressed: () => OpenSettings.openWIFISetting(),
+            onPressed: OpenSettings.openWIFISetting,
             child: Text(i18n.turnOnWifi),
-          )
+          ),
         ],
       ),
     );
@@ -45,7 +45,7 @@ class _NoNetwork extends StatelessWidget {
 class _Loaded extends StatelessWidget {
   final Future<void> Function() onRefresh;
   final List<UPnPDevice> devices;
-  final bool? scanning;
+  final bool scanning;
 
   const _Loaded({
     Key? key,
@@ -56,7 +56,7 @@ class _Loaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (devices.length == 0 && scanning == false) {
+    if (devices.isEmpty && !scanning) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -85,7 +85,7 @@ class _Loaded extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: ScanningIndicator(
-            height: scanning == true ? 8 : 0,
+            height: scanning ? 8 : 0,
           ),
         ),
       ],
@@ -93,31 +93,18 @@ class _Loaded extends StatelessWidget {
   }
 }
 
-class DiscoveryPage extends StatefulWidget {
-  const DiscoveryPage();
-
-  @override
-  State<DiscoveryPage> createState() => _DiscoveryPageState(
-        sl<DiscoveryStateService>(),
-      );
-}
-
-class _DiscoveryPageState extends State<DiscoveryPage> {
+class DiscoveryPage extends StatelessWidget {
   final DiscoveryStateService _service;
+  final ChangelogService _changelog;
 
-  _DiscoveryPageState(this._service);
+  DiscoveryPage({
+    DiscoveryStateService? service,
+    ChangelogService? changelog,
+  })  : _service = service ?? sl<DiscoveryStateService>(),
+        _changelog = changelog ?? sl<ChangelogService>();
 
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _checkChangelog();
-    });
-  }
-
-  void _checkChangelog() {
-    sl<ChangelogService>().shouldDisplayChangelog().then((display) {
+  void _checkChangelog(BuildContext context) {
+    _changelog.shouldDisplayChangelog().then((display) {
       if (display) {
         Navigator.of(context).push(
           makeRoute(
@@ -131,6 +118,10 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkChangelog(context);
+    });
+
     final i18n = AppLocalizations.of(context)!;
 
     final actions = [
