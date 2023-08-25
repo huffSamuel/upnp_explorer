@@ -9,6 +9,8 @@ import '../../../domain/network_logs/network_logs_repository_type.dart';
 import '../../../packages/upnp/upnp.dart';
 
 class FiltersPage extends StatefulWidget {
+  const FiltersPage();
+
   @override
   State<FiltersPage> createState() => _FiltersPageState();
 }

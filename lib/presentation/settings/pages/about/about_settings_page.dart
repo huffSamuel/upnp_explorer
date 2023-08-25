@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../application/application.dart';
 import '../../../../application/ioc.dart';
 import '../../../../application/routing/routes.dart';
-import '../../../../infrastructure/core/bug_report_service.dart';
+import '../../../../application/bug_report_service.dart';
 import '../../../changelog/page/changelog_page.dart';
 import '../../widgets/settings/about_tile.dart';
 import '../../widgets/settings_category_page.dart';
@@ -15,6 +15,8 @@ import '../../widgets/settings_category_tile.dart';
 import '../../widgets/version_text.dart';
 
 class AboutSettingsPage extends StatelessWidget {
+  const AboutSettingsPage();
+
   Function() _openPage(BuildContext context, Widget page) {
     return () => Navigator.of(context).push(
           makeRoute(context, page),

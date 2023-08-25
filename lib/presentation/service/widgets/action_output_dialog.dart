@@ -7,7 +7,7 @@ class ActionOutputDialog extends StatelessWidget {
   final String propertyName;
 
   const ActionOutputDialog(
-      {super.key, required this.text, required this.propertyName});
+      {super.key, required this.text, required this.propertyName,});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ActionOutputDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(propertyName),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Scrollbar(
           controller: _controller,

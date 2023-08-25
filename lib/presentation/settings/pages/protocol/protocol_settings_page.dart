@@ -9,6 +9,8 @@ import 'maximum_response_delay_page.dart';
 import 'multicast_hops_page.dart';
 
 class ProtocolSettingsPage extends StatelessWidget {
+  const ProtocolSettingsPage();
+
   Function() _openPage(BuildContext context, Widget page) {
     return () => Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => page));

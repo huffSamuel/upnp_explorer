@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SettingsDivider extends StatelessWidget {
+  const SettingsDivider();
+
   @override
   Widget build(BuildContext context) {
     return Divider(thickness: 2.0);
@@ -59,7 +61,7 @@ class SettingsTile extends StatelessWidget {
             .textTheme
             .titleLarge!
             .copyWith(fontWeight: FontWeight.w400),
-        child: title ?? Container(),
+        child: title ?? const SizedBox(),
       ),
       subtitle: subtitle,
       trailing: trailing,

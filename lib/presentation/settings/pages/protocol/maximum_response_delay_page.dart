@@ -7,6 +7,8 @@ import '../../widgets/settings/about_tile.dart';
 import '../../widgets/settings_category_page.dart';
 
 class MaximumResponseDelayPage extends StatefulWidget {
+  const MaximumResponseDelayPage();
+
   @override
   State<MaximumResponseDelayPage> createState() =>
       _MaximumResponseDelayPageState();

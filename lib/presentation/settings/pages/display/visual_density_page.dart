@@ -6,6 +6,8 @@ import '../../../../domain/value_converter.dart';
 import '../../widgets/settings_category_page.dart';
 
 class VisualDensityPage extends StatelessWidget {
+  const VisualDensityPage();
+
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;

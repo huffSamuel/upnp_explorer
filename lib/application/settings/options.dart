@@ -1,45 +1,30 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/core/widgets/model_binding.dart';
 
-class ProtocolSettings extends Equatable {
+class ProtocolSettings {
   final int maxDelay;
   final bool advanced;
   final int hops;
   final String searchTarget;
 
-  const ProtocolSettings({
-    required this.maxDelay,
-    required this.advanced,
-    required this.hops,
-    required this.searchTarget
-  });
+  const ProtocolSettings(
+      {required this.maxDelay,
+      required this.advanced,
+      required this.hops,
+      required this.searchTarget});
 
-  ProtocolSettings copyWith({
-    int? maxDelay,
-    bool? advanced,
-    int? hops,
-    String? searchTarget
-  }) {
+  ProtocolSettings copyWith(
+      {int? maxDelay, bool? advanced, int? hops, String? searchTarget}) {
     return ProtocolSettings(
-      maxDelay: maxDelay ?? this.maxDelay,
-      advanced: advanced ?? this.advanced,
-      hops: hops ?? this.hops,
-      searchTarget: searchTarget ?? this.searchTarget
-    );
+        maxDelay: maxDelay ?? this.maxDelay,
+        advanced: advanced ?? this.advanced,
+        hops: hops ?? this.hops,
+        searchTarget: searchTarget ?? this.searchTarget);
   }
-
-  @override
-  List<Object> get props => [
-        maxDelay,
-        advanced,
-        hops,
-        searchTarget
-      ];
 }
 
-class Settings extends Equatable {
+class Settings {
   final ThemeMode themeMode;
   final VisualDensity visualDensity;
   final ProtocolSettings protocolOptions;
@@ -67,22 +52,16 @@ class Settings extends Equatable {
       themeMode: ThemeMode.system,
       visualDensity: VisualDensity.standard,
       protocolOptions: ProtocolSettings(
-        advanced: false,
-        maxDelay: 3,
-        hops: 1,
-        searchTarget: 'upnp:rootdevice'
-      ),
+          advanced: false,
+          maxDelay: 3,
+          hops: 1,
+          searchTarget: 'upnp:rootdevice'),
     );
   }
 
-  static Settings of(BuildContext context) => ModelBinding.of<Settings>(context);
+  static Settings of(BuildContext context) =>
+      ModelBinding.of<Settings>(context);
 
-  static void update(BuildContext context, Settings newModel) => ModelBinding.update(context, newModel);
-
-  @override
-  List<Object> get props => [
-        themeMode,
-        visualDensity,
-        protocolOptions,
-      ];
+  static void update(BuildContext context, Settings newModel) =>
+      ModelBinding.update(context, newModel);
 }

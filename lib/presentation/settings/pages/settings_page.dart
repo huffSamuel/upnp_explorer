@@ -14,6 +14,8 @@ Function() _nav(BuildContext context, Widget page) {
 }
 
 class MaterialDesignSettingsPage extends StatelessWidget {
+  const MaterialDesignSettingsPage();
+
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;

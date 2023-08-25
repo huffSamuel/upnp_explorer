@@ -7,6 +7,8 @@ import '../../widgets/settings/highlight_switch_tile.dart';
 import '../../widgets/settings_category_page.dart';
 
 class AdvancedModePage extends StatelessWidget {
+  const AdvancedModePage();
+
   @override
   Widget build(BuildContext context) {
     final options = Settings.of(context);

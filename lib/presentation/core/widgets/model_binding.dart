@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class _ModelBindingScope<T> extends InheritedWidget {
-  const _ModelBindingScope(
-      {Key? key, required this.modelBindingState, required Widget child})
-      : super(key: key, child: child);
+  const _ModelBindingScope({
+    Key? key,
+    required this.modelBindingState,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   final _ModelBindingState<T> modelBindingState;
 

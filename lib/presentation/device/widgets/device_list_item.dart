@@ -27,7 +27,7 @@ class DeviceListItem extends StatelessWidget {
           device.document.friendlyName,
         ),
         subtitle: Text(device.client.location!.host.toString()),
-        trailing: Icon(Icons.chevron_right),
+        trailing: const Icon(Icons.chevron_right),
         onTap: () {
           Navigator.of(context).push(
             makeRoute(

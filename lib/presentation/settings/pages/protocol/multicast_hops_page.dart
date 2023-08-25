@@ -8,6 +8,8 @@ import '../../widgets/settings_category_page.dart';
 import '../../widgets/settings_category_tile.dart';
 
 class MulticastHopsPage extends StatefulWidget {
+  const MulticastHopsPage();
+
   @override
   State<MulticastHopsPage> createState() => _MulticastHopsPageState();
 }

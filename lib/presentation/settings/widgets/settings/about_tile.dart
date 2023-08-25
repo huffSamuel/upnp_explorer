@@ -12,7 +12,7 @@ class AboutTile extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ListTile(
-      title: Container(height: 12.0),
+      title: const SizedBox(height: 12.0),
       subtitle: DefaultTextStyle(
         style: theme.textTheme.bodyMedium!,
         child: Column(

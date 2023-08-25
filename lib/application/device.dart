@@ -13,7 +13,7 @@ class DeviceInfo {
   final String packageName;
   final String packageVersion;
   final int? androidSdkVersion;
-  
+
   DeviceInfo(
     this.os,
     this.osVersion,
@@ -39,8 +39,12 @@ class DeviceInfo {
 
     if (Platform.isIOS) {
       final info = await plugin.iosInfo;
-      return DeviceInfo('iOS', info.systemVersion!, packageInfo.appName,
-          packageInfo.version);
+      return DeviceInfo(
+        'iOS',
+        info.systemVersion,
+        packageInfo.appName,
+        packageInfo.version,
+      );
     }
 
     throw PlatformNotSupported();

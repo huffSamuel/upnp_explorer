@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
 
+import '../../../packages/upnp/upnp.dart';
 import '../widgets/action_input.dart';
 import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';
@@ -11,7 +11,7 @@ class ActionPage extends StatefulWidget {
   final ServiceAction action;
   final ServiceStateTable stateTable;
 
-  ActionPage({
+  const ActionPage({
     Key? key,
     required this.action,
     required this.stateTable,
@@ -69,11 +69,9 @@ class _ActionPageState extends State<ActionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final sendButton = Align(
       alignment: Alignment.bottomCenter,
-      child: Container(
+      child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SendCommandButton(
           name: widget.action.name,

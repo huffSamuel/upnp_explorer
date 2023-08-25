@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
+enum TransitionDirection { fromLeft, fromRight }
+
 dynamic makeRoute(
   BuildContext context,
-  Widget child,
-) {
+  Widget child, {
+  TransitionDirection direction = TransitionDirection.fromRight,
+}) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => child,
-    transitionsBuilder: transitionBuilder,
+    transitionsBuilder: (c, a, sa, ch) =>
+        transitionBuilder(c, a, sa, ch, direction),
   );
 }
 
@@ -15,6 +19,7 @@ Widget transitionBuilder(
   Animation<double> animation,
   Animation<double> secondaryAnimation,
   Widget child,
+  TransitionDirection direction,
 ) {
   const begin = Offset(1.0, 0.0);
   const end = Offset.zero;

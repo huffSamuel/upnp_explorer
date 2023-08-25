@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FeatureUnavailableDialog extends StatelessWidget {
+  const FeatureUnavailableDialog();
+
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;

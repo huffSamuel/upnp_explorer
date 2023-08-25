@@ -7,6 +7,8 @@ import '../../widgets/settings_category_page.dart';
 import '../../widgets/settings_category_tile.dart';
 
 class ThemeSettingsPage extends StatelessWidget {
+  const ThemeSettingsPage();
+
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;

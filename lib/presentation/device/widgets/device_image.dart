@@ -17,7 +17,7 @@ class DeviceImage extends StatelessWidget {
       height: 40,
       width: 40,
       child: icons.isEmpty
-          ? Icon(Icons.device_unknown)
+          ? const Icon(Icons.device_unknown)
           : Image.network(
               Uri(
                 scheme: deviceIp.scheme,
