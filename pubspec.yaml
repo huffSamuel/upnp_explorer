@@ -16,7 +16,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.6.14
-  get_it: ^7.2.0
+  get_it: ^7.6.2
   google_fonts: ^4.0.3
   http: ^0.13.5
   in_app_review: ^2.0.4
