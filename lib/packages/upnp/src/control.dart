@@ -20,7 +20,7 @@ class ActionResponse {
     final Map<String, String> arguments = {};
     final xml = XmlDocument.parse(str);
     final node =
-        xml.rootElement.getElement('s:Body')!.children.first as XmlElement;
+        xml.rootElement.getElement('s:Body')!.children.firstWhere((el) => el is XmlElement) as XmlElement;
 
     node.children.whereType<XmlElement>().forEach(
           (x) => arguments[x.localName] = x.innerText,
