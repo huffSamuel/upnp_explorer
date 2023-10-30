@@ -56,13 +56,13 @@ class _ActionPageState extends State<ActionPage> {
         _results = result.arguments;
       });
     } on ActionInvocationError catch (e) {
-      _onCommandError(context, e.code);
+      _onCommandError(context, e.code, e.description);
     }
   }
 
-  void _onCommandError(BuildContext context, String code) {
+  void _onCommandError(BuildContext context, String code, String message) {
     final snackbar = SnackBar(
-      content: Text(AppLocalizations.of(context)!.commandFailedWithError(code)),
+      content: Text(AppLocalizations.of(context)!.commandFailedWithError('$code: $message')),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
@@ -108,9 +108,9 @@ class _ActionPageState extends State<ActionPage> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   title: FittedBox(
-                    child: 
+                    child:
                       Text(widget.action.name),
-                    
+
                   ),
                 ),
                 SliverList(

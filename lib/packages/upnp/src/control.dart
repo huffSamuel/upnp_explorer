@@ -22,6 +22,10 @@ class ActionResponse {
     final node =
         xml.rootElement.getElement('s:Body')!.children.firstWhere((el) => el is XmlElement) as XmlElement;
 
+    if (node.localName == "Fault") {
+      throw "Parse the fault with ActionFault";
+    }
+
     node.children.whereType<XmlElement>().forEach(
           (x) => arguments[x.localName] = x.innerText,
         );
