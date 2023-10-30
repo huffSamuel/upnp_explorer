@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:xml/xml.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../packages/upnp/upnp.dart';
@@ -59,13 +60,22 @@ class ArgumentOutput extends StatelessWidget {
       ? AppLocalizations.of(context)!.unknownValue(name)
       : AppLocalizations.of(context)!.knownValue(name, value!);
 
+  String ParseText(String text) {
+    if (text.startsWith('<?xml')) {
+      final xml = XmlDocument.parse(text);
+      return xml.toXmlString(pretty: true);
+    } else {
+      return text;
+    }
+  }
+
   void _showFullText(
     BuildContext context,
   ) {
     showDialog(
       context: context,
       builder: (context) => ActionOutputDialog(
-        text: text,
+        text: ParseText(text),
         propertyName: name,
       ),
     );
