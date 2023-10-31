@@ -5,14 +5,15 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../application/application.dart';
+import '../../../../application/bug_report_service.dart';
 import '../../../../application/ioc.dart';
 import '../../../../application/routing/routes.dart';
-import '../../../../application/bug_report_service.dart';
 import '../../../changelog/page/changelog_page.dart';
 import '../../widgets/settings/about_tile.dart';
 import '../../widgets/settings_category_page.dart';
 import '../../widgets/settings_category_tile.dart';
 import '../../widgets/version_text.dart';
+import 'contributors_page.dart';
 
 class AboutSettingsPage extends StatelessWidget {
   const AboutSettingsPage();
@@ -67,11 +68,21 @@ class AboutSettingsPage extends StatelessWidget {
             ChangelogPage(),
           ),
         ),
+        SettingsDivider(),
         SettingsTile(
           leading: Icon(Icons.code),
           title: Text(i18n.wereOpenSource),
           subtitle: Text(i18n.viewSourceCode),
           onTap: () => _openSource(context),
+        ),
+        SettingsTile(
+          title: Text(i18n.contributors),
+          subtitle: Text(i18n.aSpecialThanks),
+          leading: Icon(Icons.commit_rounded),
+          onTap: _openPage(
+            context,
+            ContributorsPage(),
+          ),
         ),
         SettingsTile(
           leading: Icon(Icons.bug_report_outlined),

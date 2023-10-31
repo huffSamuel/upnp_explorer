@@ -1,5 +1,7 @@
 {
   "@@locale": "es",
+  "contributors": "Colaboradores",
+  "aSpecialThanks": "¡Un agradecimiento especial!",
   "filters": "Filtros",
   "directionDescription": "Dirección",
   "protocolDescription": "Protocolo",
