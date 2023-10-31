@@ -184,6 +184,8 @@
       }
     }
   },
+  "contributors": "Contributors",
+  "aSpecialThanks": "A special thanks!",
   "filters": "Filters",
   "directionDescription": "Direction",
   "protocolDescription": "Protocol",

@@ -48,3 +48,4 @@ flutter:
   assets:
     - assets/google_fonts/
     - assets/CHANGELOG.md
+    - assets/CONTRIBUTORS.json
