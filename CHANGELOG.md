@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.5.0...v2.6.0) (2023-11-14)
+
+
+### Features
+
+* acknowledge contributors ([4e8b255](https://github.com/huffSamuel/upnp_explorer/commit/4e8b255a554f94bdaed067b7c3f987510487576e)), closes [#71](https://github.com/huffSamuel/upnp_explorer/issues/71)
+* display detailed fault error messages ([652ee83](https://github.com/huffSamuel/upnp_explorer/commit/652ee8331c56800c3c4b2c942f091b38500bf28a))
+* improve material 3 themes  ([a114e77](https://github.com/huffSamuel/upnp_explorer/commit/a114e77d3143690a12aa00955b2498668f8b5943))
+* optimize render times ([a114e77](https://github.com/huffSamuel/upnp_explorer/commit/a114e77d3143690a12aa00955b2498668f8b5943))
+* pretty print device xml ([4e77681](https://github.com/huffSamuel/upnp_explorer/commit/4e7768137a449cff97207a15c434ca56ce44cea3))
+
+
+### Bug Fixes
+
+* ignore leading text nodes in action response ([bdb154c](https://github.com/huffSamuel/upnp_explorer/commit/bdb154ca5b2f9063afb359e84279fb30f46e1c4b))
+
 ## [2.5.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.4.2...v2.5.0) (2023-08-19)
 
 
