@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.1](https://github.com/huffSamuel/upnp_explorer/compare/v2.6.0...v2.6.1) (2023-11-15)
+
+
+### Bug Fixes
+
+* target SDK 33 ([#79](https://github.com/huffSamuel/upnp_explorer/issues/79)) ([0e918f7](https://github.com/huffSamuel/upnp_explorer/commit/0e918f7853391312d5eea211dbfda9fde89396d1))
+
 ## [2.6.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.5.0...v2.6.0) (2023-11-14)
 
 
