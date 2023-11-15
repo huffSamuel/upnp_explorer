@@ -42,7 +42,7 @@ android {
     defaultConfig {
         applicationId "com.samueljhuf.upnp_explorer"
         minSdkVersion 19
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
