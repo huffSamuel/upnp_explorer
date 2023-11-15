@@ -2,7 +2,7 @@ name: upnp_explorer
 description: Discover and control UPnP devices.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.5.0+18
+version: 2.6.0+19
 
 environment:
   sdk: '>=2.18.0 <3.3.0'
