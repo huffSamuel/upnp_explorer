@@ -25,7 +25,6 @@ dependencies:
   open_settings: ^2.0.2
   package_info_plus: ^4.1.0
   shared_preferences: ^2.0.17
-  string_validator: ^1.0.0
   url_launcher: ^6.1.8
   xml: ^6.2.2
   rxdart: ^0.27.7

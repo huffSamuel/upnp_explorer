@@ -19,7 +19,10 @@ class SendCommandButton extends StatelessWidget {
       },
       child: Semantics(
         label: 'Send $name command',
-        child: Icon(Icons.arrow_forward)),
+        child: Icon(
+          Icons.arrow_forward,
+        ),
+      ),
       style: OutlinedButton.styleFrom(
         shape: CircleBorder(),
         padding: EdgeInsets.all(24),

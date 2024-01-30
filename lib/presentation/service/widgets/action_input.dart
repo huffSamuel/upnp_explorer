@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:string_validator/string_validator.dart';
 import 'package:upnp_explorer/packages/upnp/upnp.dart';
 
 import '../../../application/validators.dart';
@@ -315,7 +314,7 @@ class _TextVariableInputState extends State<_TextVariableInput> {
   void initState() {
     _config = DataTypeConfig.values[widget.stateVariable?.dataType.type]!;
 
-    if(widget.value != null) {
+    if (widget.value != null) {
       _controller.text = widget.value!;
     }
 
@@ -415,24 +414,24 @@ TextInputType? _inputType(DataTypeValue type) {
 String? Function(String?)? _validator(DataTypeValue dataType) {
   switch (dataType) {
     case DataTypeValue.char:
-      return (s) => s == null || s.length != 1 ? '*' : null;
+      return Validators.isChar;
     case DataTypeValue.binaryBase64:
-      return (s) => s == null || !isBase64(s) ? '*' : null;
+      return Validators.isBase64;
     case DataTypeValue.binaryHex:
-      return (s) => s == null || !isHexadecimal(s) ? '*' : null;
+      return Validators.isHexadecimal;
     case DataTypeValue.uri:
-      return (s) => s == null || Uri.tryParse(s) == null ? '*' : null;
+      return Validators.isURI;
     // TODO: Split out individually for each specific format
     case DataTypeValue.date:
     case DataTypeValue.dateTime:
     case DataTypeValue.dateTimeTz:
     case DataTypeValue.time:
     case DataTypeValue.timeTz:
-      return (s) => s == null || DateTime.tryParse(s) == null ? '*' : null;
+      return Validators.isDateTime;
     case DataTypeValue.boolean:
-      return (s) => s == null || !['true', 'false'].contains(s) ? '*' : null;
+      return Validators.isBoolean;
     case DataTypeValue.uuid:
-      return (s) => s == null || !isUUID(s) ? '*' : null;
+      return Validators.isUUID;
     // TODO: numerical constraints
     default:
       return (s) => s == null || s.length == 0 ? '*' : null;
