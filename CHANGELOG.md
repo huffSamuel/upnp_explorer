@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1](https://github.com/huffSamuel/upnp_explorer/compare/v2.8.0...v2.8.1) (2024-02-17)
+
+
+### Miscellaneous Chores
+
+* release 2.8.0 ([0350ff8](https://github.com/huffSamuel/upnp_explorer/commit/0350ff88990e1539557c90441913f7eaf1d71253))
+* release 2.8.1 ([308bb8c](https://github.com/huffSamuel/upnp_explorer/commit/308bb8c2b5e9d7cb590f9f233f4abe739d678005))
+
 ## [2.8.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.8.0...v2.8.0) (2024-02-17)
 
 
