@@ -1,4 +1,4 @@
-part of upnp;
+part of simple_upnp;
 
 class DialService {
   final String url;

@@ -2,26 +2,26 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
+import 'package:upnp_explorer/simple_upnp/src/upnp.dart';
 
 import '../../domain/network_logs/network_logs_repository_type.dart';
 
 @Singleton(as: NetworkLogsRepositoryType)
 class NetworkLogsRepository extends NetworkLogsRepositoryType {
-  ReplaySubject<NetworkMessage> _subject = ReplaySubject<NetworkMessage>();
+  ReplaySubject<UPnPEvent> _subject = ReplaySubject<UPnPEvent>();
 
   NetworkLogsRepository() {
-    messageEvents.listen((event) {
+    SimpleUPNP.instance().events.listen((event) {
       _subject.add(event);
     });
   }
 
-  Stream<NetworkMessage> get messages {
+  Stream<UPnPEvent> get messages {
     return _subject.stream;
   }
 
   void clear() {
     _subject.close();
-    _subject = ReplaySubject<NetworkMessage>();
+    _subject = ReplaySubject<UPnPEvent>();
   }
 }

@@ -3,7 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../packages/upnp/upnp.dart';
+import 'package:upnp_explorer/simple_upnp/src/upnp.dart';
 import 'device.dart';
 import 'settings/options_repository.dart';
 
@@ -29,15 +29,15 @@ abstract class RegisterModule {
   Connectivity get connectivity => Connectivity();
   DeviceInfoPlugin get deviceInfoPlugin => DeviceInfoPlugin();
 
-  UpnpDiscovery upnp(DeviceInfo deviceInfo, SettingsRepository settingsRepo) {
-    final settings = settingsRepo.get();
+  @preResolve
+  Future<SimpleUPNP> upnp(
+    DeviceInfo deviceInfo,
+    SettingsRepository settingsRepo,
+  ) async {
+    final i = SimpleUPNP.instance();
 
-    return UpnpDiscovery(
-      Options(
-        osUserAgent: '${deviceInfo.os}/${deviceInfo.osVersion}',
-        multicastHops: settings.protocolOptions.hops,
-        maxDelay: settings.protocolOptions.maxDelay,
-      ),
-    );
+    await i.start(Options());
+
+    return i;
   }
 }

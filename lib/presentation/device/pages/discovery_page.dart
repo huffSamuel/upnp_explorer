@@ -9,9 +9,9 @@ import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
 import '../../../application/routing/routes.dart';
-import '../../../packages/upnp/upnp.dart';
+import '../../../simple_upnp/src/upnp.dart';
 import '../../changelog/page/changelog_page.dart';
-import '../../network_logs/pages/traffic_page.dart';
+import '../../network_logs/pages/logs_page.dart';
 import '../widgets/device_list_item.dart';
 import '../widgets/refresh_button.dart';
 import '../widgets/scanning_indicator.dart';
@@ -131,7 +131,7 @@ class DiscoveryPage extends StatelessWidget {
         onPressed: () => Navigator.of(context).push(
           makeRoute(
             context,
-            TrafficPage(),
+            LogsPage(),
           ),
         ),
       ),

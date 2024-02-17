@@ -1,4 +1,4 @@
-part of upnp;
+part of simple_upnp;
 
 class UPnPDevice extends DeviceAggregate {
   /// UPnP device that replied to the UPnP query.
@@ -168,17 +168,17 @@ class DeviceDocument {
       serialNumber: xml.getElement('serialNumber')?.text,
       udn: xml.getElement('UDN')!.text,
       upc: xml.getElement('UPC')?.text,
-      iconList: _nodeMapper(
+      iconList: _mapFromListOfNodes(
         xml.getElement('iconList'),
         'icon',
         DeviceIcon.fromXml,
       ),
-      services: _nodeMapper(
+      services: _mapFromListOfNodes(
         xml.getElement('serviceList'),
         'service',
         ServiceDocument.fromXml,
       ),
-      devices: _nodeMapper(
+      devices: _mapFromListOfNodes(
         xml.getElement('deviceList'),
         'device',
         DeviceDocument.fromXml,
@@ -318,7 +318,7 @@ class Service {
   final XmlDocument xml;
   final String namespace;
   final SpecVersion specVersion;
-  final List<ServiceAction> actions;
+  final List<Action> actions;
   final ServiceStateTable serviceStateTable;
 
   Service(
@@ -334,7 +334,10 @@ class Service {
     return xml.toString();
   }
 
-  factory Service.fromXml(XmlDocument xml, ServiceControl control) {
+  factory Service.fromXml(
+    XmlDocument xml,
+    InvocationBindingContext binding,
+  ) {
     final root = xml.getElement('scpd');
 
     return Service(
@@ -343,10 +346,10 @@ class Service {
       specVersion: SpecVersion.fromXml(
         root.getElement('specVersion')!,
       ),
-      actions: _nodeMapper<ServiceAction>(
+      actions: _mapFromListOfNodes<Action>(
         root.getElement('actionList'),
         'action',
-        (x) => ServiceAction.fromXml(x, control),
+        (x) => Action.fromXml(x, binding),
       ),
       serviceStateTable: ServiceStateTable.fromXml(
         root.getElement('serviceStateTable')!,
@@ -365,7 +368,7 @@ class ServiceStateTable {
 
   factory ServiceStateTable.fromXml(XmlNode xml) {
     return ServiceStateTable(
-        stateVariables: _nodeMapper<StateVariable>(
+        stateVariables: _mapFromListOfNodes<StateVariable>(
       xml,
       'stateVariable',
       StateVariable.fromXml,
@@ -373,33 +376,35 @@ class ServiceStateTable {
   }
 }
 
-class ServiceAction {
+class Action {
   final String name;
   final List<Argument>? arguments;
-  final ServiceControl _control;
+  final InvocationBindingContext _binding;
 
-  ServiceAction({
+  late Service? service;
+
+  Action({
     required this.name,
+    required InvocationBindingContext binding,
     this.arguments,
-    required ServiceControl control,
-  }) : _control = control;
+  }) : _binding = binding;
 
-  Future<ActionResponse> invoke(Map<String, dynamic> args) {
-    return _control.send(name, args);
+  Future<InvocationResponse> invoke(Map<String, dynamic> args) async {
+    return this._binding.invoke(name, args);
   }
 
-  factory ServiceAction.fromXml(
+  factory Action.fromXml(
     XmlNode xml,
-    ServiceControl control,
+    InvocationBindingContext binding,
   ) {
-    return ServiceAction(
+    return Action(
       name: xml.getElement('name')!.text,
-      arguments: _nodeMapper(
+      binding: binding,
+      arguments: _mapFromListOfNodes(
         xml.getElement('argumentList'),
         'argument',
         Argument.fromXml,
       ),
-      control: control,
     );
   }
 }
@@ -521,7 +526,7 @@ class StateVariable {
       name: xml.getElement('name')!.text,
       dataType: DataType.fromXml(xml.getElement('dataType')!),
       defaultValue: xml.getElement('defaultValue')?.text,
-      allowedValues: _nodeMapper(
+      allowedValues: _mapFromListOfNodes(
         xml.getElement('allowedValueList'),
         'allowedValue',
         (x) => x.innerText,
@@ -671,7 +676,7 @@ class AllowedValueRange {
   }
 }
 
-_nodeMapper<T>(
+_mapFromListOfNodes<T>(
   XmlNode? xml,
   String elementType,
   T Function(XmlNode) buildFn,

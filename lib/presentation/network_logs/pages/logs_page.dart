@@ -1,30 +1,25 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/ioc.dart';
-import '../../../application/network_logs/filter_state.dart';
+import '../../../application/network_logs/network_event_service.dart';
 import '../../../application/routing/routes.dart';
-import '../../../domain/network_logs/network_logs_repository_type.dart';
-import '../../../packages/upnp/upnp.dart';
-import '../widgets/log_card.dart';
-import '../widgets/network_message_dialog.dart';
+import '../../../simple_upnp/src/upnp.dart' hide State;
+import '../widgets/log_item.dart';
 import 'filters_page.dart';
+import 'log_page.dart';
 
-class TrafficPage extends StatefulWidget {
-  const TrafficPage();
+class LogsPage extends StatefulWidget {
+  const LogsPage();
 
   @override
-  State<TrafficPage> createState() => _TrafficPageState();
+  State<LogsPage> createState() => _LogsPageState();
 }
 
-class _TrafficPageState extends State<TrafficPage>
+class _LogsPageState extends State<LogsPage>
     with SingleTickerProviderStateMixin {
-  final _repo = sl<NetworkLogsRepositoryType>();
+  final _repo = sl<NetworkEventService>();
 
-  List<NetworkMessage> _messages = [];
-  late StreamSubscription _messageSubscription;
   AppLocalizations get i18n => AppLocalizations.of(context)!;
 
   void _clear(BuildContext context, AppLocalizations i18n) {
@@ -48,51 +43,28 @@ class _TrafficPageState extends State<TrafficPage>
       if (r != true) {
         return;
       }
+
       _repo.clear();
-
-      setState(() {
-        _messages.clear();
-      });
-    });
-  }
-
-  void _onMessage(NetworkMessage message) {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _messages.add(message);
     });
   }
 
   @override
   void dispose() {
-    _messageSubscription.cancel();
     super.dispose();
   }
 
   @override
   void initState() {
-    _messageSubscription = _repo.messages.listen(_onMessage);
     super.initState();
   }
 
-  void _onLogCardTapped(BuildContext context, NetworkMessage message) {
-    if (message is HttpMessage) {
-      showDialog(
-        context: context,
-        builder: (ctx) => HttpNetworkMessageDialog(
-          message: message,
+  void _onLogCardTapped(BuildContext context, UPnPEvent event) {
+    Navigator.of(context).push(
+      makeRoute(
+        context,
+        LogPage(
+          event: event,
         ),
-      );
-      return;
-    }
-
-    showDialog(
-      context: context,
-      builder: (ctx) => NetworkMessageDialog(
-        message: message,
       ),
     );
   }
@@ -114,21 +86,38 @@ class _TrafficPageState extends State<TrafficPage>
           IconButton(
             icon: Icon(Icons.delete_forever_outlined),
             tooltip: i18n.clearAll,
-            onPressed: () => _clear(context, i18n,),
+            onPressed: () => _clear(
+              context,
+              i18n,
+            ),
           ),
         ],
       ),
       body: Scrollbar(
-        child: ListView(
-          children: [
-            ...FilterState.of(context).filter(_messages).map(
-                  (x) => LogCard(
-                    onTap: () => _onLogCardTapped(context, x),
-                    traffic: x,
-                  ),
+        child: StreamBuilder(
+            stream: _repo.events,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Container();
+              }
+
+              if (!snapshot.hasData || snapshot.data == null) {
+                return Container();
+              }
+
+              if (snapshot.data!.isEmpty) {
+                return Container();
+              }
+
+              return ListView.separated(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) => LogItem(
+                  event: snapshot.data![index],
+                  onTap: () => _onLogCardTapped(context, snapshot.data![index]),
                 ),
-          ],
-        ),
+                separatorBuilder: (_, __) => Divider(),
+              );
+            }),
       ),
     );
   }

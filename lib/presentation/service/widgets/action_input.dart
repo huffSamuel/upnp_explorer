@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
+import 'package:upnp_explorer/simple_upnp/src/upnp.dart' hide State;
 
 import '../../../application/validators.dart';
 import 'labeled_field.dart';

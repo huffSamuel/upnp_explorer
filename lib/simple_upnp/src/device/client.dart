@@ -1,4 +1,4 @@
-part of upnp;
+part of simple_upnp;
 
 class Client {
   final String _raw;
@@ -47,6 +47,10 @@ class Client {
     }
 
     return Client._(data, parsed);
+  }
+
+  bool equals(Client other) {
+    return location!.authority == other.location!.authority;
   }
 
   @override

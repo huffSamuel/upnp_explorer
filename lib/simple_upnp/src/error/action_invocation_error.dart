@@ -1,10 +1,10 @@
-part of upnp;
+part of simple_upnp;
 
-class ActionInvocationError extends Error {
+class InvocationError extends Error {
   final String description;
   final String code;
 
-  ActionInvocationError(
+  InvocationError(
     this.description,
     this.code,
   );

@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../packages/upnp/upnp.dart';
+import '../../../simple_upnp/src/upnp.dart' hide State;
 import '../widgets/action_input.dart';
 import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';
 
 class ActionPage extends StatefulWidget {
-  final ServiceAction action;
+  final Action action;
   final ServiceStateTable stateTable;
 
   const ActionPage({
@@ -55,14 +55,15 @@ class _ActionPageState extends State<ActionPage> {
       setState(() {
         _results = result.arguments;
       });
-    } on ActionInvocationError catch (e) {
+    } on InvocationError catch (e) {
       _onCommandError(context, e.code, e.description);
     }
   }
 
   void _onCommandError(BuildContext context, String code, String message) {
     final snackbar = SnackBar(
-      content: Text(AppLocalizations.of(context)!.commandFailedWithError('$code: $message')),
+      content: Text(AppLocalizations.of(context)!
+          .commandFailedWithError('$code: $message')),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
@@ -108,9 +109,7 @@ class _ActionPageState extends State<ActionPage> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   title: FittedBox(
-                    child:
-                      Text(widget.action.name),
-
+                    child: Text(widget.action.name),
                   ),
                 ),
                 SliverList(

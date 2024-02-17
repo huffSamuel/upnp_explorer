@@ -1,16 +1,14 @@
-import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../packages/upnp/upnp.dart';
+import '../../../simple_upnp/simple_upnp.dart';
 import 'state.dart';
 
 @singleton
 class DiscoveryStateService {
   final Connectivity _connectivity;
-  final UpnpDiscovery _discovery;
+  final SimpleUPNP _upnp;
 
   final _subject = BehaviorSubject<DiscoveryState>.seeded(
     DiscoveryState(
@@ -24,21 +22,19 @@ class DiscoveryStateService {
 
   DiscoveryStateService(
     this._connectivity,
-    this._discovery,
+    this._upnp,
   ) {
-    // Start the discovery engine
-    final d = _discovery.start().then((v) => true);
+    SimpleUPNP.loadPredicate = (client) => _value.devices
+        .where((element) => element.client.equals(client))
+        .isEmpty;
 
     // Check network connectivity
-    final c = _connectivity.checkConnectivity().then(
-          (v) => v == ConnectivityResult.wifi,
-        );
+    _connectivity.checkConnectivity().then((v) {
+      final wifi = v == ConnectivityResult.wifi;
 
-    // When both complete, set the initial state and trigger the initial search
-    Future.wait<bool>([d, c]).then((r) {
       _subject.add(_value.copyWith(
         loading: false,
-        wifi: r[1],
+        wifi: wifi,
       ));
 
       search();
@@ -47,17 +43,21 @@ class DiscoveryStateService {
     // Whenever connectivity changes emit the new connectivity state
     _connectivity.onConnectivityChanged
         .map((event) => event == ConnectivityResult.wifi)
+        .skip(1)
         .distinct()
         .takeUntil(_destroying)
-        .listen((event) {
-      if (event) {
-        search();
-      }
-    });
+        .where((x) => x)
+        .listen((x) => search());
 
     // Whenever new devices are emitted, add them to the state
-    deviceEvents.takeUntil(_destroying).listen(
+    _upnp.discovered.takeUntil(_destroying).listen(
       (event) {
+        if (_value.devices
+            .where((d) => d.client.equals(event.client))
+            .isNotEmpty) {
+          return;
+        }
+
         _subject.add(
           _value.copyWith(
             devices: [
@@ -80,12 +80,7 @@ class DiscoveryStateService {
       scanning: true,
     ));
 
-    return _discovery
-        .search(
-          searchTarget: SearchTarget.rootDevice(),
-          locale: Platform.localeName.substring(0, 2),
-        )
-        .then(
+    return _upnp.search(SearchTarget.rootDevice).then(
           (v) => _subject.add(
             _value.copyWith(scanning: false),
           ),

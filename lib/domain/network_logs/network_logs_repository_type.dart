@@ -1,6 +1,6 @@
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
+import 'package:upnp_explorer/simple_upnp/src/upnp.dart';
 
 abstract class NetworkLogsRepositoryType {
-  Stream<NetworkMessage> get messages;
+  Stream<UPnPEvent> get messages;
   void clear();
 }

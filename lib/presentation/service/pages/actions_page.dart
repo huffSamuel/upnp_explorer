@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/packages/upnp/upnp.dart';
+import 'package:upnp_explorer/simple_upnp/src/upnp.dart';
 
 import '../../../application/routing/routes.dart';
 import '../../core/page/app_page.dart';
 import 'action_page.dart';
 
 class ActionsPage extends StatelessWidget {
-  final List<ServiceAction> actions;
+  final List<Action> actions;
   final ServiceStateTable stateTable;
 
   const ActionsPage({
