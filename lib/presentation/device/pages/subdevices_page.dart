@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../application/routing/routes.dart';
-import '../../../packages/upnp/upnp.dart';
+import '../../../libraries/simple_upnp/src/upnp.dart';
 import 'device_page.dart';
 
 class SubdevicesPage extends StatelessWidget {

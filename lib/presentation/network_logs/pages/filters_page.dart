@@ -1,166 +1,39 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../application/ioc.dart';
-import '../../../application/network_logs/filter_state.dart';
-import '../../../domain/network_logs/network_logs_repository_type.dart';
-import '../../../packages/upnp/upnp.dart';
+import '../../../application/network_logs/network_event_service.dart';
 
 class FiltersPage extends StatefulWidget {
-  const FiltersPage();
+  FiltersPage();
 
   @override
   State<FiltersPage> createState() => _FiltersPageState();
 }
 
 class _FiltersPageState extends State<FiltersPage> {
-  final _from = <Filter<NetworkMessage>>[];
-  final _to = <Filter<NetworkMessage>>[];
-  final _direction = <Filter<NetworkMessage>>[];
-  final _protocol = <Filter<NetworkMessage>>[];
+  final NetworkEventService _service = sl<NetworkEventService>();
 
-  final _repo = sl<NetworkLogsRepositoryType>();
+  Filters get _filters => _service.filters;
 
-  late StreamSubscription _messageSubscription;
+  void _updateFilter(Filter filter, bool? value) {
+    _service.filter(filter, value ?? false);
 
-  void _onMessage(NetworkMessage message) {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      final i18n = AppLocalizations.of(context)!;
-
-      if (!_protocol.any((x) => x.id == 'Protocol: ${message.protocol.name}')) {
-        _protocol.add(
-          Filter(
-            (x) => x.protocol == message.protocol,
-            message.protocol.name.toUpperCase(),
-            id: 'Protocol: ${message.protocol.name}',
-          ),
-        );
-      }
-
-      if (!_direction
-          .any((x) => x.id == 'Direction: ${message.direction.name}')) {
-        _direction.add(
-          Filter(
-            (x) => x.direction == message.direction,
-            i18n.direction(message.direction.name),
-            id: 'Direction: ${message.direction.name}',
-          ),
-        );
-      }
-
-      if (message.to != null && !_to.any((x) => x.id == 'To: ${message.to}')) {
-        _to.add(
-          Filter(
-            (x) => x.to == message.to,
-            message.to!,
-            id: 'To: ${message.to}',
-          ),
-        );
-      }
-
-      if (message.from != null &&
-          !_from.any((x) => x.id == 'From: ${message.from}')) {
-        _from.add(
-          Filter(
-            (x) => x.from == message.from,
-            message.from!,
-            id: 'From: ${message.from}',
-          ),
-        );
-      }
-    });
+    setState(() {});
   }
 
-  @override
-  void initState() {
-    _messageSubscription = _repo.messages.listen(_onMessage);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _messageSubscription.cancel();
-    super.dispose();
-  }
-
-  void _onFilterSelected(bool selected, Filter<NetworkMessage> filter) {
-    if (!selected) {
-      final filters = List<Filter<NetworkMessage>>.from(
-        FilterState.of(context).filters,
-      );
-
-      filters.removeWhere((x) => x.id == filter.id);
-
-      FilterState.update(
-        context,
-        FilterState(
-          filters: [
-            ...filters,
-          ],
-        ),
-      );
-    } else {
-      FilterState.update(
-        context,
-        FilterState(
-          filters: [
-            ...FilterState.of(context).filters,
-            filter,
-          ],
-        ),
-      );
-    }
-  }
-
-  Widget _makeChip(
-    Iterable<Filter<NetworkMessage>> filters,
-    Filter<NetworkMessage> filter,
+  Widget _filterGroup(
+    BuildContext context,
+    String title,
+    List<Widget> children,
   ) {
-    return FilterChip(
-      shape: StadiumBorder(side: BorderSide(
-        width: 1,
-      )),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      selectedColor: ElevationOverlay.applySurfaceTint(
-        Theme.of(context).colorScheme.background,
-        Theme.of(context).colorScheme.surfaceTint,
-        4,
-      ),
-      selected: filters.any((f) => f.id == filter.id),
-      label: Text(filter.label),
-      onSelected: (v) => _onFilterSelected(v, filter),
-    );
-  }
-
-  Widget _wrap(Iterable<Widget> children) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-      child: Wrap(
-        spacing: 6.0,
-        children: List.from(children),
-      ),
-    );
-  }
-
-  Widget _sectionTitle(String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
-    );
+    return ExpansionTile(
+        initiallyExpanded: true,
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.w600)),
+        children: children);
   }
 
   @override
   Widget build(BuildContext context) {
-    final filterState = FilterState.of(context);
     final i18n = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -174,32 +47,77 @@ class _FiltersPageState extends State<FiltersPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _sectionTitle(i18n.directionDescription),
-              _wrap(
-                _direction.map(
-                  (x) => _makeChip(filterState.filters, x),
-                ),
+              StreamBuilder(stream: _service.events, builder: (context, snapshot) => ListTile(title: Text('${snapshot.data?.length ?? 0} visible'))),
+              _filterGroup(
+                context,
+                'Direction',
+                [
+                  CheckboxListTile(
+                    title: Text('Received'),
+                    value: _filters.received.enabled,
+                    onChanged: (v) => _updateFilter(_filters.received, v),
+                  ),
+                  CheckboxListTile(
+                    title: Text('Sent'),
+                    value: _filters.sent.enabled,
+                    onChanged: (v) => _updateFilter(_filters.sent, v),
+                  ),
+                ],
               ),
-              Divider(),
-              _sectionTitle(i18n.protocolDescription),
-              _wrap(
-                _protocol.map(
-                  (x) => _makeChip(filterState.filters, x),
-                ),
+              _filterGroup(
+                context,
+                'Protocol',
+                [
+                  CheckboxListTile(
+                    title: Text('HTTP'),
+                    value: _filters.http.enabled,
+                    onChanged: (v) => _updateFilter(_filters.http, v),
+                  ),
+                  CheckboxListTile(
+                    title: Text('SSDP'),
+                    value: _filters.ssdp.enabled,
+                    onChanged: (v) => _updateFilter(_filters.ssdp, v),
+                  ),
+                ],
               ),
-              Divider(),
-              _sectionTitle(i18n.from),
-              _wrap(
-                _from.map(
-                  (x) => _makeChip(filterState.filters, x),
-                ),
+              _filterGroup(
+                context,
+                'Type',
+                 _filters.type.keys
+                    .map(
+                      (key) => CheckboxListTile(
+                        title: Text(key),
+                        value: _filters.type[key]!.enabled,
+                        onChanged: (v) => _updateFilter(_filters.type[key]!, v),
+                      ),
+                    )
+                    .toList(),
               ),
-              Divider(),
-              _sectionTitle(i18n.to),
-              _wrap(
-                _to.map(
-                  (x) => _makeChip(filterState.filters, x),
-                ),
+              _filterGroup(
+                context,
+                'From',
+                 _filters.from.keys
+                    .map(
+                      (key) => CheckboxListTile(
+                        title: Text(key),
+                        value: _filters.from[key]!.enabled,
+                        onChanged: (v) => _updateFilter(_filters.from[key]!, v),
+                      ),
+                    )
+                    .toList(),
+              ),
+              _filterGroup(
+                context,
+                'To',
+                _filters.to.keys
+                    .map(
+                      (key) => CheckboxListTile(
+                        title: Text(key),
+                        value: _filters.to[key]!.enabled,
+                        onChanged: (v) => _updateFilter(_filters.to[key]!, v),
+                      ),
+                    )
+                    .toList(),
               ),
             ],
           ),

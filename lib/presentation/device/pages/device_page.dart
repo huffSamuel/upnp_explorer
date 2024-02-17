@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../libraries/simple_upnp/src/upnp.dart';
+import '../../core/page/app_page.dart';
+import '../widgets/device_page_navigation_bar.dart';
 import 'device_info_page.dart';
 import 'services_page.dart';
 import 'subdevices_page.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../../application/routing/routes.dart';
-import '../../../packages/upnp/upnp.dart';
-import '../../core/page/app_page.dart';
-import '../../service/pages/service_page.dart';
-import '../widgets/device_page_navigation_bar.dart';
 
 class DevicePage extends StatelessWidget {
   final DeviceAggregate device;
