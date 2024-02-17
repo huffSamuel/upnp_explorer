@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.7.0...v2.8.0) (2024-02-17)
+
+
+### Features
+
+* better network event filtering ([ec55165](https://github.com/huffSamuel/upnp_explorer/commit/ec55165037f960d8759d0c397dfea02ab61a816b))
+* improve UPnP library ([ec55165](https://github.com/huffSamuel/upnp_explorer/commit/ec55165037f960d8759d0c397dfea02ab61a816b))
+* upnp library and filter enhancements ([#93](https://github.com/huffSamuel/upnp_explorer/issues/93)) ([ec55165](https://github.com/huffSamuel/upnp_explorer/commit/ec55165037f960d8759d0c397dfea02ab61a816b))
+
+
+### Bug Fixes
+
+* drop pro mode code ([b4ac189](https://github.com/huffSamuel/upnp_explorer/commit/b4ac18975203682fa4b07280f4b0494f89a2245b))
+* drop string_validator ([#90](https://github.com/huffSamuel/upnp_explorer/issues/90)) ([b4ac189](https://github.com/huffSamuel/upnp_explorer/commit/b4ac18975203682fa4b07280f4b0494f89a2245b))
+* drop unused review request code ([b4ac189](https://github.com/huffSamuel/upnp_explorer/commit/b4ac18975203682fa4b07280f4b0494f89a2245b))
+
 ## [2.7.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.6.1...v2.7.0) (2024-01-30)
 
 
