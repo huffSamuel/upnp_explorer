@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../simple_upnp/src/upnp.dart' hide State;
+import '../../../libraries/simple_upnp/src/upnp.dart' hide State;
 import '../widgets/action_input.dart';
 import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';

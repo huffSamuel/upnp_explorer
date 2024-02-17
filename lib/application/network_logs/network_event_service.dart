@@ -2,20 +2,55 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:upnp_explorer/application/network_logs/composite_specification.dart';
 
-import '../../simple_upnp/src/upnp.dart';
+import '../../libraries/simple_upnp/src/upnp.dart';
+import '../../libraries/specification/specification.dart';
 
-class ThisDeviceOnlySpecification extends CompositeSpecification {
-  ThisDeviceOnlySpecification({super.enabled});
+String eventAddress(UPnPEvent event) {
+  final authority = Uri.parse(event.address!).authority;
 
-  @override
-  bool satisfiedBy(UPnPEvent event) {
-    return event is HttpRequestEvent || event.address == '127.0.0.1';
+  return authority.isEmpty ? event.address! : authority;
+}
+
+abstract class Filter extends CompositeSpecification<UPnPEvent> {
+  bool enabled = false;
+
+  Filter({this.enabled = false}) {}
+
+  bool satisfiedBy(UPnPEvent event);
+
+  bool isSatisfied(UPnPEvent event) {
+    if (!enabled) {
+      return false;
+    }
+
+    return satisfiedBy(event);
   }
 }
 
-class ReceivedSpecification extends CompositeSpecification {
+class DiscriminatorSpecification extends Filter {
+  final String expected;
+
+  DiscriminatorSpecification(this.expected);
+
+  @override
+  bool satisfiedBy(UPnPEvent event) {
+    return event.discriminator == expected;
+  }
+}
+
+class AddressSpecification extends Filter {
+  final String expected;
+
+  AddressSpecification(this.expected);
+
+  @override
+  bool satisfiedBy(UPnPEvent event) {
+    return eventAddress(event) == expected;
+  }
+}
+
+class ReceivedSpecification extends Filter {
   ReceivedSpecification({super.enabled});
 
   @override
@@ -24,7 +59,7 @@ class ReceivedSpecification extends CompositeSpecification {
   }
 }
 
-class SentSpecification extends CompositeSpecification {
+class SentSpecification extends Filter {
   SentSpecification({super.enabled});
 
   @override
@@ -33,7 +68,7 @@ class SentSpecification extends CompositeSpecification {
   }
 }
 
-class HTTPSpecification extends CompositeSpecification {
+class HTTPSpecification extends Filter {
   HTTPSpecification({super.enabled});
 
   @override
@@ -42,7 +77,7 @@ class HTTPSpecification extends CompositeSpecification {
   }
 }
 
-class SSDPSpecification extends CompositeSpecification {
+class SSDPSpecification extends Filter {
   SSDPSpecification({super.enabled});
 
   @override
@@ -51,8 +86,17 @@ class SSDPSpecification extends CompositeSpecification {
   }
 }
 
+class ShowAllFilter extends Filter {
+  ShowAllFilter({super.enabled = true});
+
+  @override
+  bool satisfiedBy(UPnPEvent event) {
+    return true;
+  }
+}
+
 class Filters {
-  final _default = ImmediateSpecification((event) => true, enabled: true);
+  final _default = ShowAllFilter();
 
   final received = ReceivedSpecification(enabled: false);
   final sent = SentSpecification(enabled: false);
@@ -60,15 +104,16 @@ class Filters {
   final http = HTTPSpecification(enabled: false);
   final ssdp = SSDPSpecification(enabled: false);
 
-  final type = Map<String, CompositeSpecification>();
-  final from = Map<String, CompositeSpecification>();
-  final to = Map<String, CompositeSpecification>();
+  final type = Map<String, Filter>();
+  final from = Map<String, Filter>();
+  final to = Map<String, Filter>();
 
-  late final _filter = BehaviorSubject<CompositeSpecification>.seeded(
+  late final _filter =
+      BehaviorSubject<CompositeSpecification<UPnPEvent>>.seeded(
     _default,
   );
 
-  Stream<CompositeSpecification> get filter => _filter.stream;
+  Stream<CompositeSpecification<UPnPEvent>> get filter => _filter.stream;
 
   void clear() {
     from.clear();
@@ -88,8 +133,8 @@ class Filters {
     ].forEach((x) => x.enabled = false);
   }
 
-  void update(CompositeSpecification spec, bool enabled) {
-    spec.enabled = enabled;
+  void update(Filter filter, bool enabled) {
+    filter.enabled = enabled;
 
     final ed = [received, sent].where((e) => e.enabled).toList();
     final ep = [http, ssdp].where((e) => e.enabled).toList();
@@ -102,12 +147,12 @@ class Filters {
       return;
     }
 
-    _filter.add(CompositeSpecification.all([
-      CompositeSpecification.any(ed),
-      CompositeSpecification.any(ep),
-      CompositeSpecification.any(ef),
-      CompositeSpecification.any(et),
-      CompositeSpecification.any(etype),
+    _filter.add(all([
+      any(ed),
+      any(ep),
+      any(ef),
+      any(et),
+      any(etype),
     ]));
   }
 }
@@ -118,23 +163,23 @@ class NetworkEventService {
 
   final _events = BehaviorSubject.seeded(<UPnPEvent>[]);
 
-  final fromFilters = <CompositeSpecification>[];
-  final toFilters = <CompositeSpecification>[];
+  final fromFilters = <Filter>[];
+  final toFilters = <Filter>[];
 
   Stream<List<UPnPEvent>> get events => CombineLatestStream(
         <Stream<Object>>[_events, filters.filter],
         (values) => _filter(
           values[0] as Iterable<UPnPEvent>,
-          values[1] as CompositeSpecification,
+          values[1] as CompositeSpecification<UPnPEvent>,
         ),
       );
 
   List<UPnPEvent> _filter(
     Iterable<UPnPEvent> events,
-    CompositeSpecification spec,
+    CompositeSpecification<UPnPEvent> spec,
   ) {
     final e = events.where((x) {
-      final sat = spec.isSatisfiedBy(x);
+      final sat = spec.isSatisfied(x);
       return sat;
     }).toList();
 
@@ -144,42 +189,31 @@ class NetworkEventService {
   NetworkEventService() {
     SimpleUPNP.instance().events.listen(_onEvent);
   }
-
-  String _address(UPnPEvent event) {
-    final authority = Uri.parse(event.address!).authority;
-
-    return authority.isEmpty ? event.address! : authority;
-  }
-
   void _onEvent(UPnPEvent event) {
     _events.add([
       ..._events.value,
       event,
     ]);
 
-    final address = _address(event);
+    final address = eventAddress(event);
+    Map<String, Filter> addressMap;
 
     if (event.direction == Direction.out) {
-      filters.from.putIfAbsent(
-        address,
-        () => ImmediateSpecification((e) => _address(e) == address),
-      );
+      addressMap = filters.from;
     } else {
-      filters.to.putIfAbsent(
-        address,
-        () => ImmediateSpecification((e) => _address(e) == address),
-      );
+      addressMap = filters.to;
     }
+
+    addressMap.putIfAbsent(address, () => AddressSpecification(address));
 
     filters.type.putIfAbsent(
       event.discriminator,
-      () =>
-          ImmediateSpecification((e) => e.discriminator == event.discriminator),
+      () => DiscriminatorSpecification(event.discriminator),
     );
   }
 
-  void filter(CompositeSpecification spec, bool enabled) {
-    filters.update(spec, enabled);
+  void filter(Filter filter, bool enabled) {
+    filters.update(filter, enabled);
   }
 
   void clear() {

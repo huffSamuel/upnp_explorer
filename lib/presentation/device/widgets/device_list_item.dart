@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../application/routing/routes.dart';
-import '../../../simple_upnp/src/upnp.dart';
+import '../../../libraries/simple_upnp/src/upnp.dart';
 import '../pages/device_page.dart';
 import 'device_image.dart';
 

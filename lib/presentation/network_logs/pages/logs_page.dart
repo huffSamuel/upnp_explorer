@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../application/ioc.dart';
 import '../../../application/network_logs/network_event_service.dart';
 import '../../../application/routing/routes.dart';
-import '../../../simple_upnp/src/upnp.dart' hide State;
+import '../../../libraries/simple_upnp/src/upnp.dart' hide State;
 import '../widgets/log_item.dart';
 import 'filters_page.dart';
 import 'log_page.dart';

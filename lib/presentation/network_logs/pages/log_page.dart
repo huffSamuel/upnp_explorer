@@ -3,7 +3,7 @@ import 'package:upnp_explorer/presentation/network_logs/widgets/timestamp.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../widgets/log_content.dart';
 import '../widgets/log_direction.dart';
-import '../../../simple_upnp/src/upnp.dart';
+import '../../../libraries/simple_upnp/src/upnp.dart';
 
 class LogPage extends StatelessWidget {
   final UPnPEvent event;

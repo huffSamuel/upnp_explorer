@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:upnp_explorer/presentation/network_logs/widgets/timestamp.dart';
 
-import '../../../simple_upnp/src/upnp.dart';
+import '../../../libraries/simple_upnp/src/upnp.dart';
 import 'log_direction.dart';
 
 class _ContentPreview extends StatelessWidget {

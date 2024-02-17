@@ -2,7 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../simple_upnp/simple_upnp.dart';
+import '../../../libraries/simple_upnp/simple_upnp.dart';
 import 'state.dart';
 
 @singleton

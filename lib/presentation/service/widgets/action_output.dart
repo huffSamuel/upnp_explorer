@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:upnp_explorer/simple_upnp/src/upnp.dart';
+import 'package:upnp_explorer/libraries/simple_upnp/src/upnp.dart';
 import 'package:xml/xml.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

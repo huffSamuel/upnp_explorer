@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/simple_upnp/src/upnp.dart';
+import 'package:upnp_explorer/libraries/simple_upnp/src/upnp.dart';
 
 import '../../../application/routing/routes.dart';
 import '../../core/page/app_page.dart';

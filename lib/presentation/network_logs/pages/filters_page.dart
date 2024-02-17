@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/application/ioc.dart';
-import 'package:upnp_explorer/application/network_logs/composite_specification.dart';
-import 'package:upnp_explorer/application/network_logs/network_event_service.dart';
+import '../../../application/ioc.dart';
+import '../../../application/network_logs/network_event_service.dart';
 
 class FiltersPage extends StatefulWidget {
   FiltersPage();
@@ -16,8 +15,8 @@ class _FiltersPageState extends State<FiltersPage> {
 
   Filters get _filters => _service.filters;
 
-  void _updateFilter(CompositeSpecification spec, bool? value) {
-    _service.filter(spec, value ?? false);
+  void _updateFilter(Filter filter, bool? value) {
+    _service.filter(filter, value ?? false);
 
     setState(() {});
   }
