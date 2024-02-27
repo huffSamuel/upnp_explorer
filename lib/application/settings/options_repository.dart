@@ -23,8 +23,8 @@ class SettingsRepository {
 
   SettingsRepository(this.preferences);
 
-  set(Settings options) async {
-    await Future.wait([
+  Future<void> set(Settings options) async {
+    return await Future.wait([
       preferences.setString(
         _kThemeKey,
         options.themeMode.name,
@@ -49,7 +49,7 @@ class SettingsRepository {
         _kAdvanced,
         options.protocolOptions.advanced,
       ),
-    ]);
+    ]).then((v) => {});
   }
 
   Settings get() {

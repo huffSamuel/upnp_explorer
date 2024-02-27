@@ -38,8 +38,8 @@ class _MaximumResponseDelayPageState extends State<MaximumResponseDelayPage> {
     final options = Settings.of(context);
     final advanced = options.protocolOptions.advanced;
 
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      onPopInvoked: (_) {
         Settings.update(
           context,
           options.copyWith(
@@ -49,7 +49,6 @@ class _MaximumResponseDelayPageState extends State<MaximumResponseDelayPage> {
             ),
           ),
         );
-        return Future.value(true);
       },
       child: SettingsCategoryPage(
         category: i18n.maxResponseDelay,

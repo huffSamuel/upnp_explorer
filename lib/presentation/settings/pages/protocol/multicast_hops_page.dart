@@ -33,15 +33,14 @@ class _MulticastHopsPageState extends State<MulticastHopsPage> {
     final i18n = AppLocalizations.of(context)!;
     final options = Settings.of(context);
 
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      onPopInvoked: (_) {
         Settings.update(
           context,
           options.copyWith(
             protocolOptions: options.protocolOptions.copyWith(hops: _hops),
           ),
         );
-        return Future.value(true);
       },
       child: SettingsCategoryPage(
         category: i18n.multicastHops,

@@ -32,6 +32,16 @@ class Options {
       maxDelay: 3,
     );
   }
+
+  @override
+  String toString() {
+    return '''
+ipv4: ${ipv4}
+ipv6: ${ipv6}
+multicast_hops: ${multicastHops}
+max_delay: ${maxDelay}
+''';
+  }
 }
 
 class StaticOptions {
