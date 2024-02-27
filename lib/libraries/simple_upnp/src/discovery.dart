@@ -98,7 +98,6 @@ class SSDPDiscovery {
     });
 
     await Future.wait([
-      _events.close(),
       _notify.close(),
     ]);
   }

@@ -35,8 +35,14 @@ abstract class RegisterModule {
     SettingsRepository settingsRepo,
   ) async {
     final i = SimpleUPNP.instance();
+    final settings = settingsRepo.get();
 
-    await i.start(Options());
+    await i.start(Options(
+      ipv4: true,
+      ipv6: true,
+      multicastHops: settings.protocolOptions.hops,
+      maxDelay: settings.protocolOptions.maxDelay,
+    ));
 
     return i;
   }

@@ -46,7 +46,7 @@ class SimpleUPNP {
     return _instance ??= SimpleUPNP._();
   }
 
-  late final Options _options;
+  Options _options = Options.base();
   late final StaticOptions _staticOptions;
   final StreamController<UPnPEvent> _events = StreamController.broadcast();
   State _state = State.uninitialized;
@@ -84,6 +84,14 @@ class SimpleUPNP {
     );
   }
 
+  Future<void> update(Options options) async {
+    print('Updating options: ${options}');
+    _options = options;
+
+    await _discovery.stop();
+    await _discovery.start(_options);
+  }
+
   Future<void> start(Options options) async {
     if (_state != State.uninitialized) {
       throw InvalidStateError(_state, State.uninitialized);
@@ -110,6 +118,7 @@ class SimpleUPNP {
 
     _discovery.search(searchTarget);
 
+    print('Delaying ${_options.maxDelay}');
     return Future.delayed(Duration(seconds: _options.maxDelay)).then((_) {
       _state = State.ready;
     });
