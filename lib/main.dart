@@ -1,8 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/libraries/simple_upnp/src/upnp.dart';
-import 'package:upnp_explorer/presentation/device/pages/service.dart';
+import 'presentation/device/pages/service.dart';
 
 import 'application/application.dart';
 import 'application/ioc.dart';

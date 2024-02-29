@@ -3,11 +3,10 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:upnp_explorer/libraries/simple_upnp/src/upnp.dart';
-import 'device.dart';
-import 'settings/options_repository.dart';
 
+import '../libraries/simple_upnp/src/upnp.dart';
 import 'ioc.config.dart';
+import 'settings/options_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -31,7 +30,6 @@ abstract class RegisterModule {
 
   @preResolve
   Future<SimpleUPNP> upnp(
-    DeviceInfo deviceInfo,
     SettingsRepository settingsRepo,
   ) async {
     final i = SimpleUPNP.instance();
