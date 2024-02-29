@@ -49,8 +49,13 @@ Future<_i1.GetIt> $initIoc(
   );
   gh.lazySingleton<_i10.ChangelogService>(
       () => _i10.ChangelogService(gh<_i9.SharedPreferences>()));
-  gh.lazySingleton<_i11.SettingsRepository>(
-      () => _i11.SettingsRepository(gh<_i9.SharedPreferences>()));
+  await gh.factoryAsync<_i11.SettingsRepository>(
+    () {
+      final i = _i11.SettingsRepository(gh<_i9.SharedPreferences>());
+      return i.load().then((_) => i);
+    },
+    preResolve: true,
+  );
   await gh.factoryAsync<_i12.SimpleUPNP>(
     () => registerModule.upnp(gh<_i11.SettingsRepository>()),
     preResolve: true,

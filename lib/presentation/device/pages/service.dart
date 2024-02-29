@@ -1,8 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:upnp_explorer/application/settings/options.dart';
 
+import '../../../application/settings/protocol_settings.dart';
 import '../../../libraries/simple_upnp/simple_upnp.dart';
 import 'state.dart';
 
@@ -75,10 +75,11 @@ class DiscoveryStateService {
     _subject.add(_value.copyWith(devices: []));
     await _upnp.update(
       Options(
-          ipv4: true,
-          ipv6: true,
-          multicastHops: settings.hops,
-          maxDelay: settings.maxDelay),
+        ipv4: true,
+        ipv6: true,
+        multicastHops: settings.hops,
+        maxDelay: settings.maxDelay,
+      ),
     );
   }
 

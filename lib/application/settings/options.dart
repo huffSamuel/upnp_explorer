@@ -1,28 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/value_converter.dart';
 import '../../presentation/core/widgets/model_binding.dart';
+import 'protocol_settings.dart';
 
-class ProtocolSettings {
-  final int maxDelay;
-  final bool advanced;
-  final int hops;
-  final String searchTarget;
-
-  const ProtocolSettings(
-      {required this.maxDelay,
-      required this.advanced,
-      required this.hops,
-      required this.searchTarget});
-
-  ProtocolSettings copyWith(
-      {int? maxDelay, bool? advanced, int? hops, String? searchTarget}) {
-    return ProtocolSettings(
-        maxDelay: maxDelay ?? this.maxDelay,
-        advanced: advanced ?? this.advanced,
-        hops: hops ?? this.hops,
-        searchTarget: searchTarget ?? this.searchTarget);
-  }
-}
+const _THEME_MODE = 'theme_mode';
+const _PROTOCOL_SETTINGS = 'protocol_settings';
+const _VISUAL_DENSITY = 'visual_density_n';
 
 class Settings {
   final ThemeMode themeMode;
@@ -30,10 +14,12 @@ class Settings {
   final ProtocolSettings protocolOptions;
 
   const Settings({
-    required this.themeMode,
-    required this.visualDensity,
-    required this.protocolOptions,
-  });
+    ThemeMode? themeMode,
+    VisualDensity? visualDensity,
+    ProtocolSettings? protocolOptions,
+  })  : themeMode = themeMode ?? ThemeMode.system,
+        visualDensity = visualDensity ?? VisualDensity.standard,
+        protocolOptions = protocolOptions ?? const ProtocolSettings();
 
   Settings copyWith({
     ThemeMode? themeMode,
@@ -47,21 +33,35 @@ class Settings {
     );
   }
 
-  static Settings base() {
-    return Settings(
-      themeMode: ThemeMode.system,
-      visualDensity: VisualDensity.standard,
-      protocolOptions: ProtocolSettings(
-          advanced: false,
-          maxDelay: 3,
-          hops: 1,
-          searchTarget: 'upnp:rootdevice'),
-    );
-  }
-
   static Settings of(BuildContext context) =>
       ModelBinding.of<Settings>(context);
 
   static void update(BuildContext context, Settings newModel) =>
       ModelBinding.update(context, newModel);
+
+  factory Settings.fromJson(Map<String, dynamic> json) {
+    final visualDensityName = json[_VISUAL_DENSITY] as String?;
+    final visualDensity = visualDensityName != null
+        ? kVisualDensityConverter.to(
+            Density.values.byName(visualDensityName),
+          )
+        : null;
+
+    final themeModeName = json[_THEME_MODE] as String?;
+    final themeMode = themeModeName != null ? ThemeMode.values.byName(themeModeName) : null;
+
+    return Settings(
+      visualDensity: visualDensity,
+      themeMode: themeMode,
+      protocolOptions: ProtocolSettings.fromJson(json[_PROTOCOL_SETTINGS]),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      _VISUAL_DENSITY: kVisualDensityConverter.from(visualDensity).name,
+      _PROTOCOL_SETTINGS: protocolOptions.toJson(),
+      _THEME_MODE: themeMode,
+    };
+  }
 }

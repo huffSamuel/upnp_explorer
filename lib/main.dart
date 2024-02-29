@@ -1,7 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'presentation/device/pages/service.dart';
 
 import 'application/application.dart';
 import 'application/ioc.dart';
@@ -11,6 +10,7 @@ import 'application/settings/options_repository.dart';
 import 'application/settings/palette.dart';
 import 'presentation/core/widgets/model_binding.dart';
 import 'presentation/device/pages/discovery_page.dart';
+import 'presentation/device/pages/service.dart';
 
 void main() {
   registerLicenses();
@@ -21,10 +21,10 @@ void main() {
     (_) => runApp(
       ModelBinding(
         initialModel: sl<SettingsRepository>().get(),
-        onUpdate: (m) {
-          sl<SettingsRepository>().set(m).then((_) async {
+        onUpdate: (model) {
+          sl<SettingsRepository>().set(model).then((_) async {
             final svc = sl<DiscoveryStateService>();
-            await svc.update(m.protocolOptions);
+            await svc.update(model.protocolOptions);
           });
         },
         child: MyApp(
