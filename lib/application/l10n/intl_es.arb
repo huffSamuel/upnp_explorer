@@ -30,7 +30,7 @@
   "density": "Densidad visual",
   "devices": "Dispositivos",
   "devicesN": "Dispositivos ({count})",
-  "direction": "{direction, select, inn {Entrante} out {Saliente} other {Desconocido}}",
+  "direction": "{direction, select, incoming {Entrante} outgoing {Saliente} other {Desconocido}}",
   "discoveredDevice": "Dispositivo Descubierto {name}",
   "discovery": "Descubrimiento",
   "discoveryRequiresNetwork": "La detección de dispositivos requiere acceso a la red",

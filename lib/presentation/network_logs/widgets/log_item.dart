@@ -1,32 +1,42 @@
+import 'package:fl_upnp/fl_upnp.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:upnp_explorer/presentation/network_logs/widgets/timestamp.dart';
 
-import '../../../libraries/simple_upnp/src/upnp.dart';
 import 'log_direction.dart';
+import 'timestamp.dart';
 
 class _ContentPreview extends StatelessWidget {
-  final String content;
+  final NetworkEvent event;
 
-  const _ContentPreview({super.key, required this.content});
+  const _ContentPreview({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
+    String content = '';
+
+    final e = event;
+    if (e is HttpEvent) {
+      content = e.responseBody;
+    } else if (e is MSearchEvent) {
+      content = e.content;
+    } else if (e is NotifyEvent) {
+      content = e.content;
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: ElevationOverlay.applySurfaceTint(
           colorScheme.surface,
-          colorScheme.surfaceTint,
-          4,
+          colorScheme.secondary,
+          1,
         ),
         borderRadius: BorderRadius.circular(4.0),
         border: Border.all(
           width: 1,
           color: ElevationOverlay.applySurfaceTint(
             colorScheme.surface,
-            colorScheme.surfaceTint,
+            colorScheme.secondary,
             20,
           ),
         ),
@@ -49,10 +59,9 @@ class _ContentPreview extends StatelessWidget {
   }
 }
 
-
 class LogItem extends StatelessWidget {
   final VoidCallback onTap;
-  final UPnPEvent event;
+  final NetworkEvent event;
 
   const LogItem({
     Key? key,
@@ -76,15 +85,16 @@ class LogItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  event.discriminator,
+                  event.messageType,
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 SizedBox(width: 6),
                 LogDirection(direction: event.direction),
               ],
             ),
-            if(event.address != null && event.address != '127.0.0.1') Text(event.address!),
-            _ContentPreview(content: event.content),
+            if (event.from != null && event.from != '127.0.0.1')
+              Text(event.from!),
+            _ContentPreview(event: event),
           ],
         ),
       ),

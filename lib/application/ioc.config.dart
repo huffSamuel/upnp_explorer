@@ -10,17 +10,16 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:connectivity_plus/connectivity_plus.dart' as _i4;
 import 'package:device_info_plus/device_info_plus.dart' as _i6;
+import 'package:fl_upnp/fl_upnp.dart' as _i12;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i9;
 
-import '../libraries/simple_upnp/simple_upnp.dart' as _i14;
-import '../libraries/simple_upnp/src/upnp.dart' as _i12;
 import '../presentation/device/pages/service.dart' as _i13;
 import 'bug_report_service.dart' as _i3;
 import 'changelog/changelog_service.dart' as _i10;
 import 'contributor_service.dart' as _i5;
-import 'ioc.dart' as _i15;
+import 'ioc.dart' as _i14;
 import 'logger_factory.dart' as _i7;
 import 'network_logs/network_event_service.dart' as _i8;
 import 'settings/options_repository.dart' as _i11;
@@ -51,15 +50,15 @@ Future<_i1.GetIt> $initIoc(
       () => _i10.ChangelogService(gh<_i9.SharedPreferences>()));
   gh.lazySingleton<_i11.SettingsRepository>(
       () => _i11.SettingsRepository(gh<_i9.SharedPreferences>()));
-  await gh.factoryAsync<_i12.SimpleUPNP>(
+  await gh.factoryAsync<_i12.Server>(
     () => registerModule.upnp(gh<_i11.SettingsRepository>()),
     preResolve: true,
   );
   gh.singleton<_i13.DiscoveryStateService>(_i13.DiscoveryStateService(
     gh<_i4.Connectivity>(),
-    gh<_i14.SimpleUPNP>(),
+    gh<_i12.Server>(),
   ));
   return getIt;
 }
 
-class _$RegisterModule extends _i15.RegisterModule {}
+class _$RegisterModule extends _i14.RegisterModule {}

@@ -1,15 +1,15 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:fl_upnp/fl_upnp.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:upnp_explorer/application/settings/options.dart';
 
-import '../../../libraries/simple_upnp/simple_upnp.dart';
+import '../../../application/settings/options.dart';
 import 'state.dart';
 
 @singleton
 class DiscoveryStateService {
   final Connectivity _connectivity;
-  final SimpleUPNP _upnp;
+  final Server _upnp;
 
   final _subject = BehaviorSubject<DiscoveryState>.seeded(
     DiscoveryState(
@@ -18,6 +18,8 @@ class DiscoveryStateService {
   );
   final _destroying = PublishSubject();
 
+  ProtocolSettings _settings = ProtocolSettings();
+
   DiscoveryState get _value => _subject.value;
   Stream<DiscoveryState> get state => _subject.stream;
 
@@ -25,9 +27,11 @@ class DiscoveryStateService {
     this._connectivity,
     this._upnp,
   ) {
-    SimpleUPNP.loadPredicate = (client) => _value.devices
-        .where((element) => element.client.equals(client))
-        .isEmpty;
+    _upnp.loadPredicate = (client) {
+      return _value.devices
+          .where((element) => element.client.location == client.location)
+          .isEmpty;
+    };
 
     // Check network connectivity
     _connectivity.checkConnectivity().then((v) {
@@ -44,21 +48,17 @@ class DiscoveryStateService {
     // Whenever connectivity changes emit the new connectivity state
     _connectivity.onConnectivityChanged
         .map((event) => event == ConnectivityResult.wifi)
-        .skip(1)
         .distinct()
         .takeUntil(_destroying)
         .where((x) => x)
-        .listen((x) => search());
+        .skip(1)
+        .listen((x) {
+      search();
+    });
 
     // Whenever new devices are emitted, add them to the state
-    _upnp.discovered.takeUntil(_destroying).listen(
+    _upnp.devices.takeUntil(_destroying).listen(
       (event) {
-        if (_value.devices
-            .where((d) => d.client.equals(event.client))
-            .isNotEmpty) {
-          return;
-        }
-
         _subject.add(
           _value.copyWith(
             devices: [
@@ -72,14 +72,11 @@ class DiscoveryStateService {
   }
 
   Future<void> update(ProtocolSettings settings) async {
-    _subject.add(_value.copyWith(devices: []));
-    await _upnp.update(
-      Options(
-          ipv4: true,
-          ipv6: true,
-          multicastHops: settings.hops,
-          maxDelay: settings.maxDelay),
-    );
+    _settings = settings;
+    await _upnp.stop();
+    await _upnp.listen(Options(
+      multicastHops: settings.hops,
+    ));
   }
 
   Future<void> search() {
@@ -92,7 +89,11 @@ class DiscoveryStateService {
       scanning: true,
     ));
 
-    return _upnp.search(SearchTarget.rootDevice).then(
+    return _upnp
+        .search(
+          maxResponseTime: Duration(seconds: _settings.maxDelay),
+        )
+        .then(
           (v) => _subject.add(
             _value.copyWith(scanning: false),
           ),

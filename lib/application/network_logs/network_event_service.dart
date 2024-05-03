@@ -1,25 +1,25 @@
 import 'dart:async';
 
+import 'package:fl_upnp/fl_upnp.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../libraries/simple_upnp/src/upnp.dart';
 import '../../libraries/specification/specification.dart';
 
-String eventAddress(UPnPEvent event) {
-  final authority = Uri.parse(event.address!).authority;
+String eventAddress(NetworkEvent event) {
+  final authority = Uri.parse(event.from!).authority;
 
-  return authority.isEmpty ? event.address! : authority;
+  return authority.isEmpty ? event.from! : authority;
 }
 
-abstract class Filter extends CompositeSpecification<UPnPEvent> {
+abstract class Filter extends CompositeSpecification<NetworkEvent> {
   bool enabled = false;
 
   Filter({this.enabled = false}) {}
 
-  bool satisfiedBy(UPnPEvent event);
+  bool satisfiedBy(NetworkEvent event);
 
-  bool isSatisfied(UPnPEvent event) {
+  bool isSatisfied(NetworkEvent event) {
     if (!enabled) {
       return false;
     }
@@ -34,8 +34,8 @@ class DiscriminatorSpecification extends Filter {
   DiscriminatorSpecification(this.expected);
 
   @override
-  bool satisfiedBy(UPnPEvent event) {
-    return event.discriminator == expected;
+  bool satisfiedBy(NetworkEvent event) {
+    return event.messageType == expected;
   }
 }
 
@@ -45,7 +45,7 @@ class AddressSpecification extends Filter {
   AddressSpecification(this.expected);
 
   @override
-  bool satisfiedBy(UPnPEvent event) {
+  bool satisfiedBy(NetworkEvent event) {
     return eventAddress(event) == expected;
   }
 }
@@ -54,8 +54,8 @@ class ReceivedSpecification extends Filter {
   ReceivedSpecification({super.enabled});
 
   @override
-  bool satisfiedBy(UPnPEvent event) {
-    return event.direction == Direction.inn;
+  bool satisfiedBy(NetworkEvent event) {
+    return event.direction == NetworkEventDirection.incoming;
   }
 }
 
@@ -63,8 +63,8 @@ class SentSpecification extends Filter {
   SentSpecification({super.enabled});
 
   @override
-  bool satisfiedBy(UPnPEvent event) {
-    return event.direction == Direction.out;
+  bool satisfiedBy(NetworkEvent event) {
+    return event.direction == NetworkEventDirection.outgoing;
   }
 }
 
@@ -72,8 +72,8 @@ class HTTPSpecification extends Filter {
   HTTPSpecification({super.enabled});
 
   @override
-  bool satisfiedBy(UPnPEvent event) {
-    return event.protocol == 'http';
+  bool satisfiedBy(NetworkEvent event) {
+    return event.protocol == NetworkEventProtocol.http;
   }
 }
 
@@ -81,8 +81,8 @@ class SSDPSpecification extends Filter {
   SSDPSpecification({super.enabled});
 
   @override
-  bool satisfiedBy(UPnPEvent event) {
-    return event.protocol == 'ssdp';
+  bool satisfiedBy(NetworkEvent event) {
+    return event.protocol == NetworkEventProtocol.ssdp;
   }
 }
 
@@ -90,7 +90,7 @@ class ShowAllFilter extends Filter {
   ShowAllFilter({super.enabled = true});
 
   @override
-  bool satisfiedBy(UPnPEvent event) {
+  bool satisfiedBy(NetworkEvent event) {
     return true;
   }
 }
@@ -109,11 +109,11 @@ class Filters {
   final to = Map<String, Filter>();
 
   late final _filter =
-      BehaviorSubject<CompositeSpecification<UPnPEvent>>.seeded(
+      BehaviorSubject<CompositeSpecification<NetworkEvent>>.seeded(
     _default,
   );
 
-  Stream<CompositeSpecification<UPnPEvent>> get filter => _filter.stream;
+  Stream<CompositeSpecification<NetworkEvent>> get filter => _filter.stream;
 
   void clear() {
     from.clear();
@@ -161,22 +161,22 @@ class Filters {
 class NetworkEventService {
   final filters = Filters();
 
-  final _events = BehaviorSubject.seeded(<UPnPEvent>[]);
+  final _events = BehaviorSubject.seeded(<NetworkEvent>[]);
 
   final fromFilters = <Filter>[];
   final toFilters = <Filter>[];
 
-  Stream<List<UPnPEvent>> get events => CombineLatestStream(
+  Stream<List<NetworkEvent>> get events => CombineLatestStream(
         <Stream<Object>>[_events, filters.filter],
         (values) => _filter(
-          values[0] as Iterable<UPnPEvent>,
-          values[1] as CompositeSpecification<UPnPEvent>,
+          values[0] as Iterable<NetworkEvent>,
+          values[1] as CompositeSpecification<NetworkEvent>,
         ),
       );
 
-  List<UPnPEvent> _filter(
-    Iterable<UPnPEvent> events,
-    CompositeSpecification<UPnPEvent> spec,
+  List<NetworkEvent> _filter(
+    Iterable<NetworkEvent> events,
+    CompositeSpecification<NetworkEvent> spec,
   ) {
     final e = events.where((x) {
       final sat = spec.isSatisfied(x);
@@ -187,9 +187,9 @@ class NetworkEventService {
   }
 
   NetworkEventService() {
-    SimpleUPNP.instance().events.listen(_onEvent);
+    UPnPObserver.networkEvents.listen(_onEvent);
   }
-  void _onEvent(UPnPEvent event) {
+  void _onEvent(NetworkEvent event) {
     _events.add([
       ..._events.value,
       event,
@@ -198,7 +198,7 @@ class NetworkEventService {
     final address = eventAddress(event);
     Map<String, Filter> addressMap;
 
-    if (event.direction == Direction.out) {
+    if (event.direction == NetworkEventDirection.outgoing) {
       addressMap = filters.from;
     } else {
       addressMap = filters.to;
@@ -207,8 +207,8 @@ class NetworkEventService {
     addressMap.putIfAbsent(address, () => AddressSpecification(address));
 
     filters.type.putIfAbsent(
-      event.discriminator,
-      () => DiscriminatorSpecification(event.discriminator),
+      event.messageType,
+      () => DiscriminatorSpecification(event.messageType),
     );
   }
 

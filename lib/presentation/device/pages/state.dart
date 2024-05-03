@@ -1,4 +1,4 @@
-import '../../../libraries/simple_upnp/src/upnp.dart';
+import 'package:fl_upnp/fl_upnp.dart';
 
 class DiscoveryState {
   /// Indicates if the device is connected to a WiFi network.

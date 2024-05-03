@@ -13,6 +13,7 @@ class ChangelogPage extends StatelessWidget {
         slivers: <Widget>[
           SliverAppBar.large(
             floating: true,
+            forceMaterialTransparency: false,
             pinned: true,
             leading: const _CloseButton(),
             title: FittedBox(

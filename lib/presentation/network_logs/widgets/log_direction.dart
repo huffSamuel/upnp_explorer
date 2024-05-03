@@ -1,16 +1,15 @@
 
+import 'package:fl_upnp/fl_upnp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../libraries/simple_upnp/src/upnp.dart';
-
 class LogDirection extends StatelessWidget {
-  final Direction direction;
+  final NetworkEventDirection direction;
 
   const LogDirection({super.key, required this.direction});
 
   IconData get _icon {
-    if (direction == Direction.inn) {
+    if (direction == NetworkEventDirection.incoming) {
       return Icons.call_received;
     }
 

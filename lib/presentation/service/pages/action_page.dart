@@ -1,14 +1,14 @@
+import 'package:fl_upnp/fl_upnp.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../libraries/simple_upnp/src/upnp.dart' hide State;
 import '../widgets/action_input.dart';
 import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';
 
 class ActionPage extends StatefulWidget {
-  final Action action;
+  final ServiceAction action;
   final ServiceStateTable stateTable;
 
   const ActionPage({
@@ -50,12 +50,12 @@ class _ActionPageState extends State<ActionPage> {
     HapticFeedback.heavyImpact();
 
     try {
-      final result = await widget.action.invoke(formValue);
+      final result = await widget.action.invoke(ControlPoint.getInstance(), formValue);
 
       setState(() {
         _results = result.arguments;
       });
-    } on InvocationError catch (e) {
+    } on ActionInvocationException catch (e) {
       _onCommandError(context, e.code, e.description);
     }
   }

@@ -21,8 +21,12 @@ void main() {
     (_) => runApp(
       ModelBinding(
         initialModel: sl<SettingsRepository>().get(),
-        onUpdate: (m) {
+        onUpdate: (c, m) {
           sl<SettingsRepository>().set(m).then((_) async {
+            if (c?.protocolOptions == m.protocolOptions) {
+              return;
+            }
+            
             final svc = sl<DiscoveryStateService>();
             await svc.update(m.protocolOptions);
           });
