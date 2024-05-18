@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_list_plus/animated_list_plus.dart';
-import 'package:fl_upnp/fl_upnp.dart';
+import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings/open_settings.dart';

@@ -9,8 +9,13 @@ dynamic makeRoute(
 }) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => child,
-    transitionsBuilder: (c, a, sa, ch) =>
-        transitionBuilder(c, a, sa, ch, direction),
+    transitionsBuilder: (c, a, sa, ch) => transitionBuilder(
+      c,
+      a,
+      sa,
+      ch,
+      direction,
+    ),
   );
 }
 
@@ -21,7 +26,9 @@ Widget transitionBuilder(
   Widget child,
   TransitionDirection direction,
 ) {
-  const begin = Offset(1.0, 0.0);
+  var begin = direction == TransitionDirection.fromRight
+      ? Offset(1.0, 0.0)
+      : Offset(-1.0, 0.0);
   const end = Offset.zero;
   const curve = Curves.ease;
 

@@ -1,4 +1,4 @@
-import 'package:fl_upnp/fl_upnp.dart';
+import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
 import '../widgets/timestamp.dart';
 import 'package:url_launcher/url_launcher_string.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fl_upnp/fl_upnp.dart';
+import 'package:upnped/upnped.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 

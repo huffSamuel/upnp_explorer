@@ -3,7 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fl_upnp/fl_upnp.dart';
+import 'package:upnped/upnped.dart';
 
 import 'ioc.config.dart';
 import 'settings/options_repository.dart';
