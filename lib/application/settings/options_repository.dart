@@ -17,6 +17,7 @@ const _kThemeMap = {
   ThemeMode.system: 'system',
   ThemeMode.light: 'light'
 };
+
 @lazySingleton
 class SettingsRepository {
   final SharedPreferences preferences;
@@ -81,7 +82,6 @@ class SettingsRepository {
           searchTarget: searchTarget,
         ),
       );
-
     } catch (err) {
       return Settings.base();
     }

@@ -5,17 +5,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../application/routing/routes.dart';
 import 'device_page.dart';
 
-class SubdevicesPage extends StatelessWidget {
-  final DeviceAggregate device;
+class SubDevicesPage extends StatelessWidget {
+  final Device device;
   final Uri deviceLocation;
 
-  const SubdevicesPage({
+  const SubDevicesPage({
     super.key,
     required this.device,
     required this.deviceLocation,
   });
 
-  void _onDeviceTapped(BuildContext context, DeviceAggregate device) {
+  void _onDeviceTapped(BuildContext context, Device device) {
     Navigator.of(context).push(
       makeRoute(
         context,
@@ -40,7 +40,7 @@ class SubdevicesPage extends StatelessWidget {
       body = List.from(device.devices.map(
         (device) {
           return ListTile(
-            title: Text(device.document.deviceType.deviceType),
+            title: Text(device.description.deviceType.deviceType),
             trailing: Icon(Icons.chevron_right),
             onTap: () => _onDeviceTapped(context, device),
           );

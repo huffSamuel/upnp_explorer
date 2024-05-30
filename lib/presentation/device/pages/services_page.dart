@@ -6,7 +6,7 @@ import '../../../application/routing/routes.dart';
 import '../../service/pages/service_page.dart';
 
 class ServicesPage extends StatelessWidget {
-  final DeviceAggregate device;
+  final Device device;
 
   const ServicesPage({
     super.key,
@@ -14,7 +14,9 @@ class ServicesPage extends StatelessWidget {
   });
 
   VoidCallback? _navigateToService(
-      BuildContext context, ServiceAggregate service) {
+    BuildContext context,
+    Service service,
+  ) {
     return () {
       Navigator.of(context).push(
         makeRoute(
@@ -38,7 +40,7 @@ class ServicesPage extends StatelessWidget {
       body = List.from(
         device.services.map(
           (service) {
-            final onTap = service.service == null
+            final onTap = service.description == null
                 ? null
                 : _navigateToService(context, service);
 

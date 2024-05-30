@@ -9,6 +9,7 @@
         "SSDP",
         "toggleable",
         "upnp",
+        "upnped",
         "vsync",
         "writeln"
     ],

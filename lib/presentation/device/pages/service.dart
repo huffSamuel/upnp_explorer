@@ -27,9 +27,9 @@ class DiscoveryStateService {
     this._connectivity,
     this._upnp,
   ) {
-    _upnp.loadPredicate = (client) {
+    _upnp.loadPredicate = (NotifyDiscovered client) {
       return _value.devices
-          .where((element) => element.client.location == client.location)
+          .where((element) => element.notify!.location == client.location)
           .isEmpty;
     };
 

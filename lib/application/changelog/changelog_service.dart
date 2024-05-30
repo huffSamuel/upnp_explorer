@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 const String lastChangelogVersion = 'lastChangelogVersion';
 
 @lazySingleton

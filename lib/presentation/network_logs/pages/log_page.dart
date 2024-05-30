@@ -11,7 +11,7 @@ class LogPage extends StatelessWidget {
   const LogPage({super.key, required this.event});
 
   Widget _url(BuildContext context) {
-    if (event.messageType == 'HTTP GET') {
+    if (event.type == 'HTTP GET') {
       return GestureDetector(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -48,7 +48,7 @@ class LogPage extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    event.messageType,
+                    event.type,
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   SizedBox(width: 6),

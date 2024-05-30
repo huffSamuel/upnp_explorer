@@ -6,8 +6,11 @@ class ActionOutputDialog extends StatelessWidget {
   final String text;
   final String propertyName;
 
-  const ActionOutputDialog(
-      {super.key, required this.text, required this.propertyName,});
+  const ActionOutputDialog({
+    super.key,
+    required this.text,
+    required this.propertyName,
+  });
 
   @override
   Widget build(BuildContext context) {

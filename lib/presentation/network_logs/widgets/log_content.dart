@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class _HttpRequestLogContent extends StatelessWidget {
   final HttpEvent event;
 
-  const _HttpRequestLogContent({super.key, required this.event});
+  const _HttpRequestLogContent({required this.event});
 
   String _headers(Map<String, String> headers) {
     var sb = StringBuffer();

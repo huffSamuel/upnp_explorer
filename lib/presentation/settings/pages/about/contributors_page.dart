@@ -64,7 +64,7 @@ class _ContributorsPageState extends State<ContributorsPage> {
 class _Contributor extends StatelessWidget {
   final Contributor contributor;
 
-  const _Contributor({super.key, required this.contributor});
+  const _Contributor({required this.contributor});
 
   @override
   Widget build(BuildContext context) {

@@ -26,7 +26,7 @@ void main() {
             if (c?.protocolOptions == m.protocolOptions) {
               return;
             }
-            
+
             final svc = sl<DiscoveryStateService>();
             await svc.update(m.protocolOptions);
           });

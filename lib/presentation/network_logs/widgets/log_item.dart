@@ -7,7 +7,7 @@ import 'timestamp.dart';
 class _ContentPreview extends StatelessWidget {
   final NetworkEvent event;
 
-  const _ContentPreview({super.key, required this.event});
+  const _ContentPreview({required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class LogItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  event.messageType,
+                  event.type,
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 SizedBox(width: 6),

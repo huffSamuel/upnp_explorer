@@ -8,7 +8,7 @@ import '../../core/page/app_page.dart';
 import 'action_page.dart';
 
 class ServicePage extends StatelessWidget {
-  final ServiceAggregate service;
+  final Service service;
   final unlocked = true;
 
   const ServicePage({
@@ -43,28 +43,28 @@ class ServicePage extends StatelessWidget {
       ),
     ];
 
-    final children =
-        service.service == null || service.service!.actions.isEmpty == true
-            ? [NothingHere()]
-            : List<Widget>.of(
-                service.service!.actions.map(
-                  (x) {
-                    return ListTile(
-                      title: Text(x.name),
-                      trailing: _icon(context),
-                      onTap: () => Navigator.of(context).push(
-                        makeRoute(
-                          context,
-                          ActionPage(
-                            action: x,
-                            stateTable: service.service!.serviceStateTable,
-                          ),
-                        ),
+    final children = service.description == null ||
+            service.description!.actions.isEmpty == true
+        ? [NothingHere()]
+        : List<Widget>.of(
+            service.description!.actions.map(
+              (x) {
+                return ListTile(
+                  title: Text(x.name),
+                  trailing: _icon(context),
+                  onTap: () => Navigator.of(context).push(
+                    makeRoute(
+                      context,
+                      ActionPage(
+                        action: x,
+                        stateTable: service.description!.serviceStateTable,
                       ),
-                    );
-                  },
-                ),
-              );
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
 
     return AppPage(
       title: Text(service.document.serviceId.serviceId),

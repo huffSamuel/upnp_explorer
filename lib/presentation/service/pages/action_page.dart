@@ -8,7 +8,7 @@ import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';
 
 class ActionPage extends StatefulWidget {
-  final ServiceAction action;
+  final Action action;
   final ServiceStateTable stateTable;
 
   const ActionPage({
@@ -25,11 +25,13 @@ class _ActionPageState extends State<ActionPage> {
   Map<String, String> _results = {};
 
   List<Argument> _inputs() => [
-        ...?widget.action.arguments?.where((x) => x.direction == 'in'),
+        ...?widget.action.arguments
+            ?.where((x) => x.direction == Direction.input),
       ];
 
   List<Argument> _outputs() => [
-        ...?widget.action.arguments?.where((x) => x.direction == 'out'),
+        ...?widget.action.arguments
+            ?.where((x) => x.direction == Direction.output),
       ];
 
   final _formKey = GlobalKey<ArgumentInputFormState>();
@@ -50,7 +52,7 @@ class _ActionPageState extends State<ActionPage> {
     HapticFeedback.heavyImpact();
 
     try {
-      final result = await widget.action.invoke(ControlPoint.getInstance(), formValue);
+      final result = await widget.action.invoke(formValue);
 
       setState(() {
         _results = result.arguments;

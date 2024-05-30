@@ -35,7 +35,7 @@ class DiscriminatorSpecification extends Filter {
 
   @override
   bool satisfiedBy(NetworkEvent event) {
-    return event.messageType == expected;
+    return event.type == expected;
   }
 }
 
@@ -131,6 +131,8 @@ class Filters {
       ...from.values,
       ...to.values,
     ].forEach((x) => x.enabled = false);
+
+    _default.enabled = true;
   }
 
   void update(Filter filter, bool enabled) {
@@ -207,13 +209,17 @@ class NetworkEventService {
     addressMap.putIfAbsent(address, () => AddressSpecification(address));
 
     filters.type.putIfAbsent(
-      event.messageType,
-      () => DiscriminatorSpecification(event.messageType),
+      event.type,
+      () => DiscriminatorSpecification(event.type),
     );
   }
 
   void filter(Filter filter, bool enabled) {
     filters.update(filter, enabled);
+  }
+
+  void clearFilters() {
+    filters.reset();
   }
 
   void clear() {

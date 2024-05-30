@@ -392,7 +392,7 @@ TextInputType? _inputType(DataTypeValue type) {
     case DataTypeValue.r4:
     case DataTypeValue.r8:
     case DataTypeValue.number:
-    case DataTypeValue.fixed14_4:
+    case DataTypeValue.fixed_14_4:
     case DataTypeValue.float:
       return TextInputType.numberWithOptions(
         signed: true,
@@ -400,9 +400,9 @@ TextInputType? _inputType(DataTypeValue type) {
       );
     case DataTypeValue.date:
     case DataTypeValue.dateTime:
-    case DataTypeValue.dateTimeTz:
+    case DataTypeValue.dateTime_tz:
     case DataTypeValue.time:
-    case DataTypeValue.timeTz:
+    case DataTypeValue.time_tz:
       return TextInputType.datetime;
     case DataTypeValue.uri:
       return TextInputType.url;
@@ -415,18 +415,18 @@ String? Function(String?)? _validator(DataTypeValue dataType) {
   switch (dataType) {
     case DataTypeValue.char:
       return Validators.isChar;
-    case DataTypeValue.binaryBase64:
+    case DataTypeValue.bin_base64:
       return Validators.isBase64;
-    case DataTypeValue.binaryHex:
+    case DataTypeValue.bin_hex:
       return Validators.isHexadecimal;
     case DataTypeValue.uri:
       return Validators.isURI;
     // TODO: Split out individually for each specific format
     case DataTypeValue.date:
     case DataTypeValue.dateTime:
-    case DataTypeValue.dateTimeTz:
+    case DataTypeValue.dateTime_tz:
     case DataTypeValue.time:
-    case DataTypeValue.timeTz:
+    case DataTypeValue.time_tz:
       return Validators.isDateTime;
     case DataTypeValue.boolean:
       return Validators.isBoolean;

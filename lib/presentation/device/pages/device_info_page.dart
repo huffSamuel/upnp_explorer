@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DeviceInfoPage extends StatelessWidget {
-  final DeviceAggregate device;
+  final DeviceDescription device;
 
   const DeviceInfoPage({
     super.key,
@@ -22,42 +22,41 @@ class DeviceInfoPage extends StatelessWidget {
         children: [
           ListTile(
             title: Text(i18n.manufacturer),
-            subtitle: Text(device.document.manufacturer),
-            onTap: device.document.manufacturerUrl == null
+            subtitle: Text(device.manufacturer),
+            onTap: device.manufacturerUrl == null
                 ? null
                 : () => launchUrl(
-                      device.document.manufacturerUrl!,
+                      device.manufacturerUrl!,
                       mode: LaunchMode.externalApplication,
                     ),
-            trailing: device.document.manufacturerUrl == null
+            trailing: device.manufacturerUrl == null
                 ? null
                 : Icon(Icons.chevron_right),
           ),
           ListTile(
             title: Text(i18n.modelName),
-            subtitle: Text(device.document.modelName),
-            onTap: device.document.modelUrl == null
+            subtitle: Text(device.modelName),
+            onTap: device.modelUrl == null
                 ? null
-                : () => launchUrl(device.document.modelUrl!,
+                : () => launchUrl(device.modelUrl!,
                     mode: LaunchMode.externalApplication),
-            trailing: device.document.modelUrl == null
-                ? null
-                : Icon(Icons.chevron_right),
+            trailing:
+                device.modelUrl == null ? null : Icon(Icons.chevron_right),
           ),
-          if (device.document.modelNumber != null)
+          if (device.modelNumber != null)
             ListTile(
               title: Text(i18n.modelNumber),
-              subtitle: Text(device.document.modelNumber!),
+              subtitle: Text(device.modelNumber!),
             ),
-          if (device.document.modelDescription != null)
+          if (device.modelDescription != null)
             ListTile(
               title: Text(i18n.modelDescription),
-              subtitle: Text(device.document.modelDescription!),
+              subtitle: Text(device.modelDescription!),
             ),
-          if (device.document.serialNumber != null)
+          if (device.serialNumber != null)
             ListTile(
               title: Text(i18n.serialNumber),
-              subtitle: Text(device.document.serialNumber!),
+              subtitle: Text(device.serialNumber!),
             )
         ],
       ),

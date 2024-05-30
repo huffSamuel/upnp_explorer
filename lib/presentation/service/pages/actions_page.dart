@@ -7,7 +7,7 @@ import '../../core/page/app_page.dart';
 import 'action_page.dart';
 
 class ActionsPage extends StatelessWidget {
-  final List<ServiceAction> actions;
+  final List<Action> actions;
   final ServiceStateTable stateTable;
 
   const ActionsPage({

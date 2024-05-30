@@ -10,7 +10,7 @@ import 'services_page.dart';
 import 'subdevices_page.dart';
 
 class DevicePage extends StatelessWidget {
-  final DeviceAggregate device;
+  final Device device;
   final Uri deviceLocation;
   const DevicePage({
     Key? key,
@@ -20,7 +20,7 @@ class DevicePage extends StatelessWidget {
 
   _openPresentationUrl() {
     launchUrl(
-      device.document.presentationUrl!,
+      device.description.presentationUrl!,
       mode: LaunchMode.externalApplication,
     );
   }
@@ -32,9 +32,9 @@ class DevicePage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: AppPage(
-        title: Text(device.document.friendlyName),
+        title: Text(device.description.friendlyName),
         actions: [
-          if (device.document.presentationUrl != null)
+          if (device.description.presentationUrl != null)
             IconButton(
               tooltip: i18n.openPresentationInBrowser,
               icon: Icon(Icons.open_in_browser),
@@ -64,9 +64,9 @@ class DevicePage extends StatelessWidget {
         children: [
           TabBarView(
             children: [
-              DeviceInfoPage(device: device),
+              DeviceInfoPage(device: device.description),
               ServicesPage(device: device),
-              SubdevicesPage(
+              SubDevicesPage(
                 device: device,
                 deviceLocation: deviceLocation,
               ),

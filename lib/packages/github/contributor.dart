@@ -1,7 +1,5 @@
-
 /// A github user who has contributed to a repository.
 class Contributor {
-
   /// The login name of the contributor
   final String login;
 
@@ -23,7 +21,7 @@ class Contributor {
 
   factory Contributor.fromJson(Map<String, dynamic> json) {
     UserType type = UserType.unknown;
-    
+
     switch (json['type']) {
       case 'User':
         type = UserType.user;

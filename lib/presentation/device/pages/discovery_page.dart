@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:animated_list_plus/animated_list_plus.dart';
-import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings/open_settings.dart';
+import 'package:upnp_explorer/presentation/device/widgets/device_expansion_tile.dart';
+import 'package:upnped/upnped.dart';
 
 import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
@@ -12,7 +13,7 @@ import '../../../application/ioc.dart';
 import '../../../application/routing/routes.dart';
 import '../../changelog/page/changelog_page.dart';
 import '../../network_logs/pages/logs_page.dart';
-import '../widgets/device_list_item.dart';
+import '../widgets/legacy/device_list_item.dart';
 import '../widgets/refresh_button.dart';
 import '../widgets/scanning_indicator.dart';
 import '../widgets/settings_icon_button.dart';
@@ -42,9 +43,11 @@ class _NoNetwork extends StatelessWidget {
   }
 }
 
+const useNew = true;
+
 class _Loaded extends StatelessWidget {
   final Future<void> Function() onRefresh;
-  final List<UPnPDevice> devices;
+  final List<Device> devices;
   final bool scanning;
 
   const _Loaded({
@@ -71,15 +74,17 @@ class _Loaded extends StatelessWidget {
       children: [
         RefreshIndicator(
           onRefresh: onRefresh,
-          child: ImplicitlyAnimatedList<UPnPDevice>(
+          child: ImplicitlyAnimatedList<Device>(
             items: devices,
             insertDuration: Duration(milliseconds: 150),
             removeDuration: Duration.zero,
             itemBuilder: (context, animation, item, index) => FadeTransition(
               opacity: animation,
-              child: DeviceListItem(device: item),
+              child: useNew
+                  ? DeviceExpansionTile(device: item)
+                  : DeviceListItem(device: item),
             ),
-            areItemsTheSame: (a, b) => a.document.udn == b.document.udn,
+            areItemsTheSame: (a, b) => a.description.udn == b.description.udn,
           ),
         ),
         Align(
@@ -155,11 +160,11 @@ class DiscoveryPage extends StatelessWidget {
                 snapshot.data!.loading) {
               return const SizedBox();
             }
-    
+
             if (!snapshot.data!.wifi) {
               return const _NoNetwork();
             }
-    
+
             return _Loaded(
               onRefresh: _service.search,
               scanning: snapshot.data!.scanning,

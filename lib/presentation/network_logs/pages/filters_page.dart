@@ -15,6 +15,12 @@ class _FiltersPageState extends State<FiltersPage> {
 
   Filters get _filters => _service.filters;
 
+  void _resetFilters() {
+    _service.clearFilters();
+
+    setState(() {});
+  }
+
   void _updateFilter(Filter filter, bool? value) {
     _service.filter(filter, value ?? false);
 
@@ -41,13 +47,26 @@ class _FiltersPageState extends State<FiltersPage> {
         title: Text(
           i18n.filters,
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.clear_all_rounded),
+            onPressed: () {
+              _resetFilters();
+            },
+          ),
+        ],
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              StreamBuilder(stream: _service.events, builder: (context, snapshot) => ListTile(title: Text('${snapshot.data?.length ?? 0} visible'))),
+              StreamBuilder(
+                stream: _service.events,
+                builder: (context, snapshot) => ListTile(
+                  title: Text('${snapshot.data?.length ?? 0} visible'),
+                ),
+              ),
               _filterGroup(
                 context,
                 'Direction',
@@ -83,7 +102,7 @@ class _FiltersPageState extends State<FiltersPage> {
               _filterGroup(
                 context,
                 'Type',
-                 _filters.type.keys
+                _filters.type.keys
                     .map(
                       (key) => CheckboxListTile(
                         title: Text(key),
@@ -96,7 +115,7 @@ class _FiltersPageState extends State<FiltersPage> {
               _filterGroup(
                 context,
                 'From',
-                 _filters.from.keys
+                _filters.from.keys
                     .map(
                       (key) => CheckboxListTile(
                         title: Text(key),
