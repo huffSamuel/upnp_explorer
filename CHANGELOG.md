@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.8.2...v2.9.0) (2024-06-05)
+
+
+### Features
+
+* ui rework ([e6dfca6](https://github.com/huffSamuel/upnp_explorer/commit/e6dfca6964446e665e4e558f4d4446e45941f5af))
+
+
+### Bug Fixes
+
+* device dynamic themes apply correctly ([e6dfca6](https://github.com/huffSamuel/upnp_explorer/commit/e6dfca6964446e665e4e558f4d4446e45941f5af))
+* discovery setting now update ([e6dfca6](https://github.com/huffSamuel/upnp_explorer/commit/e6dfca6964446e665e4e558f4d4446e45941f5af))
+* left/right transitions work correctly ([e6dfca6](https://github.com/huffSamuel/upnp_explorer/commit/e6dfca6964446e665e4e558f4d4446e45941f5af))
+
 ## [2.8.2](https://github.com/huffSamuel/upnp_explorer/compare/v2.8.1...v2.8.2) (2024-02-27)
 
 
