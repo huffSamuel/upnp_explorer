@@ -20,7 +20,7 @@ class LogDirection extends StatelessWidget {
     final i18n = AppLocalizations.of(context)!;
 
     return Row(children: [
-      Icon(_icon, size: 18),
+      Icon(_icon, size: 18, color: Theme.of(context).colorScheme.onSurface),
       const SizedBox(width: 4),
       Text(i18n.direction(direction.name)),
     ]);

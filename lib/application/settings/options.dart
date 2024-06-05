@@ -1,5 +1,5 @@
-import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
+import 'package:upnped/upnped.dart';
 
 import '../../presentation/core/widgets/model_binding.dart';
 

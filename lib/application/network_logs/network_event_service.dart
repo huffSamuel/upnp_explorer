@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:upnped/upnped.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:upnped/upnped.dart';
 
 import '../../libraries/specification/specification.dart';
 

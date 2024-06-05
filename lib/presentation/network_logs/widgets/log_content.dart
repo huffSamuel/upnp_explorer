@@ -1,5 +1,5 @@
-import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
+import 'package:upnped/upnped.dart';
 
 class _HttpRequestLogContent extends StatelessWidget {
   final HttpEvent event;

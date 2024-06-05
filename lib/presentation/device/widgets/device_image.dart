@@ -1,3 +1,4 @@
+import 'leading_icon_builder.dart';
 import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
 
@@ -13,12 +14,8 @@ class DeviceImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: 40,
-        maxWidth: 40,
-      ),
-      child: icons.isEmpty || deviceIp == null
+    return LeadingIconBuilder(
+      builder: (context) => icons.isEmpty || deviceIp == null
           ? const Icon(Icons.device_unknown)
           : Image.network(
               Uri(

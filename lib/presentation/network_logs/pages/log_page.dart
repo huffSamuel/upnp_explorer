@@ -1,9 +1,10 @@
-import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
-import '../widgets/timestamp.dart';
+import 'package:upnped/upnped.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
 import '../widgets/log_content.dart';
 import '../widgets/log_direction.dart';
+import '../widgets/timestamp.dart';
 
 class LogPage extends StatelessWidget {
   final NetworkEvent event;

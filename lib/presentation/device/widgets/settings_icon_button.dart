@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:upnp_explorer/application/routing/routes.dart';
+import '../../../application/routing/routes.dart';
 
 import '../../settings/pages/settings_page.dart';
 

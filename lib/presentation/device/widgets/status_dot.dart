@@ -7,6 +7,11 @@ class StatusDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    print(theme.colorScheme.primary);
+    print(theme.colorScheme.error);
+
     return StreamBuilder(
       stream: stream,
       builder: (context, snapshot) {
@@ -14,13 +19,16 @@ class StatusDot extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.all(4.0),
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: snapshot.data == true ? Colors.green : Colors.red,
+            child: Tooltip(
+              message: snapshot.data == true ? 'Online' : 'Offline',
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: snapshot.data == true ? Colors.green : Colors.red,
+                ),
+                height: 10,
+                width: 10,
               ),
-              height: 10,
-              width: 10,
             ),
           ),
         );
