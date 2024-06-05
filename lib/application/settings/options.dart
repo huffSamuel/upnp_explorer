@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upnped/upnped.dart';
 
 import '../../presentation/core/widgets/model_binding.dart';
 
@@ -8,14 +9,19 @@ class ProtocolSettings {
   final int hops;
   final String searchTarget;
 
-  const ProtocolSettings(
-      {required this.maxDelay,
-      required this.advanced,
-      required this.hops,
-      required this.searchTarget});
+  const ProtocolSettings({
+    this.maxDelay = 5,
+    this.advanced = false,
+    this.hops = 1,
+    this.searchTarget = SearchTarget.rootDevice,
+  });
 
-  ProtocolSettings copyWith(
-      {int? maxDelay, bool? advanced, int? hops, String? searchTarget}) {
+  ProtocolSettings copyWith({
+    int? maxDelay,
+    bool? advanced,
+    int? hops,
+    String? searchTarget,
+  }) {
     return ProtocolSettings(
         maxDelay: maxDelay ?? this.maxDelay,
         advanced: advanced ?? this.advanced,

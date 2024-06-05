@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/presentation/network_logs/widgets/timestamp.dart';
+import 'package:upnped/upnped.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
 import '../widgets/log_content.dart';
 import '../widgets/log_direction.dart';
-import '../../../libraries/simple_upnp/src/upnp.dart';
+import '../widgets/timestamp.dart';
 
 class LogPage extends StatelessWidget {
-  final UPnPEvent event;
+  final NetworkEvent event;
 
   const LogPage({super.key, required this.event});
 
   Widget _url(BuildContext context) {
-    if (event.discriminator == 'HTTP GET') {
+    if (event.type == 'HTTP GET') {
       return GestureDetector(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
-            event.address!,
+            event.to!,
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               decoration: TextDecoration.underline,
@@ -24,11 +25,11 @@ class LogPage extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () => launchUrlString(event.address!),
+        onTap: () => launchUrlString(event.to!),
       );
     }
 
-    return Text(event.address!);
+    return Text(event.from!);
   }
 
   @override
@@ -41,22 +42,28 @@ class LogPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.only(left: 4.0, bottom: 4.0, right: 4.0),
         child: Scrollbar(
           child: ListView(
             children: [
-              Timestamp(time: event.time),
               Row(
                 children: [
                   Text(
-                    event.discriminator,
+                    event.type,
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   SizedBox(width: 6),
                   LogDirection(direction: event.direction),
                 ],
               ),
-              if (event.address != null && event.address != '127.0.0.1')
+              Row(
+                children: [
+                  Text('at'),
+                  const SizedBox(width: 6.0),
+                  Timestamp(time: event.time),
+                ],
+              ),
+              if (event.from != null && event.from != '127.0.0.1')
                 _url(context),
               SizedBox(height: 8),
               LogContent(event: event),

@@ -4,10 +4,16 @@
         "Datagram",
         "diffutil",
         "fluro",
+        "rxdart",
         "scpdurl",
         "SSDP",
         "toggleable",
         "upnp",
-        "vsync"
-    ]
+        "upnped",
+        "vsync",
+        "writeln"
+    ],
+    "lldb.showDisassembly": "auto",
+    "lldb.dereferencePointers": true,
+    "lldb.consoleMode": "commands"
 }

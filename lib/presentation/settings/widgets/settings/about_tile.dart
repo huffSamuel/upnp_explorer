@@ -21,7 +21,7 @@ class AboutTile extends StatelessWidget {
             const SizedBox(height: 22.0),
             Icon(
               Icons.info_outline_rounded,
-              color: theme.colorScheme.onBackground,
+              color: theme.colorScheme.onSurface,
             ),
             const SizedBox(height: 22.0),
             child,

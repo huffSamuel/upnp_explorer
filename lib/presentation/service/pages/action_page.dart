@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnped/upnped.dart';
 
-import '../../../libraries/simple_upnp/src/upnp.dart' hide State;
 import '../widgets/action_input.dart';
 import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';
@@ -25,11 +25,13 @@ class _ActionPageState extends State<ActionPage> {
   Map<String, String> _results = {};
 
   List<Argument> _inputs() => [
-        ...?widget.action.arguments?.where((x) => x.direction == 'in'),
+        ...?widget.action.arguments
+            ?.where((x) => x.direction == Direction.input),
       ];
 
   List<Argument> _outputs() => [
-        ...?widget.action.arguments?.where((x) => x.direction == 'out'),
+        ...?widget.action.arguments
+            ?.where((x) => x.direction == Direction.output),
       ];
 
   final _formKey = GlobalKey<ArgumentInputFormState>();
@@ -55,7 +57,7 @@ class _ActionPageState extends State<ActionPage> {
       setState(() {
         _results = result.arguments;
       });
-    } on InvocationError catch (e) {
+    } on ActionInvocationException catch (e) {
       _onCommandError(context, e.code, e.description);
     }
   }

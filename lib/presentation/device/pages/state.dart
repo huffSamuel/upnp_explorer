@@ -1,4 +1,4 @@
-import '../../../libraries/simple_upnp/src/upnp.dart';
+import 'package:upnped/upnped.dart';
 
 class DiscoveryState {
   /// Indicates if the device is connected to a WiFi network.
@@ -13,8 +13,8 @@ class DiscoveryState {
   /// All devices discovered in the most recent scan.
   ///
   /// This value will update during a scan when additional devices are discovered
-  /// or asynchronously when time-based UPnP devices emit NOTIFY events.
-  final List<UPnPDevice> devices;
+  /// or asynchronously when UPnP devices emit NOTIFY events.
+  final List<Device> devices;
 
   DiscoveryState({
     this.wifi = false,
@@ -27,7 +27,7 @@ class DiscoveryState {
     bool? wifi,
     bool? loading,
     bool? scanning,
-    List<UPnPDevice>? devices,
+    List<Device>? devices,
   }) {
     return DiscoveryState(
       loading: loading ?? this.loading,

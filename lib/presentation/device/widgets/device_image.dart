@@ -1,29 +1,27 @@
+import 'leading_icon_builder.dart';
+import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
-
-import '../../../libraries/simple_upnp/src/upnp.dart';
 
 class DeviceImage extends StatelessWidget {
   final List<DeviceIcon> icons;
-  final Uri deviceIp;
+  final Uri? deviceIp;
 
   const DeviceImage({
     Key? key,
     required this.icons,
-    required this.deviceIp,
+    this.deviceIp,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      child: icons.isEmpty
+    return LeadingIconBuilder(
+      builder: (context) => icons.isEmpty || deviceIp == null
           ? const Icon(Icons.device_unknown)
           : Image.network(
               Uri(
-                scheme: deviceIp.scheme,
-                host: deviceIp.host,
-                port: deviceIp.port,
+                scheme: deviceIp!.scheme,
+                host: deviceIp!.host,
+                port: deviceIp!.port,
                 path: icons.first.url.toString(),
               ).toString(),
             ),

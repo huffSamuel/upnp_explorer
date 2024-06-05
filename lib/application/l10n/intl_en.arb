@@ -214,7 +214,7 @@
   "density": "Visual density",
   "devices": "Devices",
   "devicesN": "Devices ({count})",
-  "direction": "{direction, select, inn {Received} out {Sent} other {Unknown}}",
+  "direction": "{direction, select, incoming {Received} outgoing {Sent} other {Unknown}}",
   "discoveredDevice": "Discovered device {name}",
   "discovery": "Discovery",
   "discoveryRequiresNetwork": "Device discovery requires network access",

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'theme_settings_page.dart';
-import 'visual_density_page.dart';
 
 import '../../../../application/settings/options.dart';
 import '../../../../domain/value_converter.dart';
 import '../../../core/widgets/model_binding.dart';
 import '../../widgets/settings_category_page.dart';
 import '../../widgets/settings_category_tile.dart';
+import 'theme_settings_page.dart';
+import 'visual_density_page.dart';
 
 class DisplaySettingsPage extends StatelessWidget {
   const DisplaySettingsPage();

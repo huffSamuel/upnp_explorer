@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../libraries/simple_upnp/src/upnp.dart';
+import 'package:upnped/upnped.dart';
 
 class _HttpRequestLogContent extends StatelessWidget {
-  final HttpRequestEvent event;
+  final HttpEvent event;
 
-  const _HttpRequestLogContent({super.key, required this.event});
+  const _HttpRequestLogContent({required this.event});
 
   String _headers(Map<String, String> headers) {
     var sb = StringBuffer();
@@ -14,20 +14,21 @@ class _HttpRequestLogContent extends StatelessWidget {
     return sb.toString();
   }
 
-  Widget _body(BuildContext context, String text) {
+  Widget _body(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         color: ElevationOverlay.applySurfaceTint(
           colorScheme.surface,
-          colorScheme.surfaceTint,
-          4,
+          colorScheme.secondary,
+          1,
         ),
         borderRadius: BorderRadius.circular(4.0),
       ),
       child: SelectableText(
-        text,
+        event.responseBody,
         style: Theme.of(context).textTheme.bodySmall!,
       ),
     );
@@ -41,7 +42,7 @@ class _HttpRequestLogContent extends StatelessWidget {
         style: Theme.of(context).textTheme.bodySmall!,
       ),
       if (event.request.body.isNotEmpty) const SizedBox(height: 6.0),
-      if (event.request.body.isNotEmpty) _body(context, event.requestBody),
+      if (event.request.body.isNotEmpty) _body(context),
     ];
   }
 
@@ -53,7 +54,7 @@ class _HttpRequestLogContent extends StatelessWidget {
         style: Theme.of(context).textTheme.bodySmall!,
       ),
       const SizedBox(height: 6.0),
-      _body(context, event.responseBody),
+      _body(context),
     ];
   }
 
@@ -76,18 +77,25 @@ class _HttpRequestLogContent extends StatelessWidget {
 }
 
 class LogContent extends StatelessWidget {
-  final UPnPEvent event;
+  final NetworkEvent event;
 
   const LogContent({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
-    if (event is HttpRequestEvent) {
-      return _HttpRequestLogContent(event: event as HttpRequestEvent);
+    if (event is HttpEvent) {
+      return _HttpRequestLogContent(event: event as HttpEvent);
+    }
+
+    if (event is NotifyEvent) {
+      return SelectableText(
+        (event as NotifyEvent).content,
+        style: Theme.of(context).textTheme.bodySmall!,
+      );
     }
 
     return SelectableText(
-      event.content,
+      (event as MSearchEvent).content,
       style: Theme.of(context).textTheme.bodySmall!,
     );
   }

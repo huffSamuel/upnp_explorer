@@ -24,7 +24,7 @@ class ModelBinding<T> extends StatefulWidget {
 
   final T initialModel;
   final Widget child;
-  final void Function(T)? onUpdate;
+  final void Function(T? oldModel, T newModel)? onUpdate;
 
   _ModelBindingState<T> createState() => _ModelBindingState<T>();
 
@@ -62,7 +62,7 @@ class _ModelBindingState<T> extends State<ModelBinding<T>> {
 
   void updateModel(T newModel) {
     if (newModel != currentModel) {
-      widget.onUpdate?.call(newModel);
+      widget.onUpdate?.call(currentModel, newModel);
 
       setState(() {
         currentModel = newModel;

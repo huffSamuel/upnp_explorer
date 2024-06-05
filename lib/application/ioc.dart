@@ -1,10 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upnped/upnped.dart';
 
-import '../libraries/simple_upnp/src/upnp.dart';
 import 'ioc.config.dart';
 import 'settings/options_repository.dart';
 
@@ -26,20 +25,16 @@ abstract class RegisterModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   Connectivity get connectivity => Connectivity();
-  DeviceInfoPlugin get deviceInfoPlugin => DeviceInfoPlugin();
 
   @preResolve
-  Future<SimpleUPNP> upnp(
+  Future<Server> upnp(
     SettingsRepository settingsRepo,
   ) async {
-    final i = SimpleUPNP.instance();
+    final i = Server.getInstance();
     final settings = settingsRepo.get();
 
-    await i.start(Options(
-      ipv4: true,
-      ipv6: true,
+    await i.listen(Options(
       multicastHops: settings.protocolOptions.hops,
-      maxDelay: settings.protocolOptions.maxDelay,
     ));
 
     return i;

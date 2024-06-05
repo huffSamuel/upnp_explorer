@@ -1,16 +1,14 @@
-
+import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../libraries/simple_upnp/src/upnp.dart';
-
 class LogDirection extends StatelessWidget {
-  final Direction direction;
+  final NetworkEventDirection direction;
 
   const LogDirection({super.key, required this.direction});
 
   IconData get _icon {
-    if (direction == Direction.inn) {
+    if (direction == NetworkEventDirection.incoming) {
       return Icons.call_received;
     }
 
@@ -22,7 +20,7 @@ class LogDirection extends StatelessWidget {
     final i18n = AppLocalizations.of(context)!;
 
     return Row(children: [
-      Icon(_icon, size: 18),
+      Icon(_icon, size: 18, color: Theme.of(context).colorScheme.onSurface),
       const SizedBox(width: 4),
       Text(i18n.direction(direction.name)),
     ]);

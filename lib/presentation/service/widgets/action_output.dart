@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:upnp_explorer/libraries/simple_upnp/src/upnp.dart';
-import 'package:xml/xml.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'action_output_dialog.dart';
+import 'package:upnped/upnped.dart';
+import 'package:xml/xml.dart';
 
+import 'action_output_dialog.dart';
 import 'labeled_field.dart';
 
 class ActionOutput extends StatelessWidget {

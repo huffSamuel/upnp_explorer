@@ -28,7 +28,7 @@ class CategoryTile extends StatelessWidget {
     if (leading != null && leadingBackgroundColor != null) {
       effectiveLeading = CircleAvatar(
         backgroundColor: Colors.transparent,
-        foregroundColor: theme.colorScheme.onBackground,
+        foregroundColor: theme.colorScheme.onSurface,
         child: leading,
       );
     } else if (leading != null) {

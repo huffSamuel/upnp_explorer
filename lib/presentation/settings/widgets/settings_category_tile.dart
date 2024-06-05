@@ -35,11 +35,10 @@ class SettingsTile extends StatelessWidget {
   }
 
   Widget _effectiveLeading(BuildContext context) {
-
     final _leading = CircleAvatar(
       child: leading ?? const Icon(null),
       backgroundColor: Colors.transparent,
-      foregroundColor: Theme.of(context).colorScheme.onBackground,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
     );
 
     if (!centerLeading) {

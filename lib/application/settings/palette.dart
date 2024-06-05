@@ -2,23 +2,17 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const _primaryPurple = Color(0xFF982649);
-const _primaryPurpleDark = Color(0xFF521427);
+const notQuiteWhite = const Color(0xf8f7f6);
 
 class AppTheme {
   static ThemeData dark(
     ColorScheme? scheme,
     VisualDensity visualDensity,
   ) {
-    final effectiveScheme = scheme ??
-        ColorScheme.fromSeed(
-          seedColor: _primaryPurpleDark,
-          brightness: Brightness.dark,
-        );
-
-    return _theme(
-      effectiveScheme,
+    return _theme2(
+      scheme?.primary ?? notQuiteWhite,
       visualDensity,
+      Brightness.dark,
     );
   }
 
@@ -26,41 +20,41 @@ class AppTheme {
     ColorScheme? scheme,
     VisualDensity visualDensity,
   ) {
-    final effectiveScheme = scheme ??
-        ColorScheme.fromSeed(
-          seedColor: _primaryPurple,
-          brightness: Brightness.light,
-        );
-
-    return _theme(
-      effectiveScheme,
+    return _theme2(
+      scheme?.primary ?? notQuiteWhite,
       visualDensity,
+      Brightness.light,
     );
   }
 
-  static ThemeData _theme(
-    ColorScheme scheme,
+  static ThemeData _theme2(
+    Color seed,
     VisualDensity visualDensity,
+    Brightness brightness,
   ) {
-    final effectiveScheme = scheme.harmonized();
-
     final theme = ThemeData.from(
       useMaterial3: true,
-      colorScheme: effectiveScheme,
-    ).copyWith(
-      visualDensity: visualDensity,
-      appBarTheme: AppBarTheme(
-        backgroundColor: effectiveScheme.primary,
-        foregroundColor: effectiveScheme.onPrimary,
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: seed, brightness: brightness)
+          .harmonized(),
     );
 
-    return theme.copyWith(
+    final e = theme.copyWith(
+      visualDensity: visualDensity,
+      appBarTheme: theme.appBarTheme.copyWith(
+        elevation: 4,
+      ),
       textTheme: theme.textTheme.copyWith(
         bodySmall: theme.textTheme.bodySmall!.copyWith(
           fontFamily: GoogleFonts.sourceCodePro().fontFamily,
         ),
       ),
     );
+
+    print('''Theme:
+Brightness: ${e.brightness}
+Primary color: ${e.colorScheme.surface}
+Surface tint: ${e.colorScheme.surfaceTint}
+''');
+    return e;
   }
 }
