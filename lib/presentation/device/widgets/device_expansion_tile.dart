@@ -28,7 +28,7 @@ class DeviceExpansionTile extends StatelessWidget {
   Border? get _tileBorder => depth == 1 ? _noBorder : null;
 
   Widget _filledButton(BuildContext context) => FilledButton(
-        child: Text('About'),
+        child: Text(AppLocalizations.of(context)!.about),
         onPressed: () => Navigator.of(context).push(
           makeRoute(
             context,
@@ -42,7 +42,7 @@ class DeviceExpansionTile extends StatelessWidget {
 
   Widget _aboutButton(BuildContext context) => IconButton(
         icon: Icon(Icons.info_outline),
-        tooltip: 'About this device',
+        tooltip: AppLocalizations.of(context)!.aboutThisDevice,
         onPressed: () => Navigator.of(context).push(
           makeRoute(
             context,
@@ -127,11 +127,14 @@ class ServiceExpansionTile extends StatelessWidget {
       childrenPadding: _tileInsets(depth),
       title: Text(service.document.serviceId.serviceId),
       leading: SizedBox(
-          height: 40, width: 40, child: Icon(Icons.account_tree_outlined)),
+        height: 40,
+        width: 40,
+        child: Icon(Icons.account_tree_outlined),
+      ),
       children: [
         if (service.description!.actions.isEmpty)
           ListTile(
-            title: Text('No actions for this service'),
+            title: Text(AppLocalizations.of(context)!.noActionsForThisService),
             leading: LeadingIconBuilder(
               builder: (context) => Icon(Icons.warning_amber_rounded),
             ),

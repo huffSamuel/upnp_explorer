@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SendCommandButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -18,7 +19,7 @@ class SendCommandButton extends StatelessWidget {
         onPressed?.call();
       },
       child: Semantics(
-        label: 'Send $name command',
+        label: AppLocalizations.of(context)!.sendCommand(name),
         child: Icon(
           Icons.arrow_forward,
         ),

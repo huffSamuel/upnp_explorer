@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rxdart/rxdart.dart';
+import '../../../application/network_logs/filter_group.dart';
+import '../../../application/network_logs/filters_service.dart';
+import '../../../application/network_logs/network_event_service.dart';
+import 'package:upnped/upnped.dart';
 
 import '../../../application/ioc.dart';
-import '../../../application/network_logs/network_event_service.dart';
+import '../widgets/filter_group_expansion_tile.dart';
 
 class FiltersPage extends StatefulWidget {
   FiltersPage();
@@ -12,32 +17,35 @@ class FiltersPage extends StatefulWidget {
 }
 
 class _FiltersPageState extends State<FiltersPage> {
-  final NetworkEventService _service = sl<NetworkEventService>();
-
-  Filters get _filters => _service.filters;
+  final FilterService _service = sl<FilterService>();
+  final NetworkEventService _eventService = sl<NetworkEventService>();
 
   void _resetFilters() {
     _service.clearFilters();
-
-    setState(() {});
   }
 
-  void _updateFilter(Filter filter, bool? value) {
-    _service.filter(filter, value ?? false);
-
-    setState(() {});
+  void _updateFilter<T>(FilterGroup group, T value, bool? enabled) {
+    if (enabled == true) {
+      _service.addFilter(group, value);
+    } else {
+      _service.removeFilter(group, value);
+    }
   }
 
-  Widget _filterGroup(
-    BuildContext context,
+  Widget _filterGroup<T>(
+    FilterGroup group,
     String title,
-    List<Widget> children,
-  ) {
-    return ExpansionTile(
-        initiallyExpanded: true,
-        title: Text(title, style: TextStyle(fontWeight: FontWeight.w600)),
-        children: children);
-  }
+    FilterMap filters,
+    FilterValueMap valueMap, [
+    Map<T, String>? titleMap,
+  ]) =>
+      FilterGroupExpansionTile(
+        title: title,
+        filter: filters[group]!,
+        allowedValues: valueMap[group]!,
+        onChanged: (k, e) => _updateFilter(group, k, e),
+        titleResolver: titleMap,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +59,7 @@ class _FiltersPageState extends State<FiltersPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.clear_all_rounded),
-            onPressed: () {
-              _resetFilters();
-            },
+            onPressed: _resetFilters,
           ),
         ],
       ),
@@ -63,81 +69,63 @@ class _FiltersPageState extends State<FiltersPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               StreamBuilder(
-                stream: _service.events,
+                stream: _eventService.events,
                 builder: (context, snapshot) => ListTile(
-                  title: Text('${snapshot.data?.length ?? 0} visible'),
+                  title: Text(i18n.countVisible(snapshot.data?.length ?? 0)),
                 ),
               ),
-              _filterGroup(
-                context,
-                'Direction',
-                [
-                  CheckboxListTile(
-                    title: Text('Received'),
-                    value: _filters.received.enabled,
-                    onChanged: (v) => _updateFilter(_filters.received, v),
-                  ),
-                  CheckboxListTile(
-                    title: Text('Sent'),
-                    value: _filters.sent.enabled,
-                    onChanged: (v) => _updateFilter(_filters.sent, v),
-                  ),
-                ],
-              ),
-              _filterGroup(
-                context,
-                'Protocol',
-                [
-                  CheckboxListTile(
-                    title: Text('HTTP'),
-                    value: _filters.http.enabled,
-                    onChanged: (v) => _updateFilter(_filters.http, v),
-                  ),
-                  CheckboxListTile(
-                    title: Text('SSDP'),
-                    value: _filters.ssdp.enabled,
-                    onChanged: (v) => _updateFilter(_filters.ssdp, v),
-                  ),
-                ],
-              ),
-              _filterGroup(
-                context,
-                'Type',
-                _filters.type.keys
-                    .map(
-                      (key) => CheckboxListTile(
-                        title: Text(key),
-                        value: _filters.type[key]!.enabled,
-                        onChanged: (v) => _updateFilter(_filters.type[key]!, v),
+              StreamBuilder(
+                stream: CombineLatestStream(
+                  [
+                    _service.filtersMap,
+                    _service.filterValuesMap,
+                  ],
+                  (x) => x,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Container();
+                  }
+
+                  if (!snapshot.hasData) {
+                    return Container();
+                  }
+
+                  final filters = snapshot.data![0] as FilterMap;
+                  final allowedFilters = snapshot.data![1] as FilterValueMap;
+
+                  return Column(
+                    children: [
+                      _filterGroup(
+                        FilterGroup.direction,
+                        i18n.directionDescription,
+                        filters,
+                        allowedFilters,
+                        Map.fromEntries(
+                          NetworkEventDirection.values.map(
+                            (x) => MapEntry(x, i18n.direction(x.name)),
+                          ),
+                        ),
                       ),
-                    )
-                    .toList(),
-              ),
-              _filterGroup(
-                context,
-                'From',
-                _filters.from.keys
-                    .map(
-                      (key) => CheckboxListTile(
-                        title: Text(key),
-                        value: _filters.from[key]!.enabled,
-                        onChanged: (v) => _updateFilter(_filters.from[key]!, v),
+                      _filterGroup(
+                        FilterGroup.protocol,
+                        i18n.protocolDescription,
+                        filters,
+                        allowedFilters,
+                        {
+                          NetworkEventProtocol.http: 'HTTP',
+                          NetworkEventProtocol.ssdp: 'SSDP',
+                        },
                       ),
-                    )
-                    .toList(),
-              ),
-              _filterGroup(
-                context,
-                'To',
-                _filters.to.keys
-                    .map(
-                      (key) => CheckboxListTile(
-                        title: Text(key),
-                        value: _filters.to[key]!.enabled,
-                        onChanged: (v) => _updateFilter(_filters.to[key]!, v),
-                      ),
-                    )
-                    .toList(),
+                      _filterGroup(
+                          FilterGroup.type, i18n.type, filters, allowedFilters),
+                      _filterGroup(
+                          FilterGroup.from, i18n.from, filters, allowedFilters),
+                      _filterGroup(
+                          FilterGroup.to, i18n.to, filters, allowedFilters),
+                    ],
+                  );
+                },
               ),
             ],
           ),
