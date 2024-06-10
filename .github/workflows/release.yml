@@ -55,7 +55,7 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: arm_eabi.apk
-          asset_path: ${{ github.workspace }}/android/build/app/outputs/flutter-apk/app-armeabi*.apk
+          asset_path: ${{ github.workspace }}/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
           asset_content_type: application/zip
 
       - name: Upload ARM_64 assets
@@ -65,7 +65,7 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: arm_64.apk
-          asset_path: ${{ github.workspace }}/android/build/app/outputs/flutter-apk/app-arm64*.apk
+          asset_path: ${{ github.workspace }}/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
           asset_content_type: application/zip
 
       - name: Upload x86_64 assets
@@ -75,5 +75,5 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_name: x86_64.apk
-          asset_path: ${{ github.workspace }}/android/build/app/outputs/flutter-apk/app-x86_64*.apk
+          asset_path: ${{ github.workspace }}/build/app/outputs/flutter-apk/app-x86_64-release.apk
           asset_content_type: application/zip
