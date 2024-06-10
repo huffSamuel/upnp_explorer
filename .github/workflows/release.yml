@@ -15,7 +15,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
-          java-version: '21.x'
+          java-version: '18.x'
           distribution: adopt
 
       - name: Write signing properties
