@@ -39,11 +39,11 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Generate localizations
+        run: flutter gen-l10n
+
       - name: Generate code
         run: flutter pub run build_runner build --delete-conflicting-outputs
-
-      - name: Reinstall dependencies
-        run: flutter pub get
 
       - name: FOSS-ify dependencies
         run: flutter pub remove --offline in_app_review
