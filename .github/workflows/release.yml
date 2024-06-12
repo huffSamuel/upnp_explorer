@@ -42,11 +42,14 @@ jobs:
       - name: Generate code
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
-      - name: Reinstall Dependencies
+      - name: Reinstall dependencies
         run: flutter pub get
 
+      - name: FOSS-ify dependencies
+        run: flutter pub remove --offline in_app_review
+
       - name: Build APKs
-        run: flutter build apk --split-per-abi --obfuscate --split-debug-info=build/app/output/symbols
+        run: flutter build apk --flavor=foss -t lib/main.foss.dart --split-per-abi --obfuscate --split-debug-info=build/app/output/symbols
 
       - name: Upload ARM_EABI assets
         uses: actions/upload-release-asset@v1

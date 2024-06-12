@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:in_app_review/in_app_review.dart';
+import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:upnp_explorer/application/flavors/flavor_features.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../application/application.dart';
@@ -48,17 +49,18 @@ class AboutSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
+    final flavor = GetIt.instance.get<FlavorFeatures>();
 
     return SettingsCategoryPage(
       category: i18n.about,
       children: [
-        SettingsTile(
-          leading: Icon(Icons.rate_review_outlined),
-          title: Text(i18n.rateOnGooglePlay),
-          subtitle: Text(i18n.letUsKnowHowWereDoing),
-          onTap: () => InAppReview.instance
-              .openStoreListing(appStoreId: Application.appId),
-        ),
+        if (flavor.showRatingTile)
+          SettingsTile(
+            leading: Icon(Icons.rate_review_outlined),
+            title: Text(i18n.rateOnGooglePlay),
+            subtitle: Text(i18n.letUsKnowHowWereDoing),
+            onTap: () => flavor.openStoreListing(),
+          ),
         SettingsTile(
           leading: Icon(Icons.history_rounded),
           title: Text(i18n.changelog),

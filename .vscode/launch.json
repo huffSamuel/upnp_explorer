@@ -1,0 +1,28 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "macos",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "google",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.google.dart",
+      "args": ["--flavor", "google", "-t", "lib/main.google.dart"]
+    },
+    {
+      "name": "foss",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.foss.dart",
+      "args": ["--flavor", "foss", "-t", "lib/main.foss.dart"]
+    }
+  ]
+}

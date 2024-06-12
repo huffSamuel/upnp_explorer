@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import 'application/flavors/default_features.dart';
 import 'application/flavors/flavor_features.dart';
+import 'application/flavors/foss/foss_features.dart';
 import 'application/ioc.dart';
 import 'application/licenses.dart';
 import 'application/settings/options_repository.dart';
@@ -17,7 +17,7 @@ Future<void> main() async {
 
   await configureDependencies();
 
-  GetIt.instance.registerSingleton<FlavorFeatures>(DefaultFeatures());
+  GetIt.instance.registerSingleton<FlavorFeatures>(FossFeatures());
   runApp(
     ModelBinding(
       initialModel: sl<SettingsRepository>().get(),
