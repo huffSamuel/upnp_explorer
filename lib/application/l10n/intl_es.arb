@@ -96,6 +96,7 @@
   "thisWillClearAllMessages": "Esto borrará todo el historial de mensajes de la red.",
   "traffic": "Tráfico",
   "turnOnWifi": "Activar wifi",
+  "unableToLoadChangelog": "No se puede cargar el registro de cambios",
   "unableToObtainInformation": "No se puede obtener la información del servicio",
   "unableToSubmitFeedback": "No se pueden enviar comentarios",
   "unavailable": "Indisponible",
