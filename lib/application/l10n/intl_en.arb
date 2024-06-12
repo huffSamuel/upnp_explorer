@@ -288,6 +288,7 @@
   "thisWillClearAllMessages": "This will clear all network message history.",
   "traffic": "Traffic",
   "turnOnWifi": "Turn on Wi-Fi",
+  "unableToLoadChangelog": "Unable to load changelog",
   "unableToObtainInformation": "Unable to obtain service information",
   "unableToSubmitFeedback": "Unable to submit feedback",
   "unavailable": "Unavailable",

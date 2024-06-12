@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:upnp_explorer/application/application.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
@@ -49,35 +51,49 @@ class _CloseButton extends StatelessWidget {
   }
 }
 
-class _ChangelogMarkdown extends StatefulWidget {
+class _ChangelogMarkdown extends StatelessWidget {
   const _ChangelogMarkdown();
 
   @override
-  State<_ChangelogMarkdown> createState() => _ChangelogMarkdownState();
-}
-
-class _ChangelogMarkdownState extends State<_ChangelogMarkdown> {
-  String? _changes;
-
-  @override
-  void initState() {
-    final ChangelogService service = sl();
-
-    service.changes().then((changes) {
-      setState(() {
-        _changes = changes;
-      });
-    });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_changes == null) {
-      return const SizedBox();
-    }
+    final i18n = AppLocalizations.of(context)!;
 
-    return MarkdownBody(data: _changes!);
+    return StreamBuilder(
+      stream: sl<ChangelogService>().changes(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(
+            child: Column(
+              children: [
+                Text(i18n.unableToLoadChangelog),
+                SizedBox(height: 24),
+                ElevatedButton(
+                    onPressed: () => launchUrlString(Application.changelogUrl),
+                    child: Text(i18n.viewInBrowser))
+              ],
+            ),
+          );
+        }
+
+        return Padding(
+          padding: const EdgeInsets.only(left: 12.0, right: 8.0),
+          child: AnimatedCrossFade(
+            firstChild: Center(child: LinearProgressIndicator()),
+            secondChild: Builder(
+              builder: (context) => MarkdownBody(data: snapshot.data!),
+            ),
+            crossFadeState: snapshot.hasData
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            duration: const Duration(
+              milliseconds: 275,
+            ),
+            sizeCurve: Curves.easeIn,
+            firstCurve: Curves.easeIn,
+            secondCurve: Curves.easeOut,
+          ),
+        );
+      },
+    );
   }
 }

@@ -32,6 +32,20 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion 34
 
+    flavorDimensions "store"
+
+    productFlavors {
+        google {
+            dimension "store"
+            resValue "string", "app_name", "UPnP Explorer"
+        }
+        foss {
+            dimension "store"
+            resValue "string", "app_name", "UPnP Explorer (FOSS)"
+            versionNameSuffix "-FOSS"
+        }
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
@@ -61,6 +75,11 @@ android {
                 'proguard-android-optimize.txt'),
                 'proguard-rules.pro'
         }
+    }
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
     }
 }
 
