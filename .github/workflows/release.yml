@@ -1,0 +1,79 @@
+on:
+  release:
+    types: 
+      - published
+
+jobs:
+  release-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+  
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17.x'
+          distribution: adopt
+
+      - name: Write signing properties
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
+          RELEASE_KEY_PROPERTIES_BASE64: ${{ secrets.RELEASE_KEY_PROPERTIES_BASE64 }}
+        run: echo "$RELEASE_KEY_PROPERTIES_BASE64" | base64 -d | sed "s|{{temp}}|${RUNNER_TEMP}|g" > $GITHUB_WORKSPACE/android/key.properties
+
+      - name: Write keystore
+        env:
+          RUNNER_TEMP: ${{ runner.temp }}
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          echo $RELEASE_KEYSTORE_BASE64 | base64 -d > $RUNNER_TEMP/keystore.jks
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Reinstall Dependencies
+        run: flutter pub get
+
+      - name: Build APKs
+        run: flutter build apk --split-per-abi --obfuscate --split-debug-info=build/app/output/symbols
+
+      - name: Upload ARM_EABI assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: arm_eabi.apk
+          asset_path: ${{ github.workspace }}/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          asset_content_type: application/zip
+
+      - name: Upload ARM_64 assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: arm_64.apk
+          asset_path: ${{ github.workspace }}/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          asset_content_type: application/zip
+
+      - name: Upload x86_64 assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: x86_64.apk
+          asset_path: ${{ github.workspace }}/build/app/outputs/flutter-apk/app-x86_64-release.apk
+          asset_content_type: application/zip
