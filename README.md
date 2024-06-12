@@ -6,6 +6,8 @@ A free, open-source, Flutter mobile application to find and browse UPnP devices 
 
 <a href='https://play.google.com/store/apps/details?id=com.samueljhuf.upnp_explorer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="153"/></a>
 
+<a href='https://apt.izzysoft.de/fdroid/index/apk/com.samueljhuf.upnp_explorer'><img alt='Get it on IzzyOnDroid' src="https://gitlab.com/IzzyOnDroid/repo/-/raw/07d4d151727ae3eaeea52ee6bb0ae76e210d82c8/assets/IzzyOnDroidButtonGreyBorder_nofont.png" width="135" style="padding-left: 10px"/></a>
+
 
 ## Installation
 
