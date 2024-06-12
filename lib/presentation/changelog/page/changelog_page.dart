@@ -49,35 +49,25 @@ class _CloseButton extends StatelessWidget {
   }
 }
 
-class _ChangelogMarkdown extends StatefulWidget {
+class _ChangelogMarkdown extends StatelessWidget {
   const _ChangelogMarkdown();
 
   @override
-  State<_ChangelogMarkdown> createState() => _ChangelogMarkdownState();
-}
-
-class _ChangelogMarkdownState extends State<_ChangelogMarkdown> {
-  String? _changes;
-
-  @override
-  void initState() {
-    final ChangelogService service = sl();
-
-    service.changes().then((changes) {
-      setState(() {
-        _changes = changes;
-      });
-    });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_changes == null) {
-      return const SizedBox();
-    }
+    return StreamBuilder(
+      stream: sl<ChangelogService>().changes(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          // could not load, display a "we're sorry" with a link to the changelog
+          return Container();
+        }
 
-    return MarkdownBody(data: _changes!);
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        return MarkdownBody(data: snapshot.data!);
+      },
+    );
   }
 }
