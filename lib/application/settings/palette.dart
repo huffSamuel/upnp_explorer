@@ -50,11 +50,6 @@ class AppTheme {
       ),
     );
 
-    print('''Theme:
-Brightness: ${e.brightness}
-Primary color: ${e.colorScheme.surface}
-Surface tint: ${e.colorScheme.surfaceTint}
-''');
     return e;
   }
 }

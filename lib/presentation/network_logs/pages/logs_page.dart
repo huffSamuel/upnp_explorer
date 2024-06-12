@@ -95,29 +95,27 @@ class _LogsPageState extends State<LogsPage>
       ),
       body: Scrollbar(
         child: StreamBuilder(
-            stream: _repo.events,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Container();
-              }
+          stream: _repo.events,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Container(child: Text('error'));
+            }
 
-              if (!snapshot.hasData || snapshot.data == null) {
-                return Container();
-              }
+            if (!snapshot.hasData || snapshot.data == null) {
+              return Container(child: Text('No data'));
+            }
 
-              if (snapshot.data!.isEmpty) {
-                return Container();
-              }
 
-              return ListView.separated(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) => LogItem(
-                  event: snapshot.data![index],
-                  onTap: () => _onLogCardTapped(context, snapshot.data![index]),
-                ),
-                separatorBuilder: (_, __) => Divider(),
-              );
-            }),
+            return ListView.separated(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) => LogItem(
+                event: snapshot.data![index],
+                onTap: () => _onLogCardTapped(context, snapshot.data![index]),
+              ),
+              separatorBuilder: (_, __) => Divider(),
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StatusDot extends StatelessWidget {
   final Stream<bool> stream;
@@ -7,10 +8,7 @@ class StatusDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    print(theme.colorScheme.primary);
-    print(theme.colorScheme.error);
+    final i18n = AppLocalizations.of(context)!;
 
     return StreamBuilder(
       stream: stream,
@@ -20,7 +18,7 @@ class StatusDot extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(4.0),
             child: Tooltip(
-              message: snapshot.data == true ? 'Online' : 'Offline',
+              message: snapshot.data == true ? i18n.online : i18n.offline,
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,

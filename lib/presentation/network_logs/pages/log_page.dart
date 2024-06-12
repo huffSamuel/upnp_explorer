@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:upnped/upnped.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../widgets/log_content.dart';
 import '../widgets/log_direction.dart';
@@ -34,9 +35,12 @@ class LogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          tooltip: i18n.back,
           icon: Icon(Icons.arrow_back),
           onPressed: Navigator.of(context).pop,
         ),
