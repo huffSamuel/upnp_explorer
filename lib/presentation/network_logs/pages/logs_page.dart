@@ -105,7 +105,6 @@ class _LogsPageState extends State<LogsPage>
               return Container(child: Text('No data'));
             }
 
-
             return ListView.separated(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) => LogItem(

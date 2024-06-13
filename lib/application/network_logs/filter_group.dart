@@ -1,7 +1,1 @@
-enum FilterGroup {
-  from,
-  to,
-  type,
-  direction,
-  protocol
-}
+enum FilterGroup { from, to, type, direction, protocol }

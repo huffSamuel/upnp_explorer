@@ -9,5 +9,4 @@ class DefaultFeatures extends FlavorFeatures {
 
   @override
   bool get showRatingTile => false;
-  
 }
