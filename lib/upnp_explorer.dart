@@ -8,8 +8,6 @@ import 'application/settings/options_repository.dart';
 import 'application/settings/palette.dart';
 import 'presentation/device/pages/discovery_page.dart';
 
-
-
 class UPnPExplorer extends StatelessWidget {
   final SettingsRepository optionsRepository;
 
