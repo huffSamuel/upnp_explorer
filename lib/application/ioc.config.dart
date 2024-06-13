@@ -22,7 +22,7 @@ import 'ioc.dart' as _i14;
 import 'logger_factory.dart' as _i7;
 import 'network_logs/filters_service.dart' as _i6;
 import 'network_logs/network_event_service.dart' as _i8;
-import 'settings/options_repository.dart' as _i11;
+import 'settings/settings_repository.dart' as _i11;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initIoc(

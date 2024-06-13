@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:upnped/upnped.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:upnped/upnped.dart';
 
-import '../../../application/settings/options.dart';
+import '../../../application/settings/protocol_settings.dart';
 import 'state.dart';
 
 @singleton

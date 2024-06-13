@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../application/settings/options.dart';
+import '../../../../application/settings/settings.dart';
 import '../../../../domain/value_converter.dart';
 import '../../widgets/settings_category_page.dart';
 
@@ -27,7 +27,7 @@ class VisualDensityPage extends StatelessWidget {
 
               Settings.update(
                 context,
-                options.copyWith(visualDensity: kVisualDensityConverter.to(v)),
+                options.copyWith(density: v),
               );
             },
             title: Text(i18n.visualDensity(value.name)),

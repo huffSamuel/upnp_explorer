@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'application/flavors/flavor_features.dart';
 import 'application/ioc.dart';
 import 'application/licenses.dart';
-import 'application/settings/options_repository.dart';
+import 'application/settings/settings_repository.dart';
 import 'presentation/core/widgets/model_binding.dart';
 import 'presentation/device/pages/service.dart';
 import 'upnp_explorer.dart';
@@ -17,10 +17,12 @@ Future<void> runAppWithFeatures(FlavorFeatures features) async {
   await configureDependencies();
 
   GetIt.instance.registerSingleton<FlavorFeatures>(features);
-  
+
+  final settings = await sl<SettingsRepository>().get();
+
   runApp(
     ModelBinding(
-      initialModel: sl<SettingsRepository>().get(),
+      initialModel: settings,
       onUpdate: (c, m) {
         sl<SettingsRepository>().set(m).then((_) async {
           if (c?.protocolOptions == m.protocolOptions) {

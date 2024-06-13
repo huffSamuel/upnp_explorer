@@ -25,21 +25,45 @@ class FilterService {
       final authority = Uri.parse(event.from!).authority;
       final from = authority.isEmpty ? event.from : authority;
       filterValues.putIfAbsent(FilterGroup.from, () => Set()).add(from);
-      filters.putIfAbsent(FilterGroup.from, () => PropertyFilter(accessor: (e) => e.from));
+      filters.putIfAbsent(
+          FilterGroup.from, () => PropertyFilter(accessor: (e) => e.from));
     } else {
-      final authority = Uri.parse(event.to!).authority;
+      String authority;
+
+      if (event.to == null) {
+        authority = 'localhost';
+      } else {
+        authority = Uri.parse(event.to!).authority;
+      }
+
       final to = authority.isEmpty ? event.to : authority;
       filterValues.putIfAbsent(FilterGroup.to, () => Set()).add(to);
-      filters.putIfAbsent(FilterGroup.to, () => PropertyFilter(accessor: (e) => e.to));
+      filters.putIfAbsent(
+        FilterGroup.to,
+        () => PropertyFilter(accessor: (e) => e.to),
+      );
     }
 
     filterValues.putIfAbsent(FilterGroup.type, () => Set()).add(event.type);
-    filterValues.putIfAbsent(FilterGroup.direction, () => Set()).add(event.direction);
-    filterValues.putIfAbsent(FilterGroup.protocol, () => Set()).add(event.protocol);
+    filterValues
+        .putIfAbsent(FilterGroup.direction, () => Set())
+        .add(event.direction);
+    filterValues
+        .putIfAbsent(FilterGroup.protocol, () => Set())
+        .add(event.protocol);
 
-    filters.putIfAbsent(FilterGroup.type, () => PropertyFilter(accessor: (e) => e.type));
-    filters.putIfAbsent(FilterGroup.direction, () => PropertyFilter(accessor: (e) => e.direction));
-    filters.putIfAbsent(FilterGroup.protocol, () => PropertyFilter(accessor: (e) => e.protocol));
+    filters.putIfAbsent(
+      FilterGroup.type,
+      () => PropertyFilter(accessor: (e) => e.type),
+    );
+    filters.putIfAbsent(
+      FilterGroup.direction,
+      () => PropertyFilter(accessor: (e) => e.direction),
+    );
+    filters.putIfAbsent(
+      FilterGroup.protocol,
+      () => PropertyFilter(accessor: (e) => e.protocol),
+    );
 
     filterValuesMap.add(filterValues);
     filtersMap.add(filters);
@@ -60,7 +84,7 @@ class FilterService {
   void clearFilters() {
     final filters = filtersMap.value;
 
-    for(final key in filters.keys) {
+    for (final key in filters.keys) {
       filters[key] = filters[key]!.clear();
     }
 

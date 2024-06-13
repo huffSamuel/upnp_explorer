@@ -1,13 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'package:upnp_explorer/application/application.dart';
 
 const String lastChangelogVersion = 'lastChangelogVersion';
 

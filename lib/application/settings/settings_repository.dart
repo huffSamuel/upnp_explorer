@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/value_converter.dart';
-import 'options.dart';
+import 'settings.dart';
 
+const _kSettings = 'settings';
 const _kThemeKey = 'ThemeMode';
 const _kVisualDensityHorizontal = 'visualDensity_horizontal';
 const _kVisualDensityVertical = 'visualDensity_vertical';
@@ -17,6 +20,15 @@ const _kThemeMap = {
   ThemeMode.system: 'system',
   ThemeMode.light: 'light'
 };
+const legacyKeys = [
+  _kThemeKey,
+  _kVisualDensityHorizontal,
+  _kVisualDensityVertical,
+  _kMaxDelay,
+  _kHops,
+  _kAdvanced,
+  _searchTargetKey
+];
 
 @lazySingleton
 class SettingsRepository {
@@ -53,7 +65,9 @@ class SettingsRepository {
     ]).then((v) => {});
   }
 
-  Settings get() {
+  Future<Settings> _migrateSettingsStorage() async {
+    var settings = Settings();
+
     try {
       final themeValue = preferences.getString(_kThemeKey);
       final theme = keyFromValue(_kThemeMap, themeValue);
@@ -70,11 +84,11 @@ class SettingsRepository {
         density = VisualDensity(vertical: vertical, horizontal: horizontal);
       }
 
-      var settings = Settings.base();
-
-      return settings.copyWith(
+      settings = settings.copyWith(
         themeMode: theme,
-        visualDensity: density,
+        density: density == null
+            ? Density.standard
+            : kVisualDensityConverter.from(density),
         protocolOptions: settings.protocolOptions.copyWith(
           advanced: advanced,
           hops: hops,
@@ -83,7 +97,23 @@ class SettingsRepository {
         ),
       );
     } catch (err) {
-      return Settings.base();
+      // Something bad happened but we don't really care.
     }
+
+    await Future.wait(legacyKeys.map((x) => preferences.remove(x)));
+
+    preferences.setString(_kSettings, json.encode(settings.toJson()));
+
+    return settings;
+  }
+
+  Future<Settings> get() async {
+    final jsonValue = preferences.getString(_kSettings);
+
+    if (jsonValue == null || jsonValue.isEmpty == true) {
+      return await _migrateSettingsStorage();
+    }
+
+    return Settings.fromJson(jsonDecode(jsonValue));
   }
 }
