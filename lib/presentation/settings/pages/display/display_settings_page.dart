@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../application/settings/options.dart';
+import '../../../../application/settings/settings.dart';
 import '../../../../domain/value_converter.dart';
 import '../../../core/widgets/model_binding.dart';
 import '../../widgets/settings_category_page.dart';

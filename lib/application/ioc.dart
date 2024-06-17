@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upnped/upnped.dart';
 
 import 'ioc.config.dart';
-import 'settings/options_repository.dart';
+import 'settings/settings_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -31,7 +31,7 @@ abstract class RegisterModule {
     SettingsRepository settingsRepo,
   ) async {
     final i = Server.getInstance();
-    final settings = settingsRepo.get();
+    final settings = await settingsRepo.get();
 
     await i.listen(Options(
       multicastHops: settings.protocolOptions.hops,
