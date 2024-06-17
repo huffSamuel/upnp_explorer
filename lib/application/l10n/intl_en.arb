@@ -1,0 +1,304 @@
+{
+  "@@locale": "en",
+  "@about": {
+    "description": "About"
+  },
+  "@actions": {
+    "description": "Actions"
+  },
+  "@actionsN": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@advancedModeWarning": {
+    "description": "Message to warn users of the dangers of enabling advanced mode."
+  },
+  "@changelogItem": {
+    "description": "A single changelog line item",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "@commandFailedWithError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "@devicesN": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@direction": {
+    "description": "Display name for a `Direction`",
+    "placeholders": {
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "@discoveredDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@fromAddress": {
+    "placeholders": {
+      "address": {
+        "type": "String"
+      }
+    }
+  },
+  "@knownValue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "@mailBody": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@messageLog": {
+    "placeholders": {
+      "direction": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "@pleaseRateAppName": {
+    "description": "Request the user to rate the app.",
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
+  "@protocol": {
+    "description": "Display name for a message `Protocol`",
+    "placeholders": {
+      "protocol": {
+        "type": "String"
+      }
+    }
+  },
+  "@rateAppName": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
+  "@receivedAt": {
+    "placeholders": {
+      "time": {
+        "format": "HH:mm:ss.SSS",
+        "isCustomDateFormat": "true",
+        "type": "DateTime"
+      }
+    }
+  },
+  "@responseDelay": {
+    "description": "A number of seconds",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@sentAt": {
+    "placeholders": {
+      "time": {
+        "format": "HH:mm:ss.SSS",
+        "isCustomDateFormat": "true",
+        "type": "DateTime"
+      }
+    }
+  },
+  "@servicesN": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@stateVariablesN": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "@themeMode": {
+    "description": "Display name for a `ThemeMode`",
+    "placeholders": {
+      "themeMode": {
+        "type": "String"
+      }
+    }
+  },
+  "@unknownValue": {
+    "description": "Display when a value is unknown",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@version": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@visualDensity": {
+    "description": "Display name for a `VisualDensity`",
+    "placeholders": {
+      "visualDensity": {
+        "type": "String"
+      }
+    }
+  },
+  "contributors": "Contributors",
+  "aSpecialThanks": "A special thanks!",
+  "filters": "Filters",
+  "directionDescription": "Direction",
+  "protocolDescription": "Protocol",
+  "online": "Online",
+  "offline": "Offline",
+  "aboutThisDevice": "About this device",
+  "from": "From",
+  "noActionsForThisService": "No actions for this service",
+  "sendCommand": "Send {name} command",
+  "to": "To",
+  "about": "About",
+  "type": "Type",
+  "actions": "Actions",
+  "actionsN": "Actions ({count})",
+  "countVisible": "{count} visible",
+  "adaptiveLayout": "Adaptive layout",
+  "adaptiveLayoutDescription": "Adapt the layout and color scheme of the app to the platform's operating system and dynamic color settings.",
+  "advancedMode": "Advanced mode",
+  "advancedModeWarning": "Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.",
+  "back": "Back",
+  "changelog": "Changelog",
+  "changelogItem": "- {item}",
+  "clearAll": "Clear All",
+  "clearHistory": "Yes, clear history",
+  "clearMessages": "Clear Messages?",
+  "close": "Close",
+  "commandFailedWithError": "Command failed {error}",
+  "controlUnavailable": "Control Unavailable",
+  "copy": "Copy",
+  "copyJson": "Copy JSON",
+  "darkThemeDescription": "Dark theme uses a black background to help keep your battery alive longer.",
+  "decrease": "Decrease",
+  "decreaseDisabled": "Decrease disabled",
+  "density": "Visual density",
+  "devices": "Devices",
+  "devicesN": "Devices ({count})",
+  "direction": "{direction, select, incoming {Received} outgoing {Sent} other {Unknown}}",
+  "discoveredDevice": "Discovered device {name}",
+  "discovery": "Discovery",
+  "discoveryRequiresNetwork": "Device discovery requires network access",
+  "display": "Display",
+  "filter": "Filter",
+  "foundBug": "Found a bug?",
+  "fromAddress": "From {address}",
+  "increase": "Increase",
+  "increaseDisabled": "Increase disabled",
+  "input": "Input",
+  "keepHistory": "No, keep history",
+  "knownValue": "{name} {value}",
+  "legalese": "I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.",
+  "letUsKnowHowWereDoing": "Let us know how we're doing",
+  "licenses": "Licenses",
+  "listSeparator": ", ",
+  "mailBody": "Version {version}",
+  "mailSubject": "App feedback",
+  "manufacturer": "Manufacturer",
+  "maxDelayDescription": "The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.",
+  "maxResponseDelay": "Response delay",
+  "messageLog": "{type} {direction, select, inn {received} out {sent} other {Unknown}} at {time}",
+  "messages": "Messages",
+  "modelDescription": "Model Description",
+  "modelName": "Model Name",
+  "modelNumber": "Model Number",
+  "multicastHops": "Multicast hops",
+  "multicastHopsDescription": "Maximum number of network hops for multicast packages originating from this device.",
+  "neverAskAgain": "Never ask again",
+  "noDevicesFound": "No devices found.",
+  "nothingHere": "There's nothing here.",
+  "notNow": "Not now",
+  "off": "Off",
+  "ok": "OK",
+  "on": "On",
+  "open": "Open",
+  "openAnIssueOnOurGithub": "Open an issue on our GitHub",
+  "openInBrowser": "Open XML in browser",
+  "openPresentationInBrowser": "Open presentation URL in browser",
+  "output": "Output",
+  "pleaseRateAppName": "If you like {appName}, or you've found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!",
+  "privacyPolicy": "Privacy policy",
+  "protocol": "{protocol, select, upnp {UPnP} ssdp {SSDP} soap {SOAP} http {HTTP} other {Unknown}}",
+  "rateAppName": "Rate {appName}",
+  "rateOnGooglePlay": "Rate on Google Play",
+  "receivedAt": "Received at {time}",
+  "refresh": "Refresh",
+  "request": "Request",
+  "response": "Response",
+  "responseDelay": "{count, plural, =1{1 second} other{{count} seconds}}",
+  "scanningForDevices": "Scanning for devices",
+  "sentAt": "at {time}",
+  "serialNumber": "Serial Number",
+  "serviceControlUnavailable": "UPnP service control is unavailable at this time.",
+  "services": "Services",
+  "servicesN": "Services ({count})",
+  "settings": "Settings",
+  "stateVariables": "State Variables",
+  "stateVariablesN": "State Variables ({count})",
+  "systemThemeDescription": "System default theme uses your device's settings to determine when to use light or dark mode.",
+  "theme": "Theme",
+  "themeMode": "{themeMode, select, light {Light} dark {Dark} system {System Default} other {Unknown}}",
+  "thisWillClearAllMessages": "This will clear all network message history.",
+  "traffic": "Traffic",
+  "turnOnWifi": "Turn on Wi-Fi",
+  "unableToLoadChangelog": "Unable to load changelog",
+  "unableToObtainInformation": "Unable to obtain service information",
+  "unableToSubmitFeedback": "Unable to submit feedback",
+  "unavailable": "Unavailable",
+  "unknownValue": "{name} unknown",
+  "version": "Version {version}",
+  "viewInBrowser": "View in browser",
+  "viewNetworkTraffic": "View network traffic",
+  "viewXml": "View XML",
+  "visualDensity": "{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}",
+  "whatsNew": "What's new",
+  "wereOpenSource": "We're open source",
+  "viewSourceCode": "View this app's source code on GitHub"
+}
