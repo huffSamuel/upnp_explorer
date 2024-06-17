@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.9.0...v2.10.0) (2024-06-17)
+
+
+### Features
+
+* build FOSS flavored app ([#107](https://github.com/huffSamuel/upnp_explorer/issues/107)) ([26a346f](https://github.com/huffSamuel/upnp_explorer/commit/26a346f9ea2c3fc2d10c07a6db5477b6f16d313c))
+* load changelog from GitHub ([26a346f](https://github.com/huffSamuel/upnp_explorer/commit/26a346f9ea2c3fc2d10c07a6db5477b6f16d313c))
+
+
+### Bug Fixes
+
+* add missing localized strings ([70af6c6](https://github.com/huffSamuel/upnp_explorer/commit/70af6c65d4aa024ee07d6d26893fb63055fd38d2))
+* network events filter correclty ([#105](https://github.com/huffSamuel/upnp_explorer/issues/105)) ([70af6c6](https://github.com/huffSamuel/upnp_explorer/commit/70af6c65d4aa024ee07d6d26893fb63055fd38d2))
+* remove unnecessary permissions ([26a346f](https://github.com/huffSamuel/upnp_explorer/commit/26a346f9ea2c3fc2d10c07a6db5477b6f16d313c))
+
 ## [2.9.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.8.2...v2.9.0) (2024-06-05)
 
 
