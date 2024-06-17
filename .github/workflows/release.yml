@@ -24,7 +24,9 @@ jobs:
           channel: stable
 
       - name: Install Dependencies
-        run: flutter pub get
+        run: |
+          mkdir lib/application/l10n
+          flutter pub get
 
       - name: Generate code
         run: flutter pub run build_runner build --delete-conflicting-outputs
