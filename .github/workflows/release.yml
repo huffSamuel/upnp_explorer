@@ -60,8 +60,8 @@ jobs:
           mv app-armeabi-v7a-foss-release.apk.sha1 arm_eabi.apk.sha1
           mv app-arm64-v8a-foss-release.apk arm_64.apk
           mv app-arm64-v8a-foss-release.apk.sha1 arm_64.apk.sha1
-          mv app-arm64-x86_64-foss-release.apk x86_64.apk
-          mv app-arm64-x86_64-foss-release.apk.sha1 x86_64.sha1
+          mv app-x86_64-foss-release.apk x86_64.apk
+          mv app-x86_64-foss-release.apk.sha1 x86_64.sha1
       
       - name: Upload assets
         working-directory: ${{ github.workspace }}/build/app/outputs/flutter-apk
