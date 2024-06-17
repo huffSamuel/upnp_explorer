@@ -51,5 +51,4 @@ vars.variables
 
 # Generated files
 *.g.dart
-intl_*.arb
 **/ioc.config.dart
