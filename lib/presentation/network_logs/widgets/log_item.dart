@@ -18,11 +18,11 @@ class _ContentPreview extends StatelessWidget {
     final e = event;
     if (e is HttpEvent) {
       content = e.responseBody;
-    } else if (e is MSearchEvent) {
-      content = e.content;
-    } else if (e is NotifyEvent) {
-      content = e.content;
-    }
+    } else {
+      // TODO: Update upnped library with SsdpEvent type for
+      // content
+      content = (e as dynamic).content;
+    } 
 
     return Container(
       decoration: BoxDecoration(

@@ -2,19 +2,22 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../version_service.dart';
 
 const String lastChangelogVersion = 'lastChangelogVersion';
 
+@Environment(Environment.prod)
 @lazySingleton
 class ChangelogService {
   final SharedPreferences prefs;
+  final VersionService versionService;
   String? _changes;
 
-  ChangelogService(this.prefs);
+  ChangelogService(this.prefs, this.versionService);
 
-  Future<String> version() async => (await PackageInfo.fromPlatform()).version;
+  Future<String> version() async => await versionService.getVersion();
 
   Future<bool> shouldDisplayChangelog() async {
     final lastDisplayed = prefs.getString(lastChangelogVersion);

@@ -71,7 +71,7 @@ Modified Version, except to acknowledge the contribution(s) of the
 Copyright Holder(s) and the Author(s) or with their explicit written
 permission.
 
-5) The Font Software, modified or unmodified, in part or in whole,
+5) The Font Software, modified or unmodified, in part "."or in whole,
 must be distributed entirely under this license, and must not be
 distributed under any other license. The requirement for fonts to
 remain under this license does not apply to any document created

@@ -34,7 +34,6 @@ Future<void> runAppWithFeatures(FlavorFeatures features) async {
         });
       },
       child: UPnPExplorer(
-        optionsRepository: sl(),
       ),
     ),
   );

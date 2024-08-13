@@ -13,13 +13,15 @@ class SendCommandButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = AppLocalizations.of(context)!;
+
     return OutlinedButton(
       onPressed: () {
         FocusScope.of(context).unfocus();
         onPressed?.call();
       },
       child: Semantics(
-        label: AppLocalizations.of(context)!.sendCommand(name),
+        label: i18n.sendCommand(name),
         child: Icon(
           Icons.arrow_forward,
         ),

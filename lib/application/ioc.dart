@@ -14,18 +14,21 @@ final sl = GetIt.instance;
   preferRelativeImports: true,
   asExtension: false,
 )
-Future<void> configureDependencies({String environment = 'prd'}) => $initIoc(
+Future<void> configureDependencies({String environment = Environment.prod}) => $initIoc(
       sl,
       environment: environment,
     );
 
 @module
 abstract class RegisterModule {
+  @Environment(Environment.prod)
   @preResolve
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
+  @Environment(Environment.prod)
   Connectivity get connectivity => Connectivity();
 
+  @Environment(Environment.prod)
   @preResolve
   Future<Server> upnp(
     SettingsRepository settingsRepo,
