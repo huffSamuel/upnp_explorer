@@ -11,19 +11,17 @@ class ScanningIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      height: height,
-      duration: const Duration(milliseconds: 175),
-      curve: Curves.easeIn,
-      child: Semantics(
+    return AnimatedCrossFade(
+      duration: const Duration(milliseconds: 250),
+      firstChild: Semantics(
         label: AppLocalizations.of(context)!.scanningForDevices,
-        child: AnimatedContainer(
-          height: height,
-          curve: Curves.easeInOut,
-          duration: const Duration(milliseconds: 150),
-          child: const LinearProgressIndicator(),
-        ),
+        child: LinearProgressIndicator(),
       ),
+      secondChild: Container(
+        height: 0,
+      ),
+      crossFadeState:
+          height > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
 }

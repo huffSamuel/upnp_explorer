@@ -45,7 +45,7 @@ class AppTheme {
       ),
       textTheme: theme.textTheme.copyWith(
         bodySmall: theme.textTheme.bodySmall!.copyWith(
-          fontFamily: GoogleFonts.sourceCodePro().fontFamily,
+          fontFamily: 'Source Code Pro',
         ),
       ),
     );

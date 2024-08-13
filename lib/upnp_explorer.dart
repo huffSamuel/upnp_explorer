@@ -4,16 +4,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'application/application.dart';
 import 'application/settings/settings.dart';
-import 'application/settings/settings_repository.dart';
 import 'application/settings/palette.dart';
 import 'presentation/device/pages/discovery_page.dart';
 
 class UPnPExplorer extends StatelessWidget {
-  final SettingsRepository optionsRepository;
-
   const UPnPExplorer({
     Key? key,
-    required this.optionsRepository,
   }) : super(key: key);
 
   @override

@@ -7,6 +7,7 @@ import 'package:upnped/upnped.dart';
 import 'filters_service.dart';
 
 @singleton
+@Environment(Environment.prod)
 class NetworkEventService {
   final FilterService filterService;
   final _allEvents = BehaviorSubject.seeded(<NetworkEvent>[]);

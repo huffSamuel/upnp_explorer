@@ -118,8 +118,11 @@ class ServiceExpansionTile extends StatelessWidget {
   final Service service;
   final int depth;
 
-  const ServiceExpansionTile(
-      {super.key, required this.service, required this.depth});
+  const ServiceExpansionTile({
+    super.key,
+    required this.service,
+    required this.depth,
+  });
 
   @override
   Widget build(BuildContext context) {

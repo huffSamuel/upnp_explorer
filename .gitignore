@@ -52,3 +52,4 @@ vars.variables
 # Generated files
 *.g.dart
 **/ioc.config.dart
+test/failures/
