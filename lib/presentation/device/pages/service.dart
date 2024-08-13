@@ -35,11 +35,12 @@ class DiscoveryStateService {
 
     // Check network connectivity
     _connectivity.checkConnectivity().then((v) {
-      final wifi = v == ConnectivityResult.wifi;
+      final viable = v.any((x) =>
+          x == ConnectivityResult.wifi || x == ConnectivityResult.ethernet);
 
       _subject.add(_value.copyWith(
         loading: false,
-        wifi: wifi,
+        viableNetwork: viable,
       ));
 
       search();
@@ -80,7 +81,7 @@ class DiscoveryStateService {
   }
 
   Future<void> search() {
-    if (!_value.wifi) {
+    if (!_value.viableNetwork) {
       return Future.value();
     }
 

@@ -160,7 +160,7 @@ class DiscoveryPage extends StatelessWidget {
               return const SizedBox();
             }
 
-            if (!snapshot.data!.wifi) {
+            if (!snapshot.data!.viableNetwork) {
               return const _NoNetwork();
             }
 

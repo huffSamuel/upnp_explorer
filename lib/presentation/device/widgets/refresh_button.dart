@@ -19,7 +19,7 @@ class RefreshIconButton extends StatelessWidget {
         final canRefresh = snapshot.hasData &&
             !snapshot.data!.scanning &&
             !snapshot.data!.loading &&
-            snapshot.data!.wifi;
+            snapshot.data!.viableNetwork;
 
         return IconButton(
           tooltip: AppLocalizations.of(context)!.refresh,

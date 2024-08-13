@@ -133,7 +133,7 @@ void configureConnectivity() {
   final connectivity = MockConnectivity();
 
   when(connectivity.checkConnectivity())
-      .thenAnswer((_) => Future.value(ConnectivityResult.wifi));
+      .thenAnswer((_) => Future.value([ConnectivityResult.wifi]));
   when(connectivity.onConnectivityChanged).thenAnswer((_) => Stream.empty());
 
   GetIt.I.registerSingleton<Connectivity>(connectivity);

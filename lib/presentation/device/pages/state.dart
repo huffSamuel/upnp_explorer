@@ -1,8 +1,8 @@
 import 'package:upnped/upnped.dart';
 
 class DiscoveryState {
-  /// Indicates if the device is connected to a WiFi network.
-  final bool wifi;
+  /// Indicates if the device is connected to a network that is viable for UPnP scanning.
+  final bool viableNetwork;
 
   /// Indicates the state is in the initial loading state.
   final bool loading;
@@ -17,21 +17,21 @@ class DiscoveryState {
   final List<Device> devices;
 
   DiscoveryState({
-    this.wifi = false,
+    this.viableNetwork = false,
     this.loading = false,
     this.scanning = false,
     required this.devices,
   });
 
   DiscoveryState copyWith({
-    bool? wifi,
+    bool? viableNetwork,
     bool? loading,
     bool? scanning,
     List<Device>? devices,
   }) {
     return DiscoveryState(
       loading: loading ?? this.loading,
-      wifi: wifi ?? this.wifi,
+      viableNetwork: viableNetwork ?? this.viableNetwork,
       scanning: scanning ?? this.scanning,
       devices: devices ?? this.devices,
     );
