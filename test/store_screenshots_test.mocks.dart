@@ -423,25 +423,27 @@ class MockSharedPreferences extends _i1.Mock implements _i4.SharedPreferences {
 /// See the documentation for Mockito's code generation for more information.
 class MockConnectivity extends _i1.Mock implements _i10.Connectivity {
   @override
-  _i9.Stream<_i11.ConnectivityResult> get onConnectivityChanged =>
+  _i9.Stream<List<_i11.ConnectivityResult>> get onConnectivityChanged =>
       (super.noSuchMethod(
         Invocation.getter(#onConnectivityChanged),
-        returnValue: _i9.Stream<_i11.ConnectivityResult>.empty(),
-        returnValueForMissingStub: _i9.Stream<_i11.ConnectivityResult>.empty(),
-      ) as _i9.Stream<_i11.ConnectivityResult>);
+        returnValue: _i9.Stream<List<_i11.ConnectivityResult>>.empty(),
+        returnValueForMissingStub:
+            _i9.Stream<List<_i11.ConnectivityResult>>.empty(),
+      ) as _i9.Stream<List<_i11.ConnectivityResult>>);
 
   @override
-  _i9.Future<_i11.ConnectivityResult> checkConnectivity() =>
+  _i9.Future<List<_i11.ConnectivityResult>> checkConnectivity() =>
       (super.noSuchMethod(
         Invocation.method(
           #checkConnectivity,
           [],
         ),
-        returnValue: _i9.Future<_i11.ConnectivityResult>.value(
-            _i11.ConnectivityResult.bluetooth),
-        returnValueForMissingStub: _i9.Future<_i11.ConnectivityResult>.value(
-            _i11.ConnectivityResult.bluetooth),
-      ) as _i9.Future<_i11.ConnectivityResult>);
+        returnValue: _i9.Future<List<_i11.ConnectivityResult>>.value(
+            <_i11.ConnectivityResult>[]),
+        returnValueForMissingStub:
+            _i9.Future<List<_i11.ConnectivityResult>>.value(
+                <_i11.ConnectivityResult>[]),
+      ) as _i9.Future<List<_i11.ConnectivityResult>>);
 }
 
 /// A class which mocks [NetworkEventService].
