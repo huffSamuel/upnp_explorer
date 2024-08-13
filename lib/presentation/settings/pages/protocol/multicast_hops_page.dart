@@ -34,7 +34,7 @@ class _MulticastHopsPageState extends State<MulticastHopsPage> {
     final options = Settings.of(context);
 
     return PopScope(
-      onPopInvoked: (_) {
+      onPopInvokedWithResult: (_, __) {
         Settings.update(
           context,
           options.copyWith(
