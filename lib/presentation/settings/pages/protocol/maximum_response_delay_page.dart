@@ -39,7 +39,7 @@ class _MaximumResponseDelayPageState extends State<MaximumResponseDelayPage> {
     final advanced = options.protocolOptions.advanced;
 
     return PopScope(
-      onPopInvoked: (_) {
+      onPopInvokedWithResult: (_, __) {
         Settings.update(
           context,
           options.copyWith(

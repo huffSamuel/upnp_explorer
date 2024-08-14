@@ -89,13 +89,13 @@ class LogContent extends StatelessWidget {
 
     if (event is NotifyEvent) {
       return SelectableText(
-        (event as NotifyEvent).content,
+        event.content,
         style: Theme.of(context).textTheme.bodySmall!,
       );
     }
 
     return SelectableText(
-      (event as MSearchEvent).content,
+      event.content,
       style: Theme.of(context).textTheme.bodySmall!,
     );
   }

@@ -308,10 +308,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_markdown
-      sha256: "04c4722cc36ec5af38acc38ece70d22d3c2123c61305d555750a091517bbe504"
+      sha256: a23c41ee57573e62fc2190a1f36a0480c4d90bde3a8a8d7126e5d5992fb53fb7
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.23"
+    version: "0.7.3+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -734,10 +734,10 @@ packages:
     dependency: "direct main"
     description:
       name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
       url: "https://pub.dev"
     source: hosted
-    version: "0.27.7"
+    version: "0.28.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -963,10 +963,10 @@ packages:
     dependency: "direct main"
     description:
       name: upnped
-      sha256: "3e7d1caf8e6226063bca504506ba39bf2d7b5bcdf89bd8061ec916e5d344f0d2"
+      sha256: "94ada8f1c1eda5baee27d2afa20ba8d11d12fbd0746c1d591255d24629c89ed9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2+1"
   url_launcher:
     dependency: "direct main"
     description:
