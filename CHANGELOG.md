@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.11.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.10.0...v2.11.0) (2024-08-14)
+
+
+### Features
+
+* golden testing screenshots ([#111](https://github.com/huffSamuel/upnp_explorer/issues/111)) ([c59fd40](https://github.com/huffSamuel/upnp_explorer/commit/c59fd40e9b11bcf827f95133c2c484ccf2cf04ea))
+* support ethernet ([1d077a6](https://github.com/huffSamuel/upnp_explorer/commit/1d077a673cb93d6aadf6f5d1d176036bb1fd8ced))
+
+
+### Bug Fixes
+
+* **perf:** improve app performance ([c59fd40](https://github.com/huffSamuel/upnp_explorer/commit/c59fd40e9b11bcf827f95133c2c484ccf2cf04ea))
+* **perf:** use local fonts ([c59fd40](https://github.com/huffSamuel/upnp_explorer/commit/c59fd40e9b11bcf827f95133c2c484ccf2cf04ea))
+* the build ([4bd1851](https://github.com/huffSamuel/upnp_explorer/commit/4bd185194af26aa94d0c04f9ebaa472bfccf6f57))
+
+
+### Performance Improvements
+
+* use local fonts ([4bd1851](https://github.com/huffSamuel/upnp_explorer/commit/4bd185194af26aa94d0c04f9ebaa472bfccf6f57))
+
 ## [2.10.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.9.0...v2.10.0) (2024-06-17)
 
 
