@@ -22,7 +22,7 @@ class _ContentPreview extends StatelessWidget {
       // TODO: Update upnped library with SsdpEvent type for
       // content
       content = (e as dynamic).content;
-    } 
+    }
 
     return Container(
       decoration: BoxDecoration(

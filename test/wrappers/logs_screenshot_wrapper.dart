@@ -1,6 +1,5 @@
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LogsScreenshotWrapper extends StatelessWidget {
   final Image golden;
@@ -14,7 +13,7 @@ class LogsScreenshotWrapper extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
-        fontFamily: GoogleFonts.roboto().fontFamily,
+        fontFamily: 'Roboto',
       ),
       home: Builder(
         builder: (context) {

@@ -10,7 +10,6 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   TestWidgetsFlutterBinding.ensureInitialized();
   await loadAppFonts();
 
-
   if (goldenFileComparator is LocalFileComparator) {
     final testUrl = (goldenFileComparator as LocalFileComparator).basedir;
 

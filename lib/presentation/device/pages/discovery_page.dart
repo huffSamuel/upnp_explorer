@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:open_settings/open_settings.dart';
+import 'package:open_settings_plus/open_settings_plus.dart';
 import '../widgets/device_expansion_tile.dart';
 import 'package:upnped/upnped.dart';
 
@@ -33,7 +33,11 @@ class _NoNetwork extends StatelessWidget {
           Text(i18n.discoveryRequiresNetwork),
           const SizedBox(height: 15.0),
           ElevatedButton(
-            onPressed: OpenSettings.openWIFISetting,
+            onPressed: () => switch (OpenSettingsPlus.shared) {
+              OpenSettingsPlusAndroid settings => settings.wifi(),
+              OpenSettingsPlusIOS settings => settings.wifi(),
+              _ => throw Exception('Platform not supported'),
+            },
             child: Text(i18n.turnOnWifi),
           ),
         ],
@@ -97,7 +101,7 @@ class _Loaded extends StatelessWidget {
   }
 }
 
-class DiscoveryPage extends StatelessWidget {
+class DiscoveryPage extends StatefulWidget {
   final DiscoveryStateService _service;
   final ChangelogService _changelog;
 
@@ -107,8 +111,14 @@ class DiscoveryPage extends StatelessWidget {
   })  : _service = service ?? sl<DiscoveryStateService>(),
         _changelog = changelog ?? sl<ChangelogService>();
 
-  void _checkChangelog(BuildContext context) {
-    _changelog.shouldDisplayChangelog().then((display) {
+  @override
+  State<DiscoveryPage> createState() => _DiscoveryPageState();
+}
+
+class _DiscoveryPageState extends State<DiscoveryPage> {
+  @override
+  void initState() {
+    widget._changelog.shouldDisplayChangelog().then((display) {
       if (display) {
         Navigator.of(context).push(
           makeRoute(
@@ -118,14 +128,11 @@ class DiscoveryPage extends StatelessWidget {
         );
       }
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkChangelog(context);
-    });
-
     final i18n = AppLocalizations.of(context)!;
 
     final actions = [
@@ -140,7 +147,7 @@ class DiscoveryPage extends StatelessWidget {
         ),
       ),
       RefreshIconButton(
-        service: _service,
+        service: widget._service,
       ),
     ];
 
@@ -152,7 +159,7 @@ class DiscoveryPage extends StatelessWidget {
       ),
       body: Center(
         child: StreamBuilder(
-          stream: _service.state,
+          stream: widget._service.state,
           builder: (context, snapshot) {
             if (!snapshot.hasData ||
                 snapshot.hasError ||
@@ -165,7 +172,7 @@ class DiscoveryPage extends StatelessWidget {
             }
 
             return _Loaded(
-              onRefresh: _service.search,
+              onRefresh: widget._service.search,
               scanning: snapshot.data!.scanning,
               devices: snapshot.data!.devices,
             );

@@ -48,7 +48,7 @@ void main() {
 7 inches Android tablet: 1206 x 2144 (density: 2)
 10 inches Android tablet: 1449 x 2576 (density: 2)
   */
- 
+
   group('store images', () {
     setUpAll(() async {
       await configureTestDependencies();
@@ -145,7 +145,7 @@ void main() {
 
       final golden = loadGoldenImage(name);
 
-       await takeScreenshot(
+      await takeScreenshot(
         tester: tester,
         widget: LogsScreenshotWrapper(golden: golden),
         pageName: name,
@@ -255,7 +255,7 @@ void main() {
 
       var golden = loadGoldenImage(name);
 
-       await takeScreenshot(
+      await takeScreenshot(
         tester: tester,
         widget: CommandsScreenshotWrapper(golden: golden),
         pageName: name,

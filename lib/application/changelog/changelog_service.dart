@@ -17,11 +17,9 @@ class ChangelogService {
 
   ChangelogService(this.prefs, this.versionService);
 
-  Future<String> version() async => await versionService.getVersion();
-
   Future<bool> shouldDisplayChangelog() async {
     final lastDisplayed = prefs.getString(lastChangelogVersion);
-    final currentVersion = await version();
+    final currentVersion = await versionService.getVersion();
 
     if (lastDisplayed != currentVersion) {
       await prefs.setString(lastChangelogVersion, currentVersion);
@@ -35,7 +33,7 @@ class ChangelogService {
 
   Future<String> futureChanges() async {
     if (_changes == null) {
-      final currentVersion = await version();
+      final currentVersion = await await versionService.getVersion();
 
       final uri =
           'https://raw.githubusercontent.com/huffSamuel/upnp_explorer/v$currentVersion/CHANGELOG.md';

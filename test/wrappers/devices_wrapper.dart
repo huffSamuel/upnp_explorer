@@ -6,7 +6,7 @@ class DevicesScreenshotWrapper extends StatelessWidget {
   final Image golden;
 
   const DevicesScreenshotWrapper({super.key, required this.golden});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -80,7 +80,9 @@ class _ChangelogMarkdown extends StatelessWidget {
           child: AnimatedCrossFade(
             firstChild: Center(child: LinearProgressIndicator()),
             secondChild: Builder(
-              builder: (context) => MarkdownBody(data: snapshot.data!),
+              builder: (context) => snapshot.data == null
+                  ? Container()
+                  : MarkdownBody(data: snapshot.data!),
             ),
             crossFadeState: snapshot.hasData
                 ? CrossFadeState.showSecond
