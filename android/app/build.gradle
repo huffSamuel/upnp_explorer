@@ -81,6 +81,9 @@ android {
         includeInApk = false
         includeInBundle = false
     }
+
+    namespace 'com.samueljhuf.upnp_explorer'
+
 }
 
 flutter {

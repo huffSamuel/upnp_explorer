@@ -33,8 +33,7 @@ Future<void> runAppWithFeatures(FlavorFeatures features) async {
           await svc.update(m.protocolOptions);
         });
       },
-      child: UPnPExplorer(
-      ),
+      child: UPnPExplorer(),
     ),
   );
 }

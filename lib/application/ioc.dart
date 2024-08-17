@@ -14,7 +14,8 @@ final sl = GetIt.instance;
   preferRelativeImports: true,
   asExtension: false,
 )
-Future<void> configureDependencies({String environment = Environment.prod}) => $initIoc(
+Future<void> configureDependencies({String environment = Environment.prod}) =>
+    $initIoc(
       sl,
       environment: environment,
     );

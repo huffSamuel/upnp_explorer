@@ -84,10 +84,10 @@ class ActionsScreenshotWrapper extends StatelessWidget {
                 const SizedBox(height: 32),
                 Text(
                   'And Dark',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge!
-                      .copyWith(fontSize: 58, color: Colors.white,),
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                        fontSize: 58,
+                        color: Colors.white,
+                      ),
                 ),
               ],
             ),

@@ -32,15 +32,13 @@ Future<void> configureTestDependencies() async {
 }
 
 class FakeNetworkEvent extends upnp.NetworkEvent {
-  final String content;
-
   FakeNetworkEvent({
     required super.direction,
     required super.protocol,
     required super.type,
     super.from,
     super.to,
-    this.content = '',
+    super.content = '',
   });
 }
 
