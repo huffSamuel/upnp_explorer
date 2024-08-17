@@ -116,8 +116,6 @@ class DiscoveryPage extends StatefulWidget {
 }
 
 class _DiscoveryPageState extends State<DiscoveryPage> {
-  void _checkChangelog(BuildContext context) {}
-
   @override
   void initState() {
     widget._changelog.shouldDisplayChangelog().then((display) {
