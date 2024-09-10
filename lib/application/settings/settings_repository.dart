@@ -37,32 +37,7 @@ class SettingsRepository {
   SettingsRepository(this.preferences);
 
   Future<void> set(Settings options) async {
-    return await Future.wait([
-      preferences.setString(
-        _kThemeKey,
-        options.themeMode.name,
-      ),
-      preferences.setDouble(
-        _kVisualDensityHorizontal,
-        options.visualDensity.horizontal,
-      ),
-      preferences.setDouble(
-        _kVisualDensityVertical,
-        options.visualDensity.vertical,
-      ),
-      preferences.setInt(
-        _kMaxDelay,
-        options.protocolOptions.maxDelay,
-      ),
-      preferences.setInt(
-        _kHops,
-        options.protocolOptions.hops,
-      ),
-      preferences.setBool(
-        _kAdvanced,
-        options.protocolOptions.advanced,
-      ),
-    ]).then((v) => {});
+    await preferences.setString(_kSettings, json.encode(options.toJson()));
   }
 
   Future<Settings> _migrateSettingsStorage() async {
@@ -100,9 +75,10 @@ class SettingsRepository {
       // Something bad happened but we don't really care.
     }
 
-    await Future.wait(legacyKeys.map((x) => preferences.remove(x)));
-
-    preferences.setString(_kSettings, json.encode(settings.toJson()));
+    await Future.wait([
+      ...legacyKeys.map((x) => preferences.remove(x)),
+      set(settings),
+    ]);
 
     return settings;
   }
