@@ -106,6 +106,7 @@ class _LogsPageState extends State<LogsPage>
             }
 
             return ListView.separated(
+              primary: true,
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) => LogItem(
                 event: snapshot.data![index],

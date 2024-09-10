@@ -65,6 +65,7 @@ class _FiltersPageState extends State<FiltersPage> {
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
+          primary: true,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

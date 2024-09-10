@@ -16,7 +16,7 @@ EdgeInsets _tileInsets(int depth) {
 class _IconAboutButton extends StatelessWidget {
   final Device device;
 
-  const _IconAboutButton({super.key, required this.device});
+  const _IconAboutButton({required this.device});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _IconAboutButton extends StatelessWidget {
 class _FilledAboutButton extends StatelessWidget {
   final Device device;
 
-  const _FilledAboutButton({super.key, required this.device});
+  const _FilledAboutButton({required this.device});
 
   @override
   Widget build(BuildContext context) {
