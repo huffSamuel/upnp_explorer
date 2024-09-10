@@ -1,6 +1,7 @@
-import 'leading_icon_builder.dart';
-import 'package:upnped/upnped.dart';
 import 'package:flutter/material.dart';
+import 'package:upnped/upnped.dart';
+
+import 'leading_icon_builder.dart';
 
 class DeviceImage extends StatelessWidget {
   final List<DeviceIcon> icons;

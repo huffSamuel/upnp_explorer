@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../../application/network_logs/filter_group.dart';
-import '../../../application/network_logs/filters_service.dart';
-import '../../../application/network_logs/network_event_service.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../application/ioc.dart';
+import '../../../application/network_logs/filter_group.dart';
+import '../../../application/network_logs/filters_service.dart';
+import '../../../application/network_logs/network_event_service.dart';
 import '../widgets/filter_group_expansion_tile.dart';
 
 class FiltersPage extends StatefulWidget {

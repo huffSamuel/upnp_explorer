@@ -16,10 +16,7 @@ class RefreshIconButton extends StatelessWidget {
     return StreamBuilder(
       stream: service.state,
       builder: (context, snapshot) {
-        final canRefresh = snapshot.hasData &&
-            !snapshot.data!.scanning &&
-            !snapshot.data!.loading &&
-            snapshot.data!.viableNetwork;
+        final canRefresh = snapshot.hasData && snapshot.data!.canRefresh;
 
         return IconButton(
           tooltip: AppLocalizations.of(context)!.refresh,

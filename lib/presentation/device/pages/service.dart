@@ -6,6 +6,11 @@ import 'package:upnped/upnped.dart';
 import '../../../application/settings/protocol_settings.dart';
 import 'state.dart';
 
+bool isViableConnectivity(List<ConnectivityResult> results) =>
+    results.any((result) =>
+        result == ConnectivityResult.wifi ||
+        result == ConnectivityResult.ethernet);
+
 @singleton
 class DiscoveryStateService {
   final Connectivity _connectivity;
@@ -35,12 +40,9 @@ class DiscoveryStateService {
 
     // Check network connectivity
     _connectivity.checkConnectivity().then((v) {
-      final viable = v.any((x) =>
-          x == ConnectivityResult.wifi || x == ConnectivityResult.ethernet);
-
       _subject.add(_value.copyWith(
         loading: false,
-        viableNetwork: viable,
+        viableNetwork: isViableConnectivity(v),
       ));
 
       search();
@@ -48,14 +50,12 @@ class DiscoveryStateService {
 
     // Whenever connectivity changes emit the new connectivity state
     _connectivity.onConnectivityChanged
-        .map((event) => event == ConnectivityResult.wifi)
+        .map((event) => isViableConnectivity(event))
         .distinct()
         .takeUntil(_destroying)
         .where((x) => x)
         .skip(1)
-        .listen((x) {
-      search();
-    });
+        .listen((x) => search());
 
     // Whenever new devices are emitted, add them to the state
     _upnp.devices.takeUntil(_destroying).listen(
