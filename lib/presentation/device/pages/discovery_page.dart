@@ -4,7 +4,6 @@ import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings_plus/open_settings_plus.dart';
-import '../widgets/device_expansion_tile.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../application/application.dart';
@@ -13,6 +12,7 @@ import '../../../application/ioc.dart';
 import '../../../application/routing/routes.dart';
 import '../../changelog/page/changelog_page.dart';
 import '../../network_logs/pages/logs_page.dart';
+import '../widgets/device_expansion_tile.dart';
 import '../widgets/refresh_button.dart';
 import '../widgets/scanning_indicator.dart';
 import '../widgets/settings_icon_button.dart';
@@ -45,8 +45,6 @@ class _NoNetwork extends StatelessWidget {
     );
   }
 }
-
-const useNew = true;
 
 class _Loaded extends StatelessWidget {
   final Future<void> Function() onRefresh;

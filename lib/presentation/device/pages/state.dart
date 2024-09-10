@@ -16,6 +16,8 @@ class DiscoveryState {
   /// or asynchronously when UPnP devices emit NOTIFY events.
   final List<Device> devices;
 
+  bool get canRefresh => !scanning && !loading && viableNetwork;
+
   DiscoveryState({
     this.viableNetwork = false,
     this.loading = false,
