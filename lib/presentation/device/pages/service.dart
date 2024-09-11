@@ -40,21 +40,18 @@ class DiscoveryStateService {
 
     // Check network connectivity
     _connectivity.checkConnectivity().then((v) {
-      _subject.add(_value.copyWith(
-        loading: false,
-        viableNetwork: isViableConnectivity(v),
-      ));
+      _updateNetworkState(isViableConnectivity(v));
 
       search();
     });
 
     // Whenever connectivity changes emit the new connectivity state
     _connectivity.onConnectivityChanged
+        .takeUntil(_destroying)
         .map((event) => isViableConnectivity(event))
         .distinct()
-        .takeUntil(_destroying)
+        .doOnData(_updateNetworkState)
         .where((x) => x)
-        .skip(1)
         .listen((x) => search());
 
     // Whenever new devices are emitted, add them to the state
@@ -71,6 +68,13 @@ class DiscoveryStateService {
       },
     );
   }
+
+  void _updateNetworkState(bool viable) => _subject.add(
+        _value.copyWith(
+          loading: false,
+          viableNetwork: viable,
+        ),
+      );
 
   Future<void> update(ProtocolSettings settings) async {
     _settings = settings;

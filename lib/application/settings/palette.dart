@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 const notQuiteWhite = const Color(0xf8f7f6);
+const sourceCodePro = 'Source Code Pro';
 
 class AppTheme {
   static ThemeData dark(
@@ -44,7 +45,8 @@ class AppTheme {
       ),
       textTheme: theme.textTheme.copyWith(
         bodySmall: theme.textTheme.bodySmall!.copyWith(
-          fontFamily: 'Source Code Pro',
+          fontFamily: sourceCodePro,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
