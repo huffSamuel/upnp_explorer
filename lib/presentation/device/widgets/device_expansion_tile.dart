@@ -3,27 +3,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../../application/routing/routes.dart';
-import '../../service/pages/action_page.dart';
 import '../pages/device_info_page.dart';
 import 'device_image.dart';
-import 'leading_icon_builder.dart';
+import 'service_expansion_tile.dart';
 import 'status_dot.dart';
+import 'tile_insets.dart';
 
-EdgeInsets _tileInsets(int depth) {
-  return EdgeInsets.only(left: depth * 20);
-}
-
-class _IconAboutButton extends StatelessWidget {
+class _AboutDeviceButton extends StatelessWidget {
   final Device device;
 
-  const _IconAboutButton({required this.device});
+  const _AboutDeviceButton({
+    super.key,
+    required this.device,
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.info_outline),
-      tooltip: AppLocalizations.of(context)!.aboutThisDevice,
-      onPressed: () => Navigator.of(context).push(
+  void _navigateInfoPage(BuildContext context) => Navigator.of(context).push(
         makeRoute(
           context,
           DeviceInfoPage(
@@ -31,29 +25,23 @@ class _IconAboutButton extends StatelessWidget {
             notify: device.notify!,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _FilledAboutButton extends StatelessWidget {
-  final Device device;
-
-  const _FilledAboutButton({required this.device});
+      );
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    if (size.width < 780) {
+      return IconButton(
+        icon: Icon(Icons.info_outline),
+        tooltip: AppLocalizations.of(context)!.aboutThisDevice,
+        onPressed: () => _navigateInfoPage(context),
+      );
+    }
+
     return FilledButton(
       child: Text(AppLocalizations.of(context)!.about),
-      onPressed: () => Navigator.of(context).push(
-        makeRoute(
-          context,
-          DeviceInfoPage(
-            device: device.description,
-            notify: device.notify!,
-          ),
-        ),
-      ),
+      onPressed: () => _navigateInfoPage(context),
     );
   }
 }
@@ -79,7 +67,7 @@ class DeviceExpansionTile extends StatelessWidget {
         ExpansionTile(
           shape: _tileBorder,
           collapsedShape: _tileBorder,
-          childrenPadding: _tileInsets(depth),
+          childrenPadding: tileInsets(depth),
           leading: DeviceImage(
             icons: device.description.iconList,
             deviceIp: device.notify?.location,
@@ -97,10 +85,7 @@ class DeviceExpansionTile extends StatelessWidget {
                     Text(device.notify!.location!.host.toString()),
                 ],
               ),
-              if (device.notify != null)
-                MediaQuery.of(context).size.width < 780
-                    ? _IconAboutButton(device: device)
-                    : _FilledAboutButton(device: device),
+              if (device.notify != null) _AboutDeviceButton(device: device),
             ],
           ),
           children: [
@@ -128,58 +113,6 @@ class DeviceExpansionTile extends StatelessWidget {
     return Semantics(
       label: AppLocalizations.of(context)!.open,
       child: child,
-    );
-  }
-}
-
-class ServiceExpansionTile extends StatelessWidget {
-  final Service service;
-  final int depth;
-
-  const ServiceExpansionTile({
-    super.key,
-    required this.service,
-    required this.depth,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      childrenPadding: _tileInsets(depth),
-      title: Text(service.document.serviceId.serviceId),
-      leading: SizedBox(
-        height: 40,
-        width: 40,
-        child: Icon(Icons.account_tree_outlined),
-      ),
-      children: [
-        if (service.description!.actions.isEmpty)
-          ListTile(
-            title: Text(AppLocalizations.of(context)!.noActionsForThisService),
-            leading: LeadingIconBuilder(
-              builder: (context) => Icon(Icons.warning_amber_rounded),
-            ),
-          ),
-        ...service.description!.actions.map(
-          (x) {
-            return ListTile(
-              title: Text(x.name),
-              leading: LeadingIconBuilder(
-                builder: (context) => Icon(Icons.sync_alt),
-              ),
-              onTap: () => Navigator.of(context).push(
-                makeRoute(
-                  context,
-                  ActionPage(
-                    action: x,
-                    stateTable: service.description!.serviceStateTable,
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ],
     );
   }
 }
