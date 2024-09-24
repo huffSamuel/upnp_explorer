@@ -28,19 +28,27 @@ class ServiceExpansionTile extends StatelessWidget {
         child: Icon(Icons.account_tree_outlined),
       ),
       children: [
-        if (service.description!.actions.isEmpty)
+        if (service.description?.actions.isEmpty == true)
           ListTile(
             title: Text(AppLocalizations.of(context)!.noActionsForThisService),
             leading: LeadingIconBuilder(
               builder: (context) => Icon(Icons.warning_amber_rounded),
             ),
           ),
-        ...service.description!.actions.map(
-          (x) => _ActionListTile(
-            action: x,
-            serviceStateTable: service.description!.serviceStateTable,
+        if (service.description != null)
+          ...service.description!.actions.map(
+            (x) => _ActionListTile(
+              action: x,
+              serviceStateTable: service.description!.serviceStateTable,
+            ),
           ),
-        ),
+        if (service.description == null)
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.nothingHere),
+            leading: LeadingIconBuilder(
+              builder: (context) => Icon(Icons.warning_amber_rounded),
+            ),
+          ),
       ],
     );
   }
