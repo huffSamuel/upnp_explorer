@@ -20,7 +20,7 @@ dependencies:
   injectable: ^2.1.0
   intl: ^0.19.0
   package_info_plus: ^8.0.0
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.3.3
   url_launcher: ^6.1.8
   xml: ^6.2.2
   rxdart: ^0.28.0
