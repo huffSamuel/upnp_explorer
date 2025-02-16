@@ -1,4 +1,4 @@
-import 'package:upnp_explorer/application/flavors/flavor_features.dart';
+import '../flavor_features.dart';
 
 class FossFeatures extends FlavorFeatures {
   @override

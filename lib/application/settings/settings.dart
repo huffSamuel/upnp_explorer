@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:upnp_explorer/application/settings/protocol_settings.dart';
-import 'package:upnp_explorer/domain/value_converter.dart';
+import 'protocol_settings.dart';
+import '../../domain/value_converter.dart';
 
 import '../../presentation/core/widgets/model_binding.dart';
 

@@ -53,3 +53,4 @@ vars.variables
 *.g.dart
 **/ioc.config.dart
 test/failures/
+**/*.mocks.dart

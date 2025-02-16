@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../../application/routing/routes.dart';
+import '../../../application/l10n/app_localizations.dart';
 import '../pages/device_info_page.dart';
 import 'device_image.dart';
 import 'service_expansion_tile.dart';
@@ -13,7 +13,6 @@ class _AboutDeviceButton extends StatelessWidget {
   final Device device;
 
   const _AboutDeviceButton({
-    super.key,
     required this.device,
   });
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../application/l10n/app_localizations.dart';
 import '../../../../application/settings/settings.dart';
 import '../../../core/widgets/number_ticker.dart';
 import '../../widgets/settings/about_tile.dart';

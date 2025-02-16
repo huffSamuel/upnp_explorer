@@ -629,29 +629,6 @@ class MockChangelogService extends _i1.Mock implements _i14.ChangelogService {
       ) as _i5.VersionService);
 
   @override
-  _i9.Future<String> version() => (super.noSuchMethod(
-        Invocation.method(
-          #version,
-          [],
-        ),
-        returnValue: _i9.Future<String>.value(_i13.dummyValue<String>(
-          this,
-          Invocation.method(
-            #version,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i9.Future<String>.value(_i13.dummyValue<String>(
-          this,
-          Invocation.method(
-            #version,
-            [],
-          ),
-        )),
-      ) as _i9.Future<String>);
-
-  @override
   _i9.Future<bool> shouldDisplayChangelog() => (super.noSuchMethod(
         Invocation.method(
           #shouldDisplayChangelog,

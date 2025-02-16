@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart' as upnp;
 
+import '../../../application/l10n/app_localizations.dart';
 import '../../../application/routing/routes.dart';
 import '../../service/pages/action_page.dart';
 import 'leading_icon_builder.dart';
@@ -59,7 +59,6 @@ class _ActionListTile extends StatelessWidget {
   final upnp.ServiceStateTable serviceStateTable;
 
   const _ActionListTile({
-    super.key,
     required this.action,
     required this.serviceStateTable,
   });

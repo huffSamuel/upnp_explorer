@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:open_settings_plus/open_settings_plus.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
 import '../../../application/ioc.dart';
+import '../../../application/l10n/app_localizations.dart';
 import '../../../application/routing/routes.dart';
 import '../../changelog/page/changelog_page.dart';
 import '../../network_logs/pages/logs_page.dart';
