@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart';
 
+import '../../../application/l10n/app_localizations.dart';
 import '../widgets/action_input.dart';
 import '../widgets/action_output.dart';
 import '../widgets/send_command_button.dart';

@@ -1,10 +1,10 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'application/application.dart';
-import 'application/settings/settings.dart';
+import 'application/l10n/app_localizations.dart';
 import 'application/settings/palette.dart';
+import 'application/settings/settings.dart';
 import 'presentation/device/pages/discovery_page.dart';
 
 class UPnPExplorer extends StatelessWidget {

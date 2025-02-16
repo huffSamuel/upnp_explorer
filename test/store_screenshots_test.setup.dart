@@ -11,7 +11,7 @@ import 'package:upnp_explorer/application/ioc.dart';
 import 'package:upnp_explorer/application/network_logs/network_event_service.dart';
 import 'package:upnp_explorer/application/settings/palette.dart';
 import 'package:upnp_explorer/application/version_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:upnp_explorer/application/l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart' as upnp;
 
 import 'store_screenshots_test.mocks.dart';

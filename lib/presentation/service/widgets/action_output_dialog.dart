@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../application/l10n/app_localizations.dart';
 
 class ActionOutputDialog extends StatelessWidget {
   final String text;
