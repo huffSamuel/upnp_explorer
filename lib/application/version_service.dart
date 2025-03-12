@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:upnp_explorer/version.dart';
 
 @Environment(Environment.prod)
 @singleton
@@ -7,6 +7,6 @@ class VersionService {
   String? _version;
 
   Future<String> getVersion() async {
-    return _version ??= (await (PackageInfo.fromPlatform())).version;
+    return _version ??= version;
   }
 }
