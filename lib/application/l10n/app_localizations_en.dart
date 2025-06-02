@@ -69,13 +69,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adaptiveLayout => 'Adaptive layout';
 
   @override
-  String get adaptiveLayoutDescription => 'Adapt the layout and color scheme of the app to the platform\'s operating system and dynamic color settings.';
+  String get adaptiveLayoutDescription =>
+      'Adapt the layout and color scheme of the app to the platform\'s operating system and dynamic color settings.';
 
   @override
   String get advancedMode => 'Advanced mode';
 
   @override
-  String get advancedModeWarning => 'Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.';
+  String get advancedModeWarning =>
+      'Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.';
 
   @override
   String get back => 'Back';
@@ -115,7 +117,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get copyJson => 'Copy JSON';
 
   @override
-  String get darkThemeDescription => 'Dark theme uses a black background to help keep your battery alive longer.';
+  String get darkThemeDescription =>
+      'Dark theme uses a black background to help keep your battery alive longer.';
 
   @override
   String get decrease => 'Decrease';
@@ -156,7 +159,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discovery => 'Discovery';
 
   @override
-  String get discoveryRequiresNetwork => 'Device discovery requires network access';
+  String get discoveryRequiresNetwork =>
+      'Device discovery requires network access';
 
   @override
   String get display => 'Display';
@@ -190,7 +194,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get legalese => 'I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.';
+  String get legalese =>
+      'I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.';
 
   @override
   String get letUsKnowHowWereDoing => 'Let us know how we\'re doing';
@@ -213,7 +218,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manufacturer => 'Manufacturer';
 
   @override
-  String get maxDelayDescription => 'The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.';
+  String get maxDelayDescription =>
+      'The maximum delay time in seconds that a device can take before responding. This is an attempt to overcome a scaling issue implicit with SSDP.\n\nThe value should be between 1 and 5. Longer delays can result in issues with the SSDP protocol.';
 
   @override
   String get maxResponseDelay => 'Response delay';
@@ -247,7 +253,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get multicastHops => 'Multicast hops';
 
   @override
-  String get multicastHopsDescription => 'Maximum number of network hops for multicast packages originating from this device.';
+  String get multicastHopsDescription =>
+      'Maximum number of network hops for multicast packages originating from this device.';
 
   @override
   String get neverAskAgain => 'Never ask again';
@@ -318,7 +325,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String receivedAt(DateTime time) {
-    final intl.DateFormat timeDateFormat = intl.DateFormat('HH:mm:ss.SSS', localeName);
+    final intl.DateFormat timeDateFormat =
+        intl.DateFormat('HH:mm:ss.SSS', localeName);
     final String timeString = timeDateFormat.format(time);
 
     return 'Received at $timeString';
@@ -349,7 +357,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String sentAt(DateTime time) {
-    final intl.DateFormat timeDateFormat = intl.DateFormat('HH:mm:ss.SSS', localeName);
+    final intl.DateFormat timeDateFormat =
+        intl.DateFormat('HH:mm:ss.SSS', localeName);
     final String timeString = timeDateFormat.format(time);
 
     return 'at $timeString';
@@ -359,7 +368,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get serialNumber => 'Serial Number';
 
   @override
-  String get serviceControlUnavailable => 'UPnP service control is unavailable at this time.';
+  String get serviceControlUnavailable =>
+      'UPnP service control is unavailable at this time.';
 
   @override
   String get services => 'Services';
@@ -381,7 +391,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get systemThemeDescription => 'System default theme uses your device\'s settings to determine when to use light or dark mode.';
+  String get systemThemeDescription =>
+      'System default theme uses your device\'s settings to determine when to use light or dark mode.';
 
   @override
   String get theme => 'Theme';
@@ -401,7 +412,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get thisWillClearAllMessages => 'This will clear all network message history.';
+  String get thisWillClearAllMessages =>
+      'This will clear all network message history.';
 
   @override
   String get traffic => 'Traffic';
@@ -413,7 +425,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unableToLoadChangelog => 'Unable to load changelog';
 
   @override
-  String get unableToObtainInformation => 'Unable to obtain service information';
+  String get unableToObtainInformation =>
+      'Unable to obtain service information';
 
   @override
   String get unableToSubmitFeedback => 'Unable to submit feedback';
