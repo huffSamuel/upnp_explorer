@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../application/l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../application/l10n/app_localizations.dart';
 import '../../core/page/app_page.dart';
 
 class DeviceInfoPage extends StatelessWidget {
@@ -28,24 +28,6 @@ class DeviceInfoPage extends StatelessWidget {
 
     return AppPage(
       title: Text(device.friendlyName),
-      actions: [
-        if (device.presentationUrl != null)
-          IconButton(
-            tooltip: i18n.openPresentationInBrowser,
-            icon: Icon(Icons.open_in_browser),
-            onPressed: _openPresentationUrl,
-          ),
-        if (notify?.location != null)
-          IconButton(
-              tooltip: i18n.openInBrowser,
-              icon: Icon(Icons.file_open_outlined),
-              onPressed: () {
-                launchUrl(
-                  notify!.location!,
-                  mode: LaunchMode.externalApplication,
-                );
-              })
-      ],
       children: [
         ListTile(
           title: Text(i18n.manufacturer),
@@ -82,8 +64,49 @@ class DeviceInfoPage extends StatelessWidget {
           ListTile(
             title: Text(i18n.serialNumber),
             subtitle: Text(device.serialNumber!),
-          )
+          ),
+        if (device.presentationUrl != null || notify?.location != null)
+          Divider(),
+        if (device.presentationUrl != null)
+          _ListButton(
+            label: Text(i18n.openPresentationInBrowser),
+            onPressed: _openPresentationUrl,
+            icon: Icon(Icons.open_in_browser),
+          ),
+        if (notify?.location != null)
+          _ListButton(
+            label: Text(i18n.openInBrowser),
+            onPressed: () => launchUrl(notify!.location!),
+            icon: Icon(Icons.open_in_browser),
+          ),
       ],
+    );
+  }
+}
+
+class _ListButton extends StatelessWidget {
+  final Widget label;
+  final VoidCallback onPressed;
+  final Widget icon;
+
+  const _ListButton({
+    required this.label,
+    required this.onPressed,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0, top: 8.0),
+        child: ElevatedButton.icon(
+          label: label,
+          onPressed: onPressed,
+          icon: icon,
+        ),
+      ),
     );
   }
 }

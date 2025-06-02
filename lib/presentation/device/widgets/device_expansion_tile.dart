@@ -64,6 +64,7 @@ class DeviceExpansionTile extends StatelessWidget {
     Widget child = Stack(
       children: [
         ExpansionTile(
+          trailing: device.devices.isEmpty && device.services.isEmpty ? Opacity(opacity: 0, child: Icon(Icons.abc)) : null,
           shape: _tileBorder,
           collapsedShape: _tileBorder,
           childrenPadding: tileInsets(depth),
