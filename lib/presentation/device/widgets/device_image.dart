@@ -13,18 +13,22 @@ class DeviceImage extends StatelessWidget {
     this.deviceIp,
   }) : super(key: key);
 
+  Uri get _uri => icons.first.url.hasScheme
+      ? icons.first.url
+      : Uri(
+          scheme: deviceIp!.scheme,
+          host: deviceIp!.host,
+          port: deviceIp!.port,
+          path: icons.first.url.toString(),
+        );
+
   @override
   Widget build(BuildContext context) {
     return LeadingIconBuilder(
       builder: (context) => icons.isEmpty || deviceIp == null
           ? const Icon(Icons.device_unknown)
           : Image.network(
-              Uri(
-                scheme: deviceIp!.scheme,
-                host: deviceIp!.host,
-                port: deviceIp!.port,
-                path: icons.first.url.toString(),
-              ).toString(),
+              _uri.toString(),
             ),
     );
   }

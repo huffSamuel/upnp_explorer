@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/version.dart';
 import '../../../../application/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import '../../../../application/flavors/flavor_features.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,11 +32,10 @@ class AboutSettingsPage extends StatelessWidget {
   void _submitBug(BuildContext c) async {
     final i18n = AppLocalizations.of(c)!;
     final bugService = sl<BugReportService>();
-    final info = await PackageInfo.fromPlatform();
 
     bugService.submitBug(
       i18n.mailSubject,
-      i18n.mailBody(info.version),
+      i18n.mailBody(version),
       () {
         final snackbar = SnackBar(
           content: Text(i18n.unableToSubmitFeedback),

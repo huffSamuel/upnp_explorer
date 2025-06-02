@@ -18,7 +18,7 @@ dependencies:
   google_fonts: ^6.1.0
   in_app_review: ^2.0.4
   injectable: ^2.1.0
-  intl: ^0.19.0
+  intl: 0.20.2
   package_info_plus: ^8.0.0
   shared_preferences: ^2.0.17
   url_launcher: ^6.1.8
@@ -29,9 +29,11 @@ dependencies:
   upnped: ^1.1.2+1
   json_annotation: ^4.9.0
   open_settings_plus: ^0.3.3
+  built_version_annotation: ^1.0.0
 
 dev_dependencies:
   build_runner: ^2.3.3
+  built_version: ^1.0.0
   device_frame: ^1.2.0
   flutter_lints: ^5.0.0
   flutter_test:

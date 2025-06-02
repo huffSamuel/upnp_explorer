@@ -76,13 +76,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get adaptiveLayout => 'Layout adattivo';
 
   @override
-  String get adaptiveLayoutDescription => 'Adatta il layout e la combinazione di colori dell\'app al sistema operativo della piattaforma e alle impostazioni di colore dinamiche.';
+  String get adaptiveLayoutDescription =>
+      'Adatta il layout e la combinazione di colori dell\'app al sistema operativo della piattaforma e alle impostazioni di colore dinamiche.';
 
   @override
   String get advancedMode => 'Modo avanzado';
 
   @override
-  String get advancedModeWarning => 'El modo avanzado permite demoras más largas de lo recomendado. Habilitar el modo avanzado puede tener efectos negativos.';
+  String get advancedModeWarning =>
+      'El modo avanzado permite demoras más largas de lo recomendado. Habilitar el modo avanzado puede tener efectos negativos.';
 
   @override
   String get back => 'Atrás';
@@ -122,7 +124,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get copyJson => 'Copiar JSON';
 
   @override
-  String get darkThemeDescription => 'El tema oscuro utiliza un fondo negro para ayudar a que la batería dure más tiempo.';
+  String get darkThemeDescription =>
+      'El tema oscuro utiliza un fondo negro para ayudar a que la batería dure más tiempo.';
 
   @override
   String get decrease => 'Disminuir';
@@ -163,7 +166,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get discovery => 'Descubrimiento';
 
   @override
-  String get discoveryRequiresNetwork => 'La detección de dispositivos requiere acceso a la red';
+  String get discoveryRequiresNetwork =>
+      'La detección de dispositivos requiere acceso a la red';
 
   @override
   String get display => 'Monstrar';
@@ -197,7 +201,8 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get legalese => 'Yo tomo tu privacidad muy en serio. Más allá de la información que Google proporciona a los desarrolladores de aplicaciones, no utilizo análisis ni marcos publicitarios de terceros. No registro información sobre usted y no tengo ningún interés en hacerlo.\n\nNo recopilo, transmito, distribuyo ni vendo sus datos.';
+  String get legalese =>
+      'Yo tomo tu privacidad muy en serio. Más allá de la información que Google proporciona a los desarrolladores de aplicaciones, no utilizo análisis ni marcos publicitarios de terceros. No registro información sobre usted y no tengo ningún interés en hacerlo.\n\nNo recopilo, transmito, distribuyo ni vendo sus datos.';
 
   @override
   String get letUsKnowHowWereDoing => 'Háganos saber cómo lo estamos haciendo';
@@ -220,7 +225,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get manufacturer => 'Fabricante';
 
   @override
-  String get maxDelayDescription => 'El tiempo máximo de retraso en segundos que un dispositivo puede tomar antes de responder. Este es un intento de superar un problema de escala implícito con SSDP.\n\nEl valor debe estar entre 1 y 5. Los retrasos más prolongados pueden generar problemas con el protocolo SSDP.';
+  String get maxDelayDescription =>
+      'El tiempo máximo de retraso en segundos que un dispositivo puede tomar antes de responder. Este es un intento de superar un problema de escala implícito con SSDP.\n\nEl valor debe estar entre 1 y 5. Los retrasos más prolongados pueden generar problemas con el protocolo SSDP.';
 
   @override
   String get maxResponseDelay => 'Retardo de respuesta';
@@ -254,7 +260,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get multicastHops => 'Saltos de Multidifusión';
 
   @override
-  String get multicastHopsDescription => 'Número máximo de saltos de red para paquetes de multidifusión que se originan en este dispositivo.';
+  String get multicastHopsDescription =>
+      'Número máximo de saltos de red para paquetes de multidifusión que se originan en este dispositivo.';
 
   @override
   String get neverAskAgain => 'Nunca preguntes de nuevo';
@@ -287,7 +294,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get openInBrowser => 'Abierta XML en el navegador';
 
   @override
-  String get openPresentationInBrowser => 'Abrir URL de presentación en el navegador';
+  String get openPresentationInBrowser =>
+      'Abrir URL de presentación en el navegador';
 
   @override
   String get output => 'Producción';
@@ -324,7 +332,8 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String receivedAt(DateTime time) {
-    final intl.DateFormat timeDateFormat = intl.DateFormat('HH:mm:ss.SSS', localeName);
+    final intl.DateFormat timeDateFormat =
+        intl.DateFormat('HH:mm:ss.SSS', localeName);
     final String timeString = timeDateFormat.format(time);
 
     return 'Recibido a las $timeString';
@@ -355,7 +364,8 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String sentAt(DateTime time) {
-    final intl.DateFormat timeDateFormat = intl.DateFormat('HH:mm:ss.SSS', localeName);
+    final intl.DateFormat timeDateFormat =
+        intl.DateFormat('HH:mm:ss.SSS', localeName);
     final String timeString = timeDateFormat.format(time);
 
     return 'Enviado a las $timeString';
@@ -365,7 +375,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get serialNumber => 'Número de Serie';
 
   @override
-  String get serviceControlUnavailable => 'El control del servicio UPnP no está disponible en este momento.';
+  String get serviceControlUnavailable =>
+      'El control del servicio UPnP no está disponible en este momento.';
 
   @override
   String get services => 'Servicios';
@@ -387,7 +398,8 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get systemThemeDescription => 'El tema predeterminado del sistema usa la configuración de su dispositivo para determinar cuándo usar el modo claro u oscuro.';
+  String get systemThemeDescription =>
+      'El tema predeterminado del sistema usa la configuración de su dispositivo para determinar cuándo usar el modo claro u oscuro.';
 
   @override
   String get theme => 'Tema';
@@ -407,7 +419,8 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get thisWillClearAllMessages => 'Esto borrará todo el historial de mensajes de la red.';
+  String get thisWillClearAllMessages =>
+      'Esto borrará todo el historial de mensajes de la red.';
 
   @override
   String get traffic => 'Tráfico';
@@ -416,10 +429,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get turnOnWifi => 'Activar wifi';
 
   @override
-  String get unableToLoadChangelog => 'No se puede cargar el registro de cambios';
+  String get unableToLoadChangelog =>
+      'No se puede cargar el registro de cambios';
 
   @override
-  String get unableToObtainInformation => 'No se puede obtener la información del servicio';
+  String get unableToObtainInformation =>
+      'No se puede obtener la información del servicio';
 
   @override
   String get unableToSubmitFeedback => 'No se pueden enviar comentarios';
@@ -467,5 +482,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get wereOpenSource => 'Nosotros somos de código abierto';
 
   @override
-  String get viewSourceCode => 'Ver el código fuente de esta aplicación en GitHub';
+  String get viewSourceCode =>
+      'Ver el código fuente de esta aplicación en GitHub';
 }
