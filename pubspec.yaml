@@ -28,7 +28,7 @@ dependencies:
   dynamic_color: ^1.7.0
   upnped: ^1.1.2+1
   json_annotation: ^4.9.0
-  open_settings_plus: ^0.3.3
+  open_settings_plus: ^0.4.0
   built_version_annotation: ^1.0.0
 
 dev_dependencies:
