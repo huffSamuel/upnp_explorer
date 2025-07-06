@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.11.5](https://github.com/huffSamuel/upnp_explorer/compare/v2.11.4...v2.11.5) (2025-07-06)
+
+
+### Bug Fixes
+
+* device icons ([#144](https://github.com/huffSamuel/upnp_explorer/issues/144)) ([c393679](https://github.com/huffSamuel/upnp_explorer/commit/c393679141dc6997d12d959a30b4b4dd98d708d9))
+
 ## [2.11.4](https://github.com/huffSamuel/upnp_explorer/compare/v2.11.3...v2.11.4) (2024-09-24)
 
 
