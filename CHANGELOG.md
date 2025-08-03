@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.11.6](https://github.com/huffSamuel/upnp_explorer/compare/v2.11.5...v2.11.6) (2025-08-03)
+
+
+### Miscellaneous Chores
+
+* **android:** bump min sdk version ([#152](https://github.com/huffSamuel/upnp_explorer/issues/152)) ([95199f6](https://github.com/huffSamuel/upnp_explorer/commit/95199f65125fb16446ccec189692e67c19af34ea))
+
+
+### Build System
+
+* specify flutter version ([#149](https://github.com/huffSamuel/upnp_explorer/issues/149)) ([2510af7](https://github.com/huffSamuel/upnp_explorer/commit/2510af7d28298b8ba402011adb664ebffd070b8c))
+
 ## [2.11.5](https://github.com/huffSamuel/upnp_explorer/compare/v2.11.4...v2.11.5) (2025-07-06)
 
 
