@@ -1,0 +1,1 @@
+Suchen und steuern Sie UPnP-Geräte in einem Netzwerk.

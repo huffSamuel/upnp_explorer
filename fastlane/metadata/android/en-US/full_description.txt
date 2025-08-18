@@ -1,0 +1,1 @@
+<p>A free, open-source, mobile application to find and browse UPnP devices on your network.</p><p>With this app you can:</p><ul><li>Discover UPnP devices on a network.</li><li>See information about the device, model, and manufacturer.</li><li>View device abilities.</li><li>Send commands to devices on your network.</li></ul>

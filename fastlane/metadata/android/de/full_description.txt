@@ -1,0 +1,6 @@
+<p>Eine kostenlose, mobile Open-Source-Anwendung zum Suchen und Durchsuchen von UPnP-Geräten in Ihrem Netzwerk.</p><p>Mit dieser App können Sie:</p><ul>
+<li>UPnP-Geräte in einem Netzwerk entdecken.</li>
+<li>Informationen zu Gerät, Modell und Hersteller einsehen.</li>
+<li>Gerätefähigkeiten anzeigen.</li>
+<li>Befehle an Geräte in Ihrem Netzwerk senden.</li>
+</ul>
