@@ -71,27 +71,34 @@ class _Loaded extends StatelessWidget {
       );
     }
 
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
+
     return Stack(
       children: [
         RefreshIndicator(
           onRefresh: onRefresh,
-          child: ImplicitlyAnimatedList<Device>(
-            items: devices,
-            insertDuration: Duration(milliseconds: 150),
-            removeDuration: Duration.zero,
-            itemBuilder: (context, animation, item, index) => FadeTransition(
-              opacity: animation,
-              child: DeviceExpansionTile(
-                device: item,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: bottomPadding + 8.0),
+            child: ImplicitlyAnimatedList<Device>(
+              items: devices,
+              insertDuration: Duration(milliseconds: 150),
+              removeDuration: Duration.zero,
+              itemBuilder: (context, animation, item, index) => FadeTransition(
+                opacity: animation,
+                child: DeviceExpansionTile(
+                  device: item,
+                ),
               ),
+              areItemsTheSame: (a, b) => a.description.udn == b.description.udn,
             ),
-            areItemsTheSame: (a, b) => a.description.udn == b.description.udn,
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: ScanningIndicator(
-            height: scanning ? 8 : 0,
+        SafeArea(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: ScanningIndicator(
+              height: scanning ? 8 : 0,
+            ),
           ),
         ),
       ],
