@@ -63,72 +63,74 @@ class _FiltersPageState extends State<FiltersPage> {
           ),
         ],
       ),
-      body: Scrollbar(
-        child: SingleChildScrollView(
-          primary: true,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              StreamBuilder(
-                stream: _eventService.events,
-                builder: (context, snapshot) => ListTile(
-                  title: Text(i18n.countVisible(snapshot.data?.length ?? 0)),
+      body: SafeArea(
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            primary: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StreamBuilder(
+                  stream: _eventService.events,
+                  builder: (context, snapshot) => ListTile(
+                    title: Text(i18n.countVisible(snapshot.data?.length ?? 0)),
+                  ),
                 ),
-              ),
-              StreamBuilder(
-                stream: CombineLatestStream(
-                  [
-                    _service.filtersMap,
-                    _service.filterValuesMap,
-                  ],
-                  (x) => x,
-                ),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Container();
-                  }
-
-                  if (!snapshot.hasData) {
-                    return Container();
-                  }
-
-                  final filters = snapshot.data![0] as FilterMap;
-                  final allowedFilters = snapshot.data![1] as FilterValueMap;
-
-                  return Column(
-                    children: [
-                      _filterGroup(
-                        FilterGroup.direction,
-                        i18n.directionDescription,
-                        filters,
-                        allowedFilters,
-                        Map.fromEntries(
-                          NetworkEventDirection.values.map(
-                            (x) => MapEntry(x, i18n.direction(x.name)),
+                StreamBuilder(
+                  stream: CombineLatestStream(
+                    [
+                      _service.filtersMap,
+                      _service.filterValuesMap,
+                    ],
+                    (x) => x,
+                  ),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Container();
+                    }
+        
+                    if (!snapshot.hasData) {
+                      return Container();
+                    }
+        
+                    final filters = snapshot.data![0] as FilterMap;
+                    final allowedFilters = snapshot.data![1] as FilterValueMap;
+        
+                    return Column(
+                      children: [
+                        _filterGroup(
+                          FilterGroup.direction,
+                          i18n.directionDescription,
+                          filters,
+                          allowedFilters,
+                          Map.fromEntries(
+                            NetworkEventDirection.values.map(
+                              (x) => MapEntry(x, i18n.direction(x.name)),
+                            ),
                           ),
                         ),
-                      ),
-                      _filterGroup(
-                        FilterGroup.protocol,
-                        i18n.protocolDescription,
-                        filters,
-                        allowedFilters,
-                        {
-                          NetworkEventProtocol.http: 'HTTP',
-                          NetworkEventProtocol.ssdp: 'SSDP',
-                        },
-                      ),
-                      _filterGroup(
-                          FilterGroup.type, i18n.type, filters, allowedFilters),
-                      _filterGroup(
-                          FilterGroup.from, i18n.from, filters, allowedFilters),
-                      _filterGroup(
-                          FilterGroup.to, i18n.to, filters, allowedFilters),
-                    ],
-                  );
-                },
-              ),
-            ],
+                        _filterGroup(
+                          FilterGroup.protocol,
+                          i18n.protocolDescription,
+                          filters,
+                          allowedFilters,
+                          {
+                            NetworkEventProtocol.http: 'HTTP',
+                            NetworkEventProtocol.ssdp: 'SSDP',
+                          },
+                        ),
+                        _filterGroup(
+                            FilterGroup.type, i18n.type, filters, allowedFilters),
+                        _filterGroup(
+                            FilterGroup.from, i18n.from, filters, allowedFilters),
+                        _filterGroup(
+                            FilterGroup.to, i18n.to, filters, allowedFilters),
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

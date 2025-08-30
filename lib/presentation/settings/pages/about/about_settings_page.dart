@@ -26,7 +26,7 @@ class AboutSettingsPage extends StatelessWidget {
   }
 
   void _openSource(BuildContext c) async {
-    launchUrl(Uri.parse(Application.repoUrl));
+    launchUrl(Application.repoUri);
   }
 
   void _submitBug(BuildContext c) async {
@@ -95,11 +95,7 @@ class AboutSettingsPage extends StatelessWidget {
         SettingsTile(
           leading: Icon(Icons.privacy_tip_outlined),
           title: Text(i18n.privacyPolicy),
-          onTap: () => launchUrl(
-            Uri.parse(
-              Application.privacyPolicyUrl,
-            ),
-          ),
+          onTap: () => launchUrl(Application.privacyPolicyUri),
         ),
         SettingsTile(
           title: Text(i18n.licenses),

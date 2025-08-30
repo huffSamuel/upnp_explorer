@@ -125,7 +125,7 @@ class _ActionPageState extends State<ActionPage> {
               ],
             ),
           ),
-          sendButton,
+          SafeArea(child: sendButton),
         ],
       ),
     );
