@@ -1,11 +1,26 @@
+class GitHub {
+  static const baseApiUrl = 'https://api.github.com';
+  static const baseContentUrl = 'https://raw.githubusercontent.com';
+  static const baseWebUrl = 'http://github.com';
+}
+
 class Application {
-  static const repoUrl = 'https://github.com/huffSamuel/upnp_explorer';
-  static const _blob = '$repoUrl/blob/main';
-  static const submitBugUrl = '${repoUrl}/issues/new/choose';
+  static const _username = 'huffSamuel';
+  static const _repo = 'upnp_explorer';
+  
+  static const _repoUrl = '${GitHub.baseWebUrl}/$_username/$_repo';
+  static const _blob = '$_repoUrl/blob/main';
+
   static const name = 'UPnP Explorer';
-  static const privacyPolicyUrl = '$_blob/PRIVACY_POLICY.md';
-  static const changelogUrl = '$_blob/CHANGELOG.md';
   static const appId = 'com.samueljhuf.upnp_explorer';
+
+  static final repoUri = Uri.parse(_repoUrl);
+  static final changelogUri = Uri.parse('$_blob/CHANGELOG.md');
+  static final submitBugUri = Uri.parse('$_repoUrl/issues/new/choose');
+  static final privacyPolicyUri = Uri.parse('$_blob/PRIVACY_POLICY.md');
+
+  static final contributorUri = Uri.parse(
+      '${GitHub.baseApiUrl}/repos/$_username/$_repo/contributors');
 
   static const assets = const Assets();
 }

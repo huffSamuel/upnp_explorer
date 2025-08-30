@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../../application/l10n/app_localizations.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../application/contributor_service.dart';
 import '../../../../application/ioc.dart';
+import '../../../../application/l10n/app_localizations.dart';
 import '../../../../packages/github/contributor.dart';
 import '../../../core/page/app_page.dart';
 
@@ -16,74 +16,48 @@ class _ContributorsPageState extends State<ContributorsPage> {
   final _s = sl<ContributorsService>();
 
   @override
-  void initState() {
-    super.initState();
-    _s.load();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
 
-    return StreamBuilder(
-        stream: _s.contributors$,
+    return AppPage(title: Text(i18n.contributors), children: [
+      FutureBuilder(
+        future: _s.contributors(),
         builder: (context, snapshot) {
-          return AppPage(
-            title: Text(i18n.contributors),
-            children: [
-              if (!snapshot.hasData ||
-                  (snapshot.hasData && snapshot.data!.isEmpty))
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-              if (snapshot.hasData)
-                SingleChildScrollView(
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return Wrap(
-                      spacing: 4.0,
-                      children: snapshot.data!
-                          .map(
-                            (x) => SizedBox(
-                              width: (constraints.maxWidth - 12) / 3,
-                              child: _Contributor(
-                                contributor: x,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    );
-                  }),
-                )
-            ],
-          );
-        });
+          if (!snapshot.hasData || snapshot.hasError) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          final contributors = snapshot.data!.toList();
+
+          return ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child:
+                      _ContributorListTile(contributor: contributors[index])),
+              itemCount: snapshot.data!.length);
+        },
+      )
+    ]);
   }
 }
 
-class _Contributor extends StatelessWidget {
+class _ContributorListTile extends StatelessWidget {
   final Contributor contributor;
 
-  const _Contributor({required this.contributor});
+  const _ContributorListTile({super.key, required this.contributor});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => launchUrl(Uri.parse(contributor.profileUrl)),
-      child: Column(
-        children: [
-          Image(
-            image: NetworkImage(contributor.avatarUrl),
-          ),
-          ConstrainedBox(
-            constraints: BoxConstraints.loose(Size.fromWidth(128)),
-            child: Text(
-              contributor.login,
-              softWrap: true,
-            ),
-          ),
-        ],
-      ),
+    final image = Image(image: NetworkImage(contributor.avatarUrl));
+
+    final clippedImage =
+        contributor.type == UserType.user ? ClipOval(child: image) : image;
+
+    return ListTile(
+      onTap: () => launchUrlString(contributor.profileUrl),
+      leading: clippedImage,
+      title: Text(contributor.login),
     );
   }
 }

@@ -1,42 +1,74 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../packages/github/contributor.dart';
 import 'application.dart';
+import 'version_service.dart';
+
+const _contributorsCacheVersion = 'contributors_version';
+const _contributors = 'contributors';
 
 @lazySingleton
 class ContributorsService {
-  var _loaded = false;
+  final SharedPreferences _prefs;
+  final VersionService _versionService;
 
-  final _subject = BehaviorSubject<Iterable<Contributor>>.seeded([]);
 
-  /// Stream of users who contributed to this project.
-  Stream<Iterable<Contributor>> get contributors$ => _subject.stream;
+  ContributorsService(
+      SharedPreferences preferences, VersionService versionService)
+      : _prefs = preferences,
+        _versionService = versionService;
 
-  /// Load users who contributed to this project.
-  ///
-  /// The contributor list is pulled from assets, not live from github.
-  void load() {
-    if (_loaded) {
-      return;
-    }
-
-    rootBundle
-        .loadString(Application.assets.contributors)
-        .asStream()
-        .map((s) => jsonDecode(s) as List<dynamic>)
-        .map(
-          (s) => s.map((x) => Contributor.fromJson(x as Map<String, dynamic>)),
-        )
-        .take(1)
-        .listen(_onLoad);
+  Future<Iterable<Contributor>> contributors() {
+    return _load();
   }
 
-  _onLoad(Iterable<Contributor> contributors) {
-    _subject.add(contributors);
-    _loaded = true;
+  Future<Iterable<Contributor>> _load() async {
+    final cacheVersion = _prefs.getString(_contributorsCacheVersion);
+    final appVersion = await _versionService.getVersion();
+
+    if (cacheVersion == appVersion) {
+      return _mapContributors(_prefs.getString(_contributors)!);
+    }
+
+    try {
+      final contributors = await _contributorsFromNetwork();
+      await _updateCache(contributors, appVersion);
+
+      return _mapContributors(contributors);
+    } catch (_) {
+      return _contributorsFromAssets();
+    }
+  }
+
+  Future<Iterable<Contributor>> _contributorsFromAssets() async {
+    final data = await rootBundle.loadString(Application.assets.contributors);
+
+    return _mapContributors(data);
+  }
+
+  Future<String> _contributorsFromNetwork() async {
+    final data = await http.get(Application.contributorUri);
+
+    if (data.statusCode < 200 || data.statusCode > 299) {
+      throw Exception("Failed to load contributors from network");
+    }
+
+    return data.body;
+  }
+
+  Iterable<Contributor> _mapContributors(String data) {
+    final json = jsonDecode(data) as List<dynamic>;
+
+    return json.map((e) => Contributor.fromJson(e as Map<String, dynamic>));
+  }
+
+  Future<void> _updateCache(String contributors, String appVersion) async {
+    await _prefs.setString(_contributors, contributors);
+    await _prefs.setString(_contributorsCacheVersion, appVersion);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../application/application.dart';
 import '../../../application/changelog/changelog_service.dart';
@@ -68,7 +68,7 @@ class _ChangelogMarkdown extends StatelessWidget {
                 Text(i18n.unableToLoadChangelog),
                 SizedBox(height: 24),
                 ElevatedButton(
-                    onPressed: () => launchUrlString(Application.changelogUrl),
+                    onPressed: () => launchUrl(Application.changelogUri),
                     child: Text(i18n.viewInBrowser))
               ],
             ),

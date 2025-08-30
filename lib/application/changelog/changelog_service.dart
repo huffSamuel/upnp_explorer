@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../application.dart';
 import '../version_service.dart';
 
 const String lastChangelogVersion = 'lastChangelogVersion';
@@ -36,7 +37,7 @@ class ChangelogService {
       final currentVersion = await await versionService.getVersion();
 
       final uri =
-          'https://raw.githubusercontent.com/huffSamuel/upnp_explorer/v$currentVersion/CHANGELOG.md';
+          '${GitHub.baseContentUrl}/huffSamuel/upnp_explorer/v$currentVersion/CHANGELOG.md';
 
       final data = await http.get(Uri.parse(uri));
 

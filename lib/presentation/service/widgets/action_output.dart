@@ -94,6 +94,7 @@ class ArgumentOutput extends StatelessWidget {
           controller: TextEditingController(
             text: text,
           ),
+          style: Theme.of(context).textTheme.bodyLarge,
           enabled: false,
           readOnly: true,
           maxLines: 1,
