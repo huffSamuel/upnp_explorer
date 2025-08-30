@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.11.6...v2.12.0) (2025-08-30)
+
+
+### Features
+
+* display contributors from github ([92b4745](https://github.com/huffSamuel/upnp_explorer/commit/92b4745a1beb0677dabeff35942610087c19ee93))
+
+
+### Bug Fixes
+
+* add safe area for new SDK presentation ([92b4745](https://github.com/huffSamuel/upnp_explorer/commit/92b4745a1beb0677dabeff35942610087c19ee93))
+* output text more readable ([92b4745](https://github.com/huffSamuel/upnp_explorer/commit/92b4745a1beb0677dabeff35942610087c19ee93))
+
 ## [2.11.6](https://github.com/huffSamuel/upnp_explorer/compare/v2.11.5...v2.11.6) (2025-08-03)
 
 
