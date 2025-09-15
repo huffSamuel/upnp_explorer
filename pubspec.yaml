@@ -19,7 +19,7 @@ dependencies:
   in_app_review: ^2.0.10
   injectable: ^2.1.0
   intl: 0.20.2
-  package_info_plus: ^8.0.0
+  package_info_plus: ^9.0.0
   shared_preferences: ^2.5.3
   url_launcher: ^6.3.2
   xml: ^6.2.2
