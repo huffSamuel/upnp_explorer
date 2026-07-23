@@ -19,6 +19,9 @@ String? _test(String? s, RegExp regex) =>
 String? _isBoolean(String? s) =>
     s == null || !['true', 'false'].contains(s) ? '*' : null;
 
+String? _isInteger(String? s) =>
+    s == null || int.tryParse(s) == null ? 'Must be a whole number' : null;
+
 class Validators {
   static String? isNotEmpty(String? s) => _isNotEmpty(s);
   static String? isUUID(String? s) => _test(s, _uuid);
@@ -28,4 +31,5 @@ class Validators {
   static String? isURI(String? s) => _isURI(s);
   static String? isDateTime(String? s) => _isDateTime(s);
   static String? isBoolean(String? s) => _isBoolean(s);
+  static String? isInteger(String? s) => _isInteger(s);
 }

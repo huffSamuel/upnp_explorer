@@ -8,10 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upnp_explorer/application/changelog/changelog_service.dart';
 import 'package:upnp_explorer/application/network_logs/network_event_service.dart';
 import 'package:upnp_explorer/application/version_service.dart';
-import 'package:upnp_explorer/presentation/device/pages/device_info_page.dart';
-import 'package:upnp_explorer/presentation/device/pages/discovery_page.dart';
-import 'package:upnp_explorer/presentation/network_logs/pages/logs_page.dart';
-import 'package:upnp_explorer/presentation/service/pages/action_page.dart';
+import 'package:upnp_explorer/features/discovery/presentation/pages/device_info_page.dart';
+import 'package:upnp_explorer/features/discovery/presentation/pages/explorer_page.dart';
+import 'package:upnp_explorer/features/logs/presentation/pages/logs_page.dart';
+import 'package:upnp_explorer/features/control/presentation/pages/action_page.dart';
 import 'package:upnped/upnped.dart' as upnp;
 
 import 'store_screenshots_test.setup.dart';
@@ -58,7 +58,7 @@ void main() {
       const name = 'devices.light';
       await takeScreenshot(
         tester: tester,
-        widget: TestPageWrapper(child: DiscoveryPage()),
+        widget: TestPageWrapper(child: ExplorerPage()),
         pageName: name,
         isFinal: false,
         sizeDp: Size(1242 / 3, 2208 / 3),
@@ -82,7 +82,7 @@ void main() {
       final renderingControl = find.text('RenderingControl');
 
       final app = TestPageWrapper(
-        child: DiscoveryPage(),
+        child: ExplorerPage(),
         themeMode: themeMode,
       );
       await tester.pumpWidgetBuilder(app);

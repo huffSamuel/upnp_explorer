@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get_it/get_it.dart';
+import 'features/syntax_highlighting/highlighter.dart';
 
 import 'application/flavors/flavor_features.dart';
 import 'application/ioc.dart';
 import 'application/licenses.dart';
 import 'application/settings/settings_repository.dart';
-import 'presentation/core/widgets/model_binding.dart';
-import 'presentation/device/pages/service.dart';
+import 'features/core/presentation/widgets/model_binding.dart';
+import 'features/discovery/logic/service.dart';
 import 'upnp_explorer.dart';
 
 Future<void> runAppWithFeatures(FlavorFeatures features) async {
   registerLicenses();
 
   WidgetsFlutterBinding.ensureInitialized();
+  await XmlHighlighter.initialize();
 
   await configureDependencies();
 

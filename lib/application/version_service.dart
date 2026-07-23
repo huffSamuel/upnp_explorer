@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:upnp_explorer/version.dart';
+import '../version.dart';
 
 @Environment(Environment.prod)
 @singleton
