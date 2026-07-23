@@ -15,10 +15,10 @@ let package = Package(
         .library(name: "FlutterGeneratedPluginSwiftPackage", type: .static, targets: ["FlutterGeneratedPluginSwiftPackage"])
     ],
     dependencies: [
-        .package(name: "connectivity_plus", path: "../.packages/connectivity_plus-7.0.0"),
-        .package(name: "in_app_review", path: "../.packages/in_app_review-2.0.11"),
+        .package(name: "connectivity_plus", path: "../.packages/connectivity_plus-7.3.0"),
+        .package(name: "in_app_review", path: "../.packages/in_app_review-2.0.12"),
         .package(name: "shared_preferences_foundation", path: "../.packages/shared_preferences_foundation-2.5.6"),
-        .package(name: "url_launcher_ios", path: "../.packages/url_launcher_ios-6.3.6"),
+        .package(name: "url_launcher_ios", path: "../.packages/url_launcher_ios-6.4.1"),
         .package(name: "FlutterFramework", path: "../.packages/FlutterFramework")
     ],
     targets: [
