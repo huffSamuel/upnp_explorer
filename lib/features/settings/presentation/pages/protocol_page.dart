@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../../../../application/l10n/app_localizations.dart';
 import '../../../../application/settings/protocol_settings.dart';
 import '../../../../application/settings/settings.dart';
-import '../../../core/presentation/widgets/my_bottom_app_bar.dart';
+import '../../../../extension/build_context.dart';
 import '../../../core/presentation/widgets/page_title.dart';
 import '../widgets/auto_refresh_card.dart';
 import '../widgets/multicast_hops_card.dart';
@@ -16,6 +15,8 @@ import '../widgets/response_delay_card.dart';
 // FormFields onSave update a key-value map with the string value
 // And a serializer converts it to an actual object.
 class ProtocolSettingsPage extends StatefulWidget {
+  const ProtocolSettingsPage({super.key});
+
   @override
   State<ProtocolSettingsPage> createState() => _ProtocolSettingsPageState();
 }
@@ -47,7 +48,7 @@ class _ProtocolSettingsPageState extends State<ProtocolSettingsPage> {
   void dispose() {
     _delayController.dispose();
     _hopsController.dispose();
-    
+
     super.dispose();
   }
 
@@ -60,13 +61,11 @@ class _ProtocolSettingsPageState extends State<ProtocolSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final i18n = AppLocalizations.of(context)!;
+    final i18n = context.i18n();
 
     return Scaffold(
-      bottomNavigationBar: MyBottomAppBar(currentIndex: 2),
       appBar: AppBar(
-        title: PageTitle(child: Text('Settings')),
+        title: PageTitle(child: Text(i18n.settings)),
       ),
       body: Form(
         autovalidateMode: AutovalidateMode.onUnfocus,
@@ -94,7 +93,7 @@ class _ProtocolSettingsPageState extends State<ProtocolSettingsPage> {
             Padding(
               padding: const EdgeInsets.only(left: 12.0, right: 8),
               child: Text(
-                'Discovery Settings',
+                i18n.discoverySettings,
                 style: TextTheme.of(context).bodyMedium!.copyWith(
                       fontSize: 24,
                       color: Theme.of(context).colorScheme.primary,
@@ -107,7 +106,7 @@ class _ProtocolSettingsPageState extends State<ProtocolSettingsPage> {
               padding: const EdgeInsets.only(
                   left: 12.0, right: 8, top: 6, bottom: 16),
               child: Text(
-                'Fine-tune UPnP behavior when discovering devices.',
+                i18n.discoverySettingsDescription,
                 style: TextTheme.of(context).bodyMedium!.copyWith(
                       fontSize: 16,
                       color: Theme.of(context).hintColor,

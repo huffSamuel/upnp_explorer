@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Action;
+import 'package:upnp_explorer/extension/build_context.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../discovery/presentation/widgets/item_list_card.dart';
@@ -37,6 +38,7 @@ class ActionInputsCardState extends State<ActionInputsCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return Form(
       key: _formKey,
@@ -49,7 +51,7 @@ class ActionInputsCardState extends State<ActionInputsCard> {
                 color: theme.colorScheme.primary, size: 20),
             const SizedBox(width: 12),
             Text(
-              'Input Parameters',
+              i18n.inputParameters,
               style: TextTheme.of(context).bodyMedium!.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,

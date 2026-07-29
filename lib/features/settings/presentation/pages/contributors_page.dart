@@ -7,6 +7,8 @@ import '../../../../application/l10n/app_localizations.dart';
 import '../../../../packages/github/contributor.dart';
 
 class ContributorsPage extends StatefulWidget {
+  const ContributorsPage({super.key});
+
   @override
   State<ContributorsPage> createState() => _ContributorsPageState();
 }
@@ -54,7 +56,7 @@ class _ContributorsPageState extends State<ContributorsPage> {
 class _ContributorListTile extends StatelessWidget {
   final Contributor contributor;
 
-  const _ContributorListTile({super.key, required this.contributor});
+  const _ContributorListTile({required this.contributor});
 
   @override
   Widget build(BuildContext context) {

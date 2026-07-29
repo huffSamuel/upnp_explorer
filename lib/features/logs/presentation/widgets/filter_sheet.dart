@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
 import '../../../../application/ioc.dart';
 import '../../../../application/network_logs/network_event_service.dart';
 import 'package:upnped/upnped.dart';
@@ -41,6 +42,7 @@ class _FilterSheetState extends State<FilterSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return SingleChildScrollView(
       child: Padding(
@@ -52,7 +54,7 @@ class _FilterSheetState extends State<FilterSheet> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Filters',
+                i18n.filters,
                 style: TextTheme.of(context).bodyMedium!.copyWith(
                       fontSize: 24,
                       color: Theme.of(context).colorScheme.primary,
@@ -62,7 +64,7 @@ class _FilterSheetState extends State<FilterSheet> {
               ),
               const SizedBox(height: 24),
               Text(
-                'filter by type'.toUpperCase(),
+                i18n.filterByType.toUpperCase(),
                 style: theme.textTheme.bodyMedium!.copyWith(
                   fontSize: 12,
                   color: theme.hintColor,
@@ -96,7 +98,7 @@ class _FilterSheetState extends State<FilterSheet> {
               ),
               const SizedBox(height: 8),
               Text(
-                'filter by IP'.toUpperCase(),
+                i18n.filterByIp.toUpperCase(),
                 style: theme.textTheme.bodyMedium!.copyWith(
                   fontSize: 12,
                   color: theme.hintColor,
@@ -110,7 +112,7 @@ class _FilterSheetState extends State<FilterSheet> {
                     try {
                       Uri.parseIPv4Address(value);
                     } on FormatException {
-                      return 'Please enter a valid IP address';
+                      return i18n.invalidIpAddress;
                     }
                   }
       
@@ -140,7 +142,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Apply Filters'),
+                      Text(i18n.applyFilters),
                     ],
                   ),
                 ),
@@ -159,7 +161,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Reset Filters'),
+                      Text(i18n.resetFilters),
                     ],
                   ),
                 ),

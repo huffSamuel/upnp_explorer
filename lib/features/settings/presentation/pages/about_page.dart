@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../application/application.dart';
 import '../../../../application/bug_report_service.dart';
 import '../../../../application/ioc.dart';
 import '../../../../application/l10n/app_localizations.dart';
+import '../../../../version.dart';
 import '../../../core/presentation/pages/changelog_page.dart';
-import '../../../core/presentation/widgets/my_bottom_app_bar.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 import '../../../core/presentation/widgets/page_title.dart';
-import '../../../../version.dart';
 import '../widgets/version_text.dart';
 import 'contributors_page.dart';
 
 class AboutSettingsPage extends StatelessWidget {
+  const AboutSettingsPage({super.key});
+
   void _submitBug(BuildContext c) async {
     final i18n = AppLocalizations.of(c)!;
     final bugService = sl<BugReportService>();
@@ -41,11 +43,11 @@ class AboutSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return Scaffold(
-      bottomNavigationBar: MyBottomAppBar(currentIndex: 2),
       appBar: AppBar(
-        title: PageTitle(child: Text('Settings')),
+        title: PageTitle(child: Text(i18n.settings)),
       ),
       body: ListView(
         children: [
@@ -56,7 +58,7 @@ class AboutSettingsPage extends StatelessWidget {
                 const SizedBox(height: 64, width: 64, child: Placeholder()),
                 const SizedBox(height: 16),
                 Text(
-                  'UPnP Explorer',
+                  Application.name,
                   style: TextTheme.of(context).bodyMedium!.copyWith(
                         fontSize: 32,
                         color: theme.colorScheme.primary,
@@ -79,11 +81,11 @@ class AboutSettingsPage extends StatelessWidget {
               children: [
                 ListTile(
                     leading: Icon(Icons.star),
-                    title: Text('Rate on Google Play'),
+                    title: Text(i18n.rateOnGooglePlay),
                     trailing: Icon(Icons.open_in_new)),
                 ListTile(
                   leading: Icon(Icons.history),
-                  title: Text('View Changelog'),
+                  title: Text(i18n.viewChangelog),
                   trailing: Icon(Icons.chevron_right),
                   onTap: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (c) => ChangelogPage())),
@@ -97,19 +99,19 @@ class AboutSettingsPage extends StatelessWidget {
                 children: [
                   ListTile(
                       leading: Icon(Icons.commit),
-                      title: Text('View Contributors'),
+                      title: Text(i18n.viewContributors),
                       trailing: Icon(Icons.chevron_right),
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
                           builder: (c) => ContributorsPage()))),
                   ListTile(
                     leading: Icon(Icons.code),
-                    title: Text('View Source Code'),
+                    title: Text(i18n.viewSourceCode),
                     trailing: Icon(Icons.open_in_new),
                     onTap: () => _openSource(context),
                   ),
                   ListTile(
                     leading: Icon(Icons.bug_report),
-                    title: Text('Submit a Bug'),
+                    title: Text(i18n.submitABug),
                     trailing: Icon(Icons.open_in_new),
                     onTap: () => _submitBug(context),
                   )
@@ -121,13 +123,13 @@ class AboutSettingsPage extends StatelessWidget {
               children: [
                 ListTile(
                   leading: Icon(Icons.privacy_tip_outlined),
-                  title: Text('Privacy Policy'),
+                  title: Text(i18n.privacyPolicy),
                   trailing: Icon(Icons.open_in_new),
                   onTap: _openPrivacyPolicy,
                 ),
                 ListTile(
                     leading: Icon(Icons.description),
-                    title: Text('Open Source Licenses'),
+                    title: Text(i18n.openSourceLicenses),
                     trailing: Icon(Icons.chevron_right),
                     onTap: () => Navigator.of(context)
                         .push(MaterialPageRoute(builder: (c) => LicensePage())))

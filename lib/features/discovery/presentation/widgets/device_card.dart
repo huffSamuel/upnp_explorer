@@ -11,10 +11,10 @@ class DeviceCard extends StatelessWidget {
   final int depth;
 
   const DeviceCard({
-    Key? key,
+    super.key,
     required this.device,
     this.depth = 1,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

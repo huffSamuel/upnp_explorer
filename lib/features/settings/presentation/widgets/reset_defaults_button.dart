@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../application/l10n/app_localizations.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
 
 class ResetToDefaultsCard extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -9,7 +9,7 @@ class ResetToDefaultsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final i18n = AppLocalizations.of(context)!;
+    final i18n = context.i18n();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -29,7 +29,7 @@ class ResetToDefaultsCard extends StatelessWidget {
             children: [
               Icon(Icons.refresh, size: 24),
               const SizedBox(width: 4),
-              Text('Reset to Defaults'),
+              Text(i18n.resetToDefaults),
             ],
           ),
         ),

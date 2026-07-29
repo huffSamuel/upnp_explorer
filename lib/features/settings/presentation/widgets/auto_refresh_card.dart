@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../../application/l10n/app_localizations.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
+
 import '../../../core/presentation/widgets/my_card.dart';
+import '../../../core/presentation/widgets/section_header.dart';
+import 'setting_description.dart';
 
 class AutoRefreshCard extends StatefulWidget {
   final bool value;
@@ -23,41 +26,21 @@ class _AutoRefreshCardState extends State<AutoRefreshCard> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final i18n = AppLocalizations.of(context)!;
+    final i18n = context.i18n();
 
     return MyCard(
       child: Column(
         children: [
-          Row(children: [
-            Icon(
-              Icons.refresh,
-              color: theme.colorScheme.primary,
-              size: 20,
-            ),
-            const SizedBox(width: 12),
-            Text(
-              'Auto-refresh',
-              style: TextTheme.of(context).bodyMedium!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: -.3,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-            ),
-          ]),
+          SectionHeader(
+            icon: Icon(Icons.refresh),
+            title: Text(i18n.autoRefresh),
+          ),
           const SizedBox(height: 16),
           Row(
             children: [
               Expanded(
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    color: theme.hintColor,
-                  ),
-                  child: Text(
-                    'Automatically trigger a scan when opening the app.',
-                  ),
+                child: SettingDescription(
+                  child: Text(i18n.autoRefreshDescription),
                 ),
               ),
               Switch(

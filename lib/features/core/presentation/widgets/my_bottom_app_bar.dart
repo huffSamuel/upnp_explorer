@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
 
 import '../../../discovery/presentation/pages/explorer_page.dart';
 import '../../../logs/presentation/pages/logs_page.dart';
@@ -37,15 +38,24 @@ class MyBottomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = context.i18n();
+
     return BottomNavigationBar(
       onTap: (index) => _onTap(index, context),
       currentIndex: currentIndex,
       items: [
         BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined), label: 'Explorer'),
-        BottomNavigationBarItem(icon: Icon(Icons.terminal), label: 'Messages'),
+          icon: Icon(Icons.explore_outlined),
+          label: i18n.explorer,
+        ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined), label: 'Settings')
+          icon: Icon(Icons.terminal),
+          label: i18n.messages,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings_outlined),
+          label: i18n.settings,
+        )
       ],
       useLegacyColorScheme: false,
     );

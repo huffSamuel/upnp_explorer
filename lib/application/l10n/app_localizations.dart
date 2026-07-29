@@ -98,17 +98,17 @@ abstract class AppLocalizations {
     Locale('es')
   ];
 
+  /// No description provided for @viewContributors.
+  ///
+  /// In en, this message translates to:
+  /// **'View Contributors'**
+  String get viewContributors;
+
   /// No description provided for @contributors.
   ///
   /// In en, this message translates to:
   /// **'Contributors'**
   String get contributors;
-
-  /// No description provided for @aSpecialThanks.
-  ///
-  /// In en, this message translates to:
-  /// **'A special thanks!'**
-  String get aSpecialThanks;
 
   /// No description provided for @filters.
   ///
@@ -116,59 +116,11 @@ abstract class AppLocalizations {
   /// **'Filters'**
   String get filters;
 
-  /// No description provided for @directionDescription.
+  /// No description provided for @noActions.
   ///
   /// In en, this message translates to:
-  /// **'Direction'**
-  String get directionDescription;
-
-  /// No description provided for @protocolDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Protocol'**
-  String get protocolDescription;
-
-  /// No description provided for @online.
-  ///
-  /// In en, this message translates to:
-  /// **'Online'**
-  String get online;
-
-  /// No description provided for @offline.
-  ///
-  /// In en, this message translates to:
-  /// **'Offline'**
-  String get offline;
-
-  /// No description provided for @aboutThisDevice.
-  ///
-  /// In en, this message translates to:
-  /// **'About this device'**
-  String get aboutThisDevice;
-
-  /// No description provided for @from.
-  ///
-  /// In en, this message translates to:
-  /// **'From'**
-  String get from;
-
-  /// No description provided for @noActionsForThisService.
-  ///
-  /// In en, this message translates to:
-  /// **'No actions for this service'**
-  String get noActionsForThisService;
-
-  /// No description provided for @sendCommand.
-  ///
-  /// In en, this message translates to:
-  /// **'Send {name} command'**
-  String sendCommand(Object name);
-
-  /// No description provided for @to.
-  ///
-  /// In en, this message translates to:
-  /// **'To'**
-  String get to;
+  /// **'No actions'**
+  String get noActions;
 
   /// About
   ///
@@ -176,11 +128,11 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
-  /// No description provided for @type.
+  /// No description provided for @action.
   ///
   /// In en, this message translates to:
-  /// **'Type'**
-  String get type;
+  /// **'Action'**
+  String get action;
 
   /// Actions
   ///
@@ -188,59 +140,11 @@ abstract class AppLocalizations {
   /// **'Actions'**
   String get actions;
 
-  /// No description provided for @actionsN.
+  /// No description provided for @platformNotSupported.
   ///
   /// In en, this message translates to:
-  /// **'Actions ({count})'**
-  String actionsN(num count);
-
-  /// No description provided for @countVisible.
-  ///
-  /// In en, this message translates to:
-  /// **'{count} visible'**
-  String countVisible(num count);
-
-  /// No description provided for @adaptiveLayout.
-  ///
-  /// In en, this message translates to:
-  /// **'Adaptive layout'**
-  String get adaptiveLayout;
-
-  /// No description provided for @adaptiveLayoutDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Adapt the layout and color scheme of the app to the platform\'s operating system and dynamic color settings.'**
-  String get adaptiveLayoutDescription;
-
-  /// No description provided for @advancedMode.
-  ///
-  /// In en, this message translates to:
-  /// **'Advanced mode'**
-  String get advancedMode;
-
-  /// Message to warn users of the dangers of enabling advanced mode.
-  ///
-  /// In en, this message translates to:
-  /// **'Advanced mode allows delays longer than recommended. Enabling advanced mode may have negative affects.'**
-  String get advancedModeWarning;
-
-  /// No description provided for @back.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
-
-  /// No description provided for @changelog.
-  ///
-  /// In en, this message translates to:
-  /// **'Changelog'**
-  String get changelog;
-
-  /// A single changelog line item
-  ///
-  /// In en, this message translates to:
-  /// **'- {item}'**
-  String changelogItem(String item);
+  /// **'Platform not supported'**
+  String get platformNotSupported;
 
   /// No description provided for @clearAll.
   ///
@@ -248,107 +152,17 @@ abstract class AppLocalizations {
   /// **'Clear All'**
   String get clearAll;
 
-  /// No description provided for @clearHistory.
-  ///
-  /// In en, this message translates to:
-  /// **'Yes, clear history'**
-  String get clearHistory;
-
   /// No description provided for @clearMessages.
   ///
   /// In en, this message translates to:
   /// **'Clear Messages?'**
   String get clearMessages;
 
-  /// No description provided for @close.
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get close;
-
-  /// No description provided for @commandFailedWithError.
-  ///
-  /// In en, this message translates to:
-  /// **'Command failed {error}'**
-  String commandFailedWithError(String error);
-
-  /// No description provided for @controlUnavailable.
-  ///
-  /// In en, this message translates to:
-  /// **'Control Unavailable'**
-  String get controlUnavailable;
-
-  /// No description provided for @copy.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy'**
-  String get copy;
-
-  /// No description provided for @copyJson.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy JSON'**
-  String get copyJson;
-
-  /// No description provided for @darkThemeDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Dark theme uses a black background to help keep your battery alive longer.'**
-  String get darkThemeDescription;
-
-  /// No description provided for @decrease.
-  ///
-  /// In en, this message translates to:
-  /// **'Decrease'**
-  String get decrease;
-
-  /// No description provided for @decreaseDisabled.
-  ///
-  /// In en, this message translates to:
-  /// **'Decrease disabled'**
-  String get decreaseDisabled;
-
-  /// No description provided for @density.
-  ///
-  /// In en, this message translates to:
-  /// **'Visual density'**
-  String get density;
-
-  /// No description provided for @devices.
-  ///
-  /// In en, this message translates to:
-  /// **'Devices'**
-  String get devices;
-
-  /// No description provided for @devicesN.
-  ///
-  /// In en, this message translates to:
-  /// **'Devices ({count})'**
-  String devicesN(num count);
-
-  /// Display name for a `Direction`
-  ///
-  /// In en, this message translates to:
-  /// **'{direction, select, incoming {Received} outgoing {Sent} other {Unknown}}'**
-  String direction(String direction);
-
-  /// No description provided for @discoveredDevice.
-  ///
-  /// In en, this message translates to:
-  /// **'Discovered device {name}'**
-  String discoveredDevice(String name);
-
   /// No description provided for @discovery.
   ///
   /// In en, this message translates to:
   /// **'Discovery'**
   String get discovery;
-
-  /// No description provided for @discoveryRequiresNetwork.
-  ///
-  /// In en, this message translates to:
-  /// **'Device discovery requires network access'**
-  String get discoveryRequiresNetwork;
 
   /// No description provided for @display.
   ///
@@ -362,11 +176,11 @@ abstract class AppLocalizations {
   /// **'Filter'**
   String get filter;
 
-  /// No description provided for @foundBug.
+  /// No description provided for @deviceInformation.
   ///
   /// In en, this message translates to:
-  /// **'Found a bug?'**
-  String get foundBug;
+  /// **'Device Information'**
+  String get deviceInformation;
 
   /// No description provided for @fromAddress.
   ///
@@ -374,59 +188,47 @@ abstract class AppLocalizations {
   /// **'From {address}'**
   String fromAddress(String address);
 
-  /// No description provided for @increase.
+  /// No description provided for @deviceDetails.
   ///
   /// In en, this message translates to:
-  /// **'Increase'**
-  String get increase;
+  /// **'Device Details'**
+  String get deviceDetails;
 
-  /// No description provided for @increaseDisabled.
+  /// No description provided for @timestamp.
   ///
   /// In en, this message translates to:
-  /// **'Increase disabled'**
-  String get increaseDisabled;
+  /// **'Timestamp'**
+  String get timestamp;
 
-  /// No description provided for @input.
+  /// No description provided for @inputParameters.
   ///
   /// In en, this message translates to:
-  /// **'Input'**
-  String get input;
+  /// **'Input Parameters'**
+  String get inputParameters;
 
-  /// No description provided for @keepHistory.
+  /// No description provided for @requestHeaders.
   ///
   /// In en, this message translates to:
-  /// **'No, keep history'**
-  String get keepHistory;
+  /// **'Request Headers'**
+  String get requestHeaders;
 
-  /// No description provided for @knownValue.
+  /// No description provided for @responseHeaders.
   ///
   /// In en, this message translates to:
-  /// **'{name} {value}'**
-  String knownValue(String name, String value);
+  /// **'Response Headers'**
+  String get responseHeaders;
 
-  /// No description provided for @legalese.
+  /// No description provided for @payload.
   ///
   /// In en, this message translates to:
-  /// **'I take your privacy very seriously. Beyond the information Google provides to app developers, I use no third-party analytics or advertising frameworks. I log no information on you and have no interest in doing so.\n\nI do not collect, transmit, distribute, or sell your data.'**
-  String get legalese;
+  /// **'Payload'**
+  String get payload;
 
-  /// No description provided for @letUsKnowHowWereDoing.
+  /// No description provided for @timestampValue.
   ///
   /// In en, this message translates to:
-  /// **'Let us know how we\'re doing'**
-  String get letUsKnowHowWereDoing;
-
-  /// No description provided for @licenses.
-  ///
-  /// In en, this message translates to:
-  /// **'Licenses'**
-  String get licenses;
-
-  /// No description provided for @listSeparator.
-  ///
-  /// In en, this message translates to:
-  /// **', '**
-  String get listSeparator;
+  /// **'{time}'**
+  String timestampValue(DateTime time);
 
   /// No description provided for @mailBody.
   ///
@@ -446,6 +248,36 @@ abstract class AppLocalizations {
   /// **'Manufacturer'**
   String get manufacturer;
 
+  /// No description provided for @seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds'**
+  String get seconds;
+
+  /// No description provided for @displaySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Settings'**
+  String get displaySettings;
+
+  /// No description provided for @oledDark.
+  ///
+  /// In en, this message translates to:
+  /// **'OLED Dark'**
+  String get oledDark;
+
+  /// No description provided for @oledDarkDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a pure black background in dark mode to save power and increase contrast.'**
+  String get oledDarkDescription;
+
+  /// No description provided for @discoverySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delay, Hops'**
+  String get discoverySubtitle;
+
   /// No description provided for @maxDelayDescription.
   ///
   /// In en, this message translates to:
@@ -455,14 +287,20 @@ abstract class AppLocalizations {
   /// No description provided for @maxResponseDelay.
   ///
   /// In en, this message translates to:
-  /// **'Response delay'**
+  /// **'Response Delay'**
   String get maxResponseDelay;
 
-  /// No description provided for @messageLog.
+  /// No description provided for @unknown.
   ///
   /// In en, this message translates to:
-  /// **'{type} {direction, select, inn {received} out {sent} other {Unknown}} at {time}'**
-  String messageLog(String direction, String time, String type);
+  /// **'Unknown'**
+  String get unknown;
+
+  /// No description provided for @responseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Response Body'**
+  String get responseBody;
 
   /// No description provided for @messages.
   ///
@@ -494,89 +332,35 @@ abstract class AppLocalizations {
   /// **'Multicast hops'**
   String get multicastHops;
 
+  /// No description provided for @hops.
+  ///
+  /// In en, this message translates to:
+  /// **'Hops (TTL)'**
+  String get hops;
+
+  /// No description provided for @resetToDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to Defaults'**
+  String get resetToDefaults;
+
   /// No description provided for @multicastHopsDescription.
   ///
   /// In en, this message translates to:
   /// **'Maximum number of network hops for multicast packages originating from this device.'**
   String get multicastHopsDescription;
 
-  /// No description provided for @neverAskAgain.
-  ///
-  /// In en, this message translates to:
-  /// **'Never ask again'**
-  String get neverAskAgain;
-
   /// No description provided for @noDevicesFound.
   ///
   /// In en, this message translates to:
-  /// **'No devices found.'**
+  /// **'No Devices Found.'**
   String get noDevicesFound;
 
-  /// No description provided for @nothingHere.
+  /// No description provided for @devicesUnavailableWhenNoNetwork.
   ///
   /// In en, this message translates to:
-  /// **'There\'s nothing here.'**
-  String get nothingHere;
-
-  /// No description provided for @notNow.
-  ///
-  /// In en, this message translates to:
-  /// **'Not now'**
-  String get notNow;
-
-  /// No description provided for @off.
-  ///
-  /// In en, this message translates to:
-  /// **'Off'**
-  String get off;
-
-  /// No description provided for @ok.
-  ///
-  /// In en, this message translates to:
-  /// **'OK'**
-  String get ok;
-
-  /// No description provided for @on.
-  ///
-  /// In en, this message translates to:
-  /// **'On'**
-  String get on;
-
-  /// No description provided for @open.
-  ///
-  /// In en, this message translates to:
-  /// **'Open'**
-  String get open;
-
-  /// No description provided for @openAnIssueOnOurGithub.
-  ///
-  /// In en, this message translates to:
-  /// **'Open an issue on our GitHub'**
-  String get openAnIssueOnOurGithub;
-
-  /// No description provided for @openInBrowser.
-  ///
-  /// In en, this message translates to:
-  /// **'Open XML in browser'**
-  String get openInBrowser;
-
-  /// No description provided for @openPresentationInBrowser.
-  ///
-  /// In en, this message translates to:
-  /// **'Open presentation URL in browser'**
-  String get openPresentationInBrowser;
-
-  /// No description provided for @output.
-  ///
-  /// In en, this message translates to:
-  /// **'Output'**
-  String get output;
-
-  /// Request the user to rate the app.
-  ///
-  /// In en, this message translates to:
-  /// **'If you like {appName}, or you\'ve found something we need to work on, we would love to hear about it. We would greatly appreciate it if you could rate the app on the Play Store. Thanks!'**
-  String pleaseRateAppName(String appName);
+  /// **'UPnP devices are unavailable while disconnected from the network.'**
+  String get devicesUnavailableWhenNoNetwork;
 
   /// No description provided for @privacyPolicy.
   ///
@@ -584,29 +368,11 @@ abstract class AppLocalizations {
   /// **'Privacy policy'**
   String get privacyPolicy;
 
-  /// Display name for a message `Protocol`
-  ///
-  /// In en, this message translates to:
-  /// **'{protocol, select, upnp {UPnP} ssdp {SSDP} soap {SOAP} http {HTTP} other {Unknown}}'**
-  String protocol(String protocol);
-
-  /// No description provided for @rateAppName.
-  ///
-  /// In en, this message translates to:
-  /// **'Rate {appName}'**
-  String rateAppName(String appName);
-
   /// No description provided for @rateOnGooglePlay.
   ///
   /// In en, this message translates to:
   /// **'Rate on Google Play'**
   String get rateOnGooglePlay;
-
-  /// No description provided for @receivedAt.
-  ///
-  /// In en, this message translates to:
-  /// **'Received at {time}'**
-  String receivedAt(DateTime time);
 
   /// No description provided for @refresh.
   ///
@@ -614,23 +380,11 @@ abstract class AppLocalizations {
   /// **'Refresh'**
   String get refresh;
 
-  /// No description provided for @request.
-  ///
-  /// In en, this message translates to:
-  /// **'Request'**
-  String get request;
-
   /// No description provided for @response.
   ///
   /// In en, this message translates to:
   /// **'Response'**
   String get response;
-
-  /// A number of seconds
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{1 second} other{{count} seconds}}'**
-  String responseDelay(num count);
 
   /// No description provided for @scanningForDevices.
   ///
@@ -638,35 +392,11 @@ abstract class AppLocalizations {
   /// **'Scanning for devices'**
   String get scanningForDevices;
 
-  /// No description provided for @sentAt.
-  ///
-  /// In en, this message translates to:
-  /// **'at {time}'**
-  String sentAt(DateTime time);
-
   /// No description provided for @serialNumber.
   ///
   /// In en, this message translates to:
   /// **'Serial Number'**
   String get serialNumber;
-
-  /// No description provided for @serviceControlUnavailable.
-  ///
-  /// In en, this message translates to:
-  /// **'UPnP service control is unavailable at this time.'**
-  String get serviceControlUnavailable;
-
-  /// No description provided for @services.
-  ///
-  /// In en, this message translates to:
-  /// **'Services'**
-  String get services;
-
-  /// No description provided for @servicesN.
-  ///
-  /// In en, this message translates to:
-  /// **'Services ({count})'**
-  String servicesN(num count);
 
   /// No description provided for @settings.
   ///
@@ -674,23 +404,17 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settings;
 
-  /// No description provided for @stateVariables.
+  /// No description provided for @autoRefresh.
   ///
   /// In en, this message translates to:
-  /// **'State Variables'**
-  String get stateVariables;
+  /// **'Auto-refresh'**
+  String get autoRefresh;
 
-  /// No description provided for @stateVariablesN.
+  /// No description provided for @autoRefreshDescription.
   ///
   /// In en, this message translates to:
-  /// **'State Variables ({count})'**
-  String stateVariablesN(num count);
-
-  /// No description provided for @systemThemeDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'System default theme uses your device\'s settings to determine when to use light or dark mode.'**
-  String get systemThemeDescription;
+  /// **'Automatically trigger a scan when opening the app.'**
+  String get autoRefreshDescription;
 
   /// No description provided for @theme.
   ///
@@ -710,17 +434,59 @@ abstract class AppLocalizations {
   /// **'This will clear all network message history.'**
   String get thisWillClearAllMessages;
 
-  /// No description provided for @traffic.
+  /// No description provided for @networkDisabled.
   ///
   /// In en, this message translates to:
-  /// **'Traffic'**
-  String get traffic;
+  /// **'Network Disabled'**
+  String get networkDisabled;
 
-  /// No description provided for @turnOnWifi.
+  /// No description provided for @checkNetworkSettings.
   ///
   /// In en, this message translates to:
-  /// **'Turn on Wi-Fi'**
-  String get turnOnWifi;
+  /// **'Please check your network settings'**
+  String get checkNetworkSettings;
+
+  /// No description provided for @openNetworkSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Network Settings'**
+  String get openNetworkSettings;
+
+  /// No description provided for @clearAllMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all messages'**
+  String get clearAllMessages;
+
+  /// No description provided for @keepMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Messages'**
+  String get keepMessages;
+
+  /// No description provided for @applyFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Filters'**
+  String get applyFilters;
+
+  /// No description provided for @resetFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Filters'**
+  String get resetFilters;
+
+  /// No description provided for @viewSourceCode.
+  ///
+  /// In en, this message translates to:
+  /// **'View Source Code'**
+  String get viewSourceCode;
+
+  /// No description provided for @viewChangelog.
+  ///
+  /// In en, this message translates to:
+  /// **'View Changelog'**
+  String get viewChangelog;
 
   /// No description provided for @unableToLoadChangelog.
   ///
@@ -728,29 +494,137 @@ abstract class AppLocalizations {
   /// **'Unable to load changelog'**
   String get unableToLoadChangelog;
 
-  /// No description provided for @unableToObtainInformation.
-  ///
-  /// In en, this message translates to:
-  /// **'Unable to obtain service information'**
-  String get unableToObtainInformation;
-
   /// No description provided for @unableToSubmitFeedback.
   ///
   /// In en, this message translates to:
   /// **'Unable to submit feedback'**
   String get unableToSubmitFeedback;
 
-  /// No description provided for @unavailable.
+  /// No description provided for @submitABug.
   ///
   /// In en, this message translates to:
-  /// **'Unavailable'**
-  String get unavailable;
+  /// **'Submit a Bug'**
+  String get submitABug;
 
-  /// Display when a value is unknown
+  /// No description provided for @filterByType.
   ///
   /// In en, this message translates to:
-  /// **'{name} unknown'**
-  String unknownValue(String name);
+  /// **'filter by type'**
+  String get filterByType;
+
+  /// No description provided for @filterByIp.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by IP'**
+  String get filterByIp;
+
+  /// No description provided for @invalidIpAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid IP address'**
+  String get invalidIpAddress;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get failed;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @statusMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Status Message'**
+  String get statusMessage;
+
+  /// An HTTP status code and reason phrase
+  ///
+  /// In en, this message translates to:
+  /// **'{code} {reason}'**
+  String codeAndReason(int code, String reason);
+
+  /// No description provided for @latency.
+  ///
+  /// In en, this message translates to:
+  /// **'Latency'**
+  String get latency;
+
+  /// Display number of milliseconds elapsed
+  ///
+  /// In en, this message translates to:
+  /// **'{count} ms'**
+  String ms(num count);
+
+  /// No description provided for @details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
+
+  /// No description provided for @serviceDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Details'**
+  String get serviceDetails;
+
+  /// No description provided for @executeAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Execute Action'**
+  String get executeAction;
+
+  /// No description provided for @explorer.
+  ///
+  /// In en, this message translates to:
+  /// **'Explorer'**
+  String get explorer;
+
+  /// No description provided for @method.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get method;
+
+  /// No description provided for @notExecuted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Executed'**
+  String get notExecuted;
+
+  /// No description provided for @note.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: '**
+  String get note;
+
+  /// No description provided for @discoverySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Discovery Settings'**
+  String get discoverySettings;
+
+  /// No description provided for @discoverySettingsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Fine-tune UPnP behavior when discovering devices.'**
+  String get discoverySettingsDescription;
+
+  /// No description provided for @protocolSettingsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes to discovery settings will only take effect on the next scan. Aggressive settings may cause network congestion in some environments.'**
+  String get protocolSettingsNote;
 
   /// No description provided for @version.
   ///
@@ -764,23 +638,29 @@ abstract class AppLocalizations {
   /// **'View in browser'**
   String get viewInBrowser;
 
-  /// No description provided for @viewNetworkTraffic.
+  /// No description provided for @msearchSent.
   ///
   /// In en, this message translates to:
-  /// **'View network traffic'**
-  String get viewNetworkTraffic;
+  /// **'M-SEARCH Sent'**
+  String get msearchSent;
 
-  /// No description provided for @viewXml.
+  /// No description provided for @ssdpMulticastDiscovery.
   ///
   /// In en, this message translates to:
-  /// **'View XML'**
-  String get viewXml;
+  /// **'SSDP Multicast Discovery'**
+  String get ssdpMulticastDiscovery;
 
-  /// Display name for a `VisualDensity`
+  /// No description provided for @notifyReceived.
   ///
   /// In en, this message translates to:
-  /// **'{visualDensity, select, comfortable {Comfortable} standard {Standard} compact {Compact} other {Unknown}}'**
-  String visualDensity(String visualDensity);
+  /// **'NOTIFY Received'**
+  String get notifyReceived;
+
+  /// No description provided for @httpRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'{method} Request'**
+  String httpRequest(Object method);
 
   /// No description provided for @whatsNew.
   ///
@@ -788,17 +668,35 @@ abstract class AppLocalizations {
   /// **'What\'s new'**
   String get whatsNew;
 
-  /// No description provided for @wereOpenSource.
+  /// No description provided for @childDevices.
   ///
   /// In en, this message translates to:
-  /// **'We\'re open source'**
-  String get wereOpenSource;
+  /// **'Child Devices'**
+  String get childDevices;
 
-  /// No description provided for @viewSourceCode.
+  /// No description provided for @openSourceLicenses.
   ///
   /// In en, this message translates to:
-  /// **'View this app\'s source code on GitHub'**
-  String get viewSourceCode;
+  /// **'Open Source Licenses'**
+  String get openSourceLicenses;
+
+  /// No description provided for @upnpServices.
+  ///
+  /// In en, this message translates to:
+  /// **'UPnP Services'**
+  String get upnpServices;
+
+  /// No description provided for @toAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'To: {address}'**
+  String toAddress(Object address);
+
+  /// No description provided for @upnpDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'UPnP Devices'**
+  String get upnpDevices;
 }
 
 class _AppLocalizationsDelegate

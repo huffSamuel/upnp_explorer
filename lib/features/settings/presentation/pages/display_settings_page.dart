@@ -1,17 +1,17 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/features/core/dark.dart';
-import 'package:upnp_explorer/features/core/light.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
+import 'package:upnp_explorer/features/core/theme.dart';
+
 import '../../../../application/settings/settings.dart';
 import '../../../core/presentation/widgets/model_binding.dart';
-
-import '../../../../application/settings/palette.dart';
-import '../../../core/presentation/widgets/my_bottom_app_bar.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 import '../../../core/presentation/widgets/page_title.dart';
 
 class DisplaySettingsPage extends StatefulWidget {
+  const DisplaySettingsPage({super.key});
+
   @override
   State<DisplaySettingsPage> createState() => _DisplaySettingsPageState();
 }
@@ -20,20 +20,20 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return Scaffold(
       appBar: AppBar(
         title: PageTitle(
-          child: Text('Settings'),
+          child: Text(i18n.settings),
         ),
       ),
-      bottomNavigationBar: MyBottomAppBar(currentIndex: 2),
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 12.0, right: 8),
             child: Text(
-              'Display Settings',
+              i18n.displaySettings,
               style: TextTheme.of(context).bodyMedium!.copyWith(
                     fontSize: 24,
                     color: Theme.of(context).colorScheme.primary,
@@ -57,7 +57,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'OLED Dark',
+                      i18n.oledDark,
                       style: TextTheme.of(context).bodyMedium!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -77,7 +77,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                           color: theme.hintColor,
                         ),
                         child: Text(
-                          'Use a pure black background in dark mode to save power and increase contrast.',
+                          i18n.oledDarkDescription,
                         ),
                       ),
                     ),
@@ -85,8 +85,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                       width: 8,
                     ),
                     Switch(
-                      value: false,
-                      onChanged: (_) {},
+                      value: Settings.of(context).oledDark,
+                      onChanged: (value) {
+                        final s = Settings.of(context);
+                        Settings.update(context, s.copyWith(oledDark: value));
+                      },
                     ),
                   ],
                 ),
@@ -102,6 +105,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 }
 
 class ThemeModeCard extends StatefulWidget {
+  const ThemeModeCard({super.key});
+
   @override
   State<ThemeModeCard> createState() => _ThemeModeCardState();
 }
@@ -115,7 +120,9 @@ class _ThemeModeCardState extends State<ThemeModeCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final themeMode = ModelBinding.of<Settings>(context).themeMode;
+    final i18n = context.i18n();
+    final settings = Settings.of(context);
+    final themeMode = settings.themeMode;
 
     return MyCard(
       padding: const EdgeInsets.all(16),
@@ -134,7 +141,7 @@ class _ThemeModeCardState extends State<ThemeModeCard> {
               ),
               const SizedBox(width: 12),
               Text(
-                'Theme',
+                i18n.theme,
                 style: TextTheme.of(context).bodyMedium!.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -145,23 +152,23 @@ class _ThemeModeCardState extends State<ThemeModeCard> {
             ]),
             const SizedBox(height: 16),
             ThemeOption(
-              title: Text('Light'),
+              title: Text(i18n.themeMode('light')),
               value: ThemeMode.light,
               child: ThemePreview(
-                theme: PrecisionObserverTheme.lightTheme,
+                theme: AppTheme.light(),
               ),
             ),
             const SizedBox(height: 16),
             ThemeOption(
-              title: Text('Dark'),
+              title: Text(i18n.themeMode('dark')),
               value: ThemeMode.dark,
               child: ThemePreview(
-                theme: PrecisionObserverDarkTheme.darkTheme,
+                theme: AppTheme.dark(oled: settings.oledDark),
               ),
             ),
             const SizedBox(height: 16),
             ThemeOption(
-              title: Text('System'),
+              title: Text(i18n.themeMode('system')),
               value: ThemeMode.system,
               child: SystemThemePreview(),
             )
@@ -173,10 +180,13 @@ class _ThemeModeCardState extends State<ThemeModeCard> {
 }
 
 class SystemThemePreview extends StatelessWidget {
+  const SystemThemePreview({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final light = AppTheme.light(null, VisualDensity.standard);
-    final dark = AppTheme.dark(null, VisualDensity.standard);
+    final oled = Settings.of(context).oledDark;
+    final light = AppTheme.light();
+    final dark = AppTheme.dark(oled: oled);
 
     return Row(
       children: [

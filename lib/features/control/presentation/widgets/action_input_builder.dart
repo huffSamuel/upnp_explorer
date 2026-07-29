@@ -38,7 +38,7 @@ class ActionInputBuilder extends StatelessWidget {
             : null,
         items: [
           ...stateVariable!.allowedValues!
-              .map((v) => DropdownMenuItem(child: Text(v), value: v)),
+              .map((v) => DropdownMenuItem(value: v, child: Text(v))),
         ],
         onChanged: (_) {},
       );

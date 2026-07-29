@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
-import '../../../discovery/presentation/widgets/item_list_card.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
 import 'package:upnped/upnped.dart';
 
-import '../../../discovery/presentation/pages/device_info_page.dart';
+import '../../../discovery/presentation/widgets/item_list_card.dart';
 import 'action_result.dart';
 import 'my_field.dart';
 
@@ -20,6 +20,7 @@ class ActionOutputsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return ItemListCard(
       separatorBuilder: (_) => const SizedBox(height: 8),
@@ -31,7 +32,7 @@ class ActionOutputsCard extends StatelessWidget {
           Icon(Icons.output, color: theme.colorScheme.primary, size: 20),
           const SizedBox(width: 12),
           Text(
-            'Response',
+            i18n.response,
             style: TextTheme.of(context).bodyMedium!.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,

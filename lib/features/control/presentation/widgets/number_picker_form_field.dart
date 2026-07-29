@@ -39,11 +39,11 @@ class _VariableNumberPickerFormFieldState extends State<VariableNumberPickerForm
   }
 
   bool _canIncrement() {
-    return _value < num.parse(widget.stateVariable!.allowedValueRange!.maximum);
+    return _value < num.parse(widget.stateVariable.allowedValueRange!.maximum);
   }
 
   bool _canDecrement() {
-    return _value > num.parse(widget.stateVariable!.allowedValueRange!.minimum);
+    return _value > num.parse(widget.stateVariable.allowedValueRange!.minimum);
   }
 
   void _increment() {

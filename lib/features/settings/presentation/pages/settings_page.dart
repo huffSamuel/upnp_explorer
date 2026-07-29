@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/application/application.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
 
-import '../../../core/presentation/widgets/my_bottom_app_bar.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 import '../../../core/presentation/widgets/my_icon.dart';
 import '../../../core/presentation/widgets/page_title.dart';
@@ -14,22 +15,23 @@ Function() _nav(BuildContext context, Widget page) {
 }
 
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return Scaffold(
-      bottomNavigationBar: MyBottomAppBar(currentIndex: 2),
       appBar: AppBar(
         title: PageTitle(
-          child: Text('Settings'),
+          child: Text(i18n.settings),
         ),
       ),
       body: ListView(
         children: [
           SettingsCategoryCard(
-            title: Text('Display'),
-            subtitle: Text('Theme, Visual Density'),
+            title: Text(i18n.display),
+            subtitle: Text(i18n.theme),
             icon: Icons.display_settings,
             onTap: _nav(
               context,
@@ -37,8 +39,8 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           SettingsCategoryCard(
-            title: Text('Discovery'),
-            subtitle: Text('Delay, Hops'),
+            title: Text(i18n.discovery),
+            subtitle: Text(i18n.discoverySubtitle),
             icon: Icons.search,
             onTap: _nav(
               context,
@@ -46,8 +48,8 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           SettingsCategoryCard(
-            title: Text('About'),
-            subtitle: Text('UPnP Explorer'),
+            title: Text(i18n.about),
+            subtitle: Text(Application.name),
             icon: Icons.info,
             onTap: _nav(
               context,

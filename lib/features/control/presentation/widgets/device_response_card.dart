@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../extension/build_context.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 import 'action_outputs_card.dart';
 import 'action_result.dart';
@@ -17,6 +18,7 @@ class DeviceResponseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return MyCard(
       padding: const EdgeInsets.all(16),
@@ -32,7 +34,7 @@ class DeviceResponseCard extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Text(
-                'Status',
+                i18n.status,
                 style: TextTheme.of(context).bodyMedium!.copyWith(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -44,7 +46,7 @@ class DeviceResponseCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'status'.toUpperCase(),
+            i18n.status.toUpperCase(),
             style: theme.textTheme.bodyMedium!.copyWith(
               fontSize: 12,
               color: theme.hintColor,
@@ -55,11 +57,12 @@ class DeviceResponseCard extends StatelessWidget {
           CommandStatusField(status: result.status),
           const SizedBox(height: 8),
           MyField(
-            label: Text('latency'.toUpperCase()),
+            label: Text(i18n.latency.toUpperCase()),
             child: OutputTextField(
-                value: result.duration == null
-                    ? null
-                    : '${result.duration!.inMilliseconds} ms'),
+              value: result.duration == null
+                  ? null
+                  : i18n.ms(result.duration!.inMilliseconds),
+            ),
           ),
           if (result.status == CommandStatus.error)
             Column(
@@ -67,7 +70,7 @@ class DeviceResponseCard extends StatelessWidget {
               children: [
                 const SizedBox(height: 8),
                 MyField(
-                  label: Text('status message'.toUpperCase()),
+                  label: Text(i18n.statusMessage.toUpperCase()),
                   child: OutputTextField(value: result.errorMessage),
                 ),
               ],

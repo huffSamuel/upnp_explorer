@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../core/light.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
+import 'package:upnp_explorer/features/core/custom_colors.dart';
 
 enum CommandStatus {
   notExecuted,
@@ -15,6 +16,7 @@ class CommandStatusField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return Row(
       children: [
@@ -33,21 +35,21 @@ class CommandStatusField extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         DefaultTextStyle.merge(
-            style: TextStyle(
-              fontSize: 16,
-              color: switch (status) {
-                CommandStatus.notExecuted => theme.dividerColor,
-                CommandStatus.error => theme.colorScheme.error,
-                _ => null,
-              },
-              fontWeight:
-                  status == CommandStatus.error ? FontWeight.w600 : null,
-            ),
-            child: switch (status) {
-              CommandStatus.success => Text('Success'),
-              CommandStatus.error => Text('Failed'),
-              _ => Text('Not Executed'),
-            }),
+          style: TextStyle(
+            fontSize: 16,
+            color: switch (status) {
+              CommandStatus.notExecuted => theme.dividerColor,
+              CommandStatus.error => theme.colorScheme.error,
+              _ => null,
+            },
+            fontWeight: status == CommandStatus.error ? FontWeight.w600 : null,
+          ),
+          child: switch (status) {
+            CommandStatus.success => Text(i18n.success),
+            CommandStatus.error => Text(i18n.failed),
+            _ => Text(i18n.notExecuted),
+          },
+        ),
       ],
     );
   }

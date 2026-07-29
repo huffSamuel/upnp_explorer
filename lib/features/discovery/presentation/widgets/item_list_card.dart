@@ -29,9 +29,7 @@ class ItemListCard<T> extends StatelessWidget {
             ListView.separated(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemBuilder: (c, i) => Material(
-                color: Colors.transparent,
-                child: itemBuilder(c, items[i])),
+              itemBuilder: (c, i) => itemBuilder(c, items[i]),
               separatorBuilder: (c, __) => separatorBuilder == null
                   ? Divider(
                       color: Theme.of(context).colorScheme.surfaceContainerHigh)

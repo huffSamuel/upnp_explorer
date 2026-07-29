@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 
 class _ModelBindingScope<T> extends InheritedWidget {
   const _ModelBindingScope({
-    Key? key,
+    super.key,
     required this.modelBindingState,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
-  final _ModelBindingState<T> modelBindingState;
+  final ModelBindingState<T> modelBindingState;
 
   @override
   bool updateShouldNotify(_ModelBindingScope oldWidget) => true;
 }
 
 class ModelBinding<T> extends StatefulWidget {
-  ModelBinding({
-    Key? key,
+  const ModelBinding({
+    super.key,
     required this.initialModel,
     required this.child,
     this.onUpdate,
-  })  : assert(initialModel != null),
-        super(key: key);
+  })  : assert(initialModel != null);
 
   final T initialModel;
   final Widget child;
   final void Function(T? oldModel, T newModel)? onUpdate;
 
-  _ModelBindingState<T> createState() => _ModelBindingState<T>();
+  @override
+  ModelBindingState<T> createState() => ModelBindingState<T>();
 
   static T of<T>(BuildContext context) {
     final scope =
@@ -51,7 +51,7 @@ class ModelBinding<T> extends StatefulWidget {
   }
 }
 
-class _ModelBindingState<T> extends State<ModelBinding<T>> {
+class ModelBindingState<T> extends State<ModelBinding<T>> {
   T? currentModel;
 
   @override

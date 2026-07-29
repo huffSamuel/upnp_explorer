@@ -82,8 +82,8 @@ void main() {
       final renderingControl = find.text('RenderingControl');
 
       final app = TestPageWrapper(
-        child: ExplorerPage(),
         themeMode: themeMode,
+        child: ExplorerPage(),
       );
       await tester.pumpWidgetBuilder(app);
 
@@ -134,8 +134,8 @@ void main() {
       await takeScreenshot(
         tester: tester,
         widget: TestPageWrapper(
-          child: LogsPage(),
           themeMode: ThemeMode.dark,
+          child: LogsPage(),
         ),
         pageName: name,
         isFinal: false,
@@ -156,19 +156,22 @@ void main() {
     });
 
     testGoldens('deviceInfo', (tester) async {
-      final device = MockDeviceDescription();
-      when(device.friendlyName).thenReturn("Living room sound bar");
-      when(device.manufacturer).thenReturn("Sony Corporation");
-      when(device.manufacturerUrl).thenReturn(Uri());
-      when(device.modelName).thenReturn("HT-CT790");
-      when(device.modelNumber).thenReturn("BAR-2016");
+      final description = MockDeviceDescription();
+      when(description.friendlyName).thenReturn("Living room sound bar");
+      when(description.manufacturer).thenReturn("Sony Corporation");
+      when(description.manufacturerUrl).thenReturn(Uri());
+      when(description.modelName).thenReturn("HT-CT790");
+      when(description.modelNumber).thenReturn("BAR-2016");
 
       final notify = MockNotifyDiscovered();
       when(notify.location).thenReturn(Uri());
 
+      final device = MockDevice();
+      when(device.description).thenReturn(description);
+      when(device.notify).thenReturn(notify);
+
       final screen = DeviceInfoPage(
         device: device,
-        notify: notify,
       );
 
       await takeScreenshot(
@@ -241,7 +244,7 @@ void main() {
 
       final screen = ActionPage(
         action: action,
-        stateTable: stateTable,
+        serviceStateTable: stateTable,
       );
 
       await takeScreenshot(

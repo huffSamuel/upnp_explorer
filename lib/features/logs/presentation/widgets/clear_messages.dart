@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../application/l10n/app_localizations.dart';
 
 class ClearMessages extends StatelessWidget {
+  const ClearMessages({super.key});
+
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;
@@ -25,7 +27,7 @@ class ClearMessages extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Clear all messages'),
+                Text(i18n.clearAllMessages),
               ],
             ),
           ),
@@ -38,7 +40,7 @@ class ClearMessages extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Keep Messages'),
+                Text(i18n.keepMessages),
               ],
             ),
           ),

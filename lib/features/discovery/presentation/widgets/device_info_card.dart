@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../core/presentation/widgets/my_card.dart';
-import 'external_url_field.dart';
-import 'information_field.dart';
 import 'package:upnped/upnped.dart';
+
+import '../../../../extension/build_context.dart';
+import '../../../../util/string.dart';
+import '../../../core/presentation/widgets/external_link.dart';
+import '../../../core/presentation/widgets/labeled_field.dart';
+import '../../../core/presentation/widgets/my_card.dart';
+import '../../../core/presentation/widgets/section_header.dart';
 
 class DeviceInformationCard extends StatelessWidget {
   final DeviceDescription device;
@@ -11,43 +15,48 @@ class DeviceInformationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return MyCard(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.info, color: theme.colorScheme.primary, size: 20),
-              const SizedBox(width: 12),
-              Text(
-                'Device Information',
-                style: TextTheme.of(context).bodyMedium!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -.3,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-              ),
-            ],
+          SectionHeader(
+            icon: Icon(Icons.info),
+            title: Text(i18n.deviceInformation),
           ),
           const SizedBox(height: 4),
-          ExternalUrlField(
-            modelName: device.manufacturer,
-            modelUrl: device.manufacturerUrl,
-            label: 'manufacturer',
-          ),
-          ExternalUrlField(
-            label: 'model name',
-            modelName: device.modelName,
-            modelUrl: device.modelUrl,
-          ),
-          InformationField(label: 'model number', value: device.modelNumber),
-          InformationField(
-              label: 'model description', value: device.modelDescription),
-          InformationField(label: 'serial number', value: device.serialNumber),
+          if (device.manufacturer.isNotEmpty)
+            LabeledField(
+                label: Text(i18n.manufacturer.toUpperCase()),
+                child: ExternalLink(
+                  url: device.manufacturerUrl,
+                  child: Text(device.manufacturer),
+                )),
+          if (device.modelName.isNotEmpty)
+            LabeledField(
+              label: Text(i18n.modelName.toUpperCase()),
+              child: ExternalLink(
+                url: device.modelUrl,
+                child: Text(device.modelName),
+              ),
+            ),
+          if (isNotNullOrEmpty(device.modelNumber))
+            LabeledField(
+              label: Text(i18n.modelNumber.toUpperCase()),
+              child: Text(device.modelNumber!),
+            ),
+          if (isNotNullOrEmpty(device.modelDescription))
+            LabeledField(
+              label: Text(i18n.modelDescription.toUpperCase()),
+              child: Text(device.modelDescription!),
+            ),
+          if (isNotNullOrEmpty(device.serialNumber))
+            LabeledField(
+              label: Text(i18n.serialNumber.toUpperCase()),
+              child: Text(device.serialNumber!),
+            ),
         ],
       ),
     );

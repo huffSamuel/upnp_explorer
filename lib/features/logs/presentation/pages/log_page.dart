@@ -1,209 +1,127 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:syntax_highlight/syntax_highlight.dart';
-import '../../../core/dark.dart';
-import '../../../syntax_highlighting/highlighter.dart';
 import 'package:upnped/upnped.dart';
 
-import '../../../../application/l10n/app_localizations.dart';
-import '../../../core/light.dart';
+import '../../../../extension/build_context.dart';
+import '../../../control/presentation/widgets/my_field.dart';
+import '../../../core/custom_colors.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 import '../../../core/presentation/widgets/page_title.dart';
-import '../../../control/presentation/widgets/my_field.dart';
+import '../../../core/presentation/widgets/section_header.dart';
+import '../widgets/detail_section_card.dart';
+import '../widgets/source_code.dart';
 
 class LogPage extends StatelessWidget {
   final NetworkEvent event;
-  final _controller = CodeEditorController(
-    lightHighlighter: XmlHighlighter.lightHighlighter,
-    darkHighlighter: XmlHighlighter.darkHighlighter,
-  );
-
-  LogPage({super.key, required this.event});
+  const LogPage({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
-    final i18n = AppLocalizations.of(context)!;
-
+    final i18n = context.i18n();
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(
-          scrolledUnderElevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back,
-                color: Theme.of(context).colorScheme.primary),
-            onPressed: Navigator.of(context).pop,
-          ),
-          title: PageTitle(child: Text('Details'))),
-      body: Container(
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        child: Scrollbar(
-            child: ListView(children: [
-          MyCard(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Label(
-                            label: Text('METHOD'),
-                            style: TextStyle(fontSize: 14)),
-                        Text(event.type.toUpperCase(),
-                            style: TextStyle(
-                              color: theme.primaryColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
-                            )),
-                      ],
-                    ),
-                    if (event is HttpEvent)
-                      StatusChip(
-                        statusCode: (event as HttpEvent).response.statusCode,
-                        reasonPhrase:
-                            (event as HttpEvent).response.reasonPhrase,
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Label(label: Text('Timestamp'), style: TextStyle(fontSize: 14)),
-                Text(
-                  DateFormat('HH:mm:ss.SSS').format(event.time),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).hintColor,
-                      fontSize: 16,
-                      letterSpacing: .5),
-                ),
-              ],
-            ),
-          ),
-          // TODO: Add a card to show what device this was from/to
-          // This will require a repository/service to get the device information
-          if (event is HttpEvent || event is MSearchEvent)
+        scrolledUnderElevation: 0,
+        title: PageTitle(
+          child: Text(i18n.details),
+        ),
+      ),
+      body: Scrollbar(
+        child: ListView(
+          children: [
             MyCard(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.subject_outlined),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Request Headers',
-                      style: TextTheme.of(context).bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: -.3,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Label(
+                              label: Text(i18n.method.toUpperCase()),
+                              style: TextStyle(fontSize: 14)),
+                          Text(event.type.toUpperCase(),
+                              style: TextStyle(
+                                color: theme.primaryColor,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                              )),
+                        ],
+                      ),
+                      if (event is HttpEvent)
+                        StatusChip(
+                          statusCode: (event as HttpEvent).response.statusCode,
+                          reasonPhrase:
+                              (event as HttpEvent).response.reasonPhrase,
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Label(
+                      label: Text(i18n.timestamp),
+                      style: TextStyle(fontSize: 14)),
+                  Text(
+                    i18n.timestampValue(event.time),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: theme.hintColor,
+                      fontSize: 16,
+                      letterSpacing: .5,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                HeaderMap(
+                  ),
+                ],
+              ),
+            ),
+            // TODO: Add a card to show what device this was from/to
+            // This will require a repository/service to get the device information
+            if (event is HttpEvent || event is MSearchEvent)
+              DetailSectionCard(
+                title: SectionHeader(
+                    icon: Icon(Icons.subject_outlined),
+                    title: Text(i18n.requestHeaders)),
+                child: HeaderMap(
                   headers: event is HttpEvent
                       ? (event as HttpEvent).request.headers
                       : parseHeaders((event as MSearchEvent).content),
                 ),
-              ],
-            )),
-          if (event is HttpEvent &&
-              (event as HttpEvent).request.body.isNotEmpty)
-            MyCard(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.code_outlined),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Payload',
-                      style: TextTheme.of(context).bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: -.3,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                    ),
-                  ],
+              ),
+
+            if (event is HttpEvent &&
+                (event as HttpEvent).request.body.isNotEmpty)
+              DetailSectionCard(
+                title: SectionHeader(
+                  icon: Icon(Icons.code_outlined),
+                  title: Text(i18n.payload),
                 ),
-                Container(
-                    padding: const EdgeInsets.all(12),
-                    child: Text((event as HttpEvent).request.body))
-              ],
-            )),
-          if (event is HttpEvent || event is NotifyEvent)
-            MyCard(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.subject_outlined),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Response Headers',
-                      style: TextTheme.of(context).bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: -.3,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                HeaderMap(
+                child: SourceCode(text: (event as HttpEvent).request.body),
+              ),
+
+            if (event is HttpEvent || event is NotifyEvent)
+              DetailSectionCard(
+                title: SectionHeader(
+                    icon: Icon(Icons.subject_outlined),
+                    title: Text(i18n.responseHeaders)),
+                child: HeaderMap(
                   headers: event is HttpEvent
                       ? (event as HttpEvent).response.headers
                       : parseHeaders((event as NotifyEvent).content),
-                )
-              ],
-            )),
-          if (event is HttpEvent &&
-              (event as HttpEvent).responseBody?.isNotEmpty == true)
-            MyCard(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.code_outlined),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Response Body',
-                      style: TextTheme.of(context).bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: -.3,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                    ),
-                  ],
                 ),
-                const SizedBox(height: 8),
-                Text.rich(XmlHighlighter.forTheme(theme).highlight((event as HttpEvent).responseBody ?? '')),
-                // Container(
-                //     padding: const EdgeInsets.all(12),
-                //     decoration: BoxDecoration(
-                //       color: ElevationOverlay.applySurfaceTint(
-                //         colorScheme.surface,
-                //         colorScheme.secondary,
-                //         1,
-                //       ),
-                //       borderRadius: BorderRadius.circular(8),
-                //     ),
-                //     child: Text((event as HttpEvent).responseBody ?? ''))
-              ],
-            ))
-        ])),
+              ),
+
+            if (event is HttpEvent &&
+                (event as HttpEvent).responseBody?.isNotEmpty == true)
+              DetailSectionCard(
+                title: SectionHeader(
+                    icon: Icon(Icons.code_outlined),
+                    title: Text(i18n.responseBody)),
+                child:
+                    SourceCode(text: (event as HttpEvent).responseBody ?? ''),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -249,6 +167,7 @@ class StatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
     final extension = theme.extension<MyCustomColors>()!;
 
     Color? background;
@@ -273,7 +192,7 @@ class StatusChip extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8),
                 child: Icon(Icons.check_circle_outline,
                     color: foreground, size: 16)),
-          Text('$statusCode ${reasonPhrase ?? 'Unknown'}'),
+          Text(i18n.codeAndReason(statusCode, reasonPhrase ?? i18n.unknown)),
         ],
       ),
       labelStyle: TextStyle(color: foreground),

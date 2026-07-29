@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-registerLicenses() {
+void registerLicenses() {
   LicenseRegistry.addLicense(_licenseEntries);
 }
 

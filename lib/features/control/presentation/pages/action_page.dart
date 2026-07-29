@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
+import 'package:upnp_explorer/application/l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../core/presentation/widgets/page_title.dart';
@@ -10,21 +11,21 @@ import '../widgets/command_status_field.dart';
 import '../widgets/device_response_card.dart';
 import '../widgets/execute_action_button.dart';
 
-class ActionPage2 extends StatefulWidget {
+class ActionPage extends StatefulWidget {
   final Action action;
   final ServiceStateTable serviceStateTable;
 
-  const ActionPage2({
+  const ActionPage({
     super.key,
     required this.action,
     required this.serviceStateTable,
   });
 
   @override
-  State<ActionPage2> createState() => _ActionPage2State();
+  State<ActionPage> createState() => _ActionPageState();
 }
 
-class _ActionPage2State extends State<ActionPage2> {
+class _ActionPageState extends State<ActionPage> {
   final _inputsKey = GlobalKey<ActionInputsCardState>();
 
   ActionResult _result = ActionResult(
@@ -74,12 +75,12 @@ class _ActionPage2State extends State<ActionPage2> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final i18n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
         title: PageTitle(
-          child: Text('Action'),
+          child: Text(i18n.action),
         ),
       ),
       body: ListView(

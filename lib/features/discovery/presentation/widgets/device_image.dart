@@ -25,21 +25,18 @@ class DeviceImage2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'device-icon',
-      child: Container(
-          padding: device.iconList.isEmpty ? EdgeInsets.all(24) : EdgeInsets.zero,
-          decoration: decoration,
-          child: device.iconList.isNotEmpty
-              ? SizedBox(
-                  height: 74,
-                  width: 74,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      child: Image.network(_uri.toString())),
-                )
-              : Icon(mapDeviceIcon(device.deviceType.uri))),
-    );
+    return Container(
+        padding: device.iconList.isEmpty ? EdgeInsets.all(24) : EdgeInsets.zero,
+        decoration: decoration,
+        child: device.iconList.isNotEmpty
+            ? SizedBox(
+                height: 74,
+                width: 74,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    child: Image.network(_uri.toString())),
+              )
+            : Icon(mapDeviceIcon(device.deviceType.uri)));
   }
 }
 
@@ -48,10 +45,10 @@ class DeviceImage extends StatelessWidget {
   final Uri? deviceIp;
 
   const DeviceImage({
-    Key? key,
+    super.key,
     required this.icons,
     this.deviceIp,
-  }) : super(key: key);
+  });
 
   Uri get _uri => icons.first.url.hasScheme
       ? icons.first.url
@@ -66,8 +63,8 @@ class DeviceImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final image = icons.isEmpty || deviceIp == null
         ? Container(
-            child: const Icon(Icons.device_unknown),
             color: Theme.of(context).colorScheme.surfaceContainerHigh,
+            child: const Icon(Icons.device_unknown),
           )
         : Image.network(_uri.toString());
 

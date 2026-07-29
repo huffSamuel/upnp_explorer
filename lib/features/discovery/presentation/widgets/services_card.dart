@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:upnped/upnped.dart' show Service;
 
+import '../../../../extension/build_context.dart';
+import '../../../core/presentation/widgets/list_tile_splash_host.dart';
 import '../../../core/presentation/widgets/my_icon.dart';
+import '../../../core/presentation/widgets/section_header.dart';
 import '../../../core/util/upnp.dart';
 import '../pages/service_information_page.dart';
 import 'item_list_card.dart';
@@ -14,45 +17,39 @@ class ServicesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final i18n = context.i18n();
 
     return ItemListCard(
       items: services,
-      title: Row(children: [
-        Icon(Icons.hub_outlined, color: theme.colorScheme.primary, size: 20),
-        const SizedBox(width: 12),
-        Text(
-          'UPnP Services',
-          style: TextTheme.of(context).bodyMedium!.copyWith(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                letterSpacing: -.3,
-                color: Theme.of(context).colorScheme.primary,
+      title: SectionHeader(
+        icon: Icon(Icons.hub_outlined),
+        title: Text(i18n.upnpServices),
+      ),
+      itemBuilder: (c, i) => ListTileSplashHost(
+        child: ListTile(
+          contentPadding: const EdgeInsets.all(0),
+          leading: MyIcon(
+            backgroundColor: theme.colorScheme.surfaceContainerHigh,
+            color: theme.colorScheme.primary,
+            icon: mapServiceIcon(i.document.serviceId.toString()),
+          ),
+          title: FittedBox(
+            alignment: Alignment.centerLeft,
+            fit: BoxFit.scaleDown,
+            child: Text(i.document.serviceType),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ServiceInformationPage(
+                  service: i,
+                ),
               ),
+            );
+          },
+          visualDensity: VisualDensity.compact,
+          trailing: Icon(Icons.chevron_right),
         ),
-      ]),
-      itemBuilder: (c, i) => ListTile(
-        contentPadding: const EdgeInsets.all(0),
-        leading: MyIcon(
-          backgroundColor: theme.colorScheme.surfaceContainerHigh,
-          color: theme.colorScheme.primary,
-          icon: mapServiceIcon(i.document.serviceId.toString()),
-        ),
-        title: FittedBox(
-          alignment: Alignment.centerLeft,
-          fit: BoxFit.scaleDown,
-          child: Text(i.document.serviceType),
-        ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ServiceInformationPage(
-                service: i,
-              ),
-            ),
-          );
-        },
-        visualDensity: VisualDensity.compact,
-        trailing: Icon(Icons.chevron_right),
       ),
     );
   }
@@ -65,13 +62,9 @@ IconData mapServiceIcon(String schema) {
     return icon;
   }
 
-  print('Did not find ${schema}');
-
   if (!isWellKnown(schema)) {
     return Icons.extension_outlined;
   }
-
-  print('Add $schema to known types');
 
   return Icons.miscellaneous_services_outlined;
 }
@@ -89,7 +82,7 @@ class WellKnownServices {
   static const String switchPower = 'SwitchPower';
   static const String dimming = 'Dimming';
   static const String wanCommonIfc = 'WANCommonIFC1';
-  static const String wanIpConn ='WANIPConn1';
+  static const String wanIpConn = 'WANIPConn1';
 }
 
 final wellKnownServiceIconMap = {

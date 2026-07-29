@@ -7,7 +7,7 @@ abstract class ValueConverter<A, B> {
   A from(B value);
 }
 
-const kVisualDensityConverter = const VisualDensityConverter();
+const kVisualDensityConverter = VisualDensityConverter();
 
 const _kVisualDensityMap = {
   Density.comfortable: VisualDensity.comfortable,

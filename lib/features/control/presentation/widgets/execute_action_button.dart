@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/extension/build_context.dart';
 
 class ExecuteActionButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -24,7 +25,7 @@ class ExecuteActionButton extends StatelessWidget {
             children: [
               Icon(Icons.play_arrow, size: 24),
               const SizedBox(width: 4),
-              Text('Execute Action'),
+              Text(context.i18n().executeAction),
             ],
           ),
         ),

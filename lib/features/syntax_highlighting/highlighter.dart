@@ -2,33 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
 class XmlHighlighter {
-  static late final Highlighter lightHighlighter;
-  static late final Highlighter darkHighlighter;
+  static HighlighterTheme? _darkTheme;
+  static HighlighterTheme? _lightTheme;
 
-  static forTheme(ThemeData theme){ 
+  static Future<Highlighter> forTheme(ThemeData theme) async {
     if (theme.brightness == Brightness.dark) {
-      return darkHighlighter;
+      var darkTheme = _darkTheme ??= await HighlighterTheme.loadDarkTheme();
+
+      return Highlighter(
+        language: 'html',
+        theme: darkTheme,
+      );
     }
 
-    return lightHighlighter;
-  }
-
-  static initialize() async {
-    await Highlighter.initialize([
-      'html',
-    ]);
-
-    var lightTheme = await HighlighterTheme.loadLightTheme();
-    lightHighlighter = Highlighter(
+    var lightTheme = _lightTheme ??= await HighlighterTheme.loadLightTheme();
+    return Highlighter(
       language: 'html',
       theme: lightTheme,
-    );
-
-    // Load the default dark theme and create a highlighter.
-    var darkTheme = await HighlighterTheme.loadDarkTheme();
-    darkHighlighter = Highlighter(
-      language: 'html',
-      theme: darkTheme,
     );
   }
 }

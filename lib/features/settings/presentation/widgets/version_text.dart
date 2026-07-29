@@ -5,6 +5,8 @@ import '../../../../application/l10n/app_localizations.dart';
 import '../../../../application/version_service.dart';
 
 class VersionText extends StatelessWidget {
+  const VersionText({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

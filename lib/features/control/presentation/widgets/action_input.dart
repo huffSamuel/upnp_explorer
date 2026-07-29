@@ -3,7 +3,6 @@ import 'package:upnped/upnped.dart';
 
 import '../../../../application/validators.dart';
 
-
 class DataTypeConfig {
   final String? Function(String?)? validator;
   final TextInputType? inputType;
@@ -13,11 +12,9 @@ class DataTypeConfig {
     this.inputType,
   );
 
-  static Map<DataTypeValue?, DataTypeConfig> values = Map.fromIterable(
-    DataTypeValue.values,
-    key: (e) => e as DataTypeValue,
-    value: (e) => fromDataType(e),
-  );
+  static Map<DataTypeValue?, DataTypeConfig> values = {
+    for (var e in DataTypeValue.values) e: fromDataType(e)
+  };
 
   static DataTypeConfig fromDataType(DataTypeValue type) {
     return DataTypeConfig(
@@ -87,6 +84,6 @@ String? Function(String?)? _validator(DataTypeValue dataType) {
       return Validators.isUUID;
     // TODO: numerical constraints
     default:
-      return (s) => s == null || s.length == 0 ? '*' : null;
+      return (s) => s == null || s.isEmpty ? '*' : null;
   }
 }

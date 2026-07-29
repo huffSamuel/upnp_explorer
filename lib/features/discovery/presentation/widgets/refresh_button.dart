@@ -7,9 +7,9 @@ class RefreshIconButton extends StatelessWidget {
   final DiscoveryStateService service;
 
   const RefreshIconButton({
-    Key? key,
+    super.key,
     required this.service,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

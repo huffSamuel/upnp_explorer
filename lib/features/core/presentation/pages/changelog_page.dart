@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../application/application.dart';
@@ -8,6 +8,8 @@ import '../../../../application/ioc.dart';
 import '../../../../application/l10n/app_localizations.dart';
 
 class ChangelogPage extends StatelessWidget {
+  const ChangelogPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +27,8 @@ class ChangelogPage extends StatelessWidget {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) => const Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: const _ChangelogMarkdown(),
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: _ChangelogMarkdown(),
               ),
               childCount: 1,
             ),

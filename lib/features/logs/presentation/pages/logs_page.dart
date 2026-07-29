@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import '../widgets/clear_messages.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../../application/ioc.dart';
 import '../../../../application/l10n/app_localizations.dart';
 import '../../../../application/network_logs/network_event_service.dart';
 import '../../../../application/routing/routes.dart';
-import '../../../core/presentation/widgets/my_bottom_app_bar.dart';
 import '../../../core/presentation/widgets/page_title.dart';
-import 'log_page.dart';
+import '../widgets/clear_messages.dart';
 import '../widgets/filter_sheet.dart';
 import '../widgets/log_item.dart';
+import 'log_page.dart';
 
 class LogsPage extends StatefulWidget {
-  const LogsPage();
+  const LogsPage({super.key});
 
   @override
   State<LogsPage> createState() => _LogsPageState();
@@ -36,10 +35,6 @@ class _LogsPageState extends State<LogsPage>
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -62,15 +57,9 @@ class _LogsPageState extends State<LogsPage>
     final i18n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      bottomNavigationBar: MyBottomAppBar(currentIndex: 1),
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,
-              color: Theme.of(context).colorScheme.primary),
-          onPressed: Navigator.of(context).pop,
-        ),
-        title: PageTitle(child: Text('Messages')),
+        title: PageTitle(child: Text(i18n.messages)),
         actions: [
           FilterButton(),
           IconButton(
@@ -83,30 +72,27 @@ class _LogsPageState extends State<LogsPage>
           ),
         ],
       ),
-      body: Container(
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        child: Scrollbar(
-          child: StreamBuilder(
-            stream: _service.events,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Container(child: Text('error'));
-              }
-
-              if (!snapshot.hasData || snapshot.data == null) {
-                return Container(child: Text('No data'));
-              }
-
-              return ListView.builder(
-                primary: true,
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) => LogItem(
-                  event: snapshot.data![index],
-                  onTap: () => _onLogCardTapped(context, snapshot.data![index]),
-                ),
-              );
-            },
-          ),
+      body: Scrollbar(
+        child: StreamBuilder(
+          stream: _service.events,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Icon(Icons.error);
+            }
+      
+            if (!snapshot.hasData || snapshot.data == null) {
+              return const SizedBox();
+            }
+      
+            return ListView.builder(
+              primary: true,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) => LogItem(
+                event: snapshot.data![index],
+                onTap: () => _onLogCardTapped(context, snapshot.data![index]),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -114,6 +100,8 @@ class _LogsPageState extends State<LogsPage>
 }
 
 class FilterButton extends StatelessWidget {
+  const FilterButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     final i18n = AppLocalizations.of(context)!;

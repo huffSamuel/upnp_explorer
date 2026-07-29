@@ -34,7 +34,7 @@ class ChangelogService {
 
   Future<String> futureChanges() async {
     if (_changes == null) {
-      final currentVersion = await await versionService.getVersion();
+      final currentVersion = await versionService.getVersion();
 
       final uri =
           '${GitHub.baseContentUrl}/huffSamuel/upnp_explorer/v$currentVersion/CHANGELOG.md';

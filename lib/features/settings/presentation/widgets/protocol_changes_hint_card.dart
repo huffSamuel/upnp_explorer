@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import '../../../core/light.dart';
-import '../../../../application/l10n/app_localizations.dart';
+
+import '../../../../extension/build_context.dart';
+import '../../../core/custom_colors.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 
 class ChangesHintCard extends StatelessWidget {
-  const ChangesHintCard();
+  const ChangesHintCard({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final i18n = AppLocalizations.of(context)!;
+    final i18n = context.i18n();
 
     final myColors = theme.extension<MyCustomColors>()!;
 
     return MyCard(
-      color:
-          ElevationOverlay.applySurfaceTint(theme.cardColor, myColors.brandSuccess, 2),
+      color: ElevationOverlay.applySurfaceTint(
+          theme.cardColor, myColors.brandSuccess, 2),
       highlight: myColors.brandSuccess,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,11 +32,9 @@ class ChangesHintCard extends StatelessWidget {
                     color: myColors.brandSuccess),
                 children: [
                   TextSpan(
-                      text: 'Note: ',
+                      text: i18n.note,
                       style: TextStyle(fontWeight: FontWeight.w600)),
-                  TextSpan(
-                      text:
-                          'Changes to discovery settings will only take effect on the next scan. Aggressive settings may cause network congestion in some environments.'),
+                  TextSpan(text: i18n.protocolSettingsNote),
                 ],
               ),
             ),

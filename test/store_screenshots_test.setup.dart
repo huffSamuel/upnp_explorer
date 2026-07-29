@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -9,9 +8,9 @@ import 'package:upnp_explorer/application/changelog/changelog_service.dart';
 import 'package:upnp_explorer/application/flavors/google/google_features.dart';
 import 'package:upnp_explorer/application/ioc.dart';
 import 'package:upnp_explorer/application/network_logs/network_event_service.dart';
-import 'package:upnp_explorer/application/settings/palette.dart';
 import 'package:upnp_explorer/application/version_service.dart';
 import 'package:upnp_explorer/application/l10n/app_localizations.dart';
+import 'package:upnp_explorer/features/core/theme.dart';
 import 'package:upnped/upnped.dart' as upnp;
 
 import 'store_screenshots_test.mocks.dart';
@@ -54,22 +53,14 @@ class TestPageWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: child,
-        darkTheme: AppTheme.dark(
-          darkDynamic,
-          VisualDensity.standard,
-        ),
-        theme: AppTheme.light(
-          lightDynamic,
-          VisualDensity.standard,
-        ),
-        themeMode: themeMode,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: child,
+      darkTheme: AppTheme.dark(),
+      theme: AppTheme.light(),
+      themeMode: themeMode,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

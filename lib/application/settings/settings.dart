@@ -63,6 +63,12 @@ class Settings {
   )
   final bool autoRefresh;
 
+  @JsonKey(
+    name: 'oledDark',
+    defaultValue: false
+  )
+  final bool oledDark;
+
   VisualDensity get visualDensity => kVisualDensityConverter.to(density);
 
   @JsonKey(name: 'protocol')
@@ -73,6 +79,7 @@ class Settings {
     this.density = _defaultVisualDensity,
     this.autoRefresh = true,
     this.protocolOptions = _defaultProtocolSettings,
+    this.oledDark = false,
   });
 
   Settings copyWith({
@@ -80,12 +87,14 @@ class Settings {
     Density? density,
     bool? autoRefresh,
     ProtocolSettings? protocolOptions,
+    bool? oledDark,
   }) {
     return Settings(
       themeMode: themeMode ?? this.themeMode,
       autoRefresh: autoRefresh ?? this.autoRefresh,
       density: density ?? this.density,
       protocolOptions: protocolOptions ?? this.protocolOptions,
+      oledDark: oledDark ?? this.oledDark
     );
   }
 

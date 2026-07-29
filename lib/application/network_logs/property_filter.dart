@@ -12,7 +12,7 @@ class PropertyFilter<T> {
   bool isEnabled(T value) => _allowedValues.contains(value);
 
   bool isSatisfied(NetworkEvent event) {
-    if (_allowedValues.length == 0) {
+    if (_allowedValues.isEmpty) {
       return true;
     }
 

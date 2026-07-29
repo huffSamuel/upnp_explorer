@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:upnped/upnped.dart';
 
+import '../../../../extension/build_context.dart';
+import '../../../core/presentation/widgets/list_tile_splash_host.dart';
 import '../../../core/presentation/widgets/my_icon.dart';
 import '../../../core/util/upnp.dart';
 import '../pages/device_info_page.dart';
 import 'item_list_card.dart';
+
 
 class DevicesCard extends StatelessWidget {
   final List<Device> devices;
@@ -17,29 +20,31 @@ class DevicesCard extends StatelessWidget {
 
     return ItemListCard(
       items: devices,
-      itemBuilder: (c, i) => ListTile(
-        visualDensity: VisualDensity.compact,
-        title: FittedBox(
-          alignment: Alignment.centerLeft,
-          fit: BoxFit.scaleDown,
-          child: Text(
-            i.description.friendlyName,
-          ),
-        ),
-        contentPadding: const EdgeInsets.all(0),
-        leading: MyIcon(
-          backgroundColor: theme.colorScheme.surfaceContainerHigh,
-          color: theme.colorScheme.primary,
-          icon: mapDeviceIcon(i.description.deviceType.uri),
-        ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => DeviceInfoPage(device: i),
+      itemBuilder: (c, i) => ListTileSplashHost(
+        child: ListTile(
+          visualDensity: VisualDensity.compact,
+          title: FittedBox(
+            alignment: Alignment.centerLeft,
+            fit: BoxFit.scaleDown,
+            child: Text(
+              i.description.friendlyName,
             ),
-          );
-        },
-        trailing: Icon(Icons.chevron_right),
+          ),
+          contentPadding: const EdgeInsets.all(0),
+          leading: MyIcon(
+            backgroundColor: theme.colorScheme.surfaceContainerHigh,
+            color: theme.colorScheme.primary,
+            icon: mapDeviceIcon(i.description.deviceType.uri),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DeviceInfoPage(device: i),
+              ),
+            );
+          },
+          trailing: Icon(Icons.chevron_right),
+        ),
       ),
       title: Row(children: [
         Icon(
@@ -49,7 +54,7 @@ class DevicesCard extends StatelessWidget {
         ),
         const SizedBox(width: 12),
         Text(
-          'Child Devices',
+          context.i18n().childDevices,
           style: TextTheme.of(context).bodyMedium!.copyWith(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -72,9 +77,7 @@ IconData mapDeviceIcon(String schema) {
   if (!isWellKnown(schema)) {
     return Icons.extension_outlined;
   }
-
-  print('Add $schema to well known devices');
-
+  
   return Icons.schema_outlined;
 }
 

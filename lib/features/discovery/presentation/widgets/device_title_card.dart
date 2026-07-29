@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upnped/upnped.dart';
 
-import 'default_device_image.dart';
 import 'device_image.dart';
 
 class HeadlineCard extends StatelessWidget {

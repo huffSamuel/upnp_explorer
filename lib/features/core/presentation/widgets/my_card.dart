@@ -57,10 +57,11 @@ class MyCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? Theme.of(context).colorScheme.surfaceContainerLow,
         boxShadow: [
+          if (Theme.of(context).brightness == Brightness.light)
           BoxShadow(
             offset: Offset(0, 8),
-            blurRadius: 24,
-            color: Color.fromRGBO(25, 28, 29, 0.04),
+            blurRadius: 8,
+            color: Color.fromRGBO(34, 33, 34, 0.062),
           ),
         ],
         borderRadius: highlight != null ? BorderRadius.only(
@@ -71,6 +72,6 @@ class MyCard extends StatelessWidget {
       child: body,
     );
 
-    return GestureDetector(child: card, onTap: onTap);
+    return GestureDetector(onTap: onTap, child: card);
   }
 }
