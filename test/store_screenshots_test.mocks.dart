@@ -10,16 +10,14 @@ import 'package:connectivity_plus/connectivity_plus.dart' as _i10;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
     as _i11;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i13;
+import 'package:mockito/src/dummies.dart' as _i12;
 import 'package:shared_preferences/shared_preferences.dart' as _i4;
 import 'package:upnp_explorer/application/changelog/changelog_service.dart'
-    as _i14;
-import 'package:upnp_explorer/application/network_logs/filters_service.dart'
-    as _i2;
+    as _i13;
 import 'package:upnp_explorer/application/network_logs/network_event_service.dart'
-    as _i12;
+    as _i2;
 import 'package:upnp_explorer/application/version_service.dart' as _i5;
-import 'package:upnped/src/shared/messages.dart' as _i15;
+import 'package:upnped/src/shared/messages.dart' as _i14;
 import 'package:upnped/src/ssdp/ssdp.dart' as _i7;
 import 'package:upnped/upnped.dart' as _i3;
 import 'package:xml/xml.dart' as _i8;
@@ -37,9 +35,11 @@ import 'package:xml/xml.dart' as _i8;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
-class _FakeFilterService_0 extends _i1.SmartFake implements _i2.FilterService {
-  _FakeFilterService_0(
+class _FakeNetworkEventFilter_0 extends _i1.SmartFake
+    implements _i2.NetworkEventFilter {
+  _FakeNetworkEventFilter_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -451,26 +451,35 @@ class MockConnectivity extends _i1.Mock implements _i10.Connectivity {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNetworkEventService extends _i1.Mock
-    implements _i12.NetworkEventService {
-  @override
-  _i2.FilterService get filterService => (super.noSuchMethod(
-        Invocation.getter(#filterService),
-        returnValue: _FakeFilterService_0(
-          this,
-          Invocation.getter(#filterService),
-        ),
-        returnValueForMissingStub: _FakeFilterService_0(
-          this,
-          Invocation.getter(#filterService),
-        ),
-      ) as _i2.FilterService);
-
+    implements _i2.NetworkEventService {
   @override
   _i9.Stream<List<_i3.NetworkEvent>> get events => (super.noSuchMethod(
         Invocation.getter(#events),
         returnValue: _i9.Stream<List<_i3.NetworkEvent>>.empty(),
         returnValueForMissingStub: _i9.Stream<List<_i3.NetworkEvent>>.empty(),
       ) as _i9.Stream<List<_i3.NetworkEvent>>);
+
+  @override
+  _i2.NetworkEventFilter get filter => (super.noSuchMethod(
+        Invocation.getter(#filter),
+        returnValue: _FakeNetworkEventFilter_0(
+          this,
+          Invocation.getter(#filter),
+        ),
+        returnValueForMissingStub: _FakeNetworkEventFilter_0(
+          this,
+          Invocation.getter(#filter),
+        ),
+      ) as _i2.NetworkEventFilter);
+
+  @override
+  void setFilter(_i2.NetworkEventFilter? value) => super.noSuchMethod(
+        Invocation.method(
+          #setFilter,
+          [value],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   void clear() => super.noSuchMethod(
@@ -514,20 +523,20 @@ class MockServer extends _i1.Mock implements _i3.Server {
       ) as _i9.Stream<_i3.Device>);
 
   @override
-  set options(_i3.Options? _options) => super.noSuchMethod(
+  set options(_i3.Options? value) => super.noSuchMethod(
         Invocation.setter(
           #options,
-          _options,
+          value,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  set loadPredicate(bool Function(_i3.NotifyDiscovered)? _loadPredicate) =>
+  set loadPredicate(bool Function(_i3.NotifyDiscovered)? value) =>
       super.noSuchMethod(
         Invocation.setter(
           #loadPredicate,
-          _loadPredicate,
+          value,
         ),
         returnValueForMissingStub: null,
       );
@@ -581,7 +590,7 @@ class MockVersionService extends _i1.Mock implements _i5.VersionService {
           #getVersion,
           [],
         ),
-        returnValue: _i9.Future<String>.value(_i13.dummyValue<String>(
+        returnValue: _i9.Future<String>.value(_i12.dummyValue<String>(
           this,
           Invocation.method(
             #getVersion,
@@ -589,7 +598,7 @@ class MockVersionService extends _i1.Mock implements _i5.VersionService {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<String>.value(_i13.dummyValue<String>(
+            _i9.Future<String>.value(_i12.dummyValue<String>(
           this,
           Invocation.method(
             #getVersion,
@@ -602,7 +611,7 @@ class MockVersionService extends _i1.Mock implements _i5.VersionService {
 /// A class which mocks [ChangelogService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockChangelogService extends _i1.Mock implements _i14.ChangelogService {
+class MockChangelogService extends _i1.Mock implements _i13.ChangelogService {
   @override
   _i4.SharedPreferences get prefs => (super.noSuchMethod(
         Invocation.getter(#prefs),
@@ -655,7 +664,7 @@ class MockChangelogService extends _i1.Mock implements _i14.ChangelogService {
           #futureChanges,
           [],
         ),
-        returnValue: _i9.Future<String>.value(_i13.dummyValue<String>(
+        returnValue: _i9.Future<String>.value(_i12.dummyValue<String>(
           this,
           Invocation.method(
             #futureChanges,
@@ -663,7 +672,7 @@ class MockChangelogService extends _i1.Mock implements _i14.ChangelogService {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<String>.value(_i13.dummyValue<String>(
+            _i9.Future<String>.value(_i12.dummyValue<String>(
           this,
           Invocation.method(
             #futureChanges,
@@ -693,11 +702,11 @@ class MockDeviceDescription extends _i1.Mock implements _i3.DeviceDescription {
   @override
   String get friendlyName => (super.noSuchMethod(
         Invocation.getter(#friendlyName),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#friendlyName),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#friendlyName),
         ),
@@ -706,11 +715,11 @@ class MockDeviceDescription extends _i1.Mock implements _i3.DeviceDescription {
   @override
   String get manufacturer => (super.noSuchMethod(
         Invocation.getter(#manufacturer),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#manufacturer),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#manufacturer),
         ),
@@ -719,11 +728,11 @@ class MockDeviceDescription extends _i1.Mock implements _i3.DeviceDescription {
   @override
   String get modelName => (super.noSuchMethod(
         Invocation.getter(#modelName),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#modelName),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#modelName),
         ),
@@ -732,11 +741,11 @@ class MockDeviceDescription extends _i1.Mock implements _i3.DeviceDescription {
   @override
   String get udn => (super.noSuchMethod(
         Invocation.getter(#udn),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#udn),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#udn),
         ),
@@ -783,6 +792,13 @@ class MockDeviceDescription extends _i1.Mock implements _i3.DeviceDescription {
 /// See the documentation for Mockito's code generation for more information.
 class MockDevice extends _i1.Mock implements _i3.Device {
   @override
+  _i9.Stream<bool> get isActive => (super.noSuchMethod(
+        Invocation.getter(#isActive),
+        returnValue: _i9.Stream<bool>.empty(),
+        returnValueForMissingStub: _i9.Stream<bool>.empty(),
+      ) as _i9.Stream<bool>);
+
+  @override
   _i3.DeviceDescription get description => (super.noSuchMethod(
         Invocation.getter(#description),
         returnValue: _FakeDeviceDescription_6(
@@ -808,13 +824,6 @@ class MockDevice extends _i1.Mock implements _i3.Device {
         returnValue: <_i3.Device>[],
         returnValueForMissingStub: <_i3.Device>[],
       ) as List<_i3.Device>);
-
-  @override
-  _i9.Stream<bool> get isActive => (super.noSuchMethod(
-        Invocation.getter(#isActive),
-        returnValue: _i9.Stream<bool>.empty(),
-        returnValueForMissingStub: _i9.Stream<bool>.empty(),
-      ) as _i9.Stream<bool>);
 }
 
 /// A class which mocks [NotifyDiscovered].
@@ -824,11 +833,11 @@ class MockNotifyDiscovered extends _i1.Mock implements _i3.NotifyDiscovered {
   @override
   String get st => (super.noSuchMethod(
         Invocation.getter(#st),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#st),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#st),
         ),
@@ -848,20 +857,20 @@ class MockNotifyDiscovered extends _i1.Mock implements _i3.NotifyDiscovered {
       ) as _i7.Notify);
 
   @override
-  _i15.NotificationSubtype get nts => (super.noSuchMethod(
+  _i14.NotificationSubtype get nts => (super.noSuchMethod(
         Invocation.getter(#nts),
-        returnValue: _i15.NotificationSubtype.none,
-        returnValueForMissingStub: _i15.NotificationSubtype.none,
-      ) as _i15.NotificationSubtype);
+        returnValue: _i14.NotificationSubtype.none,
+        returnValueForMissingStub: _i14.NotificationSubtype.none,
+      ) as _i14.NotificationSubtype);
 
   @override
   String get usn => (super.noSuchMethod(
         Invocation.getter(#usn),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#usn),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#usn),
         ),
@@ -961,11 +970,11 @@ class MockServiceDescription extends _i1.Mock
   @override
   String get namespace => (super.noSuchMethod(
         Invocation.getter(#namespace),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#namespace),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#namespace),
         ),
@@ -1012,15 +1021,29 @@ class MockAction extends _i1.Mock implements _i3.Action {
   @override
   String get name => (super.noSuchMethod(
         Invocation.getter(#name),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
       ) as String);
+
+  @override
+  List<_i3.Argument> get inputs => (super.noSuchMethod(
+        Invocation.getter(#inputs),
+        returnValue: <_i3.Argument>[],
+        returnValueForMissingStub: <_i3.Argument>[],
+      ) as List<_i3.Argument>);
+
+  @override
+  List<_i3.Argument> get outputs => (super.noSuchMethod(
+        Invocation.getter(#outputs),
+        returnValue: <_i3.Argument>[],
+        returnValueForMissingStub: <_i3.Argument>[],
+      ) as List<_i3.Argument>);
 
   @override
   _i9.Future<_i3.ActionResponse> invoke(Map<String, dynamic>? args) =>
@@ -1117,11 +1140,11 @@ class MockServiceData extends _i1.Mock implements _i3.ServiceData {
   @override
   String get serviceType => (super.noSuchMethod(
         Invocation.getter(#serviceType),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#serviceType),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#serviceType),
         ),
@@ -1130,11 +1153,11 @@ class MockServiceData extends _i1.Mock implements _i3.ServiceData {
   @override
   String get serviceVersion => (super.noSuchMethod(
         Invocation.getter(#serviceVersion),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#serviceVersion),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#serviceVersion),
         ),
@@ -1200,11 +1223,11 @@ class MockArgument extends _i1.Mock implements _i3.Argument {
   @override
   String get name => (super.noSuchMethod(
         Invocation.getter(#name),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
@@ -1220,11 +1243,11 @@ class MockArgument extends _i1.Mock implements _i3.Argument {
   @override
   String get relatedStateVariable => (super.noSuchMethod(
         Invocation.getter(#relatedStateVariable),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#relatedStateVariable),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#relatedStateVariable),
         ),
@@ -1238,11 +1261,11 @@ class MockStateVariable extends _i1.Mock implements _i3.StateVariable {
   @override
   String get name => (super.noSuchMethod(
         Invocation.getter(#name),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
@@ -1269,11 +1292,11 @@ class MockAllowedValueRange extends _i1.Mock implements _i3.AllowedValueRange {
   @override
   String get minimum => (super.noSuchMethod(
         Invocation.getter(#minimum),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#minimum),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#minimum),
         ),
@@ -1282,11 +1305,11 @@ class MockAllowedValueRange extends _i1.Mock implements _i3.AllowedValueRange {
   @override
   String get maximum => (super.noSuchMethod(
         Invocation.getter(#maximum),
-        returnValue: _i13.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#maximum),
         ),
-        returnValueForMissingStub: _i13.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#maximum),
         ),

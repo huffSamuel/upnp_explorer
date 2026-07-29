@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'protocol_settings.dart';
-import '../../domain/value_converter.dart';
 
-import '../../presentation/core/widgets/model_binding.dart';
+import '../../features/core/presentation/widgets/model_binding.dart';
+import '../../domain/value_converter.dart';
+import 'protocol_settings.dart';
 
 part 'settings.g.dart';
 
@@ -57,6 +57,18 @@ class Settings {
   )
   final Density density;
 
+  @JsonKey(
+    name: 'autoRefresh',
+    defaultValue: true
+  )
+  final bool autoRefresh;
+
+  @JsonKey(
+    name: 'oledDark',
+    defaultValue: false
+  )
+  final bool oledDark;
+
   VisualDensity get visualDensity => kVisualDensityConverter.to(density);
 
   @JsonKey(name: 'protocol')
@@ -65,18 +77,24 @@ class Settings {
   const Settings({
     this.themeMode = _defaultThemeMode,
     this.density = _defaultVisualDensity,
+    this.autoRefresh = true,
     this.protocolOptions = _defaultProtocolSettings,
+    this.oledDark = false,
   });
 
   Settings copyWith({
     ThemeMode? themeMode,
     Density? density,
+    bool? autoRefresh,
     ProtocolSettings? protocolOptions,
+    bool? oledDark,
   }) {
     return Settings(
       themeMode: themeMode ?? this.themeMode,
+      autoRefresh: autoRefresh ?? this.autoRefresh,
       density: density ?? this.density,
       protocolOptions: protocolOptions ?? this.protocolOptions,
+      oledDark: oledDark ?? this.oledDark
     );
   }
 

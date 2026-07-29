@@ -9,165 +9,37 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get contributors => 'Colaboradores';
+  String get viewContributors => 'View Contributors';
 
   @override
-  String get aSpecialThanks => '¡Un agradecimiento especial!';
+  String get contributors => 'Colaboradores';
 
   @override
   String get filters => 'Filtros';
 
   @override
-  String get directionDescription => 'Dirección';
-
-  @override
-  String get protocolDescription => 'Protocolo';
-
-  @override
-  String get online => 'Conectado';
-
-  @override
-  String get offline => 'Desconectado';
-
-  @override
-  String get aboutThisDevice => 'Acerca de este dispositivo';
-
-  @override
-  String get from => 'De';
-
-  @override
-  String get noActionsForThisService => 'No hay acciones para este servicio';
-
-  @override
-  String sendCommand(Object name) {
-    return 'Enviar comando de $name';
-  }
-
-  @override
-  String get to => 'A';
+  String get noActions => 'No actions';
 
   @override
   String get about => 'Acerca de';
 
   @override
-  String get type => 'Tipo';
+  String get action => 'Action';
 
   @override
   String get actions => 'Acciones';
 
   @override
-  String actionsN(num count) {
-    return 'Acciones ($count)';
-  }
-
-  @override
-  String countVisible(num count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count visibles',
-      one: '1visible',
-      zero: '0 visibles',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get adaptiveLayout => 'Layout adattivo';
-
-  @override
-  String get adaptiveLayoutDescription =>
-      'Adatta il layout e la combinazione di colori dell\'app al sistema operativo della piattaforma e alle impostazioni di colore dinamiche.';
-
-  @override
-  String get advancedMode => 'Modo avanzado';
-
-  @override
-  String get advancedModeWarning =>
-      'El modo avanzado permite demoras más largas de lo recomendado. Habilitar el modo avanzado puede tener efectos negativos.';
-
-  @override
-  String get back => 'Atrás';
-
-  @override
-  String get changelog => 'Registro de cambios';
-
-  @override
-  String changelogItem(String item) {
-    return '- $item';
-  }
+  String get platformNotSupported => 'Platform not supported';
 
   @override
   String get clearAll => 'Limpiar todo';
 
   @override
-  String get clearHistory => 'Sí, borrar historial';
-
-  @override
   String get clearMessages => 'Borrar mensajes?';
 
   @override
-  String get close => 'Cerrar';
-
-  @override
-  String commandFailedWithError(String error) {
-    return 'Error de comando $error';
-  }
-
-  @override
-  String get controlUnavailable => 'Control no disponible';
-
-  @override
-  String get copy => 'Copiar';
-
-  @override
-  String get copyJson => 'Copiar JSON';
-
-  @override
-  String get darkThemeDescription =>
-      'El tema oscuro utiliza un fondo negro para ayudar a que la batería dure más tiempo.';
-
-  @override
-  String get decrease => 'Disminuir';
-
-  @override
-  String get decreaseDisabled => 'Disminución deshabilitado';
-
-  @override
-  String get density => 'Densidad visual';
-
-  @override
-  String get devices => 'Dispositivos';
-
-  @override
-  String devicesN(num count) {
-    return 'Dispositivos ($count)';
-  }
-
-  @override
-  String direction(String direction) {
-    String _temp0 = intl.Intl.selectLogic(
-      direction,
-      {
-        'incoming': 'Entrante',
-        'outgoing': 'Saliente',
-        'other': 'Desconocido',
-      },
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String discoveredDevice(String name) {
-    return 'Dispositivo Descubierto $name';
-  }
-
-  @override
   String get discovery => 'Descubrimiento';
-
-  @override
-  String get discoveryRequiresNetwork =>
-      'La detección de dispositivos requiere acceso a la red';
 
   @override
   String get display => 'Monstrar';
@@ -176,7 +48,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get filter => 'Filtrar';
 
   @override
-  String get foundBug => '¿Encontraste un error?';
+  String get deviceInformation => 'Device Information';
 
   @override
   String fromAddress(String address) {
@@ -184,34 +56,31 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get increase => 'Aumentar';
+  String get deviceDetails => 'Device Details';
 
   @override
-  String get increaseDisabled => 'Aumentar deshabilitado';
+  String get timestamp => 'Timestamp';
 
   @override
-  String get input => 'Aporte';
+  String get inputParameters => 'Input Parameters';
 
   @override
-  String get keepHistory => 'No, mantener la historia';
+  String get requestHeaders => 'Request Headers';
 
   @override
-  String knownValue(String name, String value) {
-    return '$name $value';
+  String get responseHeaders => 'Response Headers';
+
+  @override
+  String get payload => 'Payload';
+
+  @override
+  String timestampValue(DateTime time) {
+    final intl.DateFormat timeDateFormat =
+        intl.DateFormat('HH:mm:ss.SSS', localeName);
+    final String timeString = timeDateFormat.format(time);
+
+    return '$timeString';
   }
-
-  @override
-  String get legalese =>
-      'Yo tomo tu privacidad muy en serio. Más allá de la información que Google proporciona a los desarrolladores de aplicaciones, no utilizo análisis ni marcos publicitarios de terceros. No registro información sobre usted y no tengo ningún interés en hacerlo.\n\nNo recopilo, transmito, distribuyo ni vendo sus datos.';
-
-  @override
-  String get letUsKnowHowWereDoing => 'Háganos saber cómo lo estamos haciendo';
-
-  @override
-  String get licenses => 'Licencias';
-
-  @override
-  String get listSeparator => ', ';
 
   @override
   String mailBody(String version) {
@@ -225,6 +94,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get manufacturer => 'Fabricante';
 
   @override
+  String get seconds => 'Seconds';
+
+  @override
+  String get displaySettings => 'Display Settings';
+
+  @override
+  String get oledDark => 'OLED Dark';
+
+  @override
+  String get oledDarkDescription =>
+      'Use a pure black background in dark mode to save power and increase contrast.';
+
+  @override
+  String get discoverySubtitle => 'Delay, Hops';
+
+  @override
   String get maxDelayDescription =>
       'El tiempo máximo de retraso en segundos que un dispositivo puede tomar antes de responder. Este es un intento de superar un problema de escala implícito con SSDP.\n\nEl valor debe estar entre 1 y 5. Los retrasos más prolongados pueden generar problemas con el protocolo SSDP.';
 
@@ -232,17 +117,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get maxResponseDelay => 'Retardo de respuesta';
 
   @override
-  String messageLog(String direction, String time, String type) {
-    String _temp0 = intl.Intl.selectLogic(
-      direction,
-      {
-        'inn': 'recibida',
-        'out': 'enviada',
-        'other': 'Unknown',
-      },
-    );
-    return '$type $_temp0 a las $time';
-  }
+  String get unknown => 'Unknown';
+
+  @override
+  String get responseBody => 'Response Body';
 
   @override
   String get messages => 'Mensajes';
@@ -260,146 +138,49 @@ class AppLocalizationsEs extends AppLocalizations {
   String get multicastHops => 'Saltos de Multidifusión';
 
   @override
-  String get multicastHopsDescription =>
-      'Número máximo de saltos de red para paquetes de multidifusión que se originan en este dispositivo.';
+  String get hops => 'Hops (TTL)';
 
   @override
-  String get neverAskAgain => 'Nunca preguntes de nuevo';
+  String get resetToDefaults => 'Reset to Defaults';
+
+  @override
+  String get multicastHopsDescription =>
+      'Número máximo de saltos de red para paquetes de multidifusión que se originan en este dispositivo.';
 
   @override
   String get noDevicesFound => 'No se encontraron dispositivos.';
 
   @override
-  String get nothingHere => 'No hay nada aquí.';
-
-  @override
-  String get notNow => 'Ahora no';
-
-  @override
-  String get off => 'Apagado';
-
-  @override
-  String get ok => 'OK';
-
-  @override
-  String get on => 'Encendido';
-
-  @override
-  String get open => 'Abierto';
-
-  @override
-  String get openAnIssueOnOurGithub => 'Abre un tema en nuestro GitHub';
-
-  @override
-  String get openInBrowser => 'Abierta XML en el navegador';
-
-  @override
-  String get openPresentationInBrowser =>
-      'Abrir URL de presentación en el navegador';
-
-  @override
-  String get output => 'Producción';
-
-  @override
-  String pleaseRateAppName(String appName) {
-    return 'Si te gusta $appName o has encontrado algo en lo que debemos trabajar, nos encantaría saberlo. Le agradeceríamos mucho que calificara la aplicación en Play Store. ¡Gracias!';
-  }
+  String get devicesUnavailableWhenNoNetwork =>
+      'UPnP devices are unavailable while disconnected from the network.';
 
   @override
   String get privacyPolicy => 'Política de Privacidad';
 
   @override
-  String protocol(String protocol) {
-    String _temp0 = intl.Intl.selectLogic(
-      protocol,
-      {
-        'upnp': 'UPnP',
-        'ssdp': 'SSDP',
-        'soap': 'SOAP',
-        'other': 'Desconocido',
-      },
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String rateAppName(String appName) {
-    return 'Valora $appName';
-  }
-
-  @override
   String get rateOnGooglePlay => 'Valora en Google Play';
-
-  @override
-  String receivedAt(DateTime time) {
-    final intl.DateFormat timeDateFormat =
-        intl.DateFormat('HH:mm:ss.SSS', localeName);
-    final String timeString = timeDateFormat.format(time);
-
-    return 'Recibido a las $timeString';
-  }
 
   @override
   String get refresh => 'Actualizar';
 
   @override
-  String get request => 'Pedido';
-
-  @override
   String get response => 'Respuesta';
-
-  @override
-  String responseDelay(num count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count segundos',
-      one: '1 segundo',
-    );
-    return '$_temp0';
-  }
 
   @override
   String get scanningForDevices => 'Escaneo de dispositivos';
 
   @override
-  String sentAt(DateTime time) {
-    final intl.DateFormat timeDateFormat =
-        intl.DateFormat('HH:mm:ss.SSS', localeName);
-    final String timeString = timeDateFormat.format(time);
-
-    return 'Enviado a las $timeString';
-  }
-
-  @override
   String get serialNumber => 'Número de Serie';
-
-  @override
-  String get serviceControlUnavailable =>
-      'El control del servicio UPnP no está disponible en este momento.';
-
-  @override
-  String get services => 'Servicios';
-
-  @override
-  String servicesN(num count) {
-    return 'Servicios ($count)';
-  }
 
   @override
   String get settings => 'Ajustes';
 
   @override
-  String get stateVariables => 'Variables de Estado';
+  String get autoRefresh => 'Auto-refresh';
 
   @override
-  String stateVariablesN(num count) {
-    return 'Variables de Estado ($count)';
-  }
-
-  @override
-  String get systemThemeDescription =>
-      'El tema predeterminado del sistema usa la configuración de su dispositivo para determinar cuándo usar el modo claro u oscuro.';
+  String get autoRefreshDescription =>
+      'Automatically trigger a scan when opening the app.';
 
   @override
   String get theme => 'Tema';
@@ -423,29 +204,108 @@ class AppLocalizationsEs extends AppLocalizations {
       'Esto borrará todo el historial de mensajes de la red.';
 
   @override
-  String get traffic => 'Tráfico';
+  String get networkDisabled => 'Network Disabled';
 
   @override
-  String get turnOnWifi => 'Activar wifi';
+  String get checkNetworkSettings => 'Please check your network settings';
+
+  @override
+  String get openNetworkSettings => 'Open Network Settings';
+
+  @override
+  String get clearAllMessages => 'Clear all messages';
+
+  @override
+  String get keepMessages => 'Keep Messages';
+
+  @override
+  String get applyFilters => 'Apply Filters';
+
+  @override
+  String get resetFilters => 'Reset Filters';
+
+  @override
+  String get viewSourceCode =>
+      'Ver el código fuente de esta aplicación en GitHub';
+
+  @override
+  String get viewChangelog => 'View Changelog';
 
   @override
   String get unableToLoadChangelog =>
       'No se puede cargar el registro de cambios';
 
   @override
-  String get unableToObtainInformation =>
-      'No se puede obtener la información del servicio';
-
-  @override
   String get unableToSubmitFeedback => 'No se pueden enviar comentarios';
 
   @override
-  String get unavailable => 'Indisponible';
+  String get submitABug => 'Submit a Bug';
 
   @override
-  String unknownValue(String name) {
-    return '$name desconocido';
+  String get filterByType => 'filter by type';
+
+  @override
+  String get filterByIp => 'Filter by IP';
+
+  @override
+  String get invalidIpAddress => 'Invalid IP address';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get failed => 'Failed';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get statusMessage => 'Status Message';
+
+  @override
+  String codeAndReason(int code, String reason) {
+    return '$code $reason';
   }
+
+  @override
+  String get latency => 'Latency';
+
+  @override
+  String ms(num count) {
+    return '$count ms';
+  }
+
+  @override
+  String get details => 'Details';
+
+  @override
+  String get serviceDetails => 'Service Details';
+
+  @override
+  String get executeAction => 'Execute Action';
+
+  @override
+  String get explorer => 'Explorer';
+
+  @override
+  String get method => 'Method';
+
+  @override
+  String get notExecuted => 'Not Executed';
+
+  @override
+  String get note => 'Note: ';
+
+  @override
+  String get discoverySettings => 'Discovery Settings';
+
+  @override
+  String get discoverySettingsDescription =>
+      'Fine-tune UPnP behavior when discovering devices.';
+
+  @override
+  String get protocolSettingsNote =>
+      'Changes to discovery settings will only take effect on the next scan. Aggressive settings may cause network congestion in some environments.';
 
   @override
   String version(String version) {
@@ -456,32 +316,39 @@ class AppLocalizationsEs extends AppLocalizations {
   String get viewInBrowser => 'Ver en el navegador';
 
   @override
-  String get viewNetworkTraffic => 'Ver tráfico de red';
+  String get msearchSent => 'M-SEARCH Sent';
 
   @override
-  String get viewXml => 'Ver XML';
+  String get ssdpMulticastDiscovery => 'SSDP Multicast Discovery';
 
   @override
-  String visualDensity(String visualDensity) {
-    String _temp0 = intl.Intl.selectLogic(
-      visualDensity,
-      {
-        'comfortable': 'Cómodo',
-        'standard': 'Estándar',
-        'compact': 'Compacto',
-        'other': 'Desconocido',
-      },
-    );
-    return '$_temp0';
+  String get notifyReceived => 'NOTIFY Received';
+
+  @override
+  String httpRequest(Object method) {
+    return '$method Request';
   }
 
   @override
   String get whatsNew => 'Qué hay de nuevo';
 
   @override
-  String get wereOpenSource => 'Nosotros somos de código abierto';
+  String get childDevices => 'Child Devices';
 
   @override
-  String get viewSourceCode =>
-      'Ver el código fuente de esta aplicación en GitHub';
+  String get openSourceLicenses => 'Open Source Licenses';
+
+  @override
+  String get upnpServices => 'UPnP Services';
+
+  @override
+  String toAddress(Object address) {
+    return 'To: $address';
+  }
+
+  @override
+  String get upnpDevices => 'UPnP Devices';
+
+  @override
+  String get copy => 'Copiar';
 }

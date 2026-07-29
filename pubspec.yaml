@@ -8,48 +8,57 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
-  connectivity_plus: ^6.0.5
+  connectivity_plus: ^7.0.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_markdown: ^0.7.3+1
-  get_it: ^8.0.3
-  google_fonts: ^6.1.0
+  flutter_markdown_plus: ^1.0.0
+  get_it: ^9.2.0
   in_app_review: ^2.0.10
-  injectable: ^2.1.0
+  injectable: ^3.0.0
   intl: 0.20.2
-  package_info_plus: ^8.0.0
   shared_preferences: ^2.5.3
   url_launcher: ^6.3.2
-  xml: ^6.2.2
+  xml: ^7.0.1
   rxdart: ^0.28.0
   animated_list_plus: ^0.5.0
-  dynamic_color: ^1.7.0
-  upnped: ^1.1.2+1
+  upnped: ^1.3.0
   json_annotation: ^4.9.0
-  open_settings_plus: ^0.4.0
-  built_version_annotation: ^1.1.0
+  open_settings_plus: ^0.5.0
+  built_version_annotation: ^1.2.0
+  syntax_highlight: ^0.5.0
+  go_router: ^17.3.0
+  cupertino_icons: any
+  http: ^1.6.0
 
 dev_dependencies:
   build_runner: ^2.3.3
-  built_version: ^1.1.0
+  built_version: ^1.2.0
   device_frame: ^1.2.0
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
   golden_toolkit: ^0.15.0
-  injectable_generator: ^2.1.3
+  google_fonts: ^8.2.0
+  injectable_generator: ^3.1.1
   json_serializable: ^6.8.0
   mockito: ^5.3.2
-  test: ^1.24.9
 
 flutter:
   generate: true
   uses-material-design: true
   assets:
     - assets/CONTRIBUTORS.json
+    - assets/google_fonts/OFL.txt
+    - assets/ic_launcher/ic_launcher.png
   fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/google_fonts/openSans.ttf
+    - family: Space Grotesk
+      fonts:
+        - asset: assets/google_fonts/spaceGrotesk.ttf
     - family: Source Code Pro
       fonts:
         - asset: assets/google_fonts/sourceCodePro.ttf

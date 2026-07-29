@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -9,9 +8,9 @@ import 'package:upnp_explorer/application/changelog/changelog_service.dart';
 import 'package:upnp_explorer/application/flavors/google/google_features.dart';
 import 'package:upnp_explorer/application/ioc.dart';
 import 'package:upnp_explorer/application/network_logs/network_event_service.dart';
-import 'package:upnp_explorer/application/settings/palette.dart';
 import 'package:upnp_explorer/application/version_service.dart';
 import 'package:upnp_explorer/application/l10n/app_localizations.dart';
+import 'package:upnp_explorer/features/core/theme.dart';
 import 'package:upnped/upnped.dart' as upnp;
 
 import 'store_screenshots_test.mocks.dart';
@@ -54,22 +53,14 @@ class TestPageWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: child,
-        darkTheme: AppTheme.dark(
-          darkDynamic,
-          VisualDensity.standard,
-        ),
-        theme: AppTheme.light(
-          lightDynamic,
-          VisualDensity.standard,
-        ),
-        themeMode: themeMode,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: child,
+      darkTheme: AppTheme.dark(),
+      theme: AppTheme.light(),
+      themeMode: themeMode,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }
@@ -164,26 +155,27 @@ MockAction _createAction(String name) {
 MockService _createService(String name, List<String> actionNames) {
   final actions = actionNames.map((x) => _createAction(x)).toList();
 
-  final renderingControlDescription = MockServiceDescription();
-  when(renderingControlDescription.actions).thenReturn(actions);
+  final description = MockServiceDescription();
+  when(description.actions).thenReturn(actions);
 
-  final renderingControlDocument = MockServiceData();
-  when(renderingControlDocument.serviceId).thenReturn(upnp.ServiceId(
+  final document = MockServiceData();
+  when(document.serviceId).thenReturn(upnp.ServiceId(
     '',
     domain: '',
     serviceId: name,
   ));
 
-  final renderingControl = MockService();
-  when(renderingControl.description).thenReturn(renderingControlDescription);
-  when(renderingControl.document).thenReturn(renderingControlDocument);
+  final service = MockService();
+  when(service.description).thenReturn(description);
+  when(service.document).thenReturn(document);
 
-  return renderingControl;
+  return service;
 }
 
 MockDevice chromecast() {
   final description = MockDeviceDescription();
   when(description.friendlyName).thenReturn('Chromecast');
+  when(description.deviceType).thenReturn(upnp.DeviceType(uri: ""));
 
   final notify = MockNotifyDiscovered();
   when(notify.location).thenReturn(Uri(host: '192.168.0.122'));
@@ -202,19 +194,81 @@ MockDevice chromecast() {
 MockDevice soundbar() {
   final description = MockDeviceDescription();
   when(description.friendlyName).thenReturn('Living room sound bar');
+  when(description.deviceType).thenReturn(upnp.DeviceType(uri: ""));
 
   final notify = MockNotifyDiscovered();
   when(notify.location).thenReturn(Uri(host: '192.168.0.5'));
 
+  final instanceId = MockArgument();
+  when(instanceId.name).thenReturn('InstanceID');
+  when(instanceId.direction).thenReturn(upnp.Direction.fromString('in'));
+  when(instanceId.relatedStateVariable).thenReturn('instance');
+  final instanceIdStateVariable = MockStateVariable();
+  when(instanceIdStateVariable.name).thenReturn('instance');
+  when(instanceIdStateVariable.dataType)
+      .thenReturn(upnp.DataType(upnp.DataTypeValue.string));
+  when(instanceIdStateVariable.defaultValue).thenReturn('0');
+
+  final channel = MockArgument();
+  when(channel.name).thenReturn('Channel');
+  when(channel.direction).thenReturn(upnp.Direction.fromString('in'));
+  when(channel.relatedStateVariable).thenReturn('channel');
+  final channelStateVariable = MockStateVariable();
+  when(channelStateVariable.name).thenReturn('channel');
+  when(channelStateVariable.dataType)
+      .thenReturn(upnp.DataType(upnp.DataTypeValue.string));
+  when(channelStateVariable.allowedValues).thenReturn(['Master']);
+
+  final volume = MockArgument();
+  when(volume.name).thenReturn('DesiredVolume');
+  when(volume.direction).thenReturn(upnp.Direction.fromString('in'));
+  when(volume.relatedStateVariable).thenReturn('volume');
+  final volumeRange = MockAllowedValueRange();
+  when(volumeRange.minimum).thenReturn('0');
+  when(volumeRange.maximum).thenReturn('100');
+  when(volumeRange.step).thenReturn(1);
+
+  final volumeStateVariable = MockStateVariable();
+  when(volumeStateVariable.name).thenReturn('volume');
+  when(volumeStateVariable.dataType)
+      .thenReturn(upnp.DataType(upnp.DataTypeValue.ui2));
+  when(volumeStateVariable.allowedValueRange).thenReturn(volumeRange);
+
+  var setVolume = MockAction();
+  when(setVolume.name).thenReturn('SetVolume');
+  when(setVolume.inputs).thenReturn([instanceId, channel, volume]);
+  when(setVolume.outputs).thenReturn([]);
+
+  final actions = [
+    'ListPresets',
+    'SelectPreset',
+    'GetMute',
+    'SetMute',
+    'GetVolume',
+  ].map((x) => _createAction(x)).toList();
+
+  final serviceStateTable = MockServiceStateTable();
+  when(serviceStateTable.stateVariables).thenReturn([
+    volumeStateVariable
+  ]);
+
+  final renderingControlDescription = MockServiceDescription();
+  when(renderingControlDescription.actions).thenReturn([...actions, setVolume]);
+  when(renderingControlDescription.serviceStateTable).thenReturn(serviceStateTable);
+
+  final document = MockServiceData();
+  when(document.serviceId).thenReturn(upnp.ServiceId(
+    '',
+    domain: '',
+    serviceId: 'RenderingControl',
+  ));
+  
+  final renderingControl = MockService();
+  when(renderingControl.description).thenReturn(renderingControlDescription);
+  when(renderingControl.document).thenReturn(document);
+
   final services = [
-    _createService('RenderingControl', [
-      'ListPresets',
-      'SelectPreset',
-      'GetMute',
-      'SetMute',
-      'GetVolume',
-      'SetVolume'
-    ]),
+    renderingControl,
     _createService('ConnectionManager', []),
     _createService('AVTransport', []),
     _createService('Group', []),

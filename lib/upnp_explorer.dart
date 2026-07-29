@@ -1,41 +1,29 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:upnp_explorer/features/core/theme.dart';
 
 import 'application/application.dart';
 import 'application/l10n/app_localizations.dart';
-import 'application/settings/palette.dart';
 import 'application/settings/settings.dart';
-import 'presentation/device/pages/discovery_page.dart';
+import 'features/core/presentation/pages/view_host.dart';
 
 class UPnPExplorer extends StatelessWidget {
   const UPnPExplorer({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final options = Settings.of(context);
 
-    return DynamicColorBuilder(builder: (
-      ColorScheme? lightDynamic,
-      ColorScheme? darkDynamic,
-    ) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: Application.name,
-        themeMode: options.themeMode,
-        darkTheme: AppTheme.dark(
-          darkDynamic,
-          options.visualDensity,
-        ),
-        theme: AppTheme.light(
-          lightDynamic,
-          options.visualDensity,
-        ),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: DiscoveryPage(),
-      );
-    });
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: Application.name,
+      themeMode: options.themeMode,
+      darkTheme: AppTheme.dark(oled: options.oledDark),
+      theme: AppTheme.light(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      routerConfig: router,
+    );
   }
 }

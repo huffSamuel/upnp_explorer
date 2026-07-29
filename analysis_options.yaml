@@ -1,10 +1,5 @@
+include: package:flutter_lints/flutter.yaml
+
 analyzer:
   exclude:
     - submodules/**
-  plugins:
-    - dart_code_metrics
-
-dart_code_metrics:
-  metrics-exclude:
-    - test/**
-    - integration_test/**

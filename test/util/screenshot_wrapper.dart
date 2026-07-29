@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 String tag(String name, bool isFinal) =>
-    isFinal ? name + '.final' : name + '.screen';
+    isFinal ? '$name.final' : '$name.screen';
 
 List<Device> viewports(bool isFinal) => [
       Device(

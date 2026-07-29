@@ -8,10 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upnp_explorer/application/changelog/changelog_service.dart';
 import 'package:upnp_explorer/application/network_logs/network_event_service.dart';
 import 'package:upnp_explorer/application/version_service.dart';
-import 'package:upnp_explorer/presentation/device/pages/device_info_page.dart';
-import 'package:upnp_explorer/presentation/device/pages/discovery_page.dart';
-import 'package:upnp_explorer/presentation/network_logs/pages/logs_page.dart';
-import 'package:upnp_explorer/presentation/service/pages/action_page.dart';
+import 'package:upnp_explorer/features/core/presentation/widgets/my_bottom_app_bar.dart';
+import 'package:upnp_explorer/features/discovery/presentation/pages/device_info_page.dart';
+import 'package:upnp_explorer/features/discovery/presentation/pages/explorer_page.dart';
+import 'package:upnp_explorer/features/logs/presentation/pages/logs_page.dart';
+import 'package:upnp_explorer/features/control/presentation/pages/action_page.dart';
 import 'package:upnped/upnped.dart' as upnp;
 
 import 'store_screenshots_test.setup.dart';
@@ -58,10 +59,10 @@ void main() {
       const name = 'devices.light';
       await takeScreenshot(
         tester: tester,
-        widget: TestPageWrapper(child: DiscoveryPage()),
+        widget: TestPageWrapper(child: ExplorerPage()),
         pageName: name,
         isFinal: false,
-        sizeDp: Size(1242 / 3, 2208 / 3),
+        sizeDp: Size(1242 / 3, 2640 / 3),
         density: 3,
       );
 
@@ -78,20 +79,18 @@ void main() {
     });
 
     testActions(WidgetTester tester, ThemeMode themeMode) async {
-      final livingRoomSoundBar = find.text('Living room sound bar');
-      final renderingControl = find.text('RenderingControl');
+      final device = soundbar();
+      final renderingControl = device.services.singleWhere((d) => d.document.serviceId.serviceId == 'RenderingControl');
+      final action = renderingControl.description!.actions.singleWhere((a) => a.name == "SetVolume");
 
       final app = TestPageWrapper(
-        child: DiscoveryPage(),
         themeMode: themeMode,
+        child: ActionPage(
+          action: action,
+          serviceStateTable: renderingControl.description!.serviceStateTable,
+        ),
       );
       await tester.pumpWidgetBuilder(app);
-
-      await tester.tap(livingRoomSoundBar);
-      await tester.pumpAndSettle();
-
-      await tester.tap(renderingControl);
-      await tester.pumpAndSettle();
 
       await takeScreenshot(
         tester: tester,
@@ -134,8 +133,8 @@ void main() {
       await takeScreenshot(
         tester: tester,
         widget: TestPageWrapper(
-          child: LogsPage(),
           themeMode: ThemeMode.dark,
+          child: LogsPage(),
         ),
         pageName: name,
         isFinal: false,
@@ -156,19 +155,23 @@ void main() {
     });
 
     testGoldens('deviceInfo', (tester) async {
-      final device = MockDeviceDescription();
-      when(device.friendlyName).thenReturn("Living room sound bar");
-      when(device.manufacturer).thenReturn("Sony Corporation");
-      when(device.manufacturerUrl).thenReturn(Uri());
-      when(device.modelName).thenReturn("HT-CT790");
-      when(device.modelNumber).thenReturn("BAR-2016");
+      final description = MockDeviceDescription();
+      when(description.friendlyName).thenReturn("Living room sound bar");
+      when(description.deviceType).thenReturn(upnp.DeviceType(uri: ""));
+      when(description.manufacturer).thenReturn("Sony Corporation");
+      when(description.manufacturerUrl).thenReturn(Uri());
+      when(description.modelName).thenReturn("HT-CT790");
+      when(description.modelNumber).thenReturn("BAR-2016");
 
       final notify = MockNotifyDiscovered();
       when(notify.location).thenReturn(Uri());
 
+      final device = MockDevice();
+      when(device.description).thenReturn(description);
+      when(device.notify).thenReturn(notify);
+
       final screen = DeviceInfoPage(
         device: device,
-        notify: notify,
       );
 
       await takeScreenshot(
@@ -241,7 +244,7 @@ void main() {
 
       final screen = ActionPage(
         action: action,
-        stateTable: stateTable,
+        serviceStateTable: stateTable,
       );
 
       await takeScreenshot(

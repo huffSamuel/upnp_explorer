@@ -22,13 +22,13 @@ class Application {
   static final contributorUri = Uri.parse(
       '${GitHub.baseApiUrl}/repos/$_username/$_repo/contributors');
 
-  static const assets = const Assets();
+  static const assets = Assets();
 }
 
 class Assets {
   String get contributors => _path('CONTRIBUTORS.json');
 
-  _path(String filename) {
+  String _path(String filename) {
     return 'assets/$filename';
   }
 

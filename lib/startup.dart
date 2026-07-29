@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:syntax_highlight/syntax_highlight.dart';
 
 import 'application/flavors/flavor_features.dart';
 import 'application/ioc.dart';
 import 'application/licenses.dart';
 import 'application/settings/settings_repository.dart';
-import 'presentation/core/widgets/model_binding.dart';
-import 'presentation/device/pages/service.dart';
+import 'features/core/presentation/widgets/model_binding.dart';
+import 'features/discovery/logic/service.dart';
 import 'upnp_explorer.dart';
 
 Future<void> runAppWithFeatures(FlavorFeatures features) async {
   registerLicenses();
 
   WidgetsFlutterBinding.ensureInitialized();
-
+  
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Highlighter.initialize(['html']);
   await configureDependencies();
 
   GetIt.instance.registerSingleton<FlavorFeatures>(features);
