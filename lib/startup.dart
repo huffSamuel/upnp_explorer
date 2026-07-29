@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:syntax_highlight/syntax_highlight.dart';
 
 import 'application/flavors/flavor_features.dart';
 import 'application/ioc.dart';
@@ -16,7 +17,7 @@ Future<void> runAppWithFeatures(FlavorFeatures features) async {
   WidgetsFlutterBinding.ensureInitialized();
   
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
+  await Highlighter.initialize(['html']);
   await configureDependencies();
 
   GetIt.instance.registerSingleton<FlavorFeatures>(features);

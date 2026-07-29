@@ -23,7 +23,7 @@ class DevicesScreenshotWrapper extends StatelessWidget {
             child: ListView(
               children: [
                 Text(
-                  'Discover devices on your network',
+                  'Discover devices',
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge!

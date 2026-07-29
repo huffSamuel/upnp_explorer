@@ -51,6 +51,7 @@ flutter:
   assets:
     - assets/CONTRIBUTORS.json
     - assets/google_fonts/OFL.txt
+    - assets/ic_launcher/ic_launcher.png
   fonts:
     - family: OpenSans
       fonts:

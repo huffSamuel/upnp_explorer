@@ -346,4 +346,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upnpDevices => 'UPnP Devices';
+
+  @override
+  String get copy => 'Copy';
 }

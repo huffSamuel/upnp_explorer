@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../../../application/routing/routes.dart';
@@ -19,14 +20,7 @@ class DeviceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyCard(
-      onTap: () => Navigator.of(context).push(
-        makeRoute(
-          context,
-          DeviceInfoPage(
-            device: device,
-          ),
-        ),
-      ),
+      onTap: () => context.push('/device/${device.description.udn}'),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: IntrinsicHeight(
         child: Row(

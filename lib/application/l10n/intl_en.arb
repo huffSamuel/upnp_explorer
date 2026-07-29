@@ -163,5 +163,6 @@
   "openSourceLicenses":"Open Source Licenses",
   "upnpServices": "UPnP Services",
   "toAddress":  "To: {address}",
-  "upnpDevices": "UPnP Devices"
+  "upnpDevices": "UPnP Devices",
+  "copy": "Copy"
 }

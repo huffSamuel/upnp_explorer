@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:upnped/upnped.dart';
 
+import '../../../../application/ioc.dart';
 import '../../../../extension/build_context.dart';
 import '../../../control/presentation/widgets/my_field.dart';
-import '../../../core/custom_colors.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 import '../../../core/presentation/widgets/page_title.dart';
 import '../../../core/presentation/widgets/section_header.dart';
+import '../../../discovery/presentation/widgets/device_card.dart';
+import '../../../discovery/service/device_service.dart';
 import '../widgets/detail_section_card.dart';
-import '../widgets/source_code.dart';
+import '../widgets/header_map.dart';
+import '../widgets/source_code_card.dart';
+import '../widgets/status_chip.dart';
 
 class LogPage extends StatelessWidget {
+  final DeviceService _service = sl<DeviceService>();
+
   final NetworkEvent event;
-  const LogPage({super.key, required this.event});
+  LogPage({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
     final i18n = context.i18n();
     final theme = Theme.of(context);
+
+    final device = _service.devices.first;
 
     return Scaffold(
       appBar: AppBar(
@@ -60,6 +68,22 @@ class LogPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
+                  if (event is HttpEvent || event is NotifyEvent)
+                    Label(
+                        label: Text('Source IP'),
+                        style: TextStyle(fontSize: 14)),
+                  if (event is HttpEvent || event is NotifyEvent)
+                    Text(
+                      (event is HttpEvent)
+                          ? (event as HttpEvent).from!
+                          : (event as NotifyEvent).uri.toString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: theme.hintColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                  const SizedBox(height: 8),
                   Label(
                       label: Text(i18n.timestamp),
                       style: TextStyle(fontSize: 14)),
@@ -75,8 +99,8 @@ class LogPage extends StatelessWidget {
                 ],
               ),
             ),
-            // TODO: Add a card to show what device this was from/to
-            // This will require a repository/service to get the device information
+            if (event is HttpEvent || event is NotifyEvent)
+              DeviceCard(device: device),
             if (event is HttpEvent || event is MSearchEvent)
               DetailSectionCard(
                 title: SectionHeader(
@@ -88,17 +112,12 @@ class LogPage extends StatelessWidget {
                       : parseHeaders((event as MSearchEvent).content),
                 ),
               ),
-
             if (event is HttpEvent &&
                 (event as HttpEvent).request.body.isNotEmpty)
-              DetailSectionCard(
-                title: SectionHeader(
-                  icon: Icon(Icons.code_outlined),
-                  title: Text(i18n.payload),
-                ),
-                child: SourceCode(text: (event as HttpEvent).request.body),
+              SourceCodeCard(
+                title: Text(i18n.payload),
+                sourceCode: (event as HttpEvent).request.body,
               ),
-
             if (event is HttpEvent || event is NotifyEvent)
               DetailSectionCard(
                 title: SectionHeader(
@@ -110,111 +129,16 @@ class LogPage extends StatelessWidget {
                       : parseHeaders((event as NotifyEvent).content),
                 ),
               ),
-
             if (event is HttpEvent &&
                 (event as HttpEvent).responseBody?.isNotEmpty == true)
-              DetailSectionCard(
-                title: SectionHeader(
-                    icon: Icon(Icons.code_outlined),
-                    title: Text(i18n.responseBody)),
-                child:
-                    SourceCode(text: (event as HttpEvent).responseBody ?? ''),
+              SourceCodeCard(
+                title: Text(i18n.responseBody),
+                sourceCode: (event as HttpEvent).responseBody!,
               ),
+            SizedBox(height: 32),
           ],
         ),
       ),
     );
   }
-}
-
-class HeaderMap extends StatelessWidget {
-  final Map<String, String> headers;
-
-  const HeaderMap({super.key, required this.headers});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...headers.entries.map(
-          (e) => RichText(
-            text: TextSpan(
-                text: '${e.key}: ',
-                style: TextStyle(color: Colors.blueGrey),
-                children: [
-                  TextSpan(
-                    text: e.value,
-                    style: TextStyle(
-                        color: int.tryParse(e.value) == null
-                            ? Theme.of(context).colorScheme.onSurface
-                            : Colors.red),
-                  ),
-                ]),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class StatusChip extends StatelessWidget {
-  final int statusCode;
-  final String? reasonPhrase;
-
-  const StatusChip({super.key, required this.statusCode, this.reasonPhrase});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final i18n = context.i18n();
-    final extension = theme.extension<MyCustomColors>()!;
-
-    Color? background;
-    Color? foreground;
-
-    if (statusCode >= 200 && statusCode <= 299) {
-      background = extension.brandSuccess;
-      foreground = extension.onSuccess;
-    } else if (statusCode >= 400 && statusCode <= 599) {
-      background = theme.colorScheme.errorContainer;
-      foreground = theme.colorScheme.error;
-    }
-
-    return Chip(
-      color: WidgetStatePropertyAll(background),
-      shape: StadiumBorder(
-          side: BorderSide(color: background ?? const Color(0xFF000000))),
-      label: Row(
-        children: [
-          if (statusCode >= 200 && statusCode <= 299)
-            Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Icon(Icons.check_circle_outline,
-                    color: foreground, size: 16)),
-          Text(i18n.codeAndReason(statusCode, reasonPhrase ?? i18n.unknown)),
-        ],
-      ),
-      labelStyle: TextStyle(color: foreground),
-    );
-  }
-}
-
-Map<String, String> parseHeaders(String content) {
-  final m = <String, String>{};
-
-  final f = content.split('\r\n');
-
-  for (var i = 1; i < f.length; ++i) {
-    final h = f[i];
-    final idx = h.indexOf(':');
-
-    if (idx < 0) {
-      continue;
-    }
-
-    m[h.substring(0, idx).trim()] = h.substring(idx + 1).trim();
-  }
-
-  return m;
 }

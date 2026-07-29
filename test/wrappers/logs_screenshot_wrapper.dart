@@ -24,7 +24,7 @@ class LogsScreenshotWrapper extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 64.0),
                   child: Text(
-                    'Monitory Your Network',
+                    'Monitor Your Network',
                     style: Theme.of(context)
                         .textTheme
                         .displayLarge!

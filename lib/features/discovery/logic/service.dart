@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../application/settings/protocol_settings.dart';
+import '../service/device_service.dart';
 import 'state.dart';
 
 bool isViableConnectivity(List<ConnectivityResult> results) =>
@@ -15,6 +16,7 @@ bool isViableConnectivity(List<ConnectivityResult> results) =>
 class DiscoveryStateService {
   final Connectivity _connectivity;
   final Server _upnp;
+  final DeviceService _service;
 
   final _subject = BehaviorSubject<DiscoveryState>.seeded(
     DiscoveryState(
@@ -31,9 +33,10 @@ class DiscoveryStateService {
   DiscoveryStateService(
     this._connectivity,
     this._upnp,
+    this._service,
   ) {
     _upnp.loadPredicate = (NotifyDiscovered client) {
-      return _value.devices
+      return _service.devices
           .where((element) => element.notify!.location == client.location)
           .isEmpty;
     };
@@ -57,6 +60,7 @@ class DiscoveryStateService {
     // Whenever new devices are emitted, add them to the state
     _upnp.devices.takeUntil(_destroying).listen(
       (event) {
+        _service.add(event);
         _subject.add(
           _value.copyWith(
             devices: [
@@ -89,6 +93,7 @@ class DiscoveryStateService {
       return Future.value();
     }
 
+    _service.clear();
     _subject.add(_value.copyWith(
       devices: [],
       scanning: true,

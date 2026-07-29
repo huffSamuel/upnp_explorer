@@ -5,8 +5,11 @@ class DetailSectionCard extends StatelessWidget {
   final Widget title;
   final Widget child;
 
-  const DetailSectionCard(
-      {super.key, required this.title, required this.child});
+  const DetailSectionCard({
+    super.key,
+    required this.title,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {

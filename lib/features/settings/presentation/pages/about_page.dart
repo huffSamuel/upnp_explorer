@@ -55,7 +55,7 @@ class AboutSettingsPage extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 16),
-                const SizedBox(height: 64, width: 64, child: Placeholder()),
+                SizedBox(height: 64, width: 64, child: Image.asset('assets/ic_launcher/ic_launcher.png')),
                 const SizedBox(height: 16),
                 Text(
                   Application.name,

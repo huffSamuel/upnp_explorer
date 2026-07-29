@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:upnp_explorer/application/ioc.dart';
+import 'package:upnp_explorer/features/core/presentation/pages/changelog_page.dart';
+import 'package:upnp_explorer/features/discovery/presentation/pages/device_info_page.dart';
+import 'package:upnp_explorer/features/discovery/service/device_service.dart';
 import 'package:upnp_explorer/features/settings/presentation/pages/settings_page.dart';
 
 import '../../../discovery/presentation/pages/explorer_page.dart';
@@ -8,6 +12,7 @@ import '../../../logs/presentation/pages/logs_page.dart';
 final router = GoRouter(
   initialLocation: '/explore',
   routes: [
+    GoRoute(path: '/changelog', builder: (context, state) => ChangelogPage()),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         switch (state.matchedLocation) {}
@@ -19,7 +24,16 @@ final router = GoRouter(
           GoRoute(
             path: '/explore',
             builder: (context, state) => ExplorerPage(),
-          )
+          ),
+          GoRoute(
+              path: '/device/:udn',
+              builder: (context, state) {
+                final udn = state.pathParameters['udn'];
+                final device = sl<DeviceService>()
+                    .devices
+                    .singleWhere((d) => d.description.udn == udn);
+                return DeviceInfoPage(device: device);
+              }),
         ]),
         StatefulShellBranch(routes: [
           GoRoute(
@@ -51,25 +65,35 @@ class ViewHost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: shell,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: shell.currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            label: 'Explorer',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.terminal),
-            label: 'Messages',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Settings',
-          ),
-        ],
-        onTap: (value) => _onTap(context, value),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (shell.currentIndex != 0) {
+          _onTap(context, 0);
+        } else {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        body: shell,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: shell.currentIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore_outlined),
+              label: 'Explorer',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.terminal),
+              label: 'Messages',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings_outlined),
+              label: 'Settings',
+            ),
+          ],
+          onTap: (value) => _onTap(context, value),
+        ),
       ),
     );
   }

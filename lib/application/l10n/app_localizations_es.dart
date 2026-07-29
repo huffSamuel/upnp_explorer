@@ -348,4 +348,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get upnpDevices => 'UPnP Devices';
+
+  @override
+  String get copy => 'Copiar';
 }
