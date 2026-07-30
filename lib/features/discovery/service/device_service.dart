@@ -3,7 +3,7 @@ import 'package:upnped/upnped.dart';
 
 @singleton
 class DeviceService {
-  List<Device> _devices = [];
+  final List<Device> _devices = [];
 
   List<Device> get devices => [..._devices];
 
