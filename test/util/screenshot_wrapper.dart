@@ -57,3 +57,8 @@ Image loadGoldenImage(String name) {
   final memoryImage = MemoryImage(screenFile.readAsBytesSync());
   return Image(image: memoryImage);
 }
+
+Future<void> deleteGoldenImage(String name) async {
+  final screenFile = File("test/goldens/$name.screen.png");
+  await screenFile.delete();
+}

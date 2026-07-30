@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -52,6 +54,15 @@ void main() {
   group('store images', () {
     setUpAll(() async {
       await configureTestDependencies();
+    });
+
+    tearDownAll(() async {
+      final goldens = Directory("test/goldens");
+      final toDelete = goldens.listSync().where((f) => f.path.contains('.screen.png'));  
+    
+      for(final screenshot in toDelete) {
+        await screenshot.delete();
+      }
     });
 
     testGoldens('devices (light)', (tester) async {
@@ -237,6 +248,7 @@ void main() {
       final action = MockAction();
       when(action.arguments).thenReturn(actionArgs);
       when(action.name).thenReturn('SetVolume');
+      when(action.inputs).thenReturn(actionArgs);
 
       final stateTable = MockServiceStateTable();
       when(stateTable.stateVariables).thenReturn(stateVariables);
