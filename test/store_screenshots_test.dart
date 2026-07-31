@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upnp_explorer/application/changelog/changelog_service.dart';
 import 'package:upnp_explorer/application/network_logs/network_event_service.dart';
 import 'package:upnp_explorer/application/version_service.dart';
-import 'package:upnp_explorer/features/core/presentation/widgets/my_bottom_app_bar.dart';
 import 'package:upnp_explorer/features/discovery/presentation/pages/device_info_page.dart';
 import 'package:upnp_explorer/features/discovery/presentation/pages/explorer_page.dart';
 import 'package:upnp_explorer/features/logs/presentation/pages/logs_page.dart';
