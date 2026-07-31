@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0](https://github.com/huffSamuel/upnp_explorer/compare/v3.0.0...v3.1.0) (2026-07-31)
+
+
+### Features
+
+* remove changelog dialog at startup ([#171](https://github.com/huffSamuel/upnp_explorer/issues/171)) ([8415bfc](https://github.com/huffSamuel/upnp_explorer/commit/8415bfc3bb6bd141937a0fbf6fed1831e7ecd4af))
+* replace syntax_highlight with flutter_highlight ([#175](https://github.com/huffSamuel/upnp_explorer/issues/175)) ([a23c638](https://github.com/huffSamuel/upnp_explorer/commit/a23c638f7cfc96b09334090d9f135825a0a2fb72))
+
 ## [3.0.0](https://github.com/huffSamuel/upnp_explorer/compare/v2.12.0...v3.0.0) (2026-07-29)
 
 
