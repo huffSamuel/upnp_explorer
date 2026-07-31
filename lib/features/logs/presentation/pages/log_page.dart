@@ -20,12 +20,22 @@ class LogPage extends StatelessWidget {
   final NetworkEvent event;
   LogPage({super.key, required this.event});
 
+  bool _hasTarget() {
+    return event is HttpEvent || event is NotifyEvent;
+  }
+
+  String _target() {
+    return switch (event) {
+      HttpEvent h => h.request.url.host,
+      NotifyEvent n => n.uri.host,
+      _ => ''
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final i18n = context.i18n();
     final theme = Theme.of(context);
-
-    final device = _service.devices.first;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,22 +78,36 @@ class LogPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  if (event is HttpEvent || event is NotifyEvent)
+                  if (event is HttpEvent || event is NotifyEvent) ...[
                     Label(
                         label: Text('Source IP'),
                         style: TextStyle(fontSize: 14)),
-                  if (event is HttpEvent || event is NotifyEvent)
                     Text(
                       (event is HttpEvent)
                           ? (event as HttpEvent).from!
-                          : (event as NotifyEvent).uri.toString(),
+                          : (event as NotifyEvent).uri.host,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: theme.hintColor,
                         fontSize: 16,
                       ),
                     ),
-                  const SizedBox(height: 8),
+                    const SizedBox(height: 8)
+                  ],
+                  if (event is HttpEvent) ...[
+                    Label(
+                        label: Text('Target IP'),
+                        style: TextStyle(fontSize: 14)),
+                    Text(
+                      (event as HttpEvent).request.url.host,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: theme.hintColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
                   Label(
                       label: Text(i18n.timestamp),
                       style: TextStyle(fontSize: 14)),
@@ -99,8 +123,10 @@ class LogPage extends StatelessWidget {
                 ],
               ),
             ),
-            if (event is HttpEvent || event is NotifyEvent)
-              DeviceCard(device: device),
+            if (_hasTarget())
+              DeviceCard(
+                  device: _service.devices.firstWhere(
+                      (d) => d.notify?.location?.host == _target())),
             if (event is HttpEvent || event is MSearchEvent)
               DetailSectionCard(
                 title: SectionHeader(
