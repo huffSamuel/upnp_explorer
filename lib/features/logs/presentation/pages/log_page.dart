@@ -130,10 +130,10 @@ class LogPage extends StatelessWidget {
                 ),
               ),
             if (event is HttpEvent &&
-                (event as HttpEvent).responseBody?.isNotEmpty == true)
+                (event as HttpEvent).response.body.isNotEmpty)
               SourceCodeCard(
                 title: Text(i18n.responseBody),
-                sourceCode: (event as HttpEvent).responseBody!,
+                sourceCode: (event as HttpEvent).response.body,
               ),
             SizedBox(height: 32),
           ],

@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -10,7 +9,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get viewContributors => 'View Contributors';
+  String get viewContributors => 'Ver colaboradores';
 
   @override
   String get contributors => 'Colaboradores';
@@ -19,37 +18,37 @@ class AppLocalizationsEs extends AppLocalizations {
   String get filters => 'Filtros';
 
   @override
-  String get noActions => 'No actions';
+  String get noActions => 'Sin acciones';
 
   @override
   String get about => 'Acerca de';
 
   @override
-  String get action => 'Action';
+  String get action => 'Acción';
 
   @override
   String get actions => 'Acciones';
 
   @override
-  String get platformNotSupported => 'Platform not supported';
+  String get platformNotSupported => 'Plataforma no compatible';
 
   @override
-  String get clearAll => 'Limpiar todo';
+  String get clearAll => 'Borrar todo';
 
   @override
-  String get clearMessages => 'Borrar mensajes?';
+  String get clearMessages => '¿Borrar mensajes?';
 
   @override
   String get discovery => 'Descubrimiento';
 
   @override
-  String get display => 'Monstrar';
+  String get display => 'Pantalla';
 
   @override
   String get filter => 'Filtrar';
 
   @override
-  String get deviceInformation => 'Device Information';
+  String get deviceInformation => 'Información del dispositivo';
 
   @override
   String fromAddress(String address) {
@@ -57,22 +56,22 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get deviceDetails => 'Device Details';
+  String get deviceDetails => 'Detalles del dispositivo';
 
   @override
-  String get timestamp => 'Timestamp';
+  String get timestamp => 'Marca de tiempo';
 
   @override
-  String get inputParameters => 'Input Parameters';
+  String get inputParameters => 'Parámetros de entrada';
 
   @override
-  String get requestHeaders => 'Request Headers';
+  String get requestHeaders => 'Encabezados de solicitud';
 
   @override
-  String get responseHeaders => 'Response Headers';
+  String get responseHeaders => 'Encabezados de respuesta';
 
   @override
-  String get payload => 'Payload';
+  String get payload => 'Carga útil';
 
   @override
   String timestampValue(DateTime time) {
@@ -85,81 +84,81 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String mailBody(String version) {
-    return 'Version $version';
+    return 'Versión $version';
   }
 
   @override
-  String get mailSubject => 'App feedback';
+  String get mailSubject => 'Comentarios de la app';
 
   @override
   String get manufacturer => 'Fabricante';
 
   @override
-  String get seconds => 'Seconds';
+  String get seconds => 'Segundos';
 
   @override
-  String get displaySettings => 'Display Settings';
+  String get displaySettings => 'Configuración de pantalla';
 
   @override
-  String get oledDark => 'OLED Dark';
+  String get oledDark => 'OLED oscuro';
 
   @override
   String get oledDarkDescription =>
-      'Use a pure black background in dark mode to save power and increase contrast.';
+      'Usa un fondo negro puro en modo oscuro para ahorrar batería y aumentar el contraste.';
 
   @override
-  String get discoverySubtitle => 'Delay, Hops';
+  String get discoverySubtitle => 'Retraso, saltos';
 
   @override
   String get maxDelayDescription =>
-      'El tiempo máximo de retraso en segundos que un dispositivo puede tomar antes de responder. Este es un intento de superar un problema de escala implícito con SSDP.\n\nEl valor debe estar entre 1 y 5. Los retrasos más prolongados pueden generar problemas con el protocolo SSDP.';
+      'El tiempo máximo de retraso en segundos que un dispositivo puede tardar en responder. Este intento busca superar un problema de escalado implícito en SSDP.\n\nEl valor debe estar entre 1 y 5. Retrasos más largos pueden provocar problemas con el protocolo SSDP.';
 
   @override
-  String get maxResponseDelay => 'Retardo de respuesta';
+  String get maxResponseDelay => 'Retraso de respuesta';
 
   @override
-  String get unknown => 'Unknown';
+  String get unknown => 'Desconocido';
 
   @override
-  String get responseBody => 'Response Body';
+  String get responseBody => 'Cuerpo de la respuesta';
 
   @override
   String get messages => 'Mensajes';
 
   @override
-  String get modelDescription => 'Descripcion del Modelo';
+  String get modelDescription => 'Descripción del modelo';
 
   @override
-  String get modelName => 'Nombre del Modelo';
+  String get modelName => 'Nombre del modelo';
 
   @override
-  String get modelNumber => 'Número de Modelo';
+  String get modelNumber => 'Número de modelo';
 
   @override
-  String get multicastHops => 'Saltos de Multidifusión';
+  String get multicastHops => 'Saltos multicast';
 
   @override
-  String get hops => 'Hops (TTL)';
+  String get hops => 'Saltos (TTL)';
 
   @override
-  String get resetToDefaults => 'Reset to Defaults';
+  String get resetToDefaults => 'Restablecer a los valores predeterminados';
 
   @override
   String get multicastHopsDescription =>
-      'Número máximo de saltos de red para paquetes de multidifusión que se originan en este dispositivo.';
+      'Número máximo de saltos de red para paquetes multicast originados desde este dispositivo.';
 
   @override
   String get noDevicesFound => 'No se encontraron dispositivos.';
 
   @override
   String get devicesUnavailableWhenNoNetwork =>
-      'UPnP devices are unavailable while disconnected from the network.';
+      'Los dispositivos UPnP no están disponibles mientras no hay red.';
 
   @override
-  String get privacyPolicy => 'Política de Privacidad';
+  String get privacyPolicy => 'Política de privacidad';
 
   @override
-  String get rateOnGooglePlay => 'Valora en Google Play';
+  String get rateOnGooglePlay => 'Calificar en Google Play';
 
   @override
   String get refresh => 'Actualizar';
@@ -168,20 +167,20 @@ class AppLocalizationsEs extends AppLocalizations {
   String get response => 'Respuesta';
 
   @override
-  String get scanningForDevices => 'Escaneo de dispositivos';
+  String get scanningForDevices => 'Buscando dispositivos';
 
   @override
-  String get serialNumber => 'Número de Serie';
+  String get serialNumber => 'Número de serie';
 
   @override
-  String get settings => 'Ajustes';
+  String get settings => 'Configuración';
 
   @override
-  String get autoRefresh => 'Auto-refresh';
+  String get autoRefresh => 'Actualización automática';
 
   @override
   String get autoRefreshDescription =>
-      'Automatically trigger a scan when opening the app.';
+      'Iniciar automáticamente un escaneo al abrir la aplicación.';
 
   @override
   String get theme => 'Tema';
@@ -191,9 +190,9 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.selectLogic(
       themeMode,
       {
-        'light': 'Ligero',
+        'light': 'Claro',
         'dark': 'Oscuro',
-        'system': 'Sistema por Defecto',
+        'system': 'Predeterminado del sistema',
         'other': 'Desconocido',
       },
     );
@@ -202,66 +201,65 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get thisWillClearAllMessages =>
-      'Esto borrará todo el historial de mensajes de la red.';
+      'Esto borrará el historial de mensajes de red.';
 
   @override
-  String get networkDisabled => 'Network Disabled';
+  String get networkDisabled => 'Red deshabilitada';
 
   @override
-  String get checkNetworkSettings => 'Please check your network settings';
+  String get checkNetworkSettings => 'Revise la configuración de red';
 
   @override
-  String get openNetworkSettings => 'Open Network Settings';
+  String get openNetworkSettings => 'Abrir configuración de red';
 
   @override
-  String get clearAllMessages => 'Clear all messages';
+  String get clearAllMessages => 'Borrar todos los mensajes';
 
   @override
-  String get keepMessages => 'Keep Messages';
+  String get keepMessages => 'Mantener mensajes';
 
   @override
-  String get applyFilters => 'Apply Filters';
+  String get applyFilters => 'Aplicar filtros';
 
   @override
-  String get resetFilters => 'Reset Filters';
+  String get resetFilters => 'Restablecer filtros';
 
   @override
-  String get viewSourceCode =>
-      'Ver el código fuente de esta aplicación en GitHub';
+  String get viewSourceCode => 'Ver código fuente';
 
   @override
-  String get viewChangelog => 'View Changelog';
+  String get viewChangelog => 'Ver historial de cambios';
 
   @override
   String get unableToLoadChangelog =>
-      'No se puede cargar el registro de cambios';
+      'No se pudo cargar el historial de cambios';
 
   @override
-  String get unableToSubmitFeedback => 'No se pueden enviar comentarios';
+  String get unableToSubmitFeedback => 'No se pudo enviar comentarios';
 
   @override
-  String get submitABug => 'Submit a Bug';
+  String get submitABug => 'Enviar un informe de error';
 
   @override
-  String get filterByType => 'filter by type';
+  String get filterByType => 'filtrar por tipo';
 
   @override
-  String get filterByIp => 'Filter by IP';
+  String get filterByIp => 'Filtrar por IP';
 
   @override
-  String get invalidIpAddress => 'Invalid IP address';
+  String get invalidIpAddress => 'Dirección IP no válida';
 
   @override
-  String get success => 'Success';
+  String get success => 'Éxito';
 
   @override
-  String get failed => 'Failed';
+  String get failed => 'Fallido';
 
   @override
-  String get status => 'Status';
+  String get status => 'Estado';
 
   @override
-  String get statusMessage => 'Status Message';
+  String get statusMessage => 'Mensaje de estado';
 
   @override
   String codeAndReason(int code, String reason) {
@@ -269,7 +267,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get latency => 'Latency';
+  String get latency => 'Latencia';
 
   @override
   String ms(num count) {
@@ -277,36 +275,36 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get details => 'Details';
+  String get details => 'Detalles';
 
   @override
-  String get serviceDetails => 'Service Details';
+  String get serviceDetails => 'Detalles del servicio';
 
   @override
-  String get executeAction => 'Execute Action';
+  String get executeAction => 'Ejecutar acción';
 
   @override
-  String get explorer => 'Explorer';
+  String get explorer => 'Explorador';
 
   @override
-  String get method => 'Method';
+  String get method => 'Método';
 
   @override
-  String get notExecuted => 'Not Executed';
+  String get notExecuted => 'No ejecutado';
 
   @override
-  String get note => 'Note: ';
+  String get note => 'Nota: ';
 
   @override
-  String get discoverySettings => 'Discovery Settings';
+  String get discoverySettings => 'Configuración de descubrimiento';
 
   @override
   String get discoverySettingsDescription =>
-      'Fine-tune UPnP behavior when discovering devices.';
+      'Ajusta el comportamiento de UPnP al descubrir dispositivos.';
 
   @override
   String get protocolSettingsNote =>
-      'Changes to discovery settings will only take effect on the next scan. Aggressive settings may cause network congestion in some environments.';
+      'Los cambios en la configuración de descubrimiento solo tendrán efecto en el siguiente escaneo. Los ajustes agresivos pueden provocar congestión de red en algunos entornos.';
 
   @override
   String version(String version) {
@@ -317,38 +315,38 @@ class AppLocalizationsEs extends AppLocalizations {
   String get viewInBrowser => 'Ver en el navegador';
 
   @override
-  String get msearchSent => 'M-SEARCH Sent';
+  String get msearchSent => 'M-SEARCH enviado';
 
   @override
-  String get ssdpMulticastDiscovery => 'SSDP Multicast Discovery';
+  String get ssdpMulticastDiscovery => 'Descubrimiento multicast SSDP';
 
   @override
-  String get notifyReceived => 'NOTIFY Received';
+  String get notifyReceived => 'NOTIFY recibido';
 
   @override
   String httpRequest(Object method) {
-    return '$method Request';
+    return 'Solicitud $method';
   }
 
   @override
-  String get whatsNew => 'Qué hay de nuevo';
+  String get whatsNew => 'Novedades';
 
   @override
-  String get childDevices => 'Child Devices';
+  String get childDevices => 'Dispositivos secundarios';
 
   @override
-  String get openSourceLicenses => 'Open Source Licenses';
+  String get openSourceLicenses => 'Licencias de código abierto';
 
   @override
-  String get upnpServices => 'UPnP Services';
+  String get upnpServices => 'Servicios UPnP';
 
   @override
   String toAddress(Object address) {
-    return 'To: $address';
+    return 'A: $address';
   }
 
   @override
-  String get upnpDevices => 'UPnP Devices';
+  String get upnpDevices => 'Dispositivos UPnP';
 
   @override
   String get copy => 'Copiar';

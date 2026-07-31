@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../../extension/build_context.dart';
-import 'event_content_preview.dart';
-import '../../../core/presentation/widgets/my_card.dart';
-import '../../../core/presentation/widgets/my_icon.dart';
 import 'package:upnped/upnped.dart';
 
+import '../../../../extension/build_context.dart';
+import '../../../core/presentation/widgets/my_card.dart';
+import '../../../core/presentation/widgets/my_icon.dart';
+import 'event_content_preview.dart';
 import 'timestamp.dart';
 
 class LogItem extends StatelessWidget {

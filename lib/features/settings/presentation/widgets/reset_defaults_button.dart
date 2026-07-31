@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../extension/build_context.dart';
 
 class ResetToDefaultsCard extends StatelessWidget {
