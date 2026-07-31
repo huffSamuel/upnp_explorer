@@ -31,6 +31,7 @@ class SourceCodeCard extends StatelessWidget {
         padding:
             const EdgeInsets.only(left: 0, top: 8.0, right: 8.0, bottom: 8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SourceCode(text: sourceCode),
             const SizedBox(height: 16),

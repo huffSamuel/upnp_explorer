@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+
 import '../version.dart';
 
 @Environment(Environment.prod)

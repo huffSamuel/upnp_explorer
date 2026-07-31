@@ -11,8 +11,8 @@ class EventContentPreview extends StatelessWidget {
     String? content;
 
     final e = event;
-    if (e is HttpEvent && e.responseBody != null) {
-      content = e.responseBody!;
+    if (e is HttpEvent && e.response.body.isNotEmpty) {
+      content = e.response.body;
     } else {
       // TODO: Update upnped library with SsdpEvent type for
       // content
