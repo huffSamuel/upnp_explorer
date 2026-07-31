@@ -15,7 +15,7 @@ Future<void> runAppWithFeatures(FlavorFeatures features) async {
   registerLicenses();
 
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Highlighter.initialize(['html']);
   await configureDependencies();

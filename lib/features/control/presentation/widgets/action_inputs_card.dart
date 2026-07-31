@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide Action;
-import 'package:upnp_explorer/extension/build_context.dart';
+import '../../../../extension/build_context.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../discovery/presentation/widgets/item_list_card.dart';

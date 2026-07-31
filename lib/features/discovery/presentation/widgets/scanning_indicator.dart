@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../application/l10n/app_localizations.dart';
 
 class ScanningIndicator extends StatelessWidget {

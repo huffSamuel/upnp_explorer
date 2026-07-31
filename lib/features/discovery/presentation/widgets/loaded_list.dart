@@ -1,8 +1,8 @@
 import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
 import 'package:upnped/upnped.dart' show Device;
 
+import '../../../../extension/build_context.dart';
 import 'device_card.dart';
 import 'no_network_card.dart';
 import 'scanning_indicator.dart';

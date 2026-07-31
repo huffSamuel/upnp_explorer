@@ -11,7 +11,7 @@ class DeviceService {
     _devices.add(device);
   }
 
-  void clear(){
+  void clear() {
     _devices.clear();
   }
 }

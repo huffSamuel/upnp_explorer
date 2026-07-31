@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/features/core/theme.dart';
 
 import 'application/application.dart';
 import 'application/l10n/app_localizations.dart';
 import 'application/settings/settings.dart';
 import 'features/core/presentation/pages/view_host.dart';
+import 'features/core/theme.dart';
 
 class UPnPExplorer extends StatelessWidget {
   const UPnPExplorer({

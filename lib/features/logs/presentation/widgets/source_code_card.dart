@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
+import '../../../../extension/build_context.dart';
 
 import '../../../core/presentation/widgets/section_header.dart';
 import 'detail_section_card.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'devices_card.dart';
 import 'package:upnped/upnped.dart';
+
+import 'devices_card.dart';
 
 class DeviceImage2 extends StatelessWidget {
   final DeviceDescription device;

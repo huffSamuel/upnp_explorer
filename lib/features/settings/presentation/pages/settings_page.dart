@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/application/application.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
+import '../../../../application/application.dart';
+import '../../../../extension/build_context.dart';
 
 import '../../../core/presentation/widgets/my_card.dart';
 import '../../../core/presentation/widgets/my_icon.dart';

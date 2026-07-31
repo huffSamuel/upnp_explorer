@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/features/core/presentation/widgets/my_card.dart';
+
+import '../../../core/presentation/widgets/my_card.dart';
 
 class DetailSectionCard extends StatelessWidget {
   final Widget title;

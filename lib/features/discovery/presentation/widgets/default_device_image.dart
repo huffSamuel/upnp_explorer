@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'devices_card.dart';
 import 'package:upnped/upnped.dart';
+
+import 'devices_card.dart';
 
 class DefaultDeviceImage extends StatelessWidget {
   final DeviceType? deviceType;
@@ -28,7 +29,9 @@ class DefaultDeviceImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Icon(
-        deviceType == null ? Icons.device_unknown : mapDeviceIcon(deviceType!.uri),
+        deviceType == null
+            ? Icons.device_unknown
+            : mapDeviceIcon(deviceType!.uri),
         size: 32,
         color: theme.colorScheme.outlineVariant,
       ),

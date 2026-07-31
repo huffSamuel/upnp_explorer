@@ -48,7 +48,7 @@ class MyCard extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
             child: child,
           );
-  
+
     Widget card = Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 12,
@@ -58,16 +58,16 @@ class MyCard extends StatelessWidget {
         color: color ?? Theme.of(context).colorScheme.surfaceContainerLow,
         boxShadow: [
           if (Theme.of(context).brightness == Brightness.light)
-          BoxShadow(
-            offset: Offset(0, 8),
-            blurRadius: 8,
-            color: Color.fromRGBO(34, 33, 34, 0.062),
-          ),
+            BoxShadow(
+              offset: Offset(0, 8),
+              blurRadius: 8,
+              color: Color.fromRGBO(34, 33, 34, 0.062),
+            ),
         ],
-        borderRadius: highlight != null ? BorderRadius.only(
-          topRight: Radius.circular(12),
-          bottomRight: Radius.circular(12)) :
-         BorderRadius.circular(12),
+        borderRadius: highlight != null
+            ? BorderRadius.only(
+                topRight: Radius.circular(12), bottomRight: Radius.circular(12))
+            : BorderRadius.circular(12),
       ),
       child: body,
     );

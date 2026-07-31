@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
 import 'package:upnped/upnped.dart';
 
+import '../../../../extension/build_context.dart';
 import '../../../discovery/presentation/widgets/item_list_card.dart';
 import 'action_result.dart';
 import 'my_field.dart';

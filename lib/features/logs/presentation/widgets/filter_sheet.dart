@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
+import '../../../../extension/build_context.dart';
 import '../../../../application/ioc.dart';
 import '../../../../application/network_logs/network_event_service.dart';
 import 'package:upnped/upnped.dart';
@@ -13,7 +13,7 @@ class FilterSheet extends StatefulWidget {
 
 class _FilterSheetState extends State<FilterSheet> {
   final _service = sl<NetworkEventService>();
-  
+
   late List<String> _types;
   late final TextEditingController _ipController;
   final _formKey = GlobalKey<FormState>();
@@ -23,13 +23,13 @@ class _FilterSheetState extends State<FilterSheet> {
     _types = [..._service.filter.eventTypes];
     _ipController = TextEditingController(text: _service.filter.ipAddress);
 
-
     super.initState();
   }
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      _service.setFilter(NetworkEventFilter(eventTypes: _types, ipAddress: _ipController.text));
+      _service.setFilter(NetworkEventFilter(
+          eventTypes: _types, ipAddress: _ipController.text));
       Navigator.of(context).pop();
     }
   }
@@ -115,7 +115,7 @@ class _FilterSheetState extends State<FilterSheet> {
                       return i18n.invalidIpAddress;
                     }
                   }
-      
+
                   return null;
                 },
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -150,11 +150,10 @@ class _FilterSheetState extends State<FilterSheet> {
               const SizedBox(height: 8),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(8),
-                  )
-                ),
+                    padding: const EdgeInsets.all(16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(8),
+                    )),
                 onPressed: _reset,
                 child: DefaultTextStyle.merge(
                   style: TextStyle(fontSize: 18),

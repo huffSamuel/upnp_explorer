@@ -8,7 +8,6 @@ import '../../../core/util/upnp.dart';
 import '../pages/device_info_page.dart';
 import 'item_list_card.dart';
 
-
 class DevicesCard extends StatelessWidget {
   final List<Device> devices;
 
@@ -77,7 +76,7 @@ IconData mapDeviceIcon(String schema) {
   if (!isWellKnown(schema)) {
     return Icons.extension_outlined;
   }
-  
+
   return Icons.schema_outlined;
 }
 

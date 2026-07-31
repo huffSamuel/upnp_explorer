@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import '../../../../application/validators.dart';
 import 'package:upnped/upnped.dart';
+
+import '../../../../application/validators.dart';
 
 class VariableNumberPickerFormField extends StatefulWidget {
   final StateVariable stateVariable;
   final void Function(String? newValue) onSaved;
 
-  const VariableNumberPickerFormField({super.key, required this.stateVariable, required this.onSaved});
+  const VariableNumberPickerFormField(
+      {super.key, required this.stateVariable, required this.onSaved});
 
   @override
-  State<VariableNumberPickerFormField> createState() => _VariableNumberPickerFormFieldState();
+  State<VariableNumberPickerFormField> createState() =>
+      _VariableNumberPickerFormFieldState();
 }
 
-class _VariableNumberPickerFormFieldState extends State<VariableNumberPickerFormField> {
+class _VariableNumberPickerFormFieldState
+    extends State<VariableNumberPickerFormField> {
   late num _value;
   late final TextEditingController _controller;
 

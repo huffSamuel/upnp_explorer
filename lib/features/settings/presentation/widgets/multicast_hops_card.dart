@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/features/core/presentation/widgets/section_header.dart';
-import 'package:upnp_explorer/features/settings/presentation/widgets/setting_description.dart';
+import '../../../core/presentation/widgets/section_header.dart';
+import 'setting_description.dart';
 
 import '../../../../application/l10n/app_localizations.dart';
 import '../../../core/presentation/widgets/number_input.dart';

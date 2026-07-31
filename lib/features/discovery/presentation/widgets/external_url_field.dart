@@ -52,7 +52,10 @@ class ExternalUrlField extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8),
                   child: Icon(
                     Icons.open_in_new,
-                    color: Theme.of(context).colorScheme.primary.withAlpha((.6 * 255).toInt()),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withAlpha((.6 * 255).toInt()),
                     size: 20,
                   ),
                 )
