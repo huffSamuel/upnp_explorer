@@ -35,7 +35,6 @@ class _LogsPageState extends State<LogsPage>
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -79,11 +78,11 @@ class _LogsPageState extends State<LogsPage>
             if (snapshot.hasError) {
               return Icon(Icons.error);
             }
-      
+
             if (!snapshot.hasData || snapshot.data == null) {
               return const SizedBox();
             }
-      
+
             return ListView.builder(
               primary: true,
               itemCount: snapshot.data!.length,

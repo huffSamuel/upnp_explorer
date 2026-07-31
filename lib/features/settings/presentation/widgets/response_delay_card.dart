@@ -22,7 +22,8 @@ class ResponseDelayCard extends StatelessWidget {
     return MyCard(
       child: Column(
         children: [
-          SectionHeader(icon: Icon(Icons.timer), title: Text(i18n.maxResponseDelay)),
+          SectionHeader(
+              icon: Icon(Icons.timer), title: Text(i18n.maxResponseDelay)),
           const SizedBox(height: 16),
           MyField(
             label: Text(i18n.seconds),

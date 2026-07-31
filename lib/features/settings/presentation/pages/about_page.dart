@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../application/application.dart';
 import '../../../../application/bug_report_service.dart';
 import '../../../../application/ioc.dart';
 import '../../../../application/l10n/app_localizations.dart';
+import '../../../../extension/build_context.dart';
 import '../../../../version.dart';
 import '../../../core/presentation/pages/changelog_page.dart';
 import '../../../core/presentation/widgets/my_card.dart';
@@ -55,7 +55,10 @@ class AboutSettingsPage extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 16),
-                SizedBox(height: 64, width: 64, child: Image.asset('assets/ic_launcher/ic_launcher.png')),
+                SizedBox(
+                    height: 64,
+                    width: 64,
+                    child: Image.asset('assets/ic_launcher/ic_launcher.png')),
                 const SizedBox(height: 16),
                 Text(
                   Application.name,

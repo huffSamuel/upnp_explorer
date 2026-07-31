@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
-import 'package:upnp_explorer/features/core/theme.dart';
+import '../../../../extension/build_context.dart';
+import '../../../core/theme.dart';
 
 import '../../../../application/settings/settings.dart';
 import '../../../core/presentation/widgets/model_binding.dart';

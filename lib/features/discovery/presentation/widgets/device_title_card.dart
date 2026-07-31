@@ -41,9 +41,7 @@ class HeadlineCard extends StatelessWidget {
         children: [
           const SizedBox(height: 32),
           IconTheme(
-            data: IconThemeData(
-              color: theme.colorScheme.outlineVariant
-            ),
+            data: IconThemeData(color: theme.colorScheme.outlineVariant),
             child: DeviceImage2(
               device: device,
               deviceIp: notify?.location,

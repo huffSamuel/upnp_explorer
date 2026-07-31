@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/color.dart';
-import 'package:upnp_explorer/features/core/custom_colors.dart';
+import '../../extension/color.dart';
+import 'custom_colors.dart';
 
 class FontFamily {
   static const roboto = 'Roboto';
@@ -12,9 +12,12 @@ class AppTheme {
   static ThemeData dark({bool oled = false}) {
     Color surface = oled ? Colors.black : Color(0xFF101415);
     Color surfaceContainerLowest = Color(0xFF0B0F10).darken(oled ? 0.05 : 0);
-    Color surfaceContainerLow = Color.fromARGB(255, 21, 28, 28).darken(oled ? 0.05 : 0);
-    Color surfaceContainerHigh = Color.fromARGB(255, 32, 34, 35).darken(oled ? 0.05 : 0);
-    Color surfaceContainerHighest = Color.fromARGB(255, 49, 50, 51).darken(oled ? 0.05 : 0);
+    Color surfaceContainerLow =
+        Color.fromARGB(255, 21, 28, 28).darken(oled ? 0.05 : 0);
+    Color surfaceContainerHigh =
+        Color.fromARGB(255, 32, 34, 35).darken(oled ? 0.05 : 0);
+    Color surfaceContainerHighest =
+        Color.fromARGB(255, 49, 50, 51).darken(oled ? 0.05 : 0);
 
     const Color onSurface = Color(0xFFE1E3E4);
 

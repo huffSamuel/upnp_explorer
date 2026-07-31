@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
-import 'package:upnp_explorer/features/logs/presentation/widgets/event_content_preview.dart';
+import '../../../../extension/build_context.dart';
+import 'event_content_preview.dart';
 import '../../../core/presentation/widgets/my_card.dart';
 import '../../../core/presentation/widgets/my_icon.dart';
 import 'package:upnped/upnped.dart';
@@ -40,7 +40,8 @@ class LogItem extends StatelessWidget {
               letterSpacing: -.4));
     } else if (event.type == 'NOTIFY') {
       icon = Icons.call_received;
-      title = Text(i18n.notifyReceived,
+      title = Text(
+        i18n.notifyReceived,
         style: TextTheme.of(context).titleMedium!.copyWith(
               fontSize: 16,
               letterSpacing: -.25,

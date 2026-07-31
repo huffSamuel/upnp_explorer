@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:upnped/upnped.dart';
 
-import '../../../../../application/routing/routes.dart';
 import '../../../core/presentation/widgets/my_card.dart';
-import '../pages/device_info_page.dart';
 import 'device_image.dart';
 
 class DeviceCard extends StatelessWidget {
@@ -27,14 +25,14 @@ class DeviceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-              DeviceImage2(
-                device: device.description,
-                deviceIp: device.notify?.location,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                  borderRadius: BorderRadius.circular(16),
-                ),
+            DeviceImage2(
+              device: device.description,
+              deviceIp: device.notify?.location,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                borderRadius: BorderRadius.circular(16),
               ),
+            ),
             SizedBox(width: 16),
             Expanded(
               child: Column(

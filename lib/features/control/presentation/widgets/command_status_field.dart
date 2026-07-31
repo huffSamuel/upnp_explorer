@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
-import 'package:upnp_explorer/features/core/custom_colors.dart';
+
+import '../../../../extension/build_context.dart';
+import '../../../core/custom_colors.dart';
 
 enum CommandStatus {
   notExecuted,

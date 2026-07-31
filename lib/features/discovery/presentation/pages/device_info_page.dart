@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
 import 'package:upnped/upnped.dart';
 
+import '../../../../extension/build_context.dart';
 import '../../../core/presentation/widgets/page_title.dart';
 import '../widgets/device_info_card.dart';
 import '../widgets/device_title_card.dart';
@@ -46,4 +46,3 @@ class DeviceInfoPage extends StatelessWidget {
     );
   }
 }
-

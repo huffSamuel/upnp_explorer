@@ -17,7 +17,6 @@ class ContributorsService {
   final SharedPreferences _prefs;
   final VersionService _versionService;
 
-
   ContributorsService(
       SharedPreferences preferences, VersionService versionService)
       : _prefs = preferences,

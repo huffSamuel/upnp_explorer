@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upnp_explorer/extension/build_context.dart';
+import '../../../../extension/build_context.dart';
 
 import '../../../discovery/presentation/pages/explorer_page.dart';
 import '../../../logs/presentation/pages/logs_page.dart';

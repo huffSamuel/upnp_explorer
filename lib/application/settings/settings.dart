@@ -57,16 +57,10 @@ class Settings {
   )
   final Density density;
 
-  @JsonKey(
-    name: 'autoRefresh',
-    defaultValue: true
-  )
+  @JsonKey(name: 'autoRefresh', defaultValue: true)
   final bool autoRefresh;
 
-  @JsonKey(
-    name: 'oledDark',
-    defaultValue: false
-  )
+  @JsonKey(name: 'oledDark', defaultValue: false)
   final bool oledDark;
 
   VisualDensity get visualDensity => kVisualDensityConverter.to(density);
@@ -90,12 +84,11 @@ class Settings {
     bool? oledDark,
   }) {
     return Settings(
-      themeMode: themeMode ?? this.themeMode,
-      autoRefresh: autoRefresh ?? this.autoRefresh,
-      density: density ?? this.density,
-      protocolOptions: protocolOptions ?? this.protocolOptions,
-      oledDark: oledDark ?? this.oledDark
-    );
+        themeMode: themeMode ?? this.themeMode,
+        autoRefresh: autoRefresh ?? this.autoRefresh,
+        density: density ?? this.density,
+        protocolOptions: protocolOptions ?? this.protocolOptions,
+        oledDark: oledDark ?? this.oledDark);
   }
 
   static Settings of(BuildContext context) =>

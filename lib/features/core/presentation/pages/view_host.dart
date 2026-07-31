@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:upnp_explorer/application/ioc.dart';
-import 'package:upnp_explorer/features/core/presentation/pages/changelog_page.dart';
-import 'package:upnp_explorer/features/discovery/presentation/pages/device_info_page.dart';
-import 'package:upnp_explorer/features/discovery/service/device_service.dart';
-import 'package:upnp_explorer/features/settings/presentation/pages/settings_page.dart';
 
+import '../../../../application/ioc.dart';
+import '../../../discovery/presentation/pages/device_info_page.dart';
 import '../../../discovery/presentation/pages/explorer_page.dart';
+import '../../../discovery/service/device_service.dart';
 import '../../../logs/presentation/pages/logs_page.dart';
+import '../../../settings/presentation/pages/settings_page.dart';
+import 'changelog_page.dart';
 
 final router = GoRouter(
   initialLocation: '/explore',

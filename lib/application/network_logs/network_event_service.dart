@@ -10,7 +10,8 @@ class NetworkEventFilter {
   final String ipAddress;
   final List<String> eventTypes;
 
-  NetworkEventFilter({this.ipAddress = '', this.eventTypes = NetworkEventType.all});
+  NetworkEventFilter(
+      {this.ipAddress = '', this.eventTypes = NetworkEventType.all});
 }
 
 @singleton

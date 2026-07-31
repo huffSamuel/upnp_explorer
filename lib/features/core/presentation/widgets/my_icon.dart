@@ -6,13 +6,12 @@ class MyIcon extends StatelessWidget {
   final Color? color;
   final double? size;
 
-  const MyIcon({
-    super.key,
-    required this.icon,
-    this.backgroundColor,
-    this.color,
-    this.size
-  });
+  const MyIcon(
+      {super.key,
+      required this.icon,
+      this.backgroundColor,
+      this.color,
+      this.size});
 
   @override
   Widget build(BuildContext context) {

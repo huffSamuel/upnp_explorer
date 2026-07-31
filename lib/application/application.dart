@@ -7,7 +7,7 @@ class GitHub {
 class Application {
   static const _username = 'huffSamuel';
   static const _repo = 'upnp_explorer';
-  
+
   static const _repoUrl = '${GitHub.baseWebUrl}/$_username/$_repo';
   static const _blob = '$_repoUrl/blob/main';
 
@@ -19,8 +19,8 @@ class Application {
   static final submitBugUri = Uri.parse('$_repoUrl/issues/new/choose');
   static final privacyPolicyUri = Uri.parse('$_blob/PRIVACY_POLICY.md');
 
-  static final contributorUri = Uri.parse(
-      '${GitHub.baseApiUrl}/repos/$_username/$_repo/contributors');
+  static final contributorUri =
+      Uri.parse('${GitHub.baseApiUrl}/repos/$_username/$_repo/contributors');
 
   static const assets = Assets();
 }

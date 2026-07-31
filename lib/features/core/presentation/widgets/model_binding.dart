@@ -19,7 +19,7 @@ class ModelBinding<T> extends StatefulWidget {
     required this.initialModel,
     required this.child,
     this.onUpdate,
-  })  : assert(initialModel != null);
+  }) : assert(initialModel != null);
 
   final T initialModel;
   final Widget child;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter/services.dart';
-import 'package:upnp_explorer/application/l10n/app_localizations.dart';
+import '../../../../application/l10n/app_localizations.dart';
 import 'package:upnped/upnped.dart';
 
 import '../../../core/presentation/widgets/page_title.dart';
